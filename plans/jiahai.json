@@ -1,0 +1,452 @@
+{
+    "0": [
+        "pour rice dinner_plate",
+        "put butter dinner_plate",
+        "serve dinner_plate",
+        "heat dinner_plate"
+    ],
+    "1": [
+        "put bread dinner_plate",
+        "put potato dinner_plate",
+        "serve dinner_plate",
+        "heat dinner_plate"
+    ],
+    "2": [
+        "put banana soup_bowl",
+        "slice banana",
+        "wash banana"
+    ],
+    "3": [
+        "put butter dinner_plate",
+        "put potato dinner_plate",
+        "serve dinner_plate",
+        "heat dinner_plate"
+    ],
+    "4": [
+        "put bread wok",
+        "put chicken wok",
+        "slice bread",
+        "slice chicken",
+        "mix wok mixture"
+    ],
+    "5": [
+        "pour orange_juice skillet"
+    ],
+    "6": [
+        "pour ranch dinner_plate",
+        "pour rice dinner_plate",
+        "serve dinner_plate",
+        "heat dinner_plate"
+    ],
+    "7": [
+        "put butter wok",
+        "put chicken stock_pot",
+        "fry stock_pot",
+        "put chicken wok"
+    ],
+    "8": [
+        "put potato wok",
+        "slice potato",
+        "heat wok"
+    ],
+    "9": [
+        "put apple wok",
+        "put chicken wok",
+        "slice apple",
+        "slice chicken",
+        "mix wok mixture"
+    ],
+    "10": [
+        "pour peanut_butter stock_pot",
+        "serve stock_pot"
+    ],
+    "11": [
+        "put bread dinner_plate",
+        "put chicken dinner_plate",
+        "serve dinner_plate",
+        "heat dinner_plate"
+    ],
+    "12": [
+        "put chicken wok",
+        "slice chicken",
+        "wash chicken"
+    ],
+    "13": [
+        "put bread wok",
+        "heat wok"
+    ],
+    "14": [
+        "put apple salad_bowl"
+    ],
+    "15": [
+        "spread peanut_butter chicken butter_knife"
+    ],
+    "16": [
+        "pour oil saucer",
+        "serve saucer"
+    ],
+    "17": [
+        "pour rice soup_pot"
+    ],
+    "18": [
+        "put butter dinner_plate",
+        "put chicken dinner_plate",
+        "serve dinner_plate",
+        "heat dinner_plate"
+    ],
+    "19": [
+        "pour milk stock_pot",
+        "serve stock_pot"
+    ],
+    "20": [
+        "put butter dutch_oven",
+        "put potato dutch_oven",
+        "put potato wok",
+        "fry wok",
+        "put potato dutch_oven"
+    ],
+    "21": [
+        "pour water soup_pot"
+    ],
+    "22": [
+        "pour water saucier"
+    ],
+    "23": [
+        "pour jelly soup_bowl"
+    ],
+    "24": [
+        "put butter wok",
+        "put potato wok",
+        "slice butter",
+        "slice potato",
+        "mix wok mixture"
+    ],
+    "25": [
+        "pour milk saute_pan",
+        "serve saute_pan"
+    ],
+    "26": [
+        "spread jelly chicken butter_knife"
+    ],
+    "27": [
+        "pour rice salad_bowl"
+    ],
+    "28": [
+        "put butter frying_pan"
+    ],
+    "29": [
+        "pour water salad_bowl",
+        "serve salad_bowl"
+    ],
+    "30": [
+        "pour peanut_butter wok",
+        "serve wok"
+    ],
+    "31": [
+        "put bread saucier",
+        "slice bread",
+        "wash bread"
+    ],
+    "32": [
+        "put bread salad_bowl",
+        "slice bread",
+        "wash bread"
+    ],
+    "33": [
+        "put butter stock_pot",
+        "put potato stock_pot",
+        "put potato wok",
+        "fry wok",
+        "put potato stock_pot"
+    ],
+    "34": [
+        "pour oil dinner_plate"
+    ],
+    "35": [
+        "pour jelly saucier"
+    ],
+    "36": [
+        "pour oil saucepan"
+    ],
+    "37": [
+        "pour jelly dinner_plate",
+        "put potato dinner_plate",
+        "serve dinner_plate",
+        "heat dinner_plate"
+    ],
+    "38": [
+        "pour milk dutch_oven",
+        "serve dutch_oven"
+    ],
+    "39": [
+        "put potato saucer"
+    ],
+    "40": [
+        "put bread saute_pan",
+        "slice bread",
+        "wash bread"
+    ],
+    "41": [
+        "pour rice saucepan"
+    ],
+    "42": [
+        "put chicken wok",
+        "heat wok"
+    ],
+    "43": [
+        "put potato saucepan"
+    ],
+    "44": [
+        "put butter saucier",
+        "slice butter",
+        "wash butter"
+    ],
+    "45": [
+        "pour peanut_butter saucer",
+        "serve saucer"
+    ],
+    "46": [
+        "put bread saucier",
+        "slice bread",
+        "wash bread"
+    ],
+    "47": [
+        "pour oil wok",
+        "put potato stock_pot",
+        "fry stock_pot",
+        "put potato wok"
+    ],
+    "48": [
+        "pour orange_juice stock_pot"
+    ],
+    "49": [
+        "spread ranch banana butter_knife"
+    ],
+    "50": [
+        "pour rice saucier",
+        "serve saucier"
+    ],
+    "51": [
+        "pour oil saucier"
+    ],
+    "52": [
+        "put chicken dinner_plate",
+        "put potato dinner_plate",
+        "serve dinner_plate",
+        "heat dinner_plate"
+    ],
+    "53": [
+        "pour orange_juice saucer",
+        "serve saucer"
+    ],
+    "54": [
+        "put bread stock_pot"
+    ],
+    "55": [
+        "put bread dinner_plate",
+        "serve dinner_plate",
+        "spread butter bread butter_knife",
+        "spread peanut_butter bread butter_knife",
+        "toast bread"
+    ],
+    "56": [
+        "put chicken stock_pot",
+        "slice chicken",
+        "wash chicken"
+    ],
+    "57": [
+        "put apple saute_pan",
+        "slice apple",
+        "wash apple"
+    ],
+    "58": [
+        "put butter salad_bowl"
+    ],
+    "59": [
+        "pour oil wok",
+        "put chicken stock_pot",
+        "fry stock_pot",
+        "put chicken wok"
+    ],
+    "60": [
+        "pour ranch dinner_plate",
+        "put potato dinner_plate",
+        "serve dinner_plate",
+        "heat dinner_plate"
+    ],
+    "61": [
+        "pour water soup_pot"
+    ],
+    "62": [
+        "pour ranch wok",
+        "heat wok"
+    ],
+    "63": [
+        "put butter saute_pan",
+        "slice butter",
+        "wash butter"
+    ],
+    "64": [
+        "put potato soup_pot",
+        "slice potato",
+        "wash potato"
+    ],
+    "65": [
+        "put bread soup_pot"
+    ],
+    "66": [
+        "spread peanut_butter potato butter_knife"
+    ],
+    "67": [
+        "pour milk dutch_oven"
+    ],
+    "68": [
+        "put bread soup_pot",
+        "fry soup_pot",
+        "put butter soup_pot"
+    ],
+    "69": [
+        "pour water saute_pan",
+        "serve saute_pan"
+    ],
+    "70": [
+        "put bread dinner_plate",
+        "serve dinner_plate",
+        "spread butter bread butter_knife",
+        "spread peanut_butter bread butter_knife",
+        "toast bread"
+    ],
+    "71": [
+        "pour ranch soup_pot"
+    ],
+    "72": [
+        "put butter wok",
+        "put potato wok",
+        "slice butter",
+        "slice potato",
+        "mix wok mixture"
+    ],
+    "73": [
+        "pour oil stock_pot",
+        "serve stock_pot"
+    ],
+    "74": [
+        "pour oil stock_pot",
+        "serve stock_pot"
+    ],
+    "75": [
+        "spread peanut_butter chicken butter_knife"
+    ],
+    "76": [
+        "put banana saucier",
+        "slice banana",
+        "wash banana"
+    ],
+    "77": [
+        "pour ranch dinner_plate"
+    ],
+    "78": [
+        "put bread soup_bowl"
+    ],
+    "79": [
+        "pour milk saucer",
+        "serve saucer"
+    ],
+    "80": [
+        "pour jelly dinner_plate",
+        "pour ranch dinner_plate",
+        "serve dinner_plate",
+        "heat dinner_plate"
+    ],
+    "81": [
+        "pour peanut_butter dinner_plate",
+        "put chicken dinner_plate",
+        "serve dinner_plate",
+        "heat dinner_plate"
+    ],
+    "82": [
+        "put bread saute_pan",
+        "slice bread",
+        "wash bread"
+    ],
+    "83": [
+        "pour orange_juice saute_pan"
+    ],
+    "84": [
+        "put apple wok",
+        "put chicken wok",
+        "slice apple",
+        "slice chicken",
+        "mix wok mixture"
+    ],
+    "85": [
+        "put butter wok",
+        "slice butter",
+        "heat wok"
+    ],
+    "86": [
+        "spread butter apple butter_knife"
+    ],
+    "87": [
+        "pour oil saucer"
+    ],
+    "88": [
+        "put butter wok"
+    ],
+    "89": [
+        "put bread dinner_plate",
+        "put butter dinner_plate",
+        "serve dinner_plate",
+        "heat dinner_plate"
+    ],
+    "90": [
+        "pour ranch dutch_oven"
+    ],
+    "91": [
+        "put bread dinner_plate"
+    ],
+    "92": [
+        "pour jelly dinner_plate",
+        "pour ranch dinner_plate",
+        "serve dinner_plate",
+        "heat dinner_plate"
+    ],
+    "93": [
+        "pour oil dutch_oven",
+        "put bread dutch_oven",
+        "put bread wok",
+        "fry wok",
+        "put bread dutch_oven"
+    ],
+    "94": [
+        "pour peanut_butter dinner_plate",
+        "put potato dinner_plate",
+        "serve dinner_plate",
+        "heat dinner_plate"
+    ],
+    "95": [
+        "pour oil saucier",
+        "put potato saucier",
+        "put potato wok",
+        "fry wok",
+        "put potato saucier"
+    ],
+    "96": [
+        "put banana frying_pan",
+        "slice banana",
+        "wash banana"
+    ],
+    "97": [
+        "pour oil dinner_plate",
+        "serve dinner_plate"
+    ],
+    "98": [
+        "put chicken dinner_plate",
+        "slice chicken",
+        "wash chicken"
+    ],
+    "99": [
+        "pour rice wok",
+        "heat wok"
+    ]
+}
