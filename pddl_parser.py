@@ -1,3 +1,4 @@
+import copy
 import re
 from contextlib import contextmanager
 
@@ -64,7 +65,7 @@ class DomainParser:
         self._parse_domain_types()
         self._parse_domain_predicates()
         self._parse_domain_constants()
-        self._parse_domain_operators()
+        self.operators = self._parse_domain_operators(self.domain)
 
     def _parse_domain_requirements(self):
         self.requirements = self._find_labelled_expression(self.domain, ":requirements")
@@ -78,31 +79,19 @@ class DomainParser:
     def _parse_domain_constants(self):
         self.constants = self._find_labelled_expression(self.domain, ":constants")
 
-    def _parse_domain_operators(self):
-        matches = re.finditer(r"\(:action", self.domain)
-        self.operators = {}
+    @classmethod
+    def _parse_domain_operators(cls, pddl_domain):
+        matches = re.finditer(r"\(:action", pddl_domain)
+        operators = {}
         for match in matches:
             start_ind = match.start()
-            op = self._find_balanced_expression(self.domain, start_ind).strip()
+            op = cls._find_balanced_expression(pddl_domain, start_ind).strip()
             patt = r"\(:action(.*):parameters(.*):precondition(.*):effect(.*)\)"
             op_match = re.match(patt, op, re.DOTALL)
             op_name, params, preconds, effects = op_match.groups()
             op_name = op_name.strip()
-            # params = params.strip()[1:-1].split("?")
-            # if self.uses_typing:
-            #     params = [(param.strip().split("-", 1)[0].strip(),
-            #                param.strip().split("-", 1)[1].strip())
-            #               for param in params[1:]]
-            #     params = [self.types[v]("?"+k) for k, v in params]
-            # else:
-            #     params = [param.strip() for param in params[1:]]
-            #     params = [self.types["default"]("?"+k) for k in params]
-            # preconds = self._parse_into_literal(preconds.strip(), params + self.constants)
-            # effects = self._parse_into_literal(effects.strip(), params + self.constants,
-            #     is_effect=True)
-            # self.operators[op_name] = Operator(
-            #     op_name, params, preconds, effects)
-            self.operators[op_name] = op
+            operators[op_name] = op
+        return operators
 
     @classmethod
     def _find_labelled_expression(cls, string, label):
@@ -160,6 +149,73 @@ class DomainParser:
         assert balance == 0
         exprs.append(string[start_index : index + 1])
         return exprs
+
+
+class Domain:
+    def __init__(
+        self,
+        pddl_domain=None,
+        parent_domain=None,
+        domain_name=None,
+        requirements=None,
+        types=None,
+        predicates=None,
+        operators=None,
+    ):
+        self.pddl_domain = pddl_domain
+        self.parent_domain = parent_domain
+        self.domain_name = self.init_domain_name(domain_name)
+        self.requirements = self.init_simple_pddl(requirements, "requirements")
+        self.types = self.init_simple_pddl(types, "types")
+        self.predicates = self.init_simple_pddl(predicates, "predicates")
+        self.operators = self.init_operators(operators)
+
+    def init_pddl_domain(self, pddl_domain):
+        if pddl_domain is not None:
+            pddl_domain = DomainParser._purge_comments(pddl_domain)
+        return pddl_domain
+
+    def init_domain_name(self, domain_name):
+        if domain_name is not None:
+            return domain_name
+        elif self.parent_domain is not None:
+            return self.parent_domain.domain_name
+        elif self.pddl_domain is not None:
+            patt = r"\(domain(.*?)\)"
+            return re.search(patt, self.pddl_domain).groups()[0].strip()
+        else:
+            return domain_name
+
+    def init_simple_pddl(self, initial_value, str_keyword):
+        if initial_value is not None:
+            return initial_value
+        elif self.parent_domain is not None:
+            return vars(self.parent_domain)[str_keyword]
+        elif self.pddl_domain is not None:
+            return DomainParser._find_labelled_expression(
+                self.pddl_domain, f":{str_keyword}"
+            )
+        return initial_value
+
+    def init_operators(self, initial_value):
+        if initial_value is not None:
+            return initial_value
+        elif self.parent_domain is not None:
+            return copy.deepcopy(
+                vars(self.parent_domain)["operators"]
+            )  # Don't share the operator object.
+        elif self.pddl_domain is not None:
+            return DomainParser._parse_domain_operators(self.pddl_domain)
+        return initial_value
+
+    def init_requirements(self, requirements):
+        return DomainParser._find_labelled_expression(self.pddl_domain, ":requirements")
+
+    def to_string(self):
+        if self.pddl_domain is not None:
+            return self.pddl_domain
+        else:
+            assert False
 
 
 class Problem:

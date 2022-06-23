@@ -23,7 +23,10 @@ DEFAULT_NUM_TRAIN_OPERATORS = 3
 
 
 def load_domain(dataset):
-    return DomainParser(os.path.join(DOMAINS_PREFIX, dataset + ".pddl"))
+    with open(os.path.join(DOMAINS_PREFIX, dataset + ".pddl")) as f:
+        raw_pddl = f.read().lower()
+    domain = Domain(pddl_domain=raw_pddl)
+    return domain
 
 
 def load_problems(dataset):
@@ -47,7 +50,9 @@ def attempt_goals_pddl(domain, problems, assert_success=False):
     for idx, problem_id in enumerate(problems):
         if idx % 10 == 0:
             print(f"Planning now on {idx} / {len(problems)}")
-        success, plan = attempt_domain(domain.domain, problems[problem_id].to_string())
+        success, plan = attempt_domain(
+            domain.to_string(), problems[problem_id].to_string()
+        )
         if assert_success:
             assert success
         solved_plans[problem_id] = plan
@@ -83,7 +88,7 @@ def get_train_domain_and_plans(
     operators_by_usage = sorted(
         gt_operators_to_problems.keys(), key=lambda o: len(gt_operators_to_problems[o])
     )
-    train_operators = operators_by_usage[-DEFAULT_NUM_TRAIN_OPERATORS:]
+    train_operators = operators_by_usage[-num_train_operators:]
     ablated_operators = [o for o in operators_by_usage if o not in train_operators]
 
     ablated_plans = set().union(
@@ -95,12 +100,17 @@ def get_train_domain_and_plans(
         if plan_id not in ablated_plans
     }
     assert len(train_plans) > 0
-    train_domain = get_train_domain(gt_domain, train_operators)
+    train_domain = Domain(parent_domain=gt_domain)
+    train_domain.operators = {
+        name: train_domain.operators[name]
+        for name in gt_domain.operators
+        if name not in ablated_operators
+    }
     return train_domain, train_plans
 
 
 def load_plans(dataset, gt_domain, problems):
-    train_plans, train_operators, gt_plans = {}, {}, {}
+    train_plans, gt_plans = {}, {}
     with open(os.path.join(PLANS_PREFIX, dataset + ".json")) as f:
         gt_plans = json.load(f)
 
@@ -110,7 +120,13 @@ def load_plans(dataset, gt_domain, problems):
     # Create a domain with an ablated set of operators.
     train_domain, train_plans = get_train_domain_and_plans(gt_domain, gt_plans)
 
-    # Load plans or plan for them if need be.
+    print(
+        f"Loaded {len(train_plans)} train plans / {len(gt_plans)} ground truth plans."
+    )
+    print(
+        f"Loaded {len(train_domain.operators)} / {len(gt_domain.operators)} ground truth operators."
+    )
+    print(f"Starting with the following operators: {train_domain.operators.keys()}")
     return train_plans, train_domain, gt_plans
 
 
@@ -142,7 +158,7 @@ def main():
     for curr_iteration in range(MAX_ITERATIONS):
         if curr_iteration % EVAL_EVERY == 0:
             # Try to solve goals in PDDL
-            solved_plans_pddl = attempt_goals_pddl(problems, train_domain)
+            solved_plans_pddl = attempt_goals_pddl(train_domain, problems)
             # TODO: try to solve goals low-level.
             solved_plans_low_level = solved_plans_pddl
         unsolved_goal_ids_to_attempt_codex = get_unsolved_goals_to_attempt_codex(
