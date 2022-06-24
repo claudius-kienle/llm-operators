@@ -3,14 +3,16 @@ main.py | LLM-operators.
 
 Uses LLMs to infer planning operators.
 """
-from collections import defaultdict
+from collections import Counter, defaultdict
 import os
 import json
+import random
 from pddl_parser import *
 from planner import *
+from codex import *
 
 
-DEFAULT_DATASET = "jiahai"
+DEFAULT_DATASET = "jiahai_20"
 
 DOMAINS_PREFIX = os.path.join(os.getcwd(), "domains")
 GENERATED_PREFIX = os.path.join(os.getcwd(), "generated")
@@ -20,9 +22,15 @@ PLANS_PREFIX = os.path.join(os.getcwd(), "plans")
 MAX_ITERATIONS = 1
 EVAL_EVERY = 1
 DEFAULT_NUM_TRAIN_OPERATORS = 3
+DEFAULT_MAX_GOALS_TO_TRY = 5
+DEFAULT_MAX_TRAIN_PLANS_PROMPT = 10
+DEFAULT_CODEX_PLAN_SAMPLES = 5
+DEFAULT_CODEX_OPERATOR_SAMPLES = 5
+DEFAULT_OPERATOR_SYNTHESIS_MAX_ATTEMPTS = 1
 
 
 def load_domain(dataset):
+    # Loads a PDDL domain.
     with open(os.path.join(DOMAINS_PREFIX, dataset + ".pddl")) as f:
         raw_pddl = f.read().lower()
     domain = Domain(pddl_domain=raw_pddl)
@@ -30,6 +38,7 @@ def load_domain(dataset):
 
 
 def load_problems(dataset):
+    # Loads PDDL problems and NL descriptions of the goals.
     with open(os.path.join(PROBLEMS_PREFIX, dataset + ".json")) as f:
         raw_problems = json.load(f)
     problem_ids, problems = [], {}
@@ -44,22 +53,30 @@ def load_problems(dataset):
     return problem_ids, problems
 
 
-def attempt_goals_pddl(domain, problems, assert_success=False):
-    # Attempts to solve goals given a domain
-    solved_plans = {}
-    for idx, problem_id in enumerate(problems):
-        if idx % 10 == 0:
-            print(f"Planning now on {idx} / {len(problems)}")
-        success, plan = attempt_domain(
-            domain.to_string(), problems[problem_id].to_string()
-        )
-        if assert_success:
-            assert success
-        solved_plans[problem_id] = plan
-    return solved_plans
+def create_train_domain_and_train_plans(dataset, gt_domain, problems):
+    # Creates a training domain with a subset of the GT operators and a subset of training supervision using those operators.
+    train_plans, gt_plans = {}, {}
+    with open(os.path.join(PLANS_PREFIX, dataset + ".json")) as f:
+        gt_plans = json.load(f)
+
+    # Plan for any goals that don't already exist.
+    gt_plans = maybe_solve_gt_plans(dataset, gt_plans, gt_domain, problems)
+
+    # Create a domain with an ablated set of operators.
+    train_domain, train_plans = ablate_gt_domain_and_plans(gt_domain, gt_plans)
+
+    print(
+        f"Loaded {len(train_plans)} train plans / {len(gt_plans)} ground truth plans."
+    )
+    print(
+        f"Loaded {len(train_domain.operators)} / {len(gt_domain.operators)} ground truth operators."
+    )
+    print(f"Starting with the following operators: {train_domain.operators.keys()}")
+    return train_plans, train_domain, gt_plans
 
 
-def maybe_update_gt(dataset, gt_plans, gt_domain, problems):
+def maybe_solve_gt_plans(dataset, gt_plans, gt_domain, problems):
+    # Solves any goals in the GT operator domain if they don't already exist.
     no_gt_problems = {
         problem_id: problems[problem_id]
         for problem_id in problems.keys()
@@ -75,9 +92,10 @@ def maybe_update_gt(dataset, gt_plans, gt_domain, problems):
     return gt_plans
 
 
-def get_train_domain_and_plans(
+def ablate_gt_domain_and_plans(
     gt_domain, gt_plans, num_train_operators=DEFAULT_NUM_TRAIN_OPERATORS
 ):
+    # Constructs the training domain and plans by ablating operators.
     gt_operators_to_problems = defaultdict(list)
     for operator in gt_domain.operators.keys():
         for problem_id, gt_plan in gt_plans.items():
@@ -86,9 +104,11 @@ def get_train_domain_and_plans(
 
     # Heuristic: remove all but the most common.
     operators_by_usage = sorted(
-        gt_operators_to_problems.keys(), key=lambda o: len(gt_operators_to_problems[o])
+        gt_operators_to_problems.keys(), key=lambda o: -len(gt_operators_to_problems[o])
     )
-    train_operators = operators_by_usage[-num_train_operators:]
+    train_operators = operators_by_usage[:num_train_operators]
+
+    # Operators that need to be learned. This may not be the full set.
     ablated_operators = [o for o in operators_by_usage if o not in train_operators]
 
     ablated_plans = set().union(
@@ -104,71 +124,213 @@ def get_train_domain_and_plans(
     train_domain.operators = {
         name: train_domain.operators[name]
         for name in gt_domain.operators
-        if name not in ablated_operators
+        if name in train_operators
     }
     return train_domain, train_plans
 
 
-def load_plans(dataset, gt_domain, problems):
-    train_plans, gt_plans = {}, {}
-    with open(os.path.join(PLANS_PREFIX, dataset + ".json")) as f:
-        gt_plans = json.load(f)
+def attempt_goals_pddl(domain, problems, assert_success=False):
+    # Attempts to solve PDDL goals given a domain definition using a PDDL solver.
+    solved_plans = {}
+    for idx, problem_id in enumerate(problems):
+        if idx % 10 == 0:
+            print(f"Planning now on {idx} / {len(problems)}")
+        success, plan = attempt_domain(
+            domain.to_string(), problems[problem_id].to_string()
+        )
+        if assert_success:
+            assert success
+        if success:
+            solved_plans[problem_id] = plan
+    return solved_plans
 
-    # Plan for any goals that don't already exist.
-    gt_plans = maybe_update_gt(dataset, gt_plans, gt_domain, problems)
 
-    # Create a domain with an ablated set of operators.
-    train_domain, train_plans = get_train_domain_and_plans(gt_domain, gt_plans)
+def get_unsolved_problems_to_attempt_codex(
+    problems, solved_plans_low_level, max_problems
+):
+    # Get a batch of goals to attempt with codex.
+    all_unsolved_problem_ids = [
+        problem_id
+        for problem_id in problems
+        if problem_id not in solved_plans_low_level
+    ]
 
-    print(
-        f"Loaded {len(train_plans)} train plans / {len(gt_plans)} ground truth plans."
+    # TODO: right now this is just the N shortest unsolved problems.
+    problems_by_goal_language = sorted(
+        all_unsolved_problem_ids,
+        key=lambda p_id: len(problems[p_id].goal_language.split()),
     )
-    print(
-        f"Loaded {len(train_domain.operators)} / {len(gt_domain.operators)} ground truth operators."
+    problem_ids_to_attempt = problems_by_goal_language[:max_problems]
+    return problem_ids_to_attempt
+
+
+def get_proposed_plans_codex(
+    unsolved_problem_ids_to_attempt_codex, problems, train_plans, train_domain
+):
+    proposed_plans = {}
+    for problem_id in unsolved_problem_ids_to_attempt_codex:
+        # Construct planning prompt.
+        prompt = create_plans_prompt(
+            problems[problem_id], problems, train_plans, train_domain
+        )
+        try:
+            completions = get_completions(
+                prompt, temperature=0.1, stop="\n", n_samples=DEFAULT_CODEX_PLAN_SAMPLES
+            )
+            plans = []
+            for c in completions:
+                try:
+                    plan = eval(c)
+                    if type(plan) == list:
+                        plans.append(plan)
+                except:
+                    continue
+        except:
+            continue
+        proposed_plans[problem_id] = plans
+    print(f"Got proposed plans for {len(proposed_plans)} problems.")
+    return proposed_plans
+
+
+def create_plans_prompt(problem, problems, train_plans, train_domain):
+    prompt = (
+        "; Generate PDDL plans for goals specified in natural language.\n"
+        + "; Goals are specified with GOAL: <natural language goal>.\n"
+        + "; Plans are specified with PLAN: <sequence of PDDL operators>.\n"
     )
-    print(f"Starting with the following operators: {train_domain.operators.keys()}")
-    return train_plans, train_domain, gt_plans
+    # Sample some training plans.
+    train_plan_ids = random.sample(train_plans.keys(), DEFAULT_MAX_TRAIN_PLANS_PROMPT)
+    for train_plan_id in train_plan_ids:
+        prompt += f"; GOAL: {problems[train_plan_id].goal_language}\n"
+        prompt += f"; PLAN: {train_plans[train_plan_id]}\n"
+
+    prompt += f"; GOAL: {problem.goal_language}\n"
+    prompt += f"; PLAN: "
+    return prompt
 
 
-def get_unsolved_goals_to_attempt_codex():
-    pass
+def rank_best_proposed_operator_names_from_plan_sketches(
+    train_domain, proposed_plan_sketches
+):
+    # Extracts and ranks best proposed operator names from their plan sketches.
+    # Heuristic: orders them by frequency proposed.
+    operator_name_counter = Counter()
+    for proposed_plan_id in proposed_plan_sketches:
+        for proposed_plan in proposed_plan_sketches[proposed_plan_id]:
+            proposed_operators = [expression.split()[0] for expression in proposed_plan]
+            operator_name_counter.update(proposed_operators)
+    ranked_operator_names = [o[0] for o in operator_name_counter.most_common()]
+    ranked_operator_names = [
+        o for o in ranked_operator_names if o not in train_domain.operators.keys()
+    ]
+    return ranked_operator_names
 
 
-def get_proposed_plans_codex():
-    pass
+def synthesize_proposed_operator_definitions_codex(
+    operator_name, max_operator_samples, max_attempts
+):
+    # Attempts to synthesize an operator.
+    for attempt in range(max_attempts):
+        # Propose definitions from codex.
+
+        # Keep those that verify on the current domain.
+        pass
 
 
-def get_proposed_operators_codex():
-    pass
-
-
-def update_train_domain():
+def update_train_domain_with_operators_codex(
+    gt_domain,
+    train_domain,
+    unsolved_problem_ids_to_attempt_codex,
+    problems,
+    proposed_plan_sketches,
+):
     # Try updating the train domain with any operators and keep those that work.
-    pass
+
+    proposed_operator_names = rank_best_proposed_operator_names_from_plan_sketches
+    print(f"Found {proposed_operator_names} proposed operators.")
+    print(f"{proposed_operator_names}.")
+    (train_domain, proposed_plan_sketches)
+    for operator_name in proposed_operator_names:
+        operator_definition = synthesize_proposed_operator_definitions_codex(
+            operator_name,
+            max_operator_samples=DEFAULT_CODEX_OPERATOR_SAMPLES,
+            max_attempts=DEFAULT_OPERATOR_SYNTHESIS_MAX_ATTEMPTS,
+        )
+        if operator_definition is not None:
+            # Update the train domain
+            pass
+
+
+def report(
+    curr_iteration,
+    train_domain,
+    solved_plans_pddl,
+    solved_plans_low_level,
+    gt_plans,
+    problems,
+    dataset,
+):
+    print("=============")
+    print(f"iter: {curr_iteration}")
+    print(f"high_level_solved_problems: {len(solved_plans_pddl)} / {len(problems)}")
+    print(f"low_level_solved_problems: {len(solved_plans_low_level)} / {len(problems)}")
+    print(f"current_operators: {len(train_domain.operators)}")
+    print(f"current_operator_names: {train_domain.operators.keys()}")
+    # Write out the current plans.
+    plan_filename = save_gt_and_learned_plans(
+        curr_iteration,
+        GENERATED_PREFIX,
+        dataset,
+        gt_plans,
+        solved_plans_pddl,
+        problems,
+    )
+    print(f"saved_plans to: {plan_filename}")
+    # Write out the current operator set.
+    print("=============")
 
 
 def main():
     gt_domain = load_domain(dataset=DEFAULT_DATASET)
     (problem_ids, problems) = load_problems(dataset=DEFAULT_DATASET)
 
-    train_plans, train_domain, gt_plans = load_plans(
+    train_plans, train_domain, gt_plans = create_train_domain_and_train_plans(
         DEFAULT_DATASET, gt_domain, problems
     )
 
     for curr_iteration in range(MAX_ITERATIONS):
-        if curr_iteration % EVAL_EVERY == 0:
-            # Try to solve goals in PDDL
-            solved_plans_pddl = attempt_goals_pddl(train_domain, problems)
-            # TODO: try to solve goals low-level.
-            solved_plans_low_level = solved_plans_pddl
-        unsolved_goal_ids_to_attempt_codex = get_unsolved_goals_to_attempt_codex(
-            problems, solved_plans_low_level
-        )
+        #     if curr_iteration % EVAL_EVERY == 0:
+        #         # Try to solve all of the goals in PDDL
+        #         solved_plans_pddl = attempt_goals_pddl(train_domain, problems)
+        #         # TODO: try to solve goals low-level.
+        #         solved_plans_low_level = solved_plans_pddl
+        #         report(
+        #             curr_iteration,
+        #             train_domain,
+        #             solved_plans_pddl,
+        #             solved_plans_low_level,
+        #             gt_plans,
+        #             problems,
+        #             dataset=DEFAULT_DATASET,
+        #         )
+
+        #     # Get a subset of the goals to try to solve with codex.
+        #     unsolved_problem_ids_to_attempt_codex = get_unsolved_problems_to_attempt_codex(
+        #         problems, solved_plans_low_level, max_problems=DEFAULT_MAX_GOALS_TO_TRY
+        #     )
+        unsolved_problem_ids_to_attempt_codex = ["18", "3", "10", "11", "14"]
+        # Propose high level plans that may involve new operators.
         proposed_plan_sketches = get_proposed_plans_codex(
-            unsolved_goal_ids_to_attempt_codex, problems, gt_domain, train_domain,
+            unsolved_problem_ids_to_attempt_codex, problems, train_plans, train_domain
         )
-        train_domain = update_train_domain(
-            gt_domain, train_domain, proposed_plan_sketches
+
+        # Update the domain definition with new operator definitions.
+        train_domain = update_train_domain_with_operators_codex(
+            gt_domain,
+            train_domain,
+            unsolved_problem_ids_to_attempt_codex,
+            problems,
+            proposed_plan_sketches,
         )
 
 

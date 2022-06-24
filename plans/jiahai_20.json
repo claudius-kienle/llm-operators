@@ -1,0 +1,96 @@
+{
+    "0": [
+        "put butter frying_pan"
+    ],
+    "1": [
+        "put bread soup_bowl"
+    ],
+    "2": [
+        "pour oil salad_bowl",
+        "serve salad_bowl"
+    ],
+    "3": [
+        "put bread dinner_plate",
+        "serve dinner_plate",
+        "spread jelly bread butter_knife",
+        "spread peanut_butter bread butter_knife",
+        "toast bread"
+    ],
+    "4": [
+        "pour ranch stock_pot"
+    ],
+    "5": [
+        "pour jelly wok"
+    ],
+    "6": [
+        "put potato saucer"
+    ],
+    "7": [
+        "pour water saucer",
+        "serve saucer"
+    ],
+    "8": [
+        "put potato salad_bowl"
+    ],
+    "9": [
+        "pour orange_juice salad_bowl",
+        "serve salad_bowl"
+    ],
+    "10": [
+        "pour oil soup_pot",
+        "put bread soup_pot",
+        "put bread wok",
+        "fry wok",
+        "put bread soup_pot"
+    ],
+    "11": [
+        "put bread dinner_plate",
+        "serve dinner_plate",
+        "spread jelly bread butter_knife",
+        "spread peanut_butter bread butter_knife",
+        "toast bread"
+    ],
+    "12": [
+        "put potato stock_pot",
+        "slice potato",
+        "wash potato"
+    ],
+    "13": [
+        "pour orange_juice wok"
+    ],
+    "14": [
+        "put bread dinner_plate",
+        "serve dinner_plate",
+        "spread peanut_butter bread butter_knife",
+        "spread ranch bread butter_knife",
+        "toast bread"
+    ],
+    "15": [
+        "pour orange_juice stock_pot"
+    ],
+    "16": [
+        "pour jelly dinner_plate",
+        "put potato dinner_plate",
+        "serve dinner_plate",
+        "heat dinner_plate"
+    ],
+    "17": [
+        "pour peanut_butter dinner_plate",
+        "pour rice dinner_plate",
+        "serve dinner_plate",
+        "heat dinner_plate"
+    ],
+    "18": [
+        "put bread dinner_plate",
+        "serve dinner_plate",
+        "spread butter bread butter_knife",
+        "spread jelly bread butter_knife",
+        "toast bread"
+    ],
+    "19": [
+        "put bread dinner_plate",
+        "put chicken dinner_plate",
+        "serve dinner_plate",
+        "heat dinner_plate"
+    ]
+}
