@@ -215,26 +215,81 @@ def rank_best_proposed_operator_names_from_plan_sketches(
     # Extracts and ranks best proposed operator names from their plan sketches.
     # Heuristic: orders them by frequency proposed.
     operator_name_counter = Counter()
+    operator_names_to_problems = defaultdict(list)
     for proposed_plan_id in proposed_plan_sketches:
         for proposed_plan in proposed_plan_sketches[proposed_plan_id]:
             proposed_operators = [expression.split()[0] for expression in proposed_plan]
             operator_name_counter.update(proposed_operators)
+            for operator in proposed_operators:
+                operator_names_to_problems[operator].append(proposed_plan_id)
     ranked_operator_names = [o[0] for o in operator_name_counter.most_common()]
     ranked_operator_names = [
         o for o in ranked_operator_names if o not in train_domain.operators.keys()
     ]
-    return ranked_operator_names
+    proposed_operators_and_problems = [
+        (o, set(operator_names_to_problems[o])) for o in ranked_operator_names
+    ]
+    return proposed_operators_and_problems
+
+
+def get_proposed_operator_definitions_codex(
+    operator_name, train_domain, max_operator_samples
+):
+    prompt, separator = create_operator_definitions_prompt(operator_name, train_domain)
+    completions = get_completions(
+        prompt, temperature=0.1, stop=separator, n_samples=max_operator_samples
+    )
+    operator_prefix = f"(: action {operator_name}"
+    return [operator_prefix + o for o in completions]
+
+
+def create_operator_definitions_prompt(operator_name, train_domain):
+    separator = "\n;;\n"
+    prompt = f"{train_domain.predicates}\n;;\n{train_domain.operators_to_string(separator=separator)}"
+    prompt += separator + f"(: action {operator_name}"
+    return prompt, separator
+
+
+def verify_proposed_operator(
+    operator_name, operator, train_domain, problems_to_verify_on, problems
+):
+    train_domain.add_operator(operator_name, operator)
+    try:
+        attempt_goals_pddl(
+            train_domain,
+            {p_id: problems[p_id] for p_id in problems_to_verify_on},
+            assert_success=True,
+        )
+        return True
+    except:
+        train_domain.remove_operator(operator_name)
+        return False
 
 
 def synthesize_proposed_operator_definitions_codex(
-    operator_name, max_operator_samples, max_attempts
+    operator_name,
+    train_domain,
+    problems_to_verify_on,
+    problems,
+    max_operator_samples,
+    max_attempts,
 ):
-    # Attempts to synthesize an operator.
-    for attempt in range(max_attempts):
-        # Propose definitions from codex.
-
-        # Keep those that verify on the current domain.
-        pass
+    # Propose definitions from codex.
+    proposed_operator_definitions = get_proposed_operator_definitions_codex(
+        operator_name, train_domain, max_operator_samples
+    )
+    # Keep those that verify on the plans they were proposed for.
+    for operator in proposed_operator_definitions:
+        try:
+            verified = verify_proposed_operator(
+                operator_name, operator, train_domain, problems_to_verify_on, problems,
+            )
+            if verified:
+                return operator
+        except:
+            continue
+    print(f"Unable to synthesize operator definition for: {operator_name}")
+    return None
 
 
 def update_train_domain_with_operators_codex(
@@ -246,19 +301,31 @@ def update_train_domain_with_operators_codex(
 ):
     # Try updating the train domain with any operators and keep those that work.
 
-    proposed_operator_names = rank_best_proposed_operator_names_from_plan_sketches
-    print(f"Found {proposed_operator_names} proposed operators.")
-    print(f"{proposed_operator_names}.")
-    (train_domain, proposed_plan_sketches)
-    for operator_name in proposed_operator_names:
+    # proposed_operator_names_and_problems = rank_best_proposed_operator_names_from_plan_sketches(
+    #     train_domain, proposed_plan_sketches
+    # )
+
+    proposed_operator_names_and_problems = [
+        ("toast", {"11", "14", "3"}),
+        ("fry", {"10"}),
+    ]
+    print(f"Found {len(proposed_operator_names_and_problems)} proposed operators.")
+    for operator_name, problems_to_verify_on in proposed_operator_names_and_problems:
+        print(f"Attempting to synthesize an operator for name: {operator_name}")
         operator_definition = synthesize_proposed_operator_definitions_codex(
             operator_name,
+            train_domain,
+            problems_to_verify_on,
+            problems,
             max_operator_samples=DEFAULT_CODEX_OPERATOR_SAMPLES,
             max_attempts=DEFAULT_OPERATOR_SYNTHESIS_MAX_ATTEMPTS,
         )
         if operator_definition is not None:
             # Update the train domain
-            pass
+            print(f"Updating train domain with working operator for: {operator_name}")
+            import pdb
+
+            pdb.set_trace()
 
 
 def report(
@@ -320,17 +387,16 @@ def main():
         #     )
         unsolved_problem_ids_to_attempt_codex = ["18", "3", "10", "11", "14"]
         # Propose high level plans that may involve new operators.
-        proposed_plan_sketches = get_proposed_plans_codex(
-            unsolved_problem_ids_to_attempt_codex, problems, train_plans, train_domain
-        )
-
+        # proposed_plan_sketches = get_proposed_plans_codex(
+        #     unsolved_problem_ids_to_attempt_codex, problems, train_plans, train_domain
+        # )
         # Update the domain definition with new operator definitions.
         train_domain = update_train_domain_with_operators_codex(
             gt_domain,
             train_domain,
             unsolved_problem_ids_to_attempt_codex,
             problems,
-            proposed_plan_sketches,
+            proposed_plan_sketches=[],
         )
 
 

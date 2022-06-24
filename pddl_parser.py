@@ -177,21 +177,30 @@ class Domain:
             return PDDLParser._parse_domain_operators(self.pddl_domain)
         return initial_value
 
+    def add_operator(self, operator_name, operator_pddl):
+        self.operators[operator_name] = operator_pddl
+
+    def remove_operator(self, operator_name):
+        del self.operators[operator_name]
+
     def init_requirements(self, requirements):
         return PDDLParser._find_labelled_expression(self.pddl_domain, ":requirements")
+
+    def operators_to_string(self, separator="\n"):
+        return separator.join([f"""{s}""" for _, s in self.operators.items()])
 
     def to_string(self):
         if self.pddl_domain is not None:
             return self.pddl_domain
         else:
-            operator_string = "\n".join([f"""{s}""" for _, s in self.operators.items()])
+
             return f"""
             (define (domain {self.domain_name})
                 {self.requirements}
                 {self.types}
                 {self.predicates}
                 {self.constants}
-                {operator_string}
+                {self.operators_to_string}
             )
             """
 
