@@ -22,6 +22,22 @@ def save_gt_and_learned_plans(
     return plan_filename
 
 
+def save_learned_operators(curr_iteration, directory, dataset, train_domain, gt_domain):
+    operators_filename = os.path.join(
+        directory, f"{dataset}_operators_it_{curr_iteration}.json"
+    )
+
+    output_operators = {}
+    for operator_name in train_domain.operators:
+        output_operators[operator_name] = {
+            "operator_name": operator_name,
+            "pddl_operator": str(train_domain.operators[operator_name]),
+        }
+    with open(operators_filename, "w") as f:
+        json.dump(output_operators, f)
+    return operators_filename
+
+
 @contextmanager
 def ablate_operator(domain, operator_name, contents="[insert]"):
     ablated_operator = domain.operators[operator_name]
@@ -199,8 +215,7 @@ class Domain:
                 {self.requirements}
                 {self.types}
                 {self.predicates}
-                {self.constants}
-                {self.operators_to_string}
+                {self.operators_to_string()}
             )
             """
 

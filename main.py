@@ -19,9 +19,9 @@ GENERATED_PREFIX = os.path.join(os.getcwd(), "generated")
 PROBLEMS_PREFIX = os.path.join(os.getcwd(), "problems")
 PLANS_PREFIX = os.path.join(os.getcwd(), "plans")
 
-MAX_ITERATIONS = 1
+MAX_ITERATIONS = 2
 EVAL_EVERY = 1
-DEFAULT_NUM_TRAIN_OPERATORS = 3
+DEFAULT_NUM_TRAIN_OPERATORS = 4
 DEFAULT_MAX_GOALS_TO_TRY = 5
 DEFAULT_MAX_TRAIN_PLANS_PROMPT = 10
 DEFAULT_CODEX_PLAN_SAMPLES = 5
@@ -239,14 +239,14 @@ def get_proposed_operator_definitions_codex(
     completions = get_completions(
         prompt, temperature=0.1, stop=separator, n_samples=max_operator_samples
     )
-    operator_prefix = f"(: action {operator_name}"
+    operator_prefix = f"(:action {operator_name}"
     return [operator_prefix + o for o in completions]
 
 
 def create_operator_definitions_prompt(operator_name, train_domain):
     separator = "\n;;\n"
     prompt = f"{train_domain.predicates}\n;;\n{train_domain.operators_to_string(separator=separator)}"
-    prompt += separator + f"(: action {operator_name}"
+    prompt += separator + f"(:action {operator_name}"
     return prompt, separator
 
 
@@ -323,14 +323,14 @@ def update_train_domain_with_operators_codex(
         if operator_definition is not None:
             # Update the train domain
             print(f"Updating train domain with working operator for: {operator_name}")
-            import pdb
-
-            pdb.set_trace()
+            train_domain.add_operator(operator_name, operator_definition)
+    return train_domain
 
 
 def report(
     curr_iteration,
     train_domain,
+    gt_domain,
     solved_plans_pddl,
     solved_plans_low_level,
     gt_plans,
@@ -354,6 +354,9 @@ def report(
     )
     print(f"saved_plans to: {plan_filename}")
     # Write out the current operator set.
+    operator_filename = save_learned_operators(
+        curr_iteration, GENERATED_PREFIX, dataset, train_domain, gt_domain
+    )
     print("=============")
 
 
@@ -366,30 +369,20 @@ def main():
     )
 
     for curr_iteration in range(MAX_ITERATIONS):
-        #     if curr_iteration % EVAL_EVERY == 0:
-        #         # Try to solve all of the goals in PDDL
-        #         solved_plans_pddl = attempt_goals_pddl(train_domain, problems)
-        #         # TODO: try to solve goals low-level.
-        #         solved_plans_low_level = solved_plans_pddl
-        #         report(
-        #             curr_iteration,
-        #             train_domain,
-        #             solved_plans_pddl,
-        #             solved_plans_low_level,
-        #             gt_plans,
-        #             problems,
-        #             dataset=DEFAULT_DATASET,
-        #         )
+        if curr_iteration % EVAL_EVERY == 0:
+            # Try to solve all of the goals in PDDL
+            solved_plans_pddl = attempt_goals_pddl(train_domain, problems)
+            # TODO: try to solve goals low-level.
+            solved_plans_low_level = solved_plans_pddl
 
-        #     # Get a subset of the goals to try to solve with codex.
-        #     unsolved_problem_ids_to_attempt_codex = get_unsolved_problems_to_attempt_codex(
-        #         problems, solved_plans_low_level, max_problems=DEFAULT_MAX_GOALS_TO_TRY
-        #     )
-        unsolved_problem_ids_to_attempt_codex = ["18", "3", "10", "11", "14"]
+            # Get a subset of the goals to try to solve with codex.
+            unsolved_problem_ids_to_attempt_codex = get_unsolved_problems_to_attempt_codex(
+                problems, solved_plans_low_level, max_problems=DEFAULT_MAX_GOALS_TO_TRY
+            )
         # Propose high level plans that may involve new operators.
-        # proposed_plan_sketches = get_proposed_plans_codex(
-        #     unsolved_problem_ids_to_attempt_codex, problems, train_plans, train_domain
-        # )
+        proposed_plan_sketches = get_proposed_plans_codex(
+            unsolved_problem_ids_to_attempt_codex, problems, train_plans, train_domain
+        )
         # Update the domain definition with new operator definitions.
         train_domain = update_train_domain_with_operators_codex(
             gt_domain,
@@ -397,6 +390,16 @@ def main():
             unsolved_problem_ids_to_attempt_codex,
             problems,
             proposed_plan_sketches=[],
+        )
+        report(
+            curr_iteration,
+            train_domain,
+            gt_domain,
+            solved_plans_pddl,
+            solved_plans_low_level,
+            gt_plans,
+            problems,
+            dataset=DEFAULT_DATASET,
         )
 
 

@@ -1,0 +1,82 @@
+{
+    "0": {
+        "problem": "place some butter on a frying pan",
+        "solved_plan": "['put butter frying_pan']",
+        "gt_plan": "['put butter frying_pan']"
+    },
+    "1": {
+        "problem": "place some bread on a soup bowl",
+        "solved_plan": "['put bread soup_bowl']",
+        "gt_plan": "['put bread soup_bowl']"
+    },
+    "2": {
+        "problem": "pour oil into a salad bowl and serve it",
+        "solved_plan": "['pour oil salad_bowl', 'serve salad_bowl']",
+        "gt_plan": "['pour oil salad_bowl', 'serve salad_bowl']"
+    },
+    "3": {
+        "problem": "serve a toasted jelly and peanut butter sandwich",
+        "solved_plan": "['put bread dinner_plate', 'serve dinner_plate', 'spread jelly bread butter_knife', 'spread peanut_butter bread butter_knife', 'toast bread']",
+        "gt_plan": "['put bread dinner_plate', 'serve dinner_plate', 'spread jelly bread butter_knife', 'spread peanut_butter bread butter_knife', 'toast bread']"
+    },
+    "4": {
+        "problem": "put the ranch in the stock pot",
+        "solved_plan": "['pour ranch stock_pot']",
+        "gt_plan": "['pour ranch stock_pot']"
+    },
+    "5": {
+        "problem": "put the jelly in the wok",
+        "solved_plan": "['pour jelly wok']",
+        "gt_plan": "['pour jelly wok']"
+    },
+    "6": {
+        "problem": "put the potato in the saucer",
+        "solved_plan": "['put potato saucer']",
+        "gt_plan": "['put potato saucer']"
+    },
+    "7": {
+        "problem": "serve a saucer with water",
+        "solved_plan": "['pour water saucer', 'serve saucer']",
+        "gt_plan": "['pour water saucer', 'serve saucer']"
+    },
+    "8": {
+        "problem": "put the potato in the salad bowl",
+        "solved_plan": "['put potato salad_bowl']",
+        "gt_plan": "['put potato salad_bowl']"
+    },
+    "9": {
+        "problem": "serve a salad bowl with orange juice",
+        "solved_plan": "['pour orange_juice salad_bowl', 'serve salad_bowl']",
+        "gt_plan": "['pour orange_juice salad_bowl', 'serve salad_bowl']"
+    },
+    "10": {
+        "problem": "with a soup pot and oil, fry bread",
+        "solved_plan": "['fry bread', 'pour oil soup_pot', 'put bread soup_pot']",
+        "gt_plan": "['pour oil soup_pot', 'put bread soup_pot', 'put bread wok', 'fry wok', 'put bread soup_pot']"
+    },
+    "11": {
+        "problem": "serve a toasted peanut butter and jelly sandwich",
+        "solved_plan": "['put bread dinner_plate', 'serve dinner_plate', 'spread jelly bread butter_knife', 'spread peanut_butter bread butter_knife', 'toast bread']",
+        "gt_plan": "['put bread dinner_plate', 'serve dinner_plate', 'spread jelly bread butter_knife', 'spread peanut_butter bread butter_knife', 'toast bread']"
+    },
+    "13": {
+        "problem": "place some orange juice on a wok",
+        "solved_plan": "['pour orange_juice wok']",
+        "gt_plan": "['pour orange_juice wok']"
+    },
+    "14": {
+        "problem": "serve a toasted peanut butter and ranch sandwich",
+        "solved_plan": "['put bread dinner_plate', 'serve dinner_plate', 'spread peanut_butter bread butter_knife', 'spread ranch bread butter_knife', 'toast bread']",
+        "gt_plan": "['put bread dinner_plate', 'serve dinner_plate', 'spread peanut_butter bread butter_knife', 'spread ranch bread butter_knife', 'toast bread']"
+    },
+    "15": {
+        "problem": "put the orange juice in the stock pot",
+        "solved_plan": "['pour orange_juice stock_pot']",
+        "gt_plan": "['pour orange_juice stock_pot']"
+    },
+    "18": {
+        "problem": "serve a toasted jelly and butter sandwich",
+        "solved_plan": "['put bread dinner_plate', 'serve dinner_plate', 'spread butter bread butter_knife', 'spread jelly bread butter_knife', 'toast bread']",
+        "gt_plan": "['put bread dinner_plate', 'serve dinner_plate', 'spread butter bread butter_knife', 'spread jelly bread butter_knife', 'toast bread']"
+    }
+}
