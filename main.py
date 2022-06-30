@@ -7,6 +7,7 @@ from collections import Counter, defaultdict
 import os
 import json
 import random
+import argparse
 from pddl_parser import *
 from planner import *
 from codex import *
@@ -19,10 +20,10 @@ GENERATED_PREFIX = os.path.join(os.getcwd(), "generated")
 PROBLEMS_PREFIX = os.path.join(os.getcwd(), "problems")
 PLANS_PREFIX = os.path.join(os.getcwd(), "plans")
 
-MAX_ITERATIONS = 2
+MAX_ITERATIONS = 5
 EVAL_EVERY = 1
 DEFAULT_NUM_TRAIN_OPERATORS = 4
-DEFAULT_MAX_GOALS_TO_TRY = 5
+DEFAULT_MAX_GOALS_TO_TRY = 10
 DEFAULT_MAX_TRAIN_PLANS_PROMPT = 10
 DEFAULT_CODEX_PLAN_SAMPLES = 5
 DEFAULT_CODEX_OPERATOR_SAMPLES = 5
@@ -301,14 +302,9 @@ def update_train_domain_with_operators_codex(
 ):
     # Try updating the train domain with any operators and keep those that work.
 
-    # proposed_operator_names_and_problems = rank_best_proposed_operator_names_from_plan_sketches(
-    #     train_domain, proposed_plan_sketches
-    # )
-
-    proposed_operator_names_and_problems = [
-        ("toast", {"11", "14", "3"}),
-        ("fry", {"10"}),
-    ]
+    proposed_operator_names_and_problems = rank_best_proposed_operator_names_from_plan_sketches(
+        train_domain, proposed_plan_sketches
+    )
     print(f"Found {len(proposed_operator_names_and_problems)} proposed operators.")
     for operator_name, problems_to_verify_on in proposed_operator_names_and_problems:
         print(f"Attempting to synthesize an operator for name: {operator_name}")
@@ -360,12 +356,17 @@ def report(
     print("=============")
 
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--dataset", type=str, default=DEFAULT_DATASET)
+
+
 def main():
-    gt_domain = load_domain(dataset=DEFAULT_DATASET)
-    (problem_ids, problems) = load_problems(dataset=DEFAULT_DATASET)
+    args = parser.parse_args()
+    gt_domain = load_domain(dataset=args.dataset)
+    (problem_ids, problems) = load_problems(dataset=args.dataset)
 
     train_plans, train_domain, gt_plans = create_train_domain_and_train_plans(
-        DEFAULT_DATASET, gt_domain, problems
+        args.dataset, gt_domain, problems
     )
 
     for curr_iteration in range(MAX_ITERATIONS):
@@ -389,7 +390,7 @@ def main():
             train_domain,
             unsolved_problem_ids_to_attempt_codex,
             problems,
-            proposed_plan_sketches=[],
+            proposed_plan_sketches=proposed_plan_sketches,
         )
         report(
             curr_iteration,
@@ -399,7 +400,7 @@ def main():
             solved_plans_low_level,
             gt_plans,
             problems,
-            dataset=DEFAULT_DATASET,
+            dataset=args.dataset,
         )
 
 
