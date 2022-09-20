@@ -22,3 +22,13 @@ def get_completions(prompt, temperature, stop, n_samples=1):
         n=n_samples,
     )
     return [c["text"] for c in response.choices]
+
+
+def propose_operator_names():
+    ## TODO (cw/nk): propose operator names from a set of natural language plans and existing operator / domain definitions.
+    pass
+
+
+def propose_operator_definitions():
+    ## TODO (cw/nk): propose operator body definitions from a set of natural language plans and existing operator / domain definitions.
+    pass

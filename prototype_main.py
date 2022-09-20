@@ -1,5 +1,5 @@
 """
-main.py | LLM-operators.
+prototype_main.py | LLM-operators.
 
 Uses LLMs to infer planning operators.
 """

@@ -1,5 +1,5 @@
 """
-gen_problems.py | Generate annotated PDDL problems from the ALFRED dataset.
+gen_problems.py | Generate the annotated PDDL goals from the ALFRED dataset.
 """
 
 import json
@@ -10,6 +10,7 @@ RANDOM_SAMPLE = 20
 
 
 def main():
+    # TODO.
     pass
 
 
