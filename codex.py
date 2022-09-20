@@ -24,8 +24,9 @@ def get_completions(prompt, temperature, stop, n_samples=1):
     return [c["text"] for c in response.choices]
 
 
-def propose_operator_names():
+def propose_operator_uses():
     ## TODO (cw/nk): propose operator names from a set of natural language plans and existing operator / domain definitions.
+    # See prior implementation: prototype_main.py -- get_proposed_plans_codex
     pass
 
 
