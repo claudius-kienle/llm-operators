@@ -1,3 +1,4 @@
+import planning_domain
 import openai
 import os
 from time import sleep
@@ -22,6 +23,13 @@ def get_completions(prompt, temperature, stop, n_samples=1):
         n=n_samples,
     )
     return [c["text"] for c in response.choices]
+
+
+def propose_operators(problems, domain):
+    """
+    Proposes a set of operator definitions necessary to solve a planning problem.
+    """
+    pass
 
 
 def propose_operator_uses():
