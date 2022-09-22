@@ -138,7 +138,7 @@
 
     ;; agent puts down an object in a receptacle
     (:action PutObjectInReceptacle1
-        :parameters (?a - agent ?l - location ?ot - otype ?o - object ?r - receptacle) ;?rt - rtype)
+        :parameters (?a - agent ?l - location ?ot - otype ?o - object ?r - receptacle)
         :precondition (and
             (atLocation ?a ?l)
             (receptacleAtLocation ?r ?l)
@@ -180,7 +180,7 @@
 
     ;; agent puts down a receptacle object in a receptacle
     (:action PutReceptacleObjectInReceptacle1
-        :parameters (?a - agent ?l - location ?ot - otype ?outerO - object ?r - receptacle) ; ?rt - rtype)
+        :parameters (?a - agent ?l - location ?ot - otype ?outerO - object ?r - receptacle)
         :precondition (and
             (atLocation ?a ?l)
             (receptacleAtLocation ?r ?l)

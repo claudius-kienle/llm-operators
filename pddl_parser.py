@@ -145,6 +145,7 @@ class Domain:
         types=None,
         predicates=None,
         operators=None,
+        functions=None,
     ):
         self.pddl_domain = pddl_domain
         self.parent_domain = parent_domain
@@ -153,6 +154,7 @@ class Domain:
         self.constants = self.init_simple_pddl(predicates, "constants")
         self.types = self.init_simple_pddl(types, "types")
         self.predicates = self.init_simple_pddl(predicates, "predicates")
+        self.functions = self.init_simple_pddl(functions, "functions")
         self.operators = self.init_operators(operators)
 
     def init_pddl_domain(self, pddl_domain):
@@ -177,9 +179,12 @@ class Domain:
         elif self.parent_domain is not None:
             return vars(self.parent_domain)[str_keyword]
         elif self.pddl_domain is not None:
-            return PDDLParser._find_labelled_expression(
-                self.pddl_domain, f":{str_keyword}"
-            )
+            try:
+                return PDDLParser._find_labelled_expression(
+                    self.pddl_domain, f":{str_keyword}"
+                )
+            except:
+                return ""
         return initial_value
 
     def init_operators(self, initial_value):
@@ -215,9 +220,15 @@ class Domain:
                 {self.requirements}
                 {self.types}
                 {self.predicates}
+                {self.functions}
                 {self.operators_to_string()}
             )
             """
+
+    def domain_definition_to_string(self):
+        return "\n".join(
+            [self.requirements, self.types, self.predicates, self.functions]
+        )
 
 
 class Problem:
