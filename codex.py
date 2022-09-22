@@ -35,9 +35,43 @@ def get_completions(prompt, temperature, stop, n_samples=1):
     return [c["text"] for c in response.choices]
 
 
-def propose_operator_uses():
+def propose_operators_for_problems(
+    current_domain, problems, n_samples=1, verbose=False
+):
+    # TODO (cw / nk): pseudocode demonstrating usage.
+    unsolved_problems = [p for p in problems if p.pddl_plan == None]
+    solved_problems = [p for p in problems if p.pddl_plan is not None]
+    existing_operator_uses = sample_existing_operator_uses(problems)
+    proposed_operator_uses = propose_operator_uses(unsolved_problems, current_domain)
+
+    operator_uses = {**existing_operator_uses, **proposed_operator_uses}
+    proposed_operators = [
+        p for p in proposed_operator_uses if p not in current_domain.operators
+    ]
+    proposed_operator_definitions = dict()
+    for o in proposed_operators:
+        propose_operator_definition(
+            current_domain,
+            o,
+            operator_uses=operator_uses,
+            max_operator_examples=10,
+            temperature=0.0,
+            n_samples=n_samples,
+            verbose=False,
+        )
+    return proposed_operator_definitions
+
+
+def sample_existing_operator_uses():
+    # Get example usages from the solved operator plans.
+    # TODO (cw/nk)
+    pass
+
+
+def propose_operator_uses(unsolved_problems, solved_problems, current_domain):
     ## TODO (cw/nk): propose operator names from a set of natural language plans and existing operator / domain definitions.
-    # See prior implementation: prototype_main.py -- get_proposed_plans_codex
+    # See prior implementation: prototype_main.py -- get_proposed_plans_codex.
+    # :ret: {operator_name : list of proposed PDDL operator uses.}
     pass
 
 
