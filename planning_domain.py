@@ -19,6 +19,8 @@ class Problem:
         self.pddl_plan = pddl_plan
         self.low_level_plan = low_level_plan
 
+        self.proposed_pddl_plan = []
+
     def to_string(self):
         if self.pddl_problem is not None:
             return str(self.pddl_problem)

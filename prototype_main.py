@@ -176,7 +176,7 @@ def get_proposed_plans_codex(
         )
         try:
             completions = get_completions(
-                prompt, temperature=0.1, stop="\n", n_samples=DEFAULT_CODEX_PLAN_SAMPLES
+                prompt, temperature=0.1, stop="<END>", n_samples=DEFAULT_CODEX_PLAN_SAMPLES
             )
             plans = []
             for c in completions:
