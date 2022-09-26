@@ -5,20 +5,23 @@ import openai
 import os
 from time import sleep
 import random
+from pddl_parser import *
 
 random.seed(0)
 
 OPERATOR_START = ";; Operator: "
 EXAMPLE_START = ";; Example: "
 OPERATOR_START_TOKEN = "(:action "
-OPERATOR_STOP_TOKEN = "<END>"
-NL_PROMPT = "\n#### Natural language goals and PDDL plans"
+OPERATOR_STOP_TOKEN = "\n<END>\n"
+NL_PROMPT = "\n#### Natural language goals and PDDL plans\n\n"
 
-if not os.getenv("OPENAI_API_KEY"):
-    raise ValueError(
-        "OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`"
-    )
-openai.api_key = os.environ["OPENAI_API_KEY"]
+# if not os.getenv("OPENAI_API_KEY"):
+#     raise ValueError(
+#         "OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`"
+#     )
+# openai.api_key = os.environ["OPENAI_API_KEY"]
+
+openai.api_key = "sk-kXXSnnSNUWZOfDHWRow4edlBSKjeQEFZ7wVASMzS"
 
 
 def get_completions(prompt, temperature, stop, n_samples=1):
@@ -79,14 +82,14 @@ def get_solved_problem_text(problem):
     return problem_text
 
 
-def propose_operator_uses(unsolved_problems, solved_problems, current_domain):
+def propose_operator_uses(unsolved_problems, solved_problems, current_domain,n_samples =1):
     """
     unsolved_problems:
         list of Problem objects to be solved
     solved_problems:
         list of Problem objects with solutions
     current_domain:
-        string describing the domain
+        Domain object describing the domain
 
     edits the unsolved problem objects - adds plans to the problem.proposed_pddl_plan list
 
@@ -99,16 +102,17 @@ def propose_operator_uses(unsolved_problems, solved_problems, current_domain):
     # USES: {
     #     "WashObject" : ["(WashObject agent1 loc1 chicken)", "(WashObject agent1 loc1 chicken)"] # from all plans, extract all times it was used
     # }
-    prompt = current_domain + NL_PROMPT
+    prompt = current_domain.to_string() + NL_PROMPT
+    USES = {}
 
     for solved_problem in solved_problems: #constructing the input prompt
         prompt += get_solved_problem_text(solved_problem)
 
     for problem in unsolved_problems:
-        prompt += problem.language
-        plan = get_completions(prompt,temperature=0.1,stop=OPERATOR_STOP_TOKEN,n_samples=5)
-        print(plan)
-
+        prompt += "\n# " + problem.language
+        plan = get_completions(prompt,temperature=0.1,stop=OPERATOR_STOP_TOKEN)[0]
+        print(problem.language, " ",plan)
+        prompt += plan + OPERATOR_STOP_TOKEN
 
 
 
