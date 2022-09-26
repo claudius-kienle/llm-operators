@@ -109,11 +109,12 @@ def propose_operator_uses(unsolved_problems, solved_problems, current_domain,n_s
         prompt += get_solved_problem_text(solved_problem)
 
     for problem in unsolved_problems:
-        prompt += "\n# " + problem.language
-        plan = get_completions(prompt,temperature=0.1,stop=OPERATOR_STOP_TOKEN)[0]
+        temp_prompt = prompt + "\n# " + problem.language
+        plan = get_completions(temp_prompt,temperature=0.1,stop=OPERATOR_STOP_TOKEN)[0]
         print(problem.language, " ",plan)
-        prompt += plan + OPERATOR_STOP_TOKEN
-
+        # prompt += plan + OPERATOR_STOP_TOKEN
+        # edit problem
+        # edit USES
 
 
 def  propose_operator_uses_for_problem(unsolved_problem, solved_problems, current_domain):
