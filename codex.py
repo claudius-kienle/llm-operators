@@ -58,7 +58,10 @@ def propose_operators_for_problems(
         solved_problems, unsolved_problems, current_domain
     )
 
+    # Combine where the operators are used in solved plans and in the proposed Codex plans.
     operator_uses = {**existing_operator_uses, **proposed_operator_uses}
+
+    # Propose definitions for any operators we haven't implemented.
     proposed_operators = [
         p for p in proposed_operator_uses if p not in current_domain.operators
     ]
