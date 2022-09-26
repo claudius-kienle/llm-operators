@@ -157,6 +157,8 @@ class Domain:
         self.functions = self.init_simple_pddl(functions, "functions")
         self.operators = self.init_operators(operators)
 
+        self.ground_truth_operators = None
+
     def init_pddl_domain(self, pddl_domain):
         if pddl_domain is not None:
             pddl_domain = PDDLParser._purge_comments(pddl_domain)

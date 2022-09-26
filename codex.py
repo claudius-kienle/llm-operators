@@ -1,4 +1,5 @@
 import code
+from collections import defaultdict
 
 import planning_domain
 import openai
@@ -15,13 +16,11 @@ OPERATOR_START_TOKEN = "(:action "
 OPERATOR_STOP_TOKEN = "\n<END>\n"
 NL_PROMPT = "\n#### Natural language goals and PDDL plans\n\n"
 
-# if not os.getenv("OPENAI_API_KEY"):
-#     raise ValueError(
-#         "OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`"
-#     )
-# openai.api_key = os.environ["OPENAI_API_KEY"]
-
-openai.api_key = "sk-kXXSnnSNUWZOfDHWRow4edlBSKjeQEFZ7wVASMzS"
+if not os.getenv("OPENAI_API_KEY"):
+    raise ValueError(
+        "OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`"
+    )
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
 def get_completions(prompt, temperature, stop, n_samples=1):
@@ -42,13 +41,28 @@ def get_completions(prompt, temperature, stop, n_samples=1):
 def propose_operators_for_problems(
     current_domain, problems, n_samples=1, verbose=False
 ):
-    # TODO (cw / nk): pseudocode demonstrating usage.
-    unsolved_problems = [p for p in problems if p.pddl_plan == None]
-    solved_problems = [p for p in problems if p.pddl_plan is not None]
-    existing_operator_uses = sample_existing_operator_uses(problems)
-    proposed_operator_uses = propose_operator_uses(unsolved_problems, current_domain)
+    """
+    ret: 
+        proposed_codex_plans: PDDL plans proposed by Codex.
+        proposed_codex_operators: PDDL operators proposed by Codex.
+    """
+    unsolved_problems = [problems[p] for p in problems if problems[p].pddl_plan == None]
+    solved_problems = [
+        problems[p] for p in problems if problems[p].pddl_plan is not None
+    ]
 
+    # Example uses of operators in solved plans.
+    existing_operator_uses = get_existing_operator_uses(solved_problems, current_domain)
+
+    # TODO: NK - change this to return plans, uses, etc.
+    proposed_operator_uses = propose_operator_uses(
+        solved_problems, unsolved_problems, current_domain
+    )
+
+    # Combine where the operators are used in solved plans and in the proposed Codex plans.
     operator_uses = {**existing_operator_uses, **proposed_operator_uses}
+
+    # Propose definitions for any operators we haven't implemented.
     proposed_operators = [
         p for p in proposed_operator_uses if p not in current_domain.operators
     ]
@@ -63,13 +77,15 @@ def propose_operators_for_problems(
             n_samples=n_samples,
             verbose=False,
         )
-    return proposed_operator_definitions
+    return proposed_operator_uses, proposed_operator_definitions
 
 
-def sample_existing_operator_uses():
-    # Get example usages from the solved operator plans.
-    # TODO (cw/nk)
-    pass
+def get_existing_operator_uses(solved_problems, current_domain):
+    existing_operator_uses = defaultdict(list)
+    for problem in solved_problems:
+        for action_usage in problem.pddl_plan:
+            existing_operator_uses[action_usage["action"]].append(action_usage)
+    return existing_operator_uses
 
 
 def get_solved_problem_text(problem):
@@ -78,7 +94,9 @@ def get_solved_problem_text(problem):
     return:
         string to add to the codex input prompt
     """
-    problem_text = "#" + problem.language + "\n" + problem.pddl_plan + OPERATOR_STOP_TOKEN
+    problem_text = (
+        "#" + problem.language + "\n" + problem.pddl_plan + OPERATOR_STOP_TOKEN
+    )
     return problem_text
 
 
@@ -105,7 +123,7 @@ def propose_operator_uses(unsolved_problems, solved_problems, current_domain,n_s
     prompt = current_domain.to_string() + NL_PROMPT
     USES = {}
 
-    for solved_problem in solved_problems: #constructing the input prompt
+    for solved_problem in solved_problems:  # constructing the input prompt
         prompt += get_solved_problem_text(solved_problem)
 
     for problem in unsolved_problems:
@@ -117,9 +135,11 @@ def propose_operator_uses(unsolved_problems, solved_problems, current_domain,n_s
         # edit USES
 
 
-def  propose_operator_uses_for_problem(unsolved_problem, solved_problems, current_domain):
-    # :ret:
+def propose_operator_uses_for_problem(
+    unsolved_problem, solved_problems, current_domain
+):
     pass
+
 
 def propose_operator_definition(
     current_domain,
