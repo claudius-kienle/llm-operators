@@ -3,7 +3,7 @@ main.py
 
 Usage:  
     # Load a debug fraction of the ALFRED dataset.
-    python main.py --dataset_name alfred --dataset_fraction 0.001 --verbose
+    python main.py --dataset_name alfred --pddl_domain_name alfred --dataset_fraction 0.001 --initial_pddl_operators  --verbose
 """
 import argparse
 import random
@@ -40,6 +40,9 @@ def main():
     # Initialize planning domain.
     planning_problems = planning_domain.load_planning_problems_dataset(
         args.dataset_name, args.dataset_fraction, args.verbose
+    )
+    pddl_domain = planning_domain.load_pddl_domain(
+        args.pddl_domain_name, args.initial_pddl_operators, args.verbose
     )
 
 
