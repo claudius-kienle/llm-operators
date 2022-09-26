@@ -107,7 +107,9 @@ def register_planning_domain_problems(name):
     return wrapper
 
 
-def load_planning_problems_dataset(dataset_name, dataset_fraction, verbose):
+def load_planning_problems_dataset(
+    dataset_name, dataset_fraction, training_plans_fraction, verbose
+):
     planning_domain_loader = PLANNING_PROBLEMS_REGISTRY[dataset_name]
     initial_planning_problems = planning_domain_loader(verbose)
     # Initialize some fraction of the dataset
@@ -124,6 +126,19 @@ def load_planning_problems_dataset(dataset_name, dataset_fraction, verbose):
             problem_id: initial_planning_problems[split][problem_id]
             for problem_id in fraction_split
         }
+
+    # Initialize some fraction of the training problems with their plans. TODO (cw): maybe these shouldn't be random, but rather should have initial operators.
+    train_split = "train"
+    num_initial_plans = int(
+        np.ceil(training_plans_fraction * len(fraction_dataset[train_split]))
+    )
+    initial_plans = random.sample(
+        list(fraction_dataset[train_split].keys()), num_initial_plans
+    )
+    for problem in initial_plans:
+        fraction_dataset[train_split][problem].pddl_plan = fraction_dataset[
+            train_split
+        ][problem].ground_truth_pddl_plan
 
     if verbose:
         print(f"dataset_fraction: {dataset_fraction}")
