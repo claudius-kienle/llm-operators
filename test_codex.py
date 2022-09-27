@@ -100,6 +100,8 @@ def test_propose_operator_uses():
     solved_problems = create_mock_solved_problem_list()
     current_domain = create_mock_domain()
     USES = propose_operator_uses(unsolved_problems, solved_problems, current_domain)
+    print(USES)
+
 
 
 def main():

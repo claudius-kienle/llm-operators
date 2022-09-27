@@ -7,6 +7,7 @@ import os
 from time import sleep
 import random
 from pddl_parser import *
+from collections import defaultdict
 
 random.seed(0)
 
@@ -16,11 +17,13 @@ OPERATOR_START_TOKEN = "(:action "
 OPERATOR_STOP_TOKEN = "\n<END>\n"
 NL_PROMPT = "\n#### Natural language goals and PDDL plans\n\n"
 
-if not os.getenv("OPENAI_API_KEY"):
-    raise ValueError(
-        "OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`"
-    )
-openai.api_key = os.environ["OPENAI_API_KEY"]
+# if not os.getenv("OPENAI_API_KEY"):
+#     raise ValueError(
+#         "OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`"
+#     )
+# openai.api_key = os.environ["OPENAI_API_KEY"]
+
+openai.api_key = "sk-kXXSnnSNUWZOfDHWRow4edlBSKjeQEFZ7wVASMzS"
 
 
 def get_completions(prompt, temperature, stop, n_samples=1):
@@ -39,7 +42,7 @@ def get_completions(prompt, temperature, stop, n_samples=1):
 
 
 def propose_operators_for_problems(
-    current_domain, problems, n_samples=1, verbose=False
+        current_domain, problems, n_samples=1, verbose=False
 ):
     """
     ret: 
@@ -95,12 +98,23 @@ def get_solved_problem_text(problem):
         string to add to the codex input prompt
     """
     problem_text = (
-        "#" + problem.language + "\n" + problem.pddl_plan + OPERATOR_STOP_TOKEN
+            "#" + problem.language + "\n" + problem.pddl_plan + OPERATOR_STOP_TOKEN
     )
     return problem_text
 
 
-def propose_operator_uses(unsolved_problems, solved_problems, current_domain,n_samples =1):
+def get_operator_from_action(action):
+    """
+    action: string of the form (action param1 param2 ..)
+    returns:
+        the action string (aka operator name)
+    """
+    tokens = action.strip("()").split(" ")
+    op = tokens[0]
+    return op
+
+
+def propose_operator_uses(unsolved_problems, solved_problems, current_domain, n_samples=1):
     """
     unsolved_problems:
         list of Problem objects to be solved
@@ -121,34 +135,38 @@ def propose_operator_uses(unsolved_problems, solved_problems, current_domain,n_s
     #     "WashObject" : ["(WashObject agent1 loc1 chicken)", "(WashObject agent1 loc1 chicken)"] # from all plans, extract all times it was used
     # }
     prompt = current_domain.to_string() + NL_PROMPT
-    USES = {}
+    USES = defaultdict(lambda:set())
 
     for solved_problem in solved_problems:  # constructing the input prompt
         prompt += get_solved_problem_text(solved_problem)
 
     for problem in unsolved_problems:
         temp_prompt = prompt + "\n# " + problem.language
-        plan = get_completions(temp_prompt,temperature=0.1,stop=OPERATOR_STOP_TOKEN)[0]
-        print(problem.language, " ",plan)
-        # prompt += plan + OPERATOR_STOP_TOKEN
-        # edit problem
-        # edit USES
+        plan = get_completions(temp_prompt, temperature=0.1, stop=OPERATOR_STOP_TOKEN)[0]
+        problem.proposed_pddl_plan.append(plan) # editing the problem
+        plan = plan.split("\n") # splitting the plan into actions as prep for adding to USES
+        for action in plan:
+            operator = get_operator_from_action(action)
+            if operator:
+                USES[operator].add(action) # appending the examples uses to the diff ops in USES
+
+    return USES
 
 
 def propose_operator_uses_for_problem(
-    unsolved_problem, solved_problems, current_domain
+        unsolved_problem, solved_problems, current_domain
 ):
     pass
 
 
 def propose_operator_definition(
-    current_domain,
-    operator_name_to_define,
-    operator_uses={},
-    max_operator_examples=10,
-    temperature=0.0,
-    n_samples=1,
-    verbose=False,
+        current_domain,
+        operator_name_to_define,
+        operator_uses={},
+        max_operator_examples=10,
+        temperature=0.0,
+        n_samples=1,
+        verbose=False,
 ):
     """
     Proposes an operator definition for a given domain, and optionally with examples of operator usages.
@@ -167,9 +185,9 @@ def propose_operator_definition(
         ";;;; Define planning operators based on a PDDL domain and example usages.\n\n"
     )
     pddl_domain = (
-        ";;;; PDDL domain definition.\n"
-        + current_domain.domain_definition_to_string()
-        + "\n\n"
+            ";;;; PDDL domain definition.\n"
+            + current_domain.domain_definition_to_string()
+            + "\n\n"
     )
     translation_header = ";;;; Define operators based on examples of their usage and the PDDL domain definition above. Only use predicates and functions available in the PDDL domain.\n\n"
 
