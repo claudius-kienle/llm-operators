@@ -57,8 +57,7 @@ def propose_operators_for_problems(
 
     # TODO: NK - change this to return plans, uses, etc.
     proposed_operator_uses = propose_operator_uses(
-        solved_problems, unsolved_problems, current_domain
-    )
+        solved_problems, unsolved_problems, current_domain)
 
     # Combine where the operators are used in solved plans and in the proposed Codex plans.
     operator_uses = {**existing_operator_uses, **proposed_operator_uses}
@@ -91,7 +90,8 @@ def get_existing_operator_uses(solved_problems, current_domain):
 
 def get_solved_problem_text(problem):
     """
-    :param: solved Problem object
+    problem:
+        solved Problem object
     return:
         string to add to the codex input prompt
     """
@@ -103,7 +103,8 @@ def get_solved_problem_text(problem):
 
 def get_operator_from_action(action):
     """
-    action: string of the form (action param1 param2 ..)
+    action:
+        string of the form (action param1 param2 ..)
     returns:
         the action string (aka operator name)
     """
@@ -128,7 +129,7 @@ def propose_operator_uses(unsolved_problems, solved_problems, current_domain, n_
 
     """
     prompt = current_domain.to_string() + NL_PROMPT
-    USES = defaultdict(lambda:[])
+    USES = defaultdict(list)
 
     for solved_problem in solved_problems:  # constructing the input prompt
         prompt += get_solved_problem_text(solved_problem)
@@ -146,9 +147,8 @@ def propose_operator_uses(unsolved_problems, solved_problems, current_domain, n_
     return USES
 
 
-def propose_operator_uses_for_problem(
-        unsolved_problem, solved_problems, current_domain
-):
+def propose_operator_uses_for_problem(unsolved_problem, solved_problems, current_domain):
+
     pass
 
 
