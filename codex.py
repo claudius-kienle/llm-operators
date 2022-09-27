@@ -128,7 +128,7 @@ def propose_operator_uses(unsolved_problems, solved_problems, current_domain, n_
 
     """
     prompt = current_domain.to_string() + NL_PROMPT
-    USES = defaultdict(lambda:set())
+    USES = defaultdict(lambda:[])
 
     for solved_problem in solved_problems:  # constructing the input prompt
         prompt += get_solved_problem_text(solved_problem)
@@ -140,8 +140,8 @@ def propose_operator_uses(unsolved_problems, solved_problems, current_domain, n_
         plan = plan.split("\n") # splitting the plan into actions as prep for adding to USES
         for action in plan:
             operator = get_operator_from_action(action)
-            if operator:
-                USES[operator].add(action) # appending the examples uses to the diff ops in USES
+            if operator != "" and action not in USES[operator]:
+                USES[operator].append(action) # appending the examples uses to the diff ops in USES
 
     return USES
 
