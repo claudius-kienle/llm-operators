@@ -17,13 +17,11 @@ OPERATOR_START_TOKEN = "(:action "
 OPERATOR_STOP_TOKEN = "\n<END>\n"
 NL_PROMPT = "\n#### Natural language goals and PDDL plans\n\n"
 
-# if not os.getenv("OPENAI_API_KEY"):
-#     raise ValueError(
-#         "OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`"
-#     )
-# openai.api_key = os.environ["OPENAI_API_KEY"]
-
-openai.api_key = "sk-kXXSnnSNUWZOfDHWRow4edlBSKjeQEFZ7wVASMzS"
+if not os.getenv("OPENAI_API_KEY"):
+    raise ValueError(
+        "OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`"
+    )
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
 def get_completions(prompt, temperature, stop, n_samples=1):
@@ -126,14 +124,9 @@ def propose_operator_uses(unsolved_problems, solved_problems, current_domain, n_
     edits the unsolved problem objects - adds plans to the problem.proposed_pddl_plan list
 
     return:
-        USES, dict with operator names as keys, and list of example uses as keys
+        USES, dict with operator names as keys, and set of example uses as value
 
     """
-    ## TODO (cw/nk): propose operator names from a set of natural language plans and existing operator / domain definitions.
-
-    # USES: {
-    #     "WashObject" : ["(WashObject agent1 loc1 chicken)", "(WashObject agent1 loc1 chicken)"] # from all plans, extract all times it was used
-    # }
     prompt = current_domain.to_string() + NL_PROMPT
     USES = defaultdict(lambda:set())
 
