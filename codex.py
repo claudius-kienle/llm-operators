@@ -1,3 +1,8 @@
+"""
+codex.py 
+Utilities that call a large language-code model.
+"""
+
 import code
 from collections import defaultdict
 
