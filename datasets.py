@@ -5,39 +5,51 @@ import os
 import random
 import numpy as np
 import json
-from pddl_parser import *
+from pddl import *
+
+PDDL_PLAN = "pddl_plan"
+PDDL_PLAN_OVERALL_COST = "pddl_plan_overall_cost"
 
 
 class Problem:
-    # A planning problem.
+    # A planning problem, which contains both PDDL and low-level plan information.
     def __init__(
         self,
         problem_id=None,
         dataset_split=None,
         language=None,
-        pddl_goal=None,
-        pddl_initial_conditions=None,
-        pddl_problem=None,
-        pddl_plan=None,
-        low_level_plan=None,
         ground_truth_pddl_plan=None,
+        ground_truth_pddl_problem=None,
+        should_supervise_pddl=False,
     ):
         self.problem_id = problem_id
         self.dataset_split = dataset_split
-        self.language = language  # A string describing the planning problem.
-        self.pddl_goal = pddl_goal  # A string PDDL goal.
-        self.pddl_initial_conditions = (
-            pddl_initial_conditions  # String PDDL conditions.
+
+        self.language = language  # An NL string describing the planning problem.
+        self.ground_truth_pddl_problem = (
+            ground_truth_pddl_problem  # Ground truth PDDL problem object.
         )
-        self.pddl_problem = pddl_problem  # A string PDDL problem.
-        self.pddl_plan = pddl_plan  # A solved PDDL plan. Array of PDDL {action, args} operator sequences.
-        self.low_level_plan = low_level_plan
+        self.ground_truth_pddl_plan = PDDLPlan(
+            plan=ground_truth_pddl_plan
+        )  # A ground truth PDDLPlan object.
 
-        # A proposed plan. Array of PDDL {action, args} operator sequences.
-        self.proposed_pddl_plan = []
+        self.should_supervise_pddl = (
+            should_supervise_pddl  # Whether to include the PDDL in initial supervision
+        )
 
-        # A ground truth plan. Array of PDDL {action, args} operator sequences.
-        self.ground_truth_pddl_plan = ground_truth_pddl_plan
+        # One or more proposed PDDL goals.
+        self.proposed_pddl_goals = []
+        # One or more proposed plans. Array of PDDL {action, args} operator sequences.
+        self.proposed_pddl_plans = []
+
+        # Array of dicts containing solved PDDL plans and associated planning costs, evaluated by a symbolic planner. Created by the task planner.
+        self.evaluated_pddl_plans = []
+
+        # Array of dicts containing evaluated motion plans and associated planning costs, evaluated by a symbolic planner.
+        self.evaluated_low_level_plans = []
+
+    def get_best_evaluated_pddl_plan(self):
+        return sorted(self.evaluated_pddl_plans, key=lambda p: p.overall_plan_cost)[0]
 
     def to_string(self):
         if self.pddl_problem is not None:
@@ -127,7 +139,7 @@ def load_planning_problems_dataset(
             for problem_id in fraction_split
         }
 
-    # Initialize some fraction of the training problems with their plans. TODO (cw): maybe these shouldn't be random, but rather should have initial operators.
+    # Initialize some fraction of the training problems for supervision. TODO (cw): maybe these shouldn't be random, but rather should have initial operators.
     train_split = "train"
     num_initial_plans = int(
         np.ceil(training_plans_fraction * len(fraction_dataset[train_split]))
@@ -136,9 +148,7 @@ def load_planning_problems_dataset(
         list(fraction_dataset[train_split].keys()), num_initial_plans
     )
     for problem in initial_plans:
-        fraction_dataset[train_split][problem].pddl_plan = fraction_dataset[
-            train_split
-        ][problem].ground_truth_pddl_plan
+        fraction_dataset[train_split][problem].should_supervise_pddl = True
 
     if verbose:
         print(f"dataset_fraction: {dataset_fraction}")

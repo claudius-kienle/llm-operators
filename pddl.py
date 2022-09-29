@@ -1,3 +1,6 @@
+"""
+pddl_parser.py | Utilities related to PDDL.
+"""
 import copy
 import re
 from contextlib import contextmanager
@@ -233,7 +236,45 @@ class Domain:
         )
 
 
-class Problem:
+class PDDLPlan:
+    PDDL_ACTION = "action"
+    PDDL_ARGUMENTS = "args"
+    PDDL_INFINITE_COST = 100000
+
+    def __init__(
+        self, plan=None, plan_string=None, overall_plan_cost=PDDL_INFINITE_COST
+    ):
+        self.plan = plan
+        self.plan_string = plan_string
+        if self.plan is None and self.plan_string:
+            self.plan = self.string_to_plan(self.plan_string)
+        if self.plan_string is None and self.plan:
+            self.plan_string = self.plan_to_string(self.plan)
+
+        self.overall_plan_cost = overall_plan_cost
+
+    def plan_to_string(self, plan):
+        return "\n".join(
+            [
+                f"({a[PDDLPlan.PDDL_ACTION]} {' '.join(a[PDDLPlan.PDDL_ARGUMENTS])})"
+                for a in self.plan
+            ]
+        )
+
+    def string_to_plan(self, plan_string):
+        action_strings = plan_string.strip().split("\n")
+        actions = []
+        for a in action_strings:
+            assert a.startswith("(") and a.endswith(")")
+            tokens = a.strip("()").split(" ")
+            assert len(tokens) > 0
+            actions.append(
+                {PDDLPlan.PDDL_ACTION: tokens[0], PDDLPlan.PDDL_ARGUMENTS: tokens[1:]}
+            )
+        return actions
+
+
+class PDDLProblem:
     def __init__(
         self,
         pddl_problem=None,

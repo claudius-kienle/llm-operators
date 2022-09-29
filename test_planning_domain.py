@@ -1,7 +1,7 @@
 """
 test_planning_domain.py | Classes for representing planning domains and planning domain datasets.
 """
-from planning_domain import *
+from datasets import *
 
 
 def test_load_alfred_planning_problems():

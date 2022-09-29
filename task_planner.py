@@ -1,13 +1,29 @@
 """
 task_planner.py 
-
+Utilities for generating task level plans.
 """
-
 from pddlgym_planners.fd import FD
 from pddlgym_planners.planner import PlanningFailure, PlanningTimeout
 from tempfile import NamedTemporaryFile
 
-#  planner = FD(alias_flag='', final_flags='--search "astar(goalcount())"')
+TASK_PLANNER_FD = "task_planner_fd"
+
+
+def evaluate_task_plans_and_costs_for_problems(pddl_domain, problems, verbose=False):
+    """
+    Runs task planner to evaluate task plans for a set of planning problems, given a PDDL domain.
+    :ret: problems updated with PDDL plans.
+    """
+    for problem in problems:
+        evaluate_task_plans_and_costs_for_problem(pddl_domain, problem, verbose=verbose)
+
+
+def evaluate_task_plans_and_costs_for_problem(
+    pddl_domain, problem, planner=TASK_PLANNER_FD, verbose=False
+):
+    pass
+
+
 planner = FD(alias_flag='--alias "lama-first"')
 
 
@@ -33,4 +49,3 @@ def attempt_domain(domain_str, problem_str):
         problem_file.flush()
         success, out = plan(domain_file.name, problem_file.name)
         return (success, out)
-

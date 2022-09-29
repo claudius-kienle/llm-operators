@@ -1,9 +1,9 @@
 """
 test_codex.py | Tests for codex.py.
 """
-from codex import propose_operator_definition,propose_operator_uses
-from pddl_parser import *
-from planning_domain import *
+from codex import propose_operator_definition, propose_operator_uses
+from pddl import *
+from datasets import *
 
 
 def create_mock_domain(domain_file="domains/alfred.pddl"):
@@ -52,25 +52,35 @@ def create_mock_unsolved_problem_list():
     return [
         Problem(problem_id=1, language="Serve a chocolate cake\n"),
         Problem(problem_id=2, language="Serve a heated potato\n"),
-        Problem(problem_id=3, language="Serve a salad\n")
+        Problem(problem_id=3, language="Serve a salad\n"),
     ]
-
 
 
 def create_mock_solved_problem_list():
     # Create a list of solved Problem objects
 
     return [
-        Problem(problem_id=4,language="Serve a saucer filled with water\n",pddl_plan="(pour water saucer)\n"
-                                                                                     "(serve saucer)"),
-        Problem(problem_id=5,language="Serve a toasted peanut butter sandwich\n",pddl_plan="(put bread dinner_plate)"
-                                                                                           "\n(spread peanut_butter bread butter_knife)"
-                                                                                           "\n(spread ranch bread butter_knife)"
-                                                                                           "\n(toast bread)\n(serve dinner_plate)"),
-        Problem(problem_id=6,language="Serve fried chicken\n",pddl_plan="(wash chicken)\n"
-                                                                        "(put chicken frying_pan)\n(fry chicken)\n"
-                                                                        "(put chicken dinner_plate)\n(serve dinner_plate)\n")
-        ]
+        Problem(
+            problem_id=4,
+            language="Serve a saucer filled with water\n",
+            pddl_plan="(pour water saucer)\n" "(serve saucer)",
+        ),
+        Problem(
+            problem_id=5,
+            language="Serve a toasted peanut butter sandwich\n",
+            pddl_plan="(put bread dinner_plate)"
+            "\n(spread peanut_butter bread butter_knife)"
+            "\n(spread ranch bread butter_knife)"
+            "\n(toast bread)\n(serve dinner_plate)",
+        ),
+        Problem(
+            problem_id=6,
+            language="Serve fried chicken\n",
+            pddl_plan="(wash chicken)\n"
+            "(put chicken frying_pan)\n(fry chicken)\n"
+            "(put chicken dinner_plate)\n(serve dinner_plate)\n",
+        ),
+    ]
 
 
 def test_propose_operator_definition():
@@ -101,7 +111,6 @@ def test_propose_operator_uses():
     current_domain = create_mock_domain()
     USES = propose_operator_uses(unsolved_problems, solved_problems, current_domain)
     print(USES)
-
 
 
 def main():
