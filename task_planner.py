@@ -3,6 +3,7 @@ task_planner.py
 Utilities for generating task level plans.
 """
 from pddlgym_planners.fd import FD
+
 from pddlgym_planners.planner import PlanningFailure, PlanningTimeout
 from tempfile import NamedTemporaryFile
 
@@ -21,14 +22,18 @@ def evaluate_task_plans_and_costs_for_problems(pddl_domain, problems, verbose=Fa
 def evaluate_task_plans_and_costs_for_problem(
     pddl_domain, problem, planner=TASK_PLANNER_FD, verbose=False
 ):
-    pass
+    for proposed_goal in problem.proposed_pddl_goals:
+        pddl_problem_string = problem.ground_truth_pddl_problem.get_pddl_string_with_proposed_goal(
+            proposed_goal
+        )
+    fd_attempt_domain(pddl_domain.to_string(), pddl_problem_string)
 
 
-planner = FD(alias_flag='--alias "lama-first"')
+fd_planner = FD(alias_flag='--alias "lama-first"')
 
 
-def plan(domain_fname, problem_fname):
-    global planner
+def fd_plan(domain_fname, problem_fname, planner=fd_planner):
+    # TBD: don't use PDDL gym planner, use original FD.
     try:
         plan = planner.plan_from_pddl(domain_fname, problem_fname, timeout=2)
     except PlanningFailure as pf:
@@ -39,7 +44,7 @@ def plan(domain_fname, problem_fname):
     return True, plan
 
 
-def attempt_domain(domain_str, problem_str):
+def fd_attempt_domain(domain_str, problem_str):
     with NamedTemporaryFile(mode="w") as domain_file, NamedTemporaryFile(
         mode="w"
     ) as problem_file:
@@ -47,5 +52,6 @@ def attempt_domain(domain_str, problem_str):
         problem_file.write(problem_str)
         domain_file.flush()
         problem_file.flush()
-        success, out = plan(domain_file.name, problem_file.name)
+        success, out = fd_plan(domain_file.name, problem_file.name)
+
         return (success, out)

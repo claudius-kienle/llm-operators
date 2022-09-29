@@ -51,12 +51,6 @@ class Problem:
     def get_best_evaluated_pddl_plan(self):
         return sorted(self.evaluated_pddl_plans, key=lambda p: p.overall_plan_cost)[0]
 
-    def to_string(self):
-        if self.pddl_problem is not None:
-            return str(self.pddl_problem)
-        else:
-            assert False
-
 
 ######### PLANNING DOMAIN PDDL DOMAIN DEFINITION LOADERS.
 PLANNING_PDDL_DOMAINS_REGISTRY = dict()

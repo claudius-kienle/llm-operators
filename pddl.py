@@ -275,35 +275,20 @@ class PDDLPlan:
 
 
 class PDDLProblem:
-    def __init__(
-        self,
-        pddl_problem=None,
-        goal_str=None,
-        initial_conditions_str=None,
-        goal_language=None,
-    ):
-        self.goal_language = goal_language
-        self.pddl_problem = pddl_problem
-        self.goal_str = goal_str
-        if self.goal_str is None and not self.pddl_problem is None:
-            self.goal_str = self.parse_goal_pddl(pddl_problem)
+    def __init__(self, ground_truth_pddl_problem_string=None):
+        self.ground_truth_pddl_problem_string = ground_truth_pddl_problem_string
+        self.ground_truth_goal = self.parse_goal_pddl(
+            self.ground_truth_pddl_problem_string
+        )
 
-        self.initial_conditions_str = initial_conditions_str
-        if self.initial_conditions_str is None and not self.pddl_problem is None:
-            self.initial_condition_str = self.parse_initial_conditions_pddl(
-                pddl_problem
-            )
-
-    def to_string(self):
-        if self.pddl_problem is not None:
-            return self.pddl_problem
-        else:
-            assert False
+    def get_pddl_string_with_proposed_goal(self, proposed_goal):
+        # Replaces the ground truth goal with a proposed goal.
+        pddl_string = self.ground_truth_pddl_problem_string.replace(
+            self.ground_truth_goal, proposed_goal
+        )
+        return pddl_string
 
     def parse_goal_pddl(self, pddl_problem):
         pddl_problem = PDDLParser._purge_comments(pddl_problem)
         return PDDLParser._find_labelled_expression(pddl_problem, ":goal")
 
-    def parse_initial_conditions_pddl(self, pddl_problem):
-        pddl_problem = PDDLParser._purge_comments(pddl_problem)
-        return PDDLParser._find_labelled_expression(pddl_problem, ":init")

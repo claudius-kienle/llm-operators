@@ -9,6 +9,7 @@ import argparse
 import random
 import codex
 import datasets
+from task_planner import evaluate_task_plans_and_costs_for_problems
 
 
 parser = argparse.ArgumentParser()
@@ -74,9 +75,7 @@ def main():
                 n_samples=1,
                 verbose=args.verbose,
             )
-        # TODO:
-
-        # TODO: evaluate costs with high-level planner.
+        # TODO (CW): evaluate costs with high-level planner. Developing in `task_planner.py`
 
         # TODO: evaluate costs with low-level planner.
 
