@@ -3,7 +3,7 @@ main.py
 
 Usage:  
     # Load a debug fraction of the ALFRED dataset.
-    python main.py --dataset_name alfred --pddl_domain_name alfred --dataset_fraction 0.001 --training_plans_fraction 0.1 --initial_pddl_operators GotoLocation OpenObject  --verbose --train_iterations 1
+    python main.py --dataset_name alfred --pddl_domain_name alfred --dataset_fraction 0.001 --training_plans_fraction 0.1 --initial_pddl_operators GotoLocation OpenObject  --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_pddl
 """
 import argparse
 import random
@@ -28,7 +28,11 @@ parser.add_argument(
     type=float,
     help="Fraction of the training problems to initialize with plans. Used to seed the Codex proposals.",
 )
-
+parser.add_argument(
+    "--dataset_pddl_directory",
+    type=str,
+    help="Location of the top level PDDL directory.",
+)
 parser.add_argument(
     "--pddl_domain_name", type=str, help="Name of the PDDL domain to load.",
 )
@@ -56,10 +60,11 @@ def main():
 
     # Load planning dataset.
     planning_problems = datasets.load_planning_problems_dataset(
-        args.dataset_name,
-        args.dataset_fraction,
-        args.training_plans_fraction,
-        args.verbose,
+        dataset_name=args.dataset_name,
+        dataset_fraction=args.dataset_fraction,
+        training_plans_fraction=args.training_plans_fraction,
+        dataset_pddl_directory=args.dataset_pddl_directory,
+        verbose=args.verbose,
     )
     # Load the PDDL domain definition.
     pddl_domain = datasets.load_pddl_domain(

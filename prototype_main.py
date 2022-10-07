@@ -8,7 +8,7 @@ import os
 import json
 import random
 import argparse
-from pddl_parser import *
+from pddl import *
 from task_planner import *
 from codex import *
 

@@ -101,6 +101,7 @@ def propose_plans_operators_goals_for_problems(
         or problems[p].should_supervise_pddl
     ]
     # TODO: PROPOSE NEW OPERATOR GOALS.
+
     # TODO: NK
 
     # Propose new Codex plans.

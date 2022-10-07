@@ -1,4 +1,5 @@
 pddlgym_planners
 alfred_data
 alfred_gen
+dataset/alfred_pddl
 __pycache__

@@ -12,7 +12,7 @@ def get_mock_pddl_domain():
 
 
 def get_mock_problem():
-    TEST_ALFRED_PDDL_PROBLEM_FILE = "dataset/alfred-sample-problem-0-0.pddl"
+    TEST_ALFRED_PDDL_PROBLEM_FILE = "dataset/alfred_pddl/train/pick_cool_then_place_in_recep-LettuceSliced-None-DiningTable-17/trial_T20190909_070538_437648/problem_0.pddl"
     with open(TEST_ALFRED_PDDL_PROBLEM_FILE) as f:
         test_problem_string = f.read()
 
@@ -27,6 +27,8 @@ def get_mock_problem():
 def test_alfred_ff_planner():
     # Install with: https://github.com/askforalfred/alfred/tree/master/gen
     import alfred_gen.planner.ff_planner_handler as alfred_ff
+
+    # TODO: compile https://fai.cs.uni-saarland.de/hoffmann/metric-ff.html
 
     DOMAIN_FNAME = "domains/alfred.pddl"
     TEST_ALFRED_PDDL_PROBLEM_FILE = "dataset/alfred-sample-problem-0-0.pddl"

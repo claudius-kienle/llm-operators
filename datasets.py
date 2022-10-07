@@ -53,6 +53,7 @@ class Problem:
 
 
 ######### PLANNING DOMAIN PDDL DOMAIN DEFINITION LOADERS.
+# Planning domains available for the --dataset_name flag.
 PLANNING_PDDL_DOMAINS_REGISTRY = dict()
 
 
@@ -114,10 +115,14 @@ def register_planning_domain_problems(name):
 
 
 def load_planning_problems_dataset(
-    dataset_name, dataset_fraction, training_plans_fraction, verbose
+    dataset_name,
+    dataset_fraction,
+    training_plans_fraction,
+    dataset_pddl_directory,
+    verbose,
 ):
     planning_domain_loader = PLANNING_PROBLEMS_REGISTRY[dataset_name]
-    initial_planning_problems = planning_domain_loader(verbose)
+    initial_planning_problems = planning_domain_loader(dataset_pddl_directory, verbose)
     # Initialize some fraction of the dataset
     fraction_dataset = dict()
     for split in initial_planning_problems:
@@ -156,8 +161,15 @@ ALFRED_DATASET_NAME = "alfred"
 ALFRED_DATASET_PATH = "dataset/alfred-NLgoals-operators.json"
 
 
+def load_alfred_pddl_file(
+    dataset_pddl_directory, problem_directory, pddl_file="problem_0.pddl"
+):
+    with open(os.path.join(dataset_pddl_directory, problem_directory, pddl_file)) as f:
+        return f.read()
+
+
 @register_planning_domain_problems(ALFRED_DATASET_NAME)
-def load_alfred_planning_domain_problems(verbose=False):
+def load_alfred_planning_domain_problems(dataset_pddl_directory, verbose=False):
     """
     splits are: train, valid_seen, valid_unseen
     :ret: {
@@ -165,6 +177,7 @@ def load_alfred_planning_domain_problems(verbose=False):
         }
     for the ALFRED dataset.
     """
+    # Location of the local alfred-NLgoals-operators JSON.
     with open(ALFRED_DATASET_PATH) as f:
         alfred_json = json.load(f)
 
@@ -175,11 +188,17 @@ def load_alfred_planning_domain_problems(verbose=False):
             problem_id = f"{idx}_{problem_json['goal']}"
             goal_language = problem_json["goal"]
             ground_truth_pddl_plan = problem_json["operator_sequence"]
+            ground_truth_pddl_problem = PDDLProblem(
+                ground_truth_pddl_problem_string=load_alfred_pddl_file(
+                    dataset_pddl_directory, problem_json["file_name"]
+                )
+            )
             new_problem = Problem(
                 problem_id=problem_id,
                 dataset_split=dataset_split,
                 language=goal_language,
                 ground_truth_pddl_plan=ground_truth_pddl_plan,
+                ground_truth_pddl_problem=ground_truth_pddl_problem,
             )
             dataset[dataset_split][problem_id] = new_problem
 
