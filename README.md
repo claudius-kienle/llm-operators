@@ -4,7 +4,7 @@ Learning planning domain models from natural language and grounding.
 ### ALFRED Domain.
 - The ALFRED dataset file in `dataset/alfred-NLgoal-operators.json` makes reference to external PDDL files that come from the full, original ALFRED PDDL dataset.
 - A full MIT internal version of this dataset is located at `/data/vision/torralba/datasets/ALFRED/data/full_2.1.0/`
-- A PDDL-only version of this dataset can be extracted from [here](https://drive.google.com/file/d/1B4zi0htKbHIBzghPmSKio_7ZEGoZLaKG/view?usp=sharing).
+- A PDDL-only version of this dataset can be extracted from [here](https://drive.google.com/file/d/1sg8v1hf40Eu1K7hLGZ_LP5I-9N4zwLCU/view?usp=sharing).
 
 ### Installation and setup.
 The installation and setup is in progress, so is described here according to the modular portions.
@@ -30,6 +30,8 @@ python main.py
 - Key functions are defined in `codex.py`.
 
 #### Task-level planning (PDDL solver)
+- Make sure to use `git submodule update --init --recursive` to download the ALFRED-specific planner.
 - In this step, we attempt to verify proposed goals, predicates, and operators at the task level.
+- This has *only* been verified to work on a Ubuntu 16.04 machine, as it requires compiling the Metric-FF planner.
 - This is being implemented in `task_planner.py`
 
