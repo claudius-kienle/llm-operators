@@ -29,11 +29,12 @@ def evaluate_task_plans_and_costs_for_problem(
     fd_attempt_domain(pddl_domain.to_string(), pddl_problem_string)
 
 
-fd_planner = FD(alias_flag='--alias "lama-first"')
+# fd_planner = FD(alias_flag='--alias "lama-first"')
 
 
-def fd_plan(domain_fname, problem_fname, planner=fd_planner):
+def fd_plan(domain_fname, problem_fname, planner=None):
     # TBD: don't use PDDL gym planner, use original FD.
+    fd_planner = FD(alias_flag='--alias "lama-first"')
     try:
         plan = planner.plan_from_pddl(domain_fname, problem_fname, timeout=2)
     except PlanningFailure as pf:

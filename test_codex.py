@@ -1,22 +1,24 @@
 """
 test_codex.py | Tests for codex.py.
 """
-from codex import propose_operator_definition, propose_operator_uses
+from codex import propose_operator_definition, propose_plans_for_problems
 from pddl import *
 from datasets import *
 
 
-def create_mock_domain(domain_file="domains/alfred.pddl"):
+def create_mock_domain(ALFRED_DOMAIN_FILE_PATH="domains/alfred.pddl"):
     # Create a structured test object from a planning domain.
     # Loads a PDDL domain.
-    with open(os.path.join(domain_file)) as f:
+    with open(os.path.join(ALFRED_DOMAIN_FILE_PATH)) as f:
         raw_pddl = f.read()
     domain = Domain(pddl_domain=raw_pddl)
+    domain.ground_truth_operators = {
+        o: copy.deepcopy(domain.operators[o]) for o in domain.operators}
     return domain
 
 
 def create_mock_ablated_domain(
-    domain, operators_to_keep=["GotoLocation", "OpenObject"]
+        domain, operators_to_keep=["GotoLocation", "OpenObject"]
 ):
     # Create a mock domain with only a few operators.
     for o in list(domain.operators.keys()):
@@ -46,41 +48,53 @@ def create_mock_operator_uses():
     }
 
 
-def create_mock_unsolved_problem_list():
+def create_mock_unsolved_problem_list(dataset_pddl_directory = "dataset/alfred_pddl/"):
     # Create a list of unsolved Problem objects
+    problem_json = [{'goal': 'put a slice of vegetable on a counter.', 'operator_sequence': [{'action': 'GotoLocation', 'args': ['diningtable']}, {'action': 'PickupObject', 'args': ['knife']}, {'action': 'SliceObject', 'args': ['lettuce']}, {'action': 'GotoLocation', 'args': ['fridge']}, {'action': 'PutObject', 'args': ['knife', 'fridge']}, {'action': 'GotoLocation', 'args': ['diningtable']}, {'action': 'PickupObject', 'args': ['lettuce']}, {'action': 'GotoLocation', 'args': ['fridge']}, {'action': 'CoolObject', 'args': ['lettuce']}, {'action': 'GotoLocation', 'args': ['diningtable']}, {'action': 'PutObject', 'args': ['lettuce', 'diningtable']}], 'file_name': 'train/pick_cool_then_place_in_recep-LettuceSliced-None-DiningTable-17/trial_T20190909_070538_437648'},
+                     {'goal': 'put two candles in a cabinet underneath the sink.', 'operator_sequence': [{'action': 'GotoLocation', 'args': ['countertop']}, {'action': 'PickupObject', 'args': ['candle']}, {'action': 'GotoLocation', 'args': ['cabinet']}, {'action': 'PutObject', 'args': ['candle', 'cabinet']}, {'action': 'GotoLocation', 'args': ['toilet']}, {'action': 'PickupObject', 'args': ['candle']}, {'action': 'GotoLocation', 'args': ['cabinet']}, {'action': 'PutObject', 'args': ['candle', 'cabinet']}], 'file_name': 'train/pick_two_obj_and_place-Candle-None-Cabinet-414/trial_T20190908_190650_163902'}]
+    problem_ids = ['0_put a slice of vegetable on a counter.',
+                   '3_put two candles in a cabinet underneath the sink.']
+    languages = ['put a slice of vegetable on a counter.',
+                 'put two candles in a cabinet underneath the sink.']
+    ground_truth_pddl_plans = [[{'action': 'GotoLocation', 'args': ['diningtable']}, {'action': 'PickupObject', 'args': ['knife']}, {'action': 'SliceObject', 'args': ['lettuce']}, {'action': 'GotoLocation', 'args': ['fridge']}, {'action': 'PutObject', 'args': ['knife', 'fridge']}, {'action': 'GotoLocation', 'args': ['diningtable']}, {'action': 'PickupObject', 'args': ['lettuce']}, {'action': 'GotoLocation', 'args': ['fridge']}, {'action': 'CoolObject', 'args': ['lettuce']}, {'action': 'GotoLocation', 'args': ['diningtable']}, {'action': 'PutObject', 'args': ['lettuce', 'diningtable']}],
+                               [{'action': 'GotoLocation', 'args': ['countertop']}, {'action': 'PickupObject', 'args': ['candle']}, {'action': 'GotoLocation', 'args': ['cabinet']}, {'action': 'PutObject', 'args': ['candle', 'cabinet']}, {'action': 'GotoLocation', 'args': ['toilet']}, {'action': 'PickupObject', 'args': ['candle']}, {'action': 'GotoLocation', 'args': ['cabinet']}, {'action': 'PutObject', 'args': ['candle', 'cabinet']}]]
+    ground_truth_pddl_problems = [PDDLProblem(
+                ground_truth_pddl_problem_string=load_alfred_pddl_file(
+                    dataset_pddl_directory, problem_json[j]["file_name"]))
+                for j in range(len(problem_json))]
 
-    return [
-        Problem(problem_id=1, language="Serve a chocolate cake\n"),
-        Problem(problem_id=2, language="Serve a heated potato\n"),
-        Problem(problem_id=3, language="Serve a salad\n"),
-    ]
+    return [Problem(
+        problem_id=problem_ids[i],
+        language=languages[i],
+        ground_truth_pddl_plan=ground_truth_pddl_plans[i],
+        ground_truth_pddl_problem=ground_truth_pddl_problems[i]
+        )
+        for i in range(len(problem_ids))]
 
 
-def create_mock_solved_problem_list():
+def create_mock_solved_problem_list(dataset_pddl_directory = "dataset/alfred_pddl/"):
     # Create a list of solved Problem objects
 
-    return [
-        Problem(
-            problem_id=4,
-            language="Serve a saucer filled with water\n",
-            pddl_plan="(pour water saucer)\n" "(serve saucer)",
-        ),
-        Problem(
-            problem_id=5,
-            language="Serve a toasted peanut butter sandwich\n",
-            pddl_plan="(put bread dinner_plate)"
-            "\n(spread peanut_butter bread butter_knife)"
-            "\n(spread ranch bread butter_knife)"
-            "\n(toast bread)\n(serve dinner_plate)",
-        ),
-        Problem(
-            problem_id=6,
-            language="Serve fried chicken\n",
-            pddl_plan="(wash chicken)\n"
-            "(put chicken frying_pan)\n(fry chicken)\n"
-            "(put chicken dinner_plate)\n(serve dinner_plate)\n",
-        ),
-    ]
+    problem_json = [{'goal': 'put the cooked egg in the kitchen sink.', 'operator_sequence': [{'action': 'GotoLocation', 'args': ['countertop']}, {'action': 'PickupObject', 'args': ['egg']}, {'action': 'GotoLocation', 'args': ['microwave']}, {'action': 'HeatObject', 'args': ['egg']}, {'action': 'GotoLocation', 'args': ['sinkbasin']}, {'action': 'PutObject', 'args': ['egg', 'sinkbasin']}], 'file_name': 'train/pick_heat_then_place_in_recep-Egg-None-SinkBasin-20/trial_T20190908_205050_000947'},
+                    {'goal': 'wash a teapot to put it away under the counter.', 'operator_sequence': [{'action': 'GotoLocation', 'args': ['stoveburner']}, {'action': 'PickupObject', 'args': ['kettle']}, {'action': 'GotoLocation', 'args': ['sinkbasin']}, {'action': 'CleanObject', 'args': ['kettle']}, {'action': 'GotoLocation', 'args': ['cabinet']}, {'action': 'PutObject', 'args': ['kettle', 'cabinet']}], 'file_name': 'train/pick_clean_then_place_in_recep-Kettle-None-Cabinet-2/trial_T20190909_043103_418752'}]
+    problem_ids = ['6_put the cooked egg in the kitchen sink.',
+                   '13_wash a teapot to put it away under the counter.']
+    languages = ['put the cooked egg in the kitchen sink.',
+                 'wash a teapot to put it away under the counter.']
+    ground_truth_pddl_plans = [[{'action': 'GotoLocation', 'args': ['countertop']}, {'action': 'PickupObject', 'args': ['egg']}, {'action': 'GotoLocation', 'args': ['microwave']}, {'action': 'HeatObject', 'args': ['egg']}, {'action': 'GotoLocation', 'args': ['sinkbasin']}, {'action': 'PutObject', 'args': ['egg', 'sinkbasin']}],
+                               [{'action': 'GotoLocation', 'args': ['stoveburner']}, {'action': 'PickupObject', 'args': ['kettle']}, {'action': 'GotoLocation', 'args': ['sinkbasin']}, {'action': 'CleanObject', 'args': ['kettle']}, {'action': 'GotoLocation', 'args': ['cabinet']}, {'action': 'PutObject', 'args': ['kettle', 'cabinet']}]]
+    ground_truth_pddl_problems = [PDDLProblem(
+        ground_truth_pddl_problem_string=load_alfred_pddl_file(
+            dataset_pddl_directory, problem_json[j]["file_name"]))
+        for j in range(len(problem_json))]
+
+    return [Problem(
+        problem_id=problem_ids[i],
+        language=languages[i],
+        ground_truth_pddl_plan=ground_truth_pddl_plans[i],
+        ground_truth_pddl_problem=ground_truth_pddl_problems[i]
+        )
+        for i in range(len(problem_ids))]
 
 
 def test_propose_operator_definition():
@@ -105,18 +119,18 @@ def test_propose_operator_definition():
     print(operator_definitions[0])
 
 
-def test_propose_operator_uses():
+def test_propose_plans_for_problems():
     unsolved_problems = create_mock_unsolved_problem_list()
     solved_problems = create_mock_solved_problem_list()
     current_domain = create_mock_domain()
-    USES = propose_operator_uses(unsolved_problems, solved_problems, current_domain)
-    print(USES)
+    # plans = propose_plans_for_problems(unsolved_problems, solved_problems, current_domain)
+    # print(plans)
 
 
 def main():
     # Test the proposed operator definitions -- CW.
     # test_propose_operator_definition()
-    test_propose_operator_uses()
+    test_propose_plans_for_problems()
 
 
 if __name__ == "__main__":

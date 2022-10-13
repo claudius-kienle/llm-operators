@@ -3,3 +3,5 @@ alfred_data
 alfred_gen
 dataset/alfred_pddl
 __pycache__
+.idea
+.DS_Store
