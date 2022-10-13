@@ -22,7 +22,8 @@ STOP_TOKEN = "\n<END>\n"
 OPERATOR_START = ";; Operator: "
 EXAMPLE_START = ";; Example: "
 OPERATOR_START_TOKEN = "(:action "
-NL_PROMPT = "\n#### Natural language goals and PDDL plans\n\n"
+NLgoals_PDDLplans_prompt = "\n#### Natural language goals and PDDL plans\n\n"
+NLgoals_PDDLgoals_prompt = "\n#### Natural language goals and PDDL goals\n\n"
 
 if not os.getenv("OPENAI_API_KEY"):
     raise ValueError(
@@ -189,7 +190,7 @@ def propose_plans_for_problems(
     """
     if verbose:
         print("\npropose_plans_for_problems...")
-    prompt = current_domain.to_string() + NL_PROMPT
+    prompt = current_domain.to_string() + NLgoals_PDDLplans_prompt
     # TODO: randomly sample some problems for the prompt.
     for solved_problem in solved_problems:  # constructing the input prompt
         prompt += get_solved_problem_text(solved_problem)
@@ -273,3 +274,44 @@ def propose_operator_definition(
         codex_prompt, temperature=temperature, stop=STOP_TOKEN, n_samples=n_samples,
     )
     return [operator_prefix + o for o in completions]
+
+def get_supervised_goal_prompt(problem):
+    """
+    problem:
+        PDDL.Problem object
+    returns:
+        string of NL goal + PDDL goal
+    """
+    NL_goal = problem.language
+    PDDL_goal = problem.ground_truth_pddl_problem.ground_truth_goal
+    return NL_goal + "\n" + PDDL_goal
+
+
+def propose_PDDL_goals_for_problems(
+    unsolved_problems, solved_problems, current_domain, n_samples=1, verbose=False
+):
+    """
+    unsolved_problems:
+        list of Problem objects to be solved
+    solved_problems:
+        list of Problem objects with ground truth plans
+    current_domain:
+        Domain object describing the domain
+
+    Edits the unsolved problem objects - adds PDDL proposed goals to the problem.proposed_pddl_goals list
+    """
+    prompt = current_domain.to_string() + NLgoals_PDDLgoals_prompt
+    # TODO: randomly sample some problems for the prompt.
+    for solved_problem in solved_problems:  # constructing the input prompt
+        prompt += get_supervised_goal_prompt(solved_problem)
+    for problem in unsolved_problems:
+        temp_prompt = prompt + "\n# " + problem.language
+        try:
+            goal_strings = get_completions(
+                temp_prompt, temperature=0.1, stop=STOP_TOKEN
+            )
+            for goal_string in goal_strings:
+                problem.proposed_pddl_goals.append(goal_string)  # editing the problem
+        except Exception as e:
+            print(e)
+            continue

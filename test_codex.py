@@ -1,7 +1,7 @@
 """
 test_codex.py | Tests for codex.py.
 """
-from codex import propose_operator_definition, propose_plans_for_problems
+from codex import *
 from pddl import *
 from datasets import *
 
@@ -130,11 +130,20 @@ def test_propose_plans_for_problems():
         assert(len(problem.proposed_pddl_plans) != 0)
         print(problem)
 
+def test_propose_PDDL_goals_for_problems():
+    unsolved_problems = create_mock_unsolved_problem_list()
+    solved_problems = create_mock_solved_problem_list()
+    current_domain = create_mock_domain()
+    propose_PDDL_goals_for_problems(unsolved_problems, solved_problems, current_domain)
+    for problem in unsolved_problems:
+        assert(len(problem.proposed_pddl_goals) != 0)
+        print(problem)
+
 
 def main():
     # Test the proposed operator definitions -- CW.
     # test_propose_operator_definition()
-    test_propose_plans_for_problems()
+    test_propose_PDDL_goals_for_problems()
 
 
 if __name__ == "__main__":
