@@ -24,12 +24,11 @@ EXAMPLE_START = ";; Example: "
 OPERATOR_START_TOKEN = "(:action "
 NL_PROMPT = "\n#### Natural language goals and PDDL plans\n\n"
 
-# if not os.getenv("OPENAI_API_KEY"):
-#     raise ValueError(
-#         "OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`"
-#     )
-# openai.api_key = os.environ["OPENAI_API_KEY"]
-openai.api_key = "sk-kXXSnnSNUWZOfDHWRow4edlBSKjeQEFZ7wVASMzS"
+if not os.getenv("OPENAI_API_KEY"):
+    raise ValueError(
+        "OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`"
+    )
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
 def get_completions(
     prompt: str,
