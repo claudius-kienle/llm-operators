@@ -67,7 +67,8 @@ def create_mock_unsolved_problem_list(dataset_pddl_directory = "dataset/alfred_p
         problem_id=problem_ids[i],
         language=languages[i],
         ground_truth_pddl_plan=ground_truth_pddl_plans[i],
-        ground_truth_pddl_problem=ground_truth_pddl_problems[i]
+        ground_truth_pddl_problem=ground_truth_pddl_problems[i],
+        should_supervise_pddl=True
         )
         for i in range(len(problem_ids))]
 
@@ -92,7 +93,8 @@ def create_mock_solved_problem_list(dataset_pddl_directory = "dataset/alfred_pdd
         problem_id=problem_ids[i],
         language=languages[i],
         ground_truth_pddl_plan=ground_truth_pddl_plans[i],
-        ground_truth_pddl_problem=ground_truth_pddl_problems[i]
+        ground_truth_pddl_problem=ground_truth_pddl_problems[i],
+        should_supervise_pddl=True
         )
         for i in range(len(problem_ids))]
 
@@ -123,8 +125,10 @@ def test_propose_plans_for_problems():
     unsolved_problems = create_mock_unsolved_problem_list()
     solved_problems = create_mock_solved_problem_list()
     current_domain = create_mock_domain()
-    # plans = propose_plans_for_problems(unsolved_problems, solved_problems, current_domain)
-    # print(plans)
+    propose_plans_for_problems(unsolved_problems, solved_problems, current_domain)
+    for problem in unsolved_problems:
+        assert(len(problem.proposed_pddl_plans) != 0)
+        print(problem)
 
 
 def main():

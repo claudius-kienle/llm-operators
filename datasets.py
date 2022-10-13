@@ -51,6 +51,18 @@ class Problem:
     def get_best_evaluated_pddl_plan(self):
         return sorted(self.evaluated_pddl_plans, key=lambda p: p.overall_plan_cost)[0]
 
+    def __repr__(self):
+        return "Problem(\n" \
+                  "problem_id={},\n" \
+                  "language={},\n" \
+                  "should_supervise_pddl={}\n" \
+                  "proposed_pddl_goals = {}\n" \
+                  "proposed_pddl_plans = {}\n)\n".format(
+            self.problem_id,self.language,self.should_supervise_pddl,
+            self.proposed_pddl_goals,self.proposed_pddl_plans)
+
+
+
 
 ######### PLANNING DOMAIN PDDL DOMAIN DEFINITION LOADERS.
 # Planning domains available for the --dataset_name flag.
