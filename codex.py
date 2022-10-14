@@ -31,6 +31,7 @@ if not os.getenv("OPENAI_API_KEY"):
     )
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
+
 def get_completions(
     prompt: str,
     n_samples: int = 1,
@@ -100,11 +101,11 @@ def propose_plans_operators_goals_for_problems(
         if (len(problems[p].evaluated_pddl_plans) > 0)
         or problems[p].should_supervise_pddl
     ]
-    # TODO: PROPOSE NEW OPERATOR GOALS.
+    # Propose new PDDL goals
+    propose_PDDL_goals_for_problems(
+        unsolved_problems, solved_problems, current_domain)
 
-    # TODO: NK
-
-    # Propose new Codex plans.
+    # Propose new Codex plans
     propose_plans_for_problems(
         unsolved_problems, solved_problems, current_domain, verbose=verbose
     )
