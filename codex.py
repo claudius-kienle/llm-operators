@@ -21,7 +21,11 @@ random.seed(0)
 STOP_TOKEN = "\n<END>\n"
 OPERATOR_START = ";; Operator: "
 EXAMPLE_START = ";; Example: "
+NATURAL_LANGUAGE_GOAL_START = ";; Goal: "
+PDDL_PLAN_START = ";; PDDL Plan: "
 OPERATOR_START_TOKEN = "(:action "
+CODEX_PROMPT = "codex_prompt"
+CODEX_OUTPUT = "codex_output"
 NLgoals_PDDLplans_prompt = "\n#### Natural language goals and PDDL plans\n\n"
 NLgoals_PDDLgoals_prompt = "\n#### Natural language goals and PDDL goals\n\n"
 
@@ -81,7 +85,12 @@ def get_completions(
 
 
 def propose_plans_operators_goals_for_problems(
-    current_domain, problems, n_samples=1, verbose=False
+    current_domain,
+    problems,
+    n_samples=1,
+    verbose=False,
+    output_directory=None,
+    command_args=None,
 ):
     """
     Proposes PDDL operators, goals, and plans for unsolved problems using Codex.
@@ -101,16 +110,26 @@ def propose_plans_operators_goals_for_problems(
         if (len(problems[p].evaluated_pddl_plans) > 0)
         or problems[p].should_supervise_pddl
     ]
-    # Propose new PDDL goals
-    propose_PDDL_goals_for_problems(
-        unsolved_problems, solved_problems, current_domain)
-
-    # Propose new Codex plans
+    if verbose:
+        print("propose_plans_operators_goals_for_problems: ")
+        print(
+            f"{len(unsolved_problems)} unsolved problems / {len(solved_problems)} solved problems"
+        )
+    # Propose task plans for unsolved problems.
     propose_plans_for_problems(
-        unsolved_problems, solved_problems, current_domain, verbose=verbose
+        unsolved_problems=unsolved_problems,
+        solved_problems=solved_problems,
+        current_domain=current_domain,
+        verbose=verbose,
+        output_directory=output_directory,
+        use_mock=command_args.debug_mock_propose_plans,
     )
     # Get all operator / actions from plans
     operator_uses = get_operator_uses(problems)
+
+    # TODO: MAKE SURE we are not training on comments in the PDDL files.
+    # Propose new PDDL goals
+    propose_PDDL_goals_for_problems(unsolved_problems, solved_problems, current_domain)
 
     # Propose definitions for any operators we haven't implemented.
     proposed_operators = [p for p in operator_uses if p not in current_domain.operators]
@@ -146,24 +165,6 @@ def get_operator_uses(problems):
     return existing_operator_uses
 
 
-def get_solved_problem_text(problem):
-    """
-    problem:
-        solved Problem object
-    return:
-        string to add to the codex input prompt
-    """
-    plan = (
-        problem.ground_truth_pddl_plan
-        if problem.should_supervise_pddl
-        else problem.get_best_evaluated_pddl_plan()
-    )
-    problem_text = (
-        "#" + problem.language + "\n" + plan.plan_to_string(plan.plan) + STOP_TOKEN
-    )
-    return problem_text
-
-
 def get_operator_from_action(action):
     """
     action:
@@ -177,9 +178,21 @@ def get_operator_from_action(action):
 
 
 def propose_plans_for_problems(
-    unsolved_problems, solved_problems, current_domain, n_samples=1, verbose=False
+    unsolved_problems,
+    solved_problems,
+    current_domain,
+    max_plan_examples=10,
+    temperature=0.0,
+    n_samples=1,
+    verbose=False,
+    output_directory=None,
+    use_mock=False,
 ):
     """
+    Proposes PDDL plans given NL goals.
+    Samples from: 
+    P(pddl_plan | nl_goal, solved pddl_plan+nl_goal pairs)
+
     unsolved_problems:
         list of Problem objects to be solved
     solved_problems:
@@ -189,31 +202,84 @@ def propose_plans_for_problems(
 
     Edits the unsolved problem objects - adds plans to the problem.proposed_pddl_plan list
     """
-    if verbose:
-        print("\npropose_plans_for_problems...")
-    prompt = current_domain.to_string() + NLgoals_PDDLplans_prompt
-    # TODO: randomly sample some problems for the prompt.
-    for solved_problem in solved_problems:  # constructing the input prompt
-        prompt += get_solved_problem_text(solved_problem)
-    for problem in unsolved_problems:
-        temp_prompt = prompt + "\n# " + problem.language
+    output_json = {}
+    output_filepath = "codex_plans.json"
+    if use_mock:
+        mock_propose_plans_for_problems(
+            output_filepath, unsolved_problems, output_directory
+        )
+        return
+    # Codex prompt header.
+    nl_header = ";;;; Semantic parsing from natural language goals into PDDL plans."
+    # Note that we do not actually use the current domain.
+    shared_header = nl_header
+    for unsolved_problem in unsolved_problems:
+        codex_prompt = shared_header
+        # Codex prompt example natural language goals and plans.
+        problem_examples = random.sample(
+            solved_problems, min(len(solved_problems), max_plan_examples),
+        )
+        for problem_example in problem_examples:
+            codex_prompt += f"{NATURAL_LANGUAGE_GOAL_START}{problem_example.language}\n"
+            codex_prompt += f"{PDDL_PLAN_START}\n"
+            codex_prompt += f"{get_plan_string_from_solved_problem(problem_example)}"
+            codex_prompt += f"{STOP_TOKEN}\n"
+
+        # Add the current problem.
+        codex_prompt += f"{NATURAL_LANGUAGE_GOAL_START}{unsolved_problem.language}\n"
+        codex_prompt += f"{PDDL_PLAN_START}\n"
         try:
             plan_strings = get_completions(
-                temp_prompt, temperature=0.1, stop=STOP_TOKEN
+                codex_prompt, temperature=0.1, stop=STOP_TOKEN
             )
             for plan_string in plan_strings:
-                problem.proposed_pddl_plans.append(
+                unsolved_problem.proposed_pddl_plans.append(
                     PDDLPlan(plan_string=plan_string)
                 )  # editing the problem
+
+            output_json[unsolved_problem.problem_id] = {
+                CODEX_PROMPT: codex_prompt,
+                CODEX_OUTPUT: plan_strings,
+            }
         except Exception as e:
             print(e)
             continue
-
     if verbose:
         num_proposed = [p for p in unsolved_problems if len(p.proposed_pddl_plans) > 1]
         print(
             f"\npropose_plans_for_problems: proposed plans for {len(num_proposed)} / {len(unsolved_problems)}"
         )
+    if output_directory:
+        with open(os.path.join(output_directory, output_filepath), "w") as f:
+            json.dump(output_json, f)
+
+
+def mock_propose_plans_for_problems(
+    output_filepath, unsolved_problems, output_directory
+):
+    with open(os.path.join(output_directory, output_filepath), "r") as f:
+        output_json = json.load(f)
+    for unsolved_problem in unsolved_problems:
+        if unsolved_problem.problem_id in output_json:
+            for plan_string in output_json[unsolved_problem.problem_id][CODEX_OUTPUT]:
+                unsolved_problem.proposed_pddl_plans.append(
+                    PDDLPlan(plan_string=plan_string)
+                )
+
+
+def get_plan_string_from_solved_problem(problem):
+    """
+    problem:
+        solved Problem object
+    return:
+        string to add to the codex input prompt
+    """
+    plan = (
+        problem.ground_truth_pddl_plan
+        if problem.should_supervise_pddl
+        else problem.get_best_evaluated_pddl_plan()
+    )
+    return plan.plan_to_string(plan.plan)
 
 
 def propose_operator_definition(
@@ -275,6 +341,7 @@ def propose_operator_definition(
         codex_prompt, temperature=temperature, stop=STOP_TOKEN, n_samples=n_samples,
     )
     return [operator_prefix + o for o in completions]
+
 
 def get_supervised_goal_prompt(problem):
     """

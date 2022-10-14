@@ -3,7 +3,7 @@ main.py
 
 Usage:  
     # Load a debug fraction of the ALFRED dataset.
-    python main.py --dataset_name alfred --pddl_domain_name alfred --dataset_fraction 0.001 --training_plans_fraction 0.1 --initial_pddl_operators GotoLocation OpenObject  --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_pddl
+    python main.py --dataset_name alfred --pddl_domain_name alfworld --dataset_fraction 0.001 --training_plans_fraction 0.1 --initial_pddl_operators GotoLocation PickupObject PutObject  --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_pddl --output_directory generated/test_outputs
 """
 import argparse
 import random
@@ -45,11 +45,21 @@ parser.add_argument(
 parser.add_argument(
     "--train_iterations", type=int, help="How many training iterations to run.."
 )
+parser.add_argument(
+    "--output_directory",
+    type=str,
+    help="Location of the directory for writing outputs.",
+)
 parser.add_argument("--verbose", action="store_true", help="Run on verbose.")
 parser.add_argument(
     "--debug_no_propose_plans_operators_goals",
     action="store_true",
     help="debug: don't run propose_plans_operators_goals.",
+)
+parser.add_argument(
+    "--debug_mock_propose_plans",
+    action="store_true",
+    help="debug: mock out plan proposal.",
 )
 
 
@@ -64,6 +74,7 @@ def main():
         dataset_fraction=args.dataset_fraction,
         training_plans_fraction=args.training_plans_fraction,
         dataset_pddl_directory=args.dataset_pddl_directory,
+        initial_pddl_operators=args.initial_pddl_operators,
         verbose=args.verbose,
     )
     # Load the PDDL domain definition.
@@ -72,13 +83,15 @@ def main():
     )
 
     for curr_iteration in range(args.train_iterations):
-        # Propose new operator definitions and plans.
         if not args.debug_no_propose_plans_operators_goals:
+            # LLM proposal: propose plans, operators for plans, predicates for operators, and goals.
             proposed_codex_operators = codex.propose_plans_operators_goals_for_problems(
                 pddl_domain,
                 planning_problems["train"],
                 n_samples=1,
                 verbose=args.verbose,
+                output_directory=args.output_directory,
+                command_args=args,
             )
         # TODO (CW): evaluate costs with high-level planner. Developing in `task_planner.py`
 

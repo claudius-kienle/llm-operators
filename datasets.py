@@ -3,6 +3,7 @@ planning_domain.py | Classes for representing planning domains and planning doma
 """
 import os
 import random
+from re import L
 import numpy as np
 import json
 from pddl import *
@@ -52,16 +53,20 @@ class Problem:
         return sorted(self.evaluated_pddl_plans, key=lambda p: p.overall_plan_cost)[0]
 
     def __repr__(self):
-        return "Problem(\n" \
-                  "problem_id={},\n" \
-                  "language={},\n" \
-                  "should_supervise_pddl={}\n" \
-                  "proposed_pddl_goals = {}\n" \
-                  "proposed_pddl_plans = {}\n)\n".format(
-            self.problem_id,self.language,self.should_supervise_pddl,
-            self.proposed_pddl_goals,self.proposed_pddl_plans)
-
-
+        return (
+            "Problem(\n"
+            "problem_id={},\n"
+            "language={},\n"
+            "should_supervise_pddl={}\n"
+            "proposed_pddl_goals = {}\n"
+            "proposed_pddl_plans = {}\n)\n".format(
+                self.problem_id,
+                self.language,
+                self.should_supervise_pddl,
+                self.proposed_pddl_goals,
+                self.proposed_pddl_plans,
+            )
+        )
 
 
 ######### PLANNING DOMAIN PDDL DOMAIN DEFINITION LOADERS.
@@ -93,25 +98,42 @@ def load_pddl_domain(pddl_domain_name, initial_pddl_operators, verbose):
 
 # ALFRED Dataset.
 ALFRED_PDDL_DOMAIN_NAME = "alfred"
+ALFWORLD_PDDL_DOMAIN_NAME = "alfworld"
 
 
-@register_planning_pddl_domain(ALFRED_PDDL_DOMAIN_NAME)
-def load_alfred_pddl_domain(verbose=False):
-    ALFRED_DOMAIN_FILE_PATH = "domains/alfred.pddl"
-    with open(os.path.join(ALFRED_DOMAIN_FILE_PATH)) as f:
+def load_pddl_file_with_operators(domain_name, file_path, verbose=False):
+    with open(os.path.join(file_path)) as f:
         raw_pddl = f.read()
     domain = Domain(pddl_domain=raw_pddl)
     domain.ground_truth_operators = {
         o: copy.deepcopy(domain.operators[o]) for o in domain.operators
     }
     if verbose:
-        print(
-            f"\nload_alfred_pddl_domain: loaded {ALFRED_PDDL_DOMAIN_NAME } from {ALFRED_DOMAIN_FILE_PATH}"
-        )
+        print(f"\nload_pddl_file_with_operators: loaded {domain_name} from {file_path}")
         print("\nGround truth operators: ")
         for o in list(domain.ground_truth_operators.keys()):
             print(o)
     return domain
+
+
+@register_planning_pddl_domain(ALFRED_PDDL_DOMAIN_NAME)
+def load_alfred_pddl_domain(verbose=False):
+    ALFRED_DOMAIN_FILE_PATH = "domains/alfred.pddl"
+    return load_pddl_file_with_operators(
+        domain_name=ALFRED_PDDL_DOMAIN_NAME,
+        file_path=ALFRED_DOMAIN_FILE_PATH,
+        verbose=verbose,
+    )
+
+
+@register_planning_pddl_domain(ALFWORLD_PDDL_DOMAIN_NAME)
+def load_alfred_pddl_domain(verbose=False):
+    ALFWORLD_DOMAIN_FILE_PATH = "domains/alfworld.pddl"
+    return load_pddl_file_with_operators(
+        domain_name=ALFWORLD_PDDL_DOMAIN_NAME,
+        file_path=ALFWORLD_DOMAIN_FILE_PATH,
+        verbose=verbose,
+    )
 
 
 ######### PLANNING DOMAIN PROBLEM DATASET LOADERS.
@@ -131,41 +153,61 @@ def load_planning_problems_dataset(
     dataset_fraction,
     training_plans_fraction,
     dataset_pddl_directory,
+    initial_pddl_operators,
     verbose,
 ):
     planning_domain_loader = PLANNING_PROBLEMS_REGISTRY[dataset_name]
-    initial_planning_problems = planning_domain_loader(dataset_pddl_directory, verbose)
-    # Initialize some fraction of the dataset
-    fraction_dataset = dict()
-    for split in initial_planning_problems:
-        fraction_dataset[split] = dict()
-        num_to_take = int(
-            np.ceil(dataset_fraction * len(initial_planning_problems[split]))
-        )
-        fraction_split = random.sample(
-            list(initial_planning_problems[split].keys()), num_to_take
-        )
-        fraction_dataset[split] = {
-            problem_id: initial_planning_problems[split][problem_id]
-            for problem_id in fraction_split
-        }
+    # Load some fraction of the dataset.
 
+    planning_dataset = planning_domain_loader(
+        dataset_pddl_directory=dataset_pddl_directory,
+        dataset_fraction=dataset_fraction,
+        verbose=verbose,
+    )
+    # Get candidate problems to supervise on.
+    problem_ids_with_initial_operators = get_problem_ids_with_ground_truth_operators(
+        initial_pddl_operators, planning_dataset, split="train"
+    )
+    # Supervise on a maximum of the training plans fraction.
+    num_to_supervise = min(
+        int(np.ceil(training_plans_fraction * len(planning_dataset["train"]))),
+        len(problem_ids_with_initial_operators),
+    )
+    problems_to_supervise = random.sample(
+        problem_ids_with_initial_operators, num_to_supervise,
+    )
+    for problem_id in problems_to_supervise:
+        planning_dataset["train"][problem_id].should_supervise_pddl = True
     # Initialize some fraction of the training problems for supervision. TODO (cw): maybe these shouldn't be random, but rather should have initial operators.
-    train_split = "train"
-    num_initial_plans = int(
-        np.ceil(training_plans_fraction * len(fraction_dataset[train_split]))
-    )
-    initial_plans = random.sample(
-        list(fraction_dataset[train_split].keys()), num_initial_plans
-    )
-    for problem in initial_plans:
-        fraction_dataset[train_split][problem].should_supervise_pddl = True
 
     if verbose:
-        print(f"dataset_fraction: {dataset_fraction}")
-        for dataset_split in fraction_dataset:
-            print(f"{dataset_split} : {len(fraction_dataset[dataset_split])} problems")
-    return fraction_dataset
+        print(f"training_plans_fraction: {training_plans_fraction}")
+        print(f"supervising on: {num_to_supervise} problems.")
+    return planning_dataset
+
+
+def get_problem_ids_with_ground_truth_operators(
+    initial_pddl_operators, planning_dataset, split="train"
+):
+    """
+    :ret: list of problem IDs where the ground truth plans contain these operators.
+    """
+    problem_ids = []
+    initial_pddl_operators = set(initial_pddl_operators)
+    for problem_id in planning_dataset[split]:
+        problem = planning_dataset[split][problem_id]
+        ground_truth_operators = set(
+            [
+                operator[PDDLPlan.PDDL_ACTION]
+                for operator in problem.ground_truth_pddl_plan.plan
+            ]
+        )
+        # Check that this plan doesn't contain any more operators than the initial ones.
+        if len(initial_pddl_operators.union(ground_truth_operators)) <= len(
+            initial_pddl_operators
+        ):
+            problem_ids.append(problem_id)
+    return problem_ids
 
 
 # ALFRED Dataset.
@@ -181,7 +223,9 @@ def load_alfred_pddl_file(
 
 
 @register_planning_domain_problems(ALFRED_DATASET_NAME)
-def load_alfred_planning_domain_problems(dataset_pddl_directory, verbose=False):
+def load_alfred_planning_domain_problems(
+    dataset_pddl_directory, dataset_fraction, verbose=False
+):
     """
     splits are: train, valid_seen, valid_unseen
     :ret: {
@@ -196,8 +240,11 @@ def load_alfred_planning_domain_problems(dataset_pddl_directory, verbose=False):
     dataset = dict()
     for dataset_split in alfred_json:
         dataset[dataset_split] = dict()
-        for idx, problem_json in enumerate(alfred_json[dataset_split]):
-            problem_id = f"{idx}_{problem_json['goal']}"
+        # Get some fraction of the dataset to load.
+        num_to_take = int(np.ceil(dataset_fraction * len(alfred_json[dataset_split])))
+        fraction_split = random.sample(list(alfred_json[dataset_split]), num_to_take)
+        for problem_json in fraction_split:
+            problem_id = problem_json["file_name"]
             goal_language = problem_json["goal"]
             ground_truth_pddl_plan = problem_json["operator_sequence"]
             ground_truth_pddl_problem = PDDLProblem(
@@ -219,5 +266,7 @@ def load_alfred_planning_domain_problems(dataset_pddl_directory, verbose=False):
             f"\nload_alfred_planning_domain_problems: loaded {ALFRED_DATASET_NAME} from {ALFRED_DATASET_PATH}"
         )
         for dataset_split in dataset:
-            print(f"{dataset_split} : {len(dataset[dataset_split])} problems")
+            print(
+                f"{dataset_split} : {len(dataset[dataset_split])} / original {len(alfred_json[dataset_split])} problems"
+            )
     return dataset

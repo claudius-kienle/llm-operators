@@ -150,7 +150,7 @@ class Domain:
         operators=None,
         functions=None,
     ):
-        self.pddl_domain = pddl_domain
+        self.pddl_domain = self.init_pddl_domain(pddl_domain)
         self.parent_domain = parent_domain
         self.domain_name = self.init_domain_name(domain_name)
         self.requirements = self.init_simple_pddl(requirements, "requirements")
