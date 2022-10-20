@@ -13,3 +13,26 @@ def test_pddl_problem_alfred():
     )
     assert PROPOSED_GOAL in pddl_problem_string
     assert pddl_problem.ground_truth_goal not in PROPOSED_GOAL
+
+
+def test_pddl_operator():
+    test_operator = """(:action GotoLocation
+        :parameters (?a - agent ?lStart - location ?lEnd - location)
+        :precondition (and
+            (atLocation ?a ?lStart)
+            (forall
+                (?re - receptacle)
+                (not (opened ?re))
+            )
+        )
+        :effect (and
+            (atLocation ?a ?lEnd)
+            (not (atLocation ?a ?lStart))
+            (increase (totalCost) (distance ?lStart ?lEnd))
+        )
+    )"""
+    from pddl_parser.pddl_parser import PDDL_Parser
+
+    parser = PDDL_Parser()
+    parser.parse_actions(pddl_string=test_operator)
+

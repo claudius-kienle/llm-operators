@@ -106,7 +106,9 @@ def main():
                 output_directory=args.output_directory,
                 command_args=args,
             )
-        # TODO (CW): evaluate costs with high-level planner. Developing in `task_planner.py`
+        evaluate_task_plans_and_costs_for_problems(
+            pddl_domain, planning_problems["train"]
+        )
 
         # TODO: evaluate costs with low-level planner.
 

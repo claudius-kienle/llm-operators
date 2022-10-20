@@ -18,6 +18,7 @@ from collections import defaultdict
 
 random.seed(0)
 
+NONE = "NONE"
 STOP_TOKEN = "\n<END>\n"
 OPERATOR_START = ";; Operator: "
 EXAMPLE_START = ";; Example: "
@@ -68,6 +69,7 @@ def propose_plans_operators_goals_for_problems(
         print(
             f"{len(unsolved_problems)} unsolved problems / {len(solved_problems)} solved problems"
         )
+
     # Natural language goals to PDDL plans (operators + arguments) for unsolved problems.
     propose_plans_for_problems(
         unsolved_problems=unsolved_problems,
@@ -91,7 +93,11 @@ def propose_plans_operators_goals_for_problems(
         use_mock=command_args.debug_mock_propose_operators,
     )
 
-    ##### TODO: propose any new PREDICATES.
+    ### PDDL operators to new predicates for unsolved problems.
+    propose_predicates_for_problems(
+        problems=problems, current_domain=current_domain, use_mock=False,
+    )
+
     # TODO: MAKE SURE we are not training on comments in the PDDL files.
     # Propose new PDDL goals
     propose_PDDL_goals_for_problems(unsolved_problems, solved_problems, current_domain)
@@ -143,6 +149,15 @@ def get_completions(
             print(e)
             pause_for_rate_limit = True
             completion = e
+
+
+def propose_predicates_for_problems(problems, current_domain, use_mock):
+    # Extract predicates from proposed operators.
+    for o in current_domain.proposed_operators:
+        for operator_definition in current_domain.proposed_operators[o]:
+            import pdb
+
+            pdb.set_trace()
 
 
 def propose_operators_for_problems(
@@ -265,15 +280,16 @@ def propose_operator_definition(
     nl_header = (
         ";;;; Define planning operators based on a PDDL domain and example usages.\n\n"
     )
-    # TODO: proposed predicates.
-    pddl_domain = (
-        ";;;; PDDL domain definition.\n"
-        + current_domain.domain_definition_to_string()
-        + "\n\n"
-    )
-    translation_header = ";;;; Define operators based on examples of their usage and the PDDL domain definition above. Only use predicates and functions available in the PDDL domain.\n\n"
+    codex_prompt = nl_header
+    if len(initial_pddl_predicates) < 0:
+        pddl_domain = (
+            ";;;; PDDL domain definition.\n"
+            + current_domain.domain_definition_to_string()
+            + "\n\n"
+        )
+        translation_header = ";;;; Define operators based on examples of their usage and the PDDL domain definition above. Only use predicates and functions available in the PDDL domain.\n\n"
 
-    codex_prompt = nl_header + pddl_domain + translation_header
+        codex_prompt += pddl_domain + translation_header
 
     # Codex prompt exampler operators.
     operator_examples = random.sample(

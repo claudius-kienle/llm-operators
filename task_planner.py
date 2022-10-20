@@ -22,11 +22,15 @@ def evaluate_task_plans_and_costs_for_problems(pddl_domain, problems, verbose=Fa
 def evaluate_task_plans_and_costs_for_problem(
     pddl_domain, problem, planner=TASK_PLANNER_FD, verbose=False
 ):
+    # TODO: NK - see if this is working, fix it otherwise.
     for proposed_goal in problem.proposed_pddl_goals:
+        # THIS SHOULD OUTPUT A WORKING PDDL PROBLEM STRING USING PROPOSED GOALS.
+        # ALSO PLEASE CACHE THIS TO A FILE.
         pddl_problem_string = problem.ground_truth_pddl_problem.get_pddl_string_with_proposed_goal(
             proposed_goal
         )
-    fd_attempt_domain(pddl_domain.to_string(), pddl_problem_string)
+
+    # fd_attempt_domain(pddl_domain.to_string(), pddl_problem_string)
 
 
 # fd_planner = FD(alias_flag='--alias "lama-first"')

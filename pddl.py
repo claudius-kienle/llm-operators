@@ -32,6 +32,7 @@ class Domain:
         self.functions = self.init_simple_pddl(functions, "functions")
         self.operators = self.init_operators(operators)  # Evaluated operators.
         self.ground_truth_operators = None
+        self.ground_truth_predicates = None
 
         # One or more proposed predicates.
         self.proposed_predicates = []
