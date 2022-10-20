@@ -36,6 +36,10 @@ parser.add_argument(
 parser.add_argument(
     "--pddl_domain_name", type=str, help="Name of the PDDL domain to load.",
 )
+
+parser.add_argument(
+    "--train_iterations", type=int, help="How many training iterations to run."
+)
 parser.add_argument(
     "--initial_pddl_operators",
     type=str,
@@ -43,7 +47,11 @@ parser.add_argument(
     help="Which initial PDDL operators to run with.  Used to seed the Codex proposals.",
 )
 parser.add_argument(
-    "--train_iterations", type=int, help="How many training iterations to run.."
+    "--initial_pddl_predicates",
+    type=str,
+    nargs="+",
+    default=[],
+    help="Which initial PDDL predicates to run with.  Used to seed the Codex proposals.",
 )
 parser.add_argument(
     "--output_directory",
@@ -60,6 +68,11 @@ parser.add_argument(
     "--debug_mock_propose_plans",
     action="store_true",
     help="debug: mock out plan proposal.",
+)
+parser.add_argument(
+    "--debug_mock_propose_operators",
+    action="store_true",
+    help="debug: mock out operator_proposal.",
 )
 
 
@@ -85,7 +98,7 @@ def main():
     for curr_iteration in range(args.train_iterations):
         if not args.debug_no_propose_plans_operators_goals:
             # LLM proposal: propose plans, operators for plans, predicates for operators, and goals.
-            proposed_codex_operators = codex.propose_plans_operators_goals_for_problems(
+            codex.propose_plans_operators_goals_for_problems(
                 pddl_domain,
                 planning_problems["train"],
                 n_samples=1,
