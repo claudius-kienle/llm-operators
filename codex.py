@@ -455,9 +455,10 @@ def propose_PDDL_goals_for_problems(
 
     Edits the unsolved problem objects - adds PDDL proposed goals to the problem.proposed_pddl_goals list
     """
-    prompt = current_domain.to_string() + NLgoals_PDDLgoals_prompt
-    # TODO: randomly sample some problems for the prompt.
-    for solved_problem in solved_problems:  # constructing the input prompt
+    prompt = current_domain.domain_definition_to_string() + NLgoals_PDDLgoals_prompt
+    n_solved = len(solved_problems)
+    solved_to_prompt = random.sample(solved_problems, n_solved//3 + 1)
+    for solved_problem in solved_to_prompt:  # constructing the input prompt
         prompt += get_supervised_goal_prompt(solved_problem)
     for problem in unsolved_problems:
         temp_prompt = prompt + "\n# " + problem.language
