@@ -30,12 +30,13 @@ CODEX_OUTPUT = "codex_output"
 NLgoals_PDDLplans_prompt = "\n#### Natural language goals and PDDL plans\n\n"
 NLgoals_PDDLgoals_prompt = "\n#### Natural language goals and PDDL goals\n\n"
 
-if not os.getenv("OPENAI_API_KEY"):
-    raise ValueError(
-        "OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`"
-    )
-openai.api_key = os.environ["OPENAI_API_KEY"]
+# if not os.getenv("OPENAI_API_KEY"):
+#     raise ValueError(
+#         "OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`"
+#     )
+# openai.api_key = os.environ["OPENAI_API_KEY"]
 
+openai.api_key = "sk-kXXSnnSNUWZOfDHWRow4edlBSKjeQEFZ7wVASMzS"
 
 def propose_plans_operators_goals_for_problems(
     current_domain,
@@ -436,9 +437,9 @@ def get_supervised_goal_prompt(problem):
     returns:
         string of NL goal + PDDL goal
     """
-    NL_goal = problem.language
+    NL_goal = "\n#" + problem.language + "\n"
     PDDL_goal = problem.ground_truth_pddl_problem.ground_truth_goal
-    return NL_goal + "\n" + PDDL_goal
+    return NL_goal + PDDL_goal + STOP_TOKEN
 
 
 def propose_PDDL_goals_for_problems(
@@ -454,9 +455,10 @@ def propose_PDDL_goals_for_problems(
 
     Edits the unsolved problem objects - adds PDDL proposed goals to the problem.proposed_pddl_goals list
     """
-    prompt = current_domain.to_string() + NLgoals_PDDLgoals_prompt
-    # TODO: randomly sample some problems for the prompt.
-    for solved_problem in solved_problems:  # constructing the input prompt
+    prompt = current_domain.domain_definition_to_string() + NLgoals_PDDLgoals_prompt
+    n_solved = len(solved_problems)
+    solved_to_prompt = random.sample(solved_problems, n_solved//3 + 1)
+    for solved_problem in solved_to_prompt:  # constructing the input prompt
         prompt += get_supervised_goal_prompt(solved_problem)
     for problem in unsolved_problems:
         temp_prompt = prompt + "\n# " + problem.language
