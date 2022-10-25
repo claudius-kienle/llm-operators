@@ -2,6 +2,7 @@ from pddl import *
 from codex import *
 from datasets import *
 import csv
+import pandas as pd
 
 ###############################################################
 # Here we write basic analysis functions to gain some insight #
@@ -36,8 +37,10 @@ unsolved_problems = problems[n//2:]
 pddl_domain = datasets.load_pddl_domain(
     pddl_domain_name, initial_pddl_operators,verbose = False)
 
-ground_truth_vs_proposed_goals = {}
+# ground_truth_vs_proposed_goals = {}
 # key is problem id, values are a list of 2 - ground truth goal and proposed
+
+ground_truth_vs_proposed_goals = []
 
 propose_PDDL_goals_for_problems(unsolved_problems, solved_problems, pddl_domain)
 
@@ -45,9 +48,12 @@ for problem in unsolved_problems:
     problem_id = problem.problem_id
     ground_truth = problem.ground_truth_pddl_problem.ground_truth_goal
     proposed_goal = problem.proposed_pddl_goals[0]
-    ground_truth_vs_proposed_goals[problem_id] = [ground_truth, proposed_goal]
+    ground_truth_vs_proposed_goals.append([problem_id,ground_truth, proposed_goal])
 
-with open('alfred_data/ground_truth_vs_proposed_goals_new.csv', 'w') as csv_file:
-    writer = csv.writer(csv_file)
-    for key, value in ground_truth_vs_proposed_goals.items():
-        writer.writerow([key, value[0],value[1]])
+# with open('alfred_data/ground_truth_vs_proposed_goals_new.csv', 'w') as csv_file:
+#     writer = csv.writer(csv_file)
+#     for key, value in ground_truth_vs_proposed_goals.items():
+#         writer.writerow([key, value[0],value[1]])
+
+my_df = pd.DataFrame(ground_truth_vs_proposed_goals)
+my_df.to_csv('alfred_data/ground_truth_vs_proposed_goals_new.csv', index=False, header=False)

@@ -29,12 +29,13 @@ CODEX_OUTPUT = "codex_output"
 NLgoals_PDDLplans_prompt = "\n#### Natural language goals and PDDL plans\n\n"
 NLgoals_PDDLgoals_prompt = "\n#### Natural language goals and PDDL goals\n\n"
 
-if not os.getenv("OPENAI_API_KEY"):
-    raise ValueError(
-        "OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`"
-    )
-openai.api_key = os.environ["OPENAI_API_KEY"]
+# if not os.getenv("OPENAI_API_KEY"):
+#     raise ValueError(
+#         "OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`"
+#     )
+# openai.api_key = os.environ["OPENAI_API_KEY"]
 
+openai.api_key = "sk-kXXSnnSNUWZOfDHWRow4edlBSKjeQEFZ7wVASMzS"
 
 def get_completions(
     prompt: str,
@@ -350,9 +351,9 @@ def get_supervised_goal_prompt(problem):
     returns:
         string of NL goal + PDDL goal
     """
-    NL_goal = problem.language
+    NL_goal = "\n#" + problem.language + "\n"
     PDDL_goal = problem.ground_truth_pddl_problem.ground_truth_goal
-    return NL_goal + "\n" + PDDL_goal
+    return NL_goal + PDDL_goal + STOP_TOKEN
 
 
 def propose_PDDL_goals_for_problems(
