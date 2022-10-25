@@ -33,7 +33,12 @@ def evaluate_task_plans_and_costs_for_problem(
     # fd_attempt_domain(pddl_domain.to_string(), pddl_problem_string)
 
 
-# fd_planner = FD(alias_flag='--alias "lama-first"')
+def plan_with_alfred_metric_ff_planner(pddl_domain_file, pddl_problem_file):
+    """"""
+    from alfred.gen.ff_planner import get_plan_from_file
+
+    args = (pddl_domain_file, pddl_problem_file, 3)  # 3: solver type.
+    get_plan_from_file(args)
 
 
 def fd_plan(domain_fname, problem_fname, planner=None):

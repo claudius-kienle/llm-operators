@@ -23,6 +23,13 @@ python main.py
 --dataset_pddl_directory dataset/alfred_pddl # Location of the PDDL ground truth files, if applicable.
 ```
 
+- To set up a machine on AWS:
+
+
+- To set up a machine on OpenStack.
+
+
+
 #### Task-level domain definition proposal (LLM)
 - In this step, we attempt to propose task-level (PDDL) domain definitions of goals, operators and predicates, given natural language goals and a few initial example PDDL operators and predicates.
 - This has been tested locally on an M1 Mac using a Conda environment initialized using the `environment.yaml`.
@@ -34,4 +41,8 @@ python main.py
 - In this step, we attempt to verify proposed goals, predicates, and operators at the task level.
 - This has *only* been verified to work on a Ubuntu 16.04 machine, as it requires compiling the Metric-FF planner.
 - This is being implemented in `task_planner.py`
+- Setup to get this working:
+    - Build the ALFRED planner.
+
+
 
