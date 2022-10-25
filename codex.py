@@ -18,6 +18,7 @@ from collections import defaultdict
 
 random.seed(0)
 
+NONE = "NONE"
 STOP_TOKEN = "\n<END>\n"
 OPERATOR_START = ";; Operator: "
 EXAMPLE_START = ";; Example: "
@@ -36,6 +37,72 @@ NLgoals_PDDLgoals_prompt = "\n#### Natural language goals and PDDL goals\n\n"
 # openai.api_key = os.environ["OPENAI_API_KEY"]
 
 openai.api_key = "sk-kXXSnnSNUWZOfDHWRow4edlBSKjeQEFZ7wVASMzS"
+
+def propose_plans_operators_goals_for_problems(
+    current_domain,
+    problems,
+    n_samples=1,  # How many samples to take from codex.
+    temperature=0.0,
+    verbose=False,
+    output_directory=None,
+    command_args=None,
+):
+    """
+    Proposes PDDL operators, goals, and plans for unsolved problems using Codex.
+    Problems are updated with proposed plans and goals.
+    ret: 
+        proposed_codex_operators: PDDL operators proposed by Codex. 
+    """
+    unsolved_problems = [
+        problems[p]
+        for p in problems
+        if (len(problems[p].evaluated_pddl_plans) == 0)
+        and not problems[p].should_supervise_pddl
+    ]
+    solved_problems = [
+        problems[p]
+        for p in problems
+        if (len(problems[p].evaluated_pddl_plans) > 0)
+        or problems[p].should_supervise_pddl
+    ]
+    if verbose:
+        print("propose_plans_operators_goals_for_problems: ")
+        print(
+            f"{len(unsolved_problems)} unsolved problems / {len(solved_problems)} solved problems"
+        )
+
+    # Natural language goals to PDDL plans (operators + arguments) for unsolved problems.
+    propose_plans_for_problems(
+        unsolved_problems=unsolved_problems,
+        solved_problems=solved_problems,
+        current_domain=current_domain,
+        n_samples=n_samples,
+        temperature=temperature,
+        verbose=verbose,
+        output_directory=output_directory,
+        use_mock=command_args.debug_mock_propose_plans,
+    )
+    # PDDL plans (operators + arguments) to operator definitions (pre/post predicates) for unsolved problems.
+    propose_operators_for_problems(
+        problems,
+        current_domain,
+        verbose,
+        temperature,
+        n_samples,
+        output_directory,
+        initial_pddl_predicates=command_args.initial_pddl_predicates,
+        use_mock=command_args.debug_mock_propose_operators,
+    )
+
+    ### PDDL operators to new predicates for unsolved problems.
+    propose_predicates_for_problems(
+        problems=problems, current_domain=current_domain, use_mock=False,
+    )
+
+    # TODO: MAKE SURE we are not training on comments in the PDDL files.
+    # Propose new PDDL goals
+    propose_PDDL_goals_for_problems(unsolved_problems, solved_problems, current_domain)
+
 
 def get_completions(
     prompt: str,
@@ -85,67 +152,76 @@ def get_completions(
             completion = e
 
 
-def propose_plans_operators_goals_for_problems(
-    current_domain,
+def propose_predicates_for_problems(problems, current_domain, use_mock):
+    # Extract predicates from proposed operators.
+    for o in current_domain.proposed_operators:
+        for operator_definition in current_domain.proposed_operators[o]:
+            import pdb
+
+            pdb.set_trace()
+
+
+def propose_operators_for_problems(
     problems,
-    n_samples=1,
-    verbose=False,
-    output_directory=None,
-    command_args=None,
+    current_domain,
+    verbose,
+    temperature,
+    n_samples,
+    output_directory,
+    initial_pddl_predicates,
+    use_mock,
 ):
-    """
-    Proposes PDDL operators, goals, and plans for unsolved problems using Codex.
-    Problems are updated with proposed plans and goals.
-    ret: 
-        proposed_codex_operators: PDDL operators proposed by Codex. 
-    """
-    unsolved_problems = [
-        problems[p]
-        for p in problems
-        if (len(problems[p].evaluated_pddl_plans) == 0)
-        and not problems[p].should_supervise_pddl
-    ]
-    solved_problems = [
-        problems[p]
-        for p in problems
-        if (len(problems[p].evaluated_pddl_plans) > 0)
-        or problems[p].should_supervise_pddl
-    ]
-    if verbose:
-        print("propose_plans_operators_goals_for_problems: ")
-        print(
-            f"{len(unsolved_problems)} unsolved problems / {len(solved_problems)} solved problems"
-        )
-    # Propose task plans for unsolved problems.
-    propose_plans_for_problems(
-        unsolved_problems=unsolved_problems,
-        solved_problems=solved_problems,
-        current_domain=current_domain,
-        verbose=verbose,
-        output_directory=output_directory,
-        use_mock=command_args.debug_mock_propose_plans,
-    )
-    # Get all operator / actions from plans
+    output_json = {}
+    output_filepath = f"codex_operators{'_'.join(initial_pddl_predicates)}.json"
+
+    # What operators were proposed across the problems?
     operator_uses = get_operator_uses(problems)
-
-    # TODO: MAKE SURE we are not training on comments in the PDDL files.
-    # Propose new PDDL goals
-    propose_PDDL_goals_for_problems(unsolved_problems, solved_problems, current_domain)
-
     # Propose definitions for any operators we haven't implemented.
     proposed_operators = [p for p in operator_uses if p not in current_domain.operators]
-    proposed_operator_definitions = dict()
+    if use_mock:
+        mock_propose_operators_for_problems(
+            output_filepath, proposed_operators, output_directory, current_domain
+        )
+        return
     for o in proposed_operators:
-        propose_operator_definition(
+        codex_prompt, proposed_operator_definitions = propose_operator_definition(
             current_domain,
             o,
             operator_uses=operator_uses,
             max_operator_examples=10,
-            temperature=0.0,
+            max_usage_examples=10,
+            temperature=temperature,
             n_samples=n_samples,
             verbose=verbose,
+            initial_pddl_predicates=initial_pddl_predicates,
         )
-    return proposed_operator_definitions
+        current_domain.proposed_operators[o] += proposed_operator_definitions
+        output_json[o] = {
+            CODEX_PROMPT: codex_prompt,
+            CODEX_OUTPUT: proposed_operator_definitions,
+        }
+    if verbose:
+        num_proposed = [
+            o
+            for o in current_domain.proposed_operators[o]
+            if len(current_domain.proposed_operators[o]) > 1
+        ]
+        print(
+            f"\npropose_operators_for_problems: proposed operators for {len(num_proposed)} / {len(proposed_operators)}"
+        )
+    if output_directory:
+        with open(os.path.join(output_directory, output_filepath), "w") as f:
+            json.dump(output_json, f)
+
+
+def mock_propose_operators_for_problems(
+    output_filepath, proposed_operators, output_directory, current_domain
+):
+    with open(os.path.join(output_directory, output_filepath), "r") as f:
+        output_json = json.load(f)
+    for o in proposed_operators:
+        if o in output_json:
+            current_domain.proposed_operators[o] = output_json[o][CODEX_OUTPUT]
 
 
 def get_operator_uses(problems):
@@ -176,6 +252,77 @@ def get_operator_from_action(action):
     tokens = action.strip("()").split(" ")
     op = tokens[0]
     return op
+
+
+def propose_operator_definition(
+    current_domain,
+    operator_name_to_define,
+    operator_uses={},
+    max_operator_examples=10,
+    max_usage_examples=10,
+    temperature=0.0,
+    n_samples=1,
+    verbose=False,
+    initial_pddl_predicates=[],
+):
+    """
+    Proposes an operator definition for a given domain, and optionally with examples of operator usages.
+    current_domain: an existing PDDL domain.
+    operator_uses: dict {operator_name: list of string uses of a given operator in PDDL plans.}
+    operator_name_to_define: string name of operator to define.
+
+    :ret: list of up to n_samples operator definitions. Empty list if prompting fails.
+    """
+    if verbose:
+        print(
+            f"propose_operator_definition: operator_name_to_define - {operator_name_to_define}"
+        )
+    # Codex prompt header.
+    nl_header = (
+        ";;;; Define planning operators based on a PDDL domain and example usages.\n\n"
+    )
+    codex_prompt = nl_header
+    if len(initial_pddl_predicates) < 0:
+        pddl_domain = (
+            ";;;; PDDL domain definition.\n"
+            + current_domain.domain_definition_to_string()
+            + "\n\n"
+        )
+        translation_header = ";;;; Define operators based on examples of their usage and the PDDL domain definition above. Only use predicates and functions available in the PDDL domain.\n\n"
+
+        codex_prompt += pddl_domain + translation_header
+
+    # Codex prompt exampler operators.
+    operator_examples = random.sample(
+        list(current_domain.operators.keys()),
+        min(len(current_domain.operators), max_operator_examples),
+    )
+    for o in operator_examples:
+        codex_prompt += f"{OPERATOR_START}{o}\n"
+        if o in operator_uses:
+            usage_examples = random.sample(
+                list(operator_uses[o]), min(len(operator_uses[o]), max_usage_examples),
+            )
+            for use_example in operator_uses[o]:
+                codex_prompt += f"{EXAMPLE_START}{use_example}\n"
+        codex_prompt += f"{current_domain.operators[o]}\n"
+        codex_prompt += f"{STOP_TOKEN}\n"
+
+    # Codex prompt for operator definition.
+    codex_prompt += f"{OPERATOR_START}{operator_name_to_define}\n"
+    if operator_name_to_define in operator_uses:
+        for use_example in operator_uses[operator_name_to_define]:
+            codex_prompt += f"{EXAMPLE_START}{use_example}\n"
+    operator_prefix = f"{OPERATOR_START_TOKEN}{operator_name_to_define}"
+    codex_prompt += operator_prefix
+    try:
+        completions = get_completions(
+            codex_prompt, temperature=temperature, stop=STOP_TOKEN, n_samples=n_samples,
+        )
+        return codex_prompt, [operator_prefix + o for o in completions]
+    except Exception as e:
+        print(e)
+        return codex_prompt, []
 
 
 def propose_plans_for_problems(
@@ -211,7 +358,7 @@ def propose_plans_for_problems(
         )
         return
     # Codex prompt header.
-    nl_header = ";;;; Semantic parsing from natural language goals into PDDL plans."
+    nl_header = ";;;; Semantic parsing from natural language goals into PDDL plans.\n"
     # Note that we do not actually use the current domain.
     shared_header = nl_header
     for unsolved_problem in unsolved_problems:
@@ -231,7 +378,7 @@ def propose_plans_for_problems(
         codex_prompt += f"{PDDL_PLAN_START}\n"
         try:
             plan_strings = get_completions(
-                codex_prompt, temperature=0.1, stop=STOP_TOKEN
+                codex_prompt, temperature=temperature, stop=STOP_TOKEN
             )
             for plan_string in plan_strings:
                 unsolved_problem.proposed_pddl_plans.append(
@@ -281,67 +428,6 @@ def get_plan_string_from_solved_problem(problem):
         else problem.get_best_evaluated_pddl_plan()
     )
     return plan.plan_to_string(plan.plan)
-
-
-def propose_operator_definition(
-    current_domain,
-    operator_name_to_define,
-    operator_uses={},
-    max_operator_examples=10,
-    temperature=0.0,
-    n_samples=1,
-    verbose=False,
-):
-    """
-    Proposes an operator definition for a given domain, and optionally with examples of operator usages.
-    current_domain: an existing PDDL domain.
-    operator_uses: dict {operator_name: list of string uses of a given operator in PDDL plans.}
-    operator_name_to_define: string name of operator to define.
-
-    :ret: list of up to n_samples operator definitions. Empty list if prompting fails.
-    """
-    if verbose:
-        print(
-            f"propose_operator_definition: operator_name_to_define - {operator_name_to_define}"
-        )
-    # Codex prompt header.
-    nl_header = (
-        ";;;; Define planning operators based on a PDDL domain and example usages.\n\n"
-    )
-    pddl_domain = (
-        ";;;; PDDL domain definition.\n"
-        + current_domain.domain_definition_to_string()
-        + "\n\n"
-    )
-    translation_header = ";;;; Define operators based on examples of their usage and the PDDL domain definition above. Only use predicates and functions available in the PDDL domain.\n\n"
-
-    codex_prompt = nl_header + pddl_domain + translation_header
-
-    # Codex prompt exampler operators.
-    operator_examples = random.sample(
-        list(current_domain.operators.keys()),
-        min(len(current_domain.operators), max_operator_examples),
-    )
-    for o in operator_examples:
-        codex_prompt += f"{OPERATOR_START}{o}\n"
-        if o in operator_uses:
-            for use_example in operator_uses[o]:
-                codex_prompt += f"{EXAMPLE_START}{use_example}\n"
-        codex_prompt += f"{current_domain.operators[o]}\n"
-        codex_prompt += f"{STOP_TOKEN}\n"
-
-    # Codex prompt for operator definition.
-    codex_prompt += f"{OPERATOR_START}{operator_name_to_define}\n"
-    if operator_name_to_define in operator_uses:
-        for use_example in operator_uses[operator_name_to_define]:
-            codex_prompt += f"{EXAMPLE_START}{use_example}\n"
-    operator_prefix = f"{OPERATOR_START_TOKEN}{operator_name_to_define}"
-    codex_prompt += operator_prefix
-
-    completions = get_completions(
-        codex_prompt, temperature=temperature, stop=STOP_TOKEN, n_samples=n_samples,
-    )
-    return [operator_prefix + o for o in completions]
 
 
 def get_supervised_goal_prompt(problem):

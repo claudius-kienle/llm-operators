@@ -1,11 +1,116 @@
 """
 pddl_parser.py | Utilities related to PDDL.
 """
+from collections import defaultdict
 import copy
 import re
 from contextlib import contextmanager
 import os
 import json
+
+
+class Domain:
+    def __init__(
+        self,
+        pddl_domain=None,
+        parent_domain=None,
+        domain_name=None,
+        requirements=None,
+        constants=None,
+        types=None,
+        predicates=None,
+        operators=None,
+        functions=None,
+    ):
+        self.pddl_domain = self.init_pddl_domain(pddl_domain)
+        self.parent_domain = parent_domain
+        self.domain_name = self.init_domain_name(domain_name)
+        self.requirements = self.init_simple_pddl(requirements, "requirements")
+        self.constants = self.init_simple_pddl(predicates, "constants")
+        self.types = self.init_simple_pddl(types, "types")
+        self.predicates = self.init_simple_pddl(predicates, "predicates")
+        self.functions = self.init_simple_pddl(functions, "functions")
+        self.operators = self.init_operators(operators)  # Evaluated operators.
+        self.ground_truth_operators = None
+        self.ground_truth_predicates = None
+
+        # One or more proposed predicates.
+        self.proposed_predicates = []
+        # One or more proposed operators.
+        self.proposed_operators = defaultdict(list)  # Operator name -> definitions
+
+    def init_pddl_domain(self, pddl_domain):
+        if pddl_domain is not None:
+            pddl_domain = PDDLParser._purge_comments(pddl_domain)
+        return pddl_domain
+
+    def init_domain_name(self, domain_name):
+        if domain_name is not None:
+            return domain_name
+        elif self.parent_domain is not None:
+            return self.parent_domain.domain_name
+        elif self.pddl_domain is not None:
+            patt = r"\(domain(.*?)\)"
+            return re.search(patt, self.pddl_domain).groups()[0].strip()
+        else:
+            return domain_name
+
+    def init_simple_pddl(self, initial_value, str_keyword):
+        if initial_value is not None:
+            return initial_value
+        elif self.parent_domain is not None:
+            return vars(self.parent_domain)[str_keyword]
+        elif self.pddl_domain is not None:
+            try:
+                return PDDLParser._find_labelled_expression(
+                    self.pddl_domain, f":{str_keyword}"
+                )
+            except:
+                return ""
+        return initial_value
+
+    def init_operators(self, initial_value):
+        if initial_value is not None:
+            return initial_value
+        elif self.parent_domain is not None:
+            return copy.deepcopy(
+                vars(self.parent_domain)["operators"]
+            )  # Don't share the operator object.
+        elif self.pddl_domain is not None:
+            return PDDLParser._parse_domain_operators(self.pddl_domain)
+        return initial_value
+
+    def add_operator(self, operator_name, operator_pddl):
+        self.operators[operator_name] = operator_pddl
+
+    def remove_operator(self, operator_name):
+        del self.operators[operator_name]
+
+    def init_requirements(self, requirements):
+        return PDDLParser._find_labelled_expression(self.pddl_domain, ":requirements")
+
+    def operators_to_string(self, separator="\n"):
+        return separator.join([f"""{s}""" for _, s in self.operators.items()])
+
+    def to_string(self):
+        if self.pddl_domain is not None:
+            return self.pddl_domain
+        else:
+
+            return f"""
+            (define (domain {self.domain_name})
+                {self.requirements}
+                {self.types}
+                {self.predicates}
+                {self.functions}
+                {self.operators_to_string()}
+            )
+            """
+
+    def domain_definition_to_string(self):
+        return "\n".join(
+            [self.requirements, self.types, self.predicates, self.functions]
+        )
 
 
 def save_gt_and_learned_plans(
@@ -135,105 +240,6 @@ class PDDLParser:
         assert balance == 0
         exprs.append(string[start_index : index + 1])
         return exprs
-
-
-class Domain:
-    def __init__(
-        self,
-        pddl_domain=None,
-        parent_domain=None,
-        domain_name=None,
-        requirements=None,
-        constants=None,
-        types=None,
-        predicates=None,
-        operators=None,
-        functions=None,
-    ):
-        self.pddl_domain = self.init_pddl_domain(pddl_domain)
-        self.parent_domain = parent_domain
-        self.domain_name = self.init_domain_name(domain_name)
-        self.requirements = self.init_simple_pddl(requirements, "requirements")
-        self.constants = self.init_simple_pddl(predicates, "constants")
-        self.types = self.init_simple_pddl(types, "types")
-        self.predicates = self.init_simple_pddl(predicates, "predicates")
-        self.functions = self.init_simple_pddl(functions, "functions")
-        self.operators = self.init_operators(operators)
-
-        self.ground_truth_operators = None
-
-    def init_pddl_domain(self, pddl_domain):
-        if pddl_domain is not None:
-            pddl_domain = PDDLParser._purge_comments(pddl_domain)
-        return pddl_domain
-
-    def init_domain_name(self, domain_name):
-        if domain_name is not None:
-            return domain_name
-        elif self.parent_domain is not None:
-            return self.parent_domain.domain_name
-        elif self.pddl_domain is not None:
-            patt = r"\(domain(.*?)\)"
-            return re.search(patt, self.pddl_domain).groups()[0].strip()
-        else:
-            return domain_name
-
-    def init_simple_pddl(self, initial_value, str_keyword):
-        if initial_value is not None:
-            return initial_value
-        elif self.parent_domain is not None:
-            return vars(self.parent_domain)[str_keyword]
-        elif self.pddl_domain is not None:
-            try:
-                return PDDLParser._find_labelled_expression(
-                    self.pddl_domain, f":{str_keyword}"
-                )
-            except:
-                return ""
-        return initial_value
-
-    def init_operators(self, initial_value):
-        if initial_value is not None:
-            return initial_value
-        elif self.parent_domain is not None:
-            return copy.deepcopy(
-                vars(self.parent_domain)["operators"]
-            )  # Don't share the operator object.
-        elif self.pddl_domain is not None:
-            return PDDLParser._parse_domain_operators(self.pddl_domain)
-        return initial_value
-
-    def add_operator(self, operator_name, operator_pddl):
-        self.operators[operator_name] = operator_pddl
-
-    def remove_operator(self, operator_name):
-        del self.operators[operator_name]
-
-    def init_requirements(self, requirements):
-        return PDDLParser._find_labelled_expression(self.pddl_domain, ":requirements")
-
-    def operators_to_string(self, separator="\n"):
-        return separator.join([f"""{s}""" for _, s in self.operators.items()])
-
-    def to_string(self):
-        if self.pddl_domain is not None:
-            return self.pddl_domain
-        else:
-
-            return f"""
-            (define (domain {self.domain_name})
-                {self.requirements}
-                {self.types}
-                {self.predicates}
-                {self.functions}
-                {self.operators_to_string()}
-            )
-            """
-
-    def domain_definition_to_string(self):
-        return "\n".join(
-            [self.requirements, self.types, self.predicates, self.functions]
-        )
 
 
 class PDDLPlan:
