@@ -106,15 +106,20 @@ def main():
                 output_directory=args.output_directory,
                 command_args=args,
             )
+
         evaluate_task_plans_and_costs_for_problems(
             pddl_domain, planning_problems["train"]
         )
 
         # TODO: evaluate costs with low-level planner.
 
-        # TODO: update domain.
+        # TODO: update domain
+        # Update operators - assign scores based on how often they were used in successful plans.
+        # Move successful operators from 'proposed' into the domain.
+        # Update goals.
 
-        # TODO: evaluate.
+        # TODO: evaluate current progress.
+        # Print some kind of output file showing 'how many problems were solved'.
 
 
 if __name__ == "__main__":
