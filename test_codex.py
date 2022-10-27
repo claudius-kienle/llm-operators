@@ -134,7 +134,7 @@ def test_propose_PDDL_goals_for_problems():
     unsolved_problems = create_mock_unsolved_problem_list()
     solved_problems = create_mock_solved_problem_list()
     current_domain = create_mock_domain()
-    propose_PDDL_goals_for_problems(unsolved_problems, solved_problems, current_domain)
+    propose_PDDL_goals_for_problems(unsolved_problems, solved_problems, current_domain,initial_pddl_predicates = ["test"],use_mock = False, output_directory = './mock_data')
     for problem in unsolved_problems:
         assert(len(problem.proposed_pddl_goals) != 0)
         print(problem)

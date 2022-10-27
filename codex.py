@@ -30,13 +30,12 @@ CODEX_OUTPUT = "codex_output"
 NLgoals_PDDLplans_prompt = "\n#### Natural language goals and PDDL plans\n\n"
 NLgoals_PDDLgoals_prompt = "\n#### Natural language goals and PDDL goals\n\n"
 
-# if not os.getenv("OPENAI_API_KEY"):
-#     raise ValueError(
-#         "OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`"
-#     )
-# openai.api_key = os.environ["OPENAI_API_KEY"]
+if not os.getenv("OPENAI_API_KEY"):
+    raise ValueError(
+        "OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`"
+    )
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
-openai.api_key = "sk-kXXSnnSNUWZOfDHWRow4edlBSKjeQEFZ7wVASMzS"
 
 def propose_plans_operators_goals_for_problems(
     current_domain,
@@ -441,9 +440,25 @@ def get_supervised_goal_prompt(problem):
     PDDL_goal = problem.ground_truth_pddl_problem.ground_truth_goal
     return NL_goal + PDDL_goal + STOP_TOKEN
 
+def mock_propose_PDDL_goals_for_problems(output_filepath, unsolved_problems, output_directory, current_domain
+):
+    with open(os.path.join(output_directory, output_filepath), "r") as f:
+        output_json = json.load(f)
+    for p in unsolved_problems:
+        if p.problem_id in output_json:
+            p.proposed_pddl_goals.extend(output_json[p][CODEX_OUTPUT])
+    return
+
 
 def propose_PDDL_goals_for_problems(
-    unsolved_problems, solved_problems, current_domain, n_samples=1, verbose=False
+    unsolved_problems,
+    solved_problems,
+    current_domain,
+    initial_pddl_predicates,
+    use_mock,
+    n_samples=1,
+    verbose=False,
+    output_directory = '',
 ):
     """
     unsolved_problems:
@@ -458,6 +473,12 @@ def propose_PDDL_goals_for_problems(
     prompt = current_domain.domain_definition_to_string() + NLgoals_PDDLgoals_prompt
     n_solved = len(solved_problems)
     solved_to_prompt = random.sample(solved_problems, n_solved//3 + 1)
+    output_json = {}
+    output_filepath = f"codex_PDDL_goals_{'_'.join(initial_pddl_predicates)}.json"
+    if use_mock:
+        mock_propose_PDDL_goals_for_problems(
+            output_filepath, unsolved_problems, output_directory, current_domain)
+        return
     for solved_problem in solved_to_prompt:  # constructing the input prompt
         prompt += get_supervised_goal_prompt(solved_problem)
     for problem in unsolved_problems:
@@ -466,8 +487,15 @@ def propose_PDDL_goals_for_problems(
             goal_strings = get_completions(
                 temp_prompt, temperature=0.1, stop=STOP_TOKEN
             )
-            for goal_string in goal_strings:
-                problem.proposed_pddl_goals.append(goal_string)  # editing the problem
+            output_json[problem.problem_id] = {
+                CODEX_PROMPT : temp_prompt,
+                CODEX_OUTPUT : goal_strings
+            }
+            problem.proposed_pddl_goals.extend(goal_strings)  # editing the problem
+
         except Exception as e:
             print(e)
             continue
+    if output_directory:
+        with open(os.path.join(output_directory, output_filepath), "w") as f:
+            json.dump(output_json, f)
