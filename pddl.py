@@ -250,7 +250,7 @@ class PDDLPlan:
     def __init__(
         self, plan=None, plan_string=None, overall_plan_cost=PDDL_INFINITE_COST
     ):
-        self.plan = plan
+        self.plan = plan # list of dictionaries, where each dict is an action
         self.plan_string = plan_string
         if self.plan is None and self.plan_string:
             self.plan = self.string_to_plan(self.plan_string)
