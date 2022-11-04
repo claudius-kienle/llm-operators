@@ -7,6 +7,7 @@ import re
 from contextlib import contextmanager
 import os
 import json
+from heapq import nlargest
 
 
 class Domain:
@@ -154,6 +155,26 @@ def save_learned_operators(curr_iteration, directory, dataset, train_domain, gt_
     return operators_filename
 
 
+def update_domain(domain,problems,n_ops):
+    """
+    :params:
+        domain - Domain object
+        problems - list of datasets.Problem objects
+        n_ops = int, indicating how many best operators to update
+    updates the domain
+    """
+    # run a planner that returns successful plans
+    successful_plans = run_planner(domain,problems)
+    op_scores= defaultdict() # operator name and the count of successful plans they appeared in
+    for plan in successful_plans:
+        for op in plan:
+            op_scores[op] += 1
+
+    top_n_ops = nlargest(n_ops,op_scores,key = op_scores.get)
+    domain.proposed_operators = defaultdict(list) # might want to leave propsed operators that didn't make the cut? currently resetting
+    domain.operators.extend(top_n_ops)
+
+
 @contextmanager
 def ablate_operator(domain, operator_name, contents="[insert]"):
     ablated_operator = domain.operators[operator_name]
@@ -262,7 +283,7 @@ class PDDLPlan:
         overall_plan_cost=PDDL_INFINITE_COST,
         pddl_domain=None,
     ):
-        self.plan = plan
+        self.plan = plan # list of dictionaries, where each dict is an action
         self.plan_string = plan_string
         if self.plan is None and self.plan_string:
             self.plan = self.string_to_plan(self.plan_string, pddl_domain=pddl_domain)

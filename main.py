@@ -10,6 +10,7 @@ import random
 import codex
 import datasets
 from task_planner import evaluate_task_plans_and_costs_for_problems
+import pddl
 
 
 parser = argparse.ArgumentParser()
@@ -116,10 +117,8 @@ def main():
 
         # TODO: evaluate costs with low-level planner.
 
-        # TODO: update domain
-        # Update operators - assign scores based on how often they were used in successful plans.
-        # Move successful operators from 'proposed' into the domain.
-        # Update goals.
+        # implementing in pddl currently
+        update_domain(pddl_domain, planning_problems["train"], n_ops) # n_ops - how many top operators we want to update each time
 
         # TODO: evaluate current progress.
         # Print some kind of output file showing 'how many problems were solved'.
