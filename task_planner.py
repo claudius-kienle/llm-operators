@@ -2,6 +2,7 @@
 task_planner.py 
 Utilities for generating task level plans.
 """
+from cProfile import run
 from pddlgym_planners.fd import FD
 from pddlgym_planners.planner import PlanningFailure, PlanningTimeout
 from tempfile import NamedTemporaryFile
@@ -15,20 +16,14 @@ def evaluate_task_plans_and_costs_for_problems(pddl_domain, problems, verbose=Fa
     Runs task planner to evaluate task plans for a set of planning problems, given a PDDL domain.
     :ret: problems updated with PDDL plans.
     """
-    for problem in problems:
-        evaluate_task_plans_and_costs_for_problem(pddl_domain, problem, verbose=verbose)
-
-
-def evaluate_task_plans_and_costs_for_problem(
-    pddl_domain, problem, planner=TASK_PLANNER_FD, verbose=False
-): # move accurate plans to problem.evaluated
-    # TODO: CW - see if this is working, fix it otherwise.
-    for proposed_goal in problem.proposed_pddl_goals:
-        # THIS SHOULD OUTPUT A WORKING PDDL PROBLEM STRING USING PROPOSED GOALS.
-        # ALSO PLEASE CACHE THIS TO A FILE.
-        pddl_problem_string = problem.ground_truth_pddl_problem.get_pddl_string_with_proposed_goal(
-            proposed_goal)
-
+    print(f"evaluate_task_plans_and_costs_for_problems on {len(problems)}.")
+    for problem_id in problems:
+        run_planner(
+            pddl_domain=pddl_domain,
+            problem=problems[problem_id],
+            planner_type=TASK_PLANNER_FD,
+            verbose=verbose,
+        )
 
 
 def run_planner(pddl_domain, problem, planner_type=TASK_PLANNER_FD, verbose=False):
@@ -60,7 +55,7 @@ def run_planner(pddl_domain, problem, planner_type=TASK_PLANNER_FD, verbose=Fals
             problem.evaluated_pddl_plans[goal] = pddl_plan
     if verbose:
         print(
-            f"Found {len(problem.evaluated_pddl_plans)}/{len(problem.propose_pddl_goals)} evaluated plans for proposed goals"
+            f"Found {len(problem.evaluated_pddl_plans)}/{len(problem.proposed_pddl_goals)} evaluated plans for proposed goals"
         )
 
 

@@ -3,14 +3,14 @@ main.py
 
 Usage:  
     # Load a debug fraction of the ALFRED dataset.
-    python main.py --dataset_name alfred --pddl_domain_name alfworld --dataset_fraction 0.001 --training_plans_fraction 0.1 --initial_pddl_operators GotoLocation PickupObject PutObject  --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_pddl --output_directory generated/test_outputs
+    python main.py --dataset_name alfred --pddl_domain_name alfworld --dataset_fraction 0.001 --training_plans_fraction 0.1 --initial_pddl_operators GotoLocation PickupObject PutObject  --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_pddl --output_directory generated/test_outputs --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals 
 """
 import argparse
 import random
 import codex
 import datasets
-from task_planner import evaluate_task_plans_and_costs_for_problems
-import pddl
+import task_planner
+from pddl import update_domain
 
 
 parser = argparse.ArgumentParser()
@@ -78,6 +78,11 @@ parser.add_argument(
     action="store_true",
     help="debug: mock out operator_proposal.",
 )
+parser.add_argument(
+    "--debug_mock_propose_goals",
+    action="store_true",
+    help="debug: mock out goal_proposal.",
+)
 
 
 def main():
@@ -111,14 +116,19 @@ def main():
                 command_args=args,
             )
 
-        evaluate_task_plans_and_costs_for_problems(
-            pddl_domain, planning_problems["train"]
+        # Task planner: evaluates costs with PDDL solver.
+        task_planner.evaluate_task_plans_and_costs_for_problems(
+            pddl_domain=pddl_domain,
+            problems=planning_problems["train"],
+            verbose=args.verbose,
         )
 
-        # TODO: evaluate costs with low-level planner.
+        # TODO: hook up to evaluate costs with low-level planner.
 
         # implementing in pddl currently
-        update_domain(pddl_domain, planning_problems["train"], n_ops) # n_ops - how many top operators we want to update each time
+        update_domain(
+            pddl_domain, planning_problems["train"], n_ops
+        )  # n_ops - how many top operators we want to update each time
 
         # TODO: evaluate current progress.
         # Print some kind of output file showing 'how many problems were solved'.
