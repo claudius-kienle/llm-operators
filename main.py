@@ -10,7 +10,7 @@ import random
 import codex
 import datasets
 import task_planner
-from pddl import update_domain
+import pddl
 
 
 parser = argparse.ArgumentParser()
@@ -125,8 +125,8 @@ def main():
 
         # TODO: hook up to evaluate costs with low-level planner.
 
-        # implementing in pddl currently
-        update_domain(
+        # Update the domain definition based on operators in solved problems.
+        pddl.update_domain(
             pddl_domain, planning_problems["train"], n_ops
         )  # n_ops - how many top operators we want to update each time
 
