@@ -54,6 +54,9 @@ parser.add_argument(
     help="Which initial PDDL predicates to run with.  Used to seed the Codex proposals.",
 )
 parser.add_argument(
+    "--planner", type=str, default="fd", help="Which planner to use.",
+)
+parser.add_argument(
     "--output_directory",
     type=str,
     help="Location of the directory for writing outputs.",

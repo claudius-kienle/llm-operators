@@ -86,6 +86,18 @@ class Domain:
     def remove_operator(self, operator_name):
         del self.operators[operator_name]
 
+    def get_canonical_operator(self, operator_name):
+        operators_lower = {o.lower(): o for o in self.operators}
+        operators_upper = {o.upper(): o for o in self.operators}
+        if operator_name in self.operators:
+            return operator_name
+        elif operator_name in operators_lower:
+            return operators_lower[operator_name]
+        elif operator_name in operators_upper:
+            return operators_upper[operator_name]
+        else:
+            assert False
+
     def init_requirements(self, requirements):
         return PDDLParser._find_labelled_expression(self.pddl_domain, ":requirements")
 
@@ -93,18 +105,14 @@ class Domain:
         return separator.join([f"""{s}""" for _, s in self.operators.items()])
 
     def to_string(self):
-        if self.pddl_domain is not None:
-            return self.pddl_domain
-        else:
-
-            return f"""
-            (define (domain {self.domain_name})
-                {self.requirements}
-                {self.types}
-                {self.predicates}
-                {self.functions}
-                {self.operators_to_string()}
-            )
+        return f"""
+(define (domain {self.domain_name})
+    {self.requirements}
+    {self.types}
+    {self.predicates}
+    {self.functions}
+    {self.operators_to_string()}
+)
             """
 
     def domain_definition_to_string(self):
@@ -248,12 +256,16 @@ class PDDLPlan:
     PDDL_INFINITE_COST = 100000
 
     def __init__(
-        self, plan=None, plan_string=None, overall_plan_cost=PDDL_INFINITE_COST
+        self,
+        plan=None,
+        plan_string=None,
+        overall_plan_cost=PDDL_INFINITE_COST,
+        pddl_domain=None,
     ):
         self.plan = plan
         self.plan_string = plan_string
         if self.plan is None and self.plan_string:
-            self.plan = self.string_to_plan(self.plan_string)
+            self.plan = self.string_to_plan(self.plan_string, pddl_domain=pddl_domain)
         if self.plan_string is None and self.plan:
             self.plan_string = self.plan_to_string(self.plan)
 
@@ -267,7 +279,7 @@ class PDDLPlan:
             ]
         )
 
-    def string_to_plan(self, plan_string):
+    def string_to_plan(self, plan_string, pddl_domain=None):
         action_strings = plan_string.strip().split("\n")
         actions = []
         for a in action_strings:
@@ -277,6 +289,12 @@ class PDDLPlan:
             actions.append(
                 {PDDLPlan.PDDL_ACTION: tokens[0], PDDLPlan.PDDL_ARGUMENTS: tokens[1:]}
             )
+        if pddl_domain is not None:
+            # Possibly check that we haven't lowercased the actions.
+            for action in actions:
+                action[PDDLPlan.PDDL_ACTION] = pddl_domain.get_canonical_operator(
+                    action[PDDLPlan.PDDL_ACTION]
+                )
         return actions
 
 
