@@ -43,8 +43,9 @@ class Problem:
         # One or more proposed plans. Array of PDDL {action, args} operator sequences.
         self.proposed_pddl_plans = []
 
-        # Array of dicts containing solved PDDL plans and associated planning costs, evaluated by a symbolic planner. Created by the task planner.
-        self.evaluated_pddl_plans = []
+        # Evaluated PDDL plans that solve proposed_pddl_goals, created by a task planner.
+        # This is a dict from {goal : PDDLPlan}
+        self.evaluated_pddl_plans = {}
 
         # Array of dicts containing evaluated motion plans and associated planning costs, evaluated by a symbolic planner.
         self.evaluated_low_level_plans = []
@@ -120,15 +121,28 @@ def load_pddl_file_with_operators(domain_name, file_path, verbose=False):
 @register_planning_pddl_domain(ALFRED_PDDL_DOMAIN_NAME)
 def load_alfred_pddl_domain(verbose=False):
     ALFRED_DOMAIN_FILE_PATH = "domains/alfred.pddl"
-    return load_pddl_file_with_operators(
+    domain = load_pddl_file_with_operators(
         domain_name=ALFRED_PDDL_DOMAIN_NAME,
         file_path=ALFRED_DOMAIN_FILE_PATH,
         verbose=verbose,
     )
+    # Remove the functions from the file and from all of the operators.
+    domain.functions = ""
+
+    def remove_functions(operator_body):
+        return "\n".join([l for l in operator_body.split("\n") if "totalCost" not in l])
+
+    for operator in domain.ground_truth_operators:
+        operator_body = domain.ground_truth_operators[operator]
+        domain.ground_truth_operators[operator] = remove_functions(operator_body)
+    for operator in domain.operators:
+        operator_body = domain.operators[operator]
+        domain.operators[operator] = remove_functions(operator_body)
+    return domain
 
 
 @register_planning_pddl_domain(ALFWORLD_PDDL_DOMAIN_NAME)
-def load_alfred_pddl_domain(verbose=False):
+def load_alfworld_pddl_domain(verbose=False):
     ALFWORLD_DOMAIN_FILE_PATH = "domains/alfworld.pddl"
     return load_pddl_file_with_operators(
         domain_name=ALFWORLD_PDDL_DOMAIN_NAME,
@@ -219,13 +233,23 @@ ALFRED_DATASET_PATH = "dataset/alfred-NLgoals-operators.json"
 def load_alfred_pddl_file(
     dataset_pddl_directory, problem_directory, pddl_file="problem_0.pddl"
 ):
+
     with open(os.path.join(dataset_pddl_directory, problem_directory, pddl_file)) as f:
-        return f.read()
+        problem_file = f.read()
+
+    # Remove the canContain predicate.
+    problem_file = "\n".join([l for l in problem_file.split() if "canContain" not in l])
+    return problem_file
+
+
+ALFRED_DEFAULT_PDDL_DIRECTORY = "dataset/alfred_pddl"
 
 
 @register_planning_domain_problems(ALFRED_DATASET_NAME)
 def load_alfred_planning_domain_problems(
-    dataset_pddl_directory, dataset_fraction, verbose=False
+    dataset_pddl_directory=ALFRED_DEFAULT_PDDL_DIRECTORY,
+    dataset_fraction=1.0,
+    verbose=False,
 ):
     """
     splits are: train, valid_seen, valid_unseen

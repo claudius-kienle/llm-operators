@@ -65,12 +65,12 @@ def propose_plans_operators_goals_for_problems(
         or problems[p].should_supervise_pddl
     ]
     if verbose:
-        print("propose_plans_operators_goals_for_problems: ")
+        print("Now in: propose_plans_operators_goals_for_problems: ")
         print(
-            f"{len(unsolved_problems)} unsolved problems / {len(solved_problems)} solved problems"
+            f"\t{len(unsolved_problems)} unsolved problems / {len(solved_problems)} solved problems"
         )
 
-    # Natural language goals to PDDL plans (operators + arguments) for unsolved problems.
+    # Condition on: NL goals. Propose: PDDL plans.
     propose_plans_for_problems(
         unsolved_problems=unsolved_problems,
         solved_problems=solved_problems,
@@ -81,26 +81,27 @@ def propose_plans_operators_goals_for_problems(
         output_directory=output_directory,
         use_mock=command_args.debug_mock_propose_plans,
     )
-    # PDDL plans (operators + arguments) to operator definitions (pre/post predicates) for unsolved problems.
+    # Condition on: new operator names. Propose: PDDL operator definitions.
     propose_operators_for_problems(
-        problems,
-        current_domain,
-        verbose,
-        temperature,
-        n_samples,
-        output_directory,
+        problems=problems,
+        current_domain=current_domain,
+        verbose=verbose,
+        temperature=temperature,
+        n_samples=n_samples,
+        output_directory=output_directory,
         initial_pddl_predicates=command_args.initial_pddl_predicates,
         use_mock=command_args.debug_mock_propose_operators,
     )
 
-    ### PDDL operators to new predicates for unsolved problems.
-    propose_predicates_for_problems(
-        problems=problems, current_domain=current_domain, use_mock=False,
+    # Condition on: NL goals. Propose: PDDL goals.
+    propose_PDDL_goals_for_problems(
+        unsolved_problems=unsolved_problems,
+        solved_problems=solved_problems,
+        current_domain=current_domain,
+        output_directory=output_directory,
+        initial_pddl_predicates=command_args.initial_pddl_predicates,
+        use_mock=command_args.debug_mock_propose_goals,
     )
-
-    # TODO: MAKE SURE we are not training on comments in the PDDL files.
-    # Propose new PDDL goals
-    propose_PDDL_goals_for_problems(unsolved_problems, solved_problems, current_domain)
 
 
 def get_completions(
@@ -152,12 +153,8 @@ def get_completions(
 
 
 def propose_predicates_for_problems(problems, current_domain, use_mock):
-    # Extract predicates from proposed operators.
-    for o in current_domain.proposed_operators:
-        for operator_definition in current_domain.proposed_operators[o]:
-            import pdb
-
-            pdb.set_trace()
+    # TBD: to be implemented.
+    pass
 
 
 def propose_operators_for_problems(
@@ -218,9 +215,16 @@ def mock_propose_operators_for_problems(
 ):
     with open(os.path.join(output_directory, output_filepath), "r") as f:
         output_json = json.load(f)
+    print(
+        f"Now in: mock_propose_operators_for_problems: from {os.path.join(output_directory, output_filepath)}"
+    )
     for o in proposed_operators:
         if o in output_json:
             current_domain.proposed_operators[o] = output_json[o][CODEX_OUTPUT]
+    print(
+        f"\tLoaded {len(current_domain.proposed_operators)} mock operators: \n\t"
+        + "\n\t".join(current_domain.proposed_operators.keys())
+    )
 
 
 def get_operator_uses(problems):
@@ -360,7 +364,10 @@ def propose_plans_for_problems(
     nl_header = ";;;; Semantic parsing from natural language goals into PDDL plans.\n"
     # Note that we do not actually use the current domain.
     shared_header = nl_header
-    for unsolved_problem in unsolved_problems:
+    for idx, unsolved_problem in enumerate(unsolved_problems):
+        if verbose:
+            print(f"Now on problem {idx} / {len(unsolved_problems)} ... ")
+
         codex_prompt = shared_header
         # Codex prompt example natural language goals and plans.
         problem_examples = random.sample(
@@ -392,7 +399,7 @@ def propose_plans_for_problems(
             print(e)
             continue
     if verbose:
-        num_proposed = [p for p in unsolved_problems if len(p.proposed_pddl_plans) > 1]
+        num_proposed = [p for p in unsolved_problems if len(p.proposed_pddl_plans) >= 1]
         print(
             f"\npropose_plans_for_problems: proposed plans for {len(num_proposed)} / {len(unsolved_problems)}"
         )
@@ -406,12 +413,18 @@ def mock_propose_plans_for_problems(
 ):
     with open(os.path.join(output_directory, output_filepath), "r") as f:
         output_json = json.load(f)
+    print(
+        f"Now in: mock_propose_plans_for_problems: from {os.path.join(output_directory, output_filepath)}"
+    )
     for unsolved_problem in unsolved_problems:
         if unsolved_problem.problem_id in output_json:
             for plan_string in output_json[unsolved_problem.problem_id][CODEX_OUTPUT]:
                 unsolved_problem.proposed_pddl_plans.append(
                     PDDLPlan(plan_string=plan_string)
                 )
+    print(
+        f"\t Loaded a total of {len([p for p in unsolved_problems if len(p.proposed_pddl_plans) > 0])} plans for {len(unsolved_problems)} unsolved problems."
+    )
 
 
 def get_plan_string_from_solved_problem(problem):
@@ -440,13 +453,21 @@ def get_supervised_goal_prompt(problem):
     PDDL_goal = problem.ground_truth_pddl_problem.ground_truth_goal
     return NL_goal + PDDL_goal + STOP_TOKEN
 
-def mock_propose_PDDL_goals_for_problems(output_filepath, unsolved_problems, output_directory, current_domain
+
+def mock_propose_PDDL_goals_for_problems(
+    output_filepath, unsolved_problems, output_directory, current_domain
 ):
     with open(os.path.join(output_directory, output_filepath), "r") as f:
         output_json = json.load(f)
+    print(
+        f"Now in: mock_propose_goals_for_problems: from {os.path.join(output_directory, output_filepath)}"
+    )
     for p in unsolved_problems:
         if p.problem_id in output_json:
-            p.proposed_pddl_goals.extend(output_json[p][CODEX_OUTPUT])
+            p.proposed_pddl_goals.extend(output_json[p.problem_id][CODEX_OUTPUT])
+    print(
+        f"\t Loaded a total of {len([p for p in unsolved_problems if len(p.proposed_pddl_goals) > 0])} goals for {len(unsolved_problems)} unsolved problems."
+    )
     return
 
 
@@ -458,7 +479,7 @@ def propose_PDDL_goals_for_problems(
     use_mock,
     n_samples=1,
     verbose=False,
-    output_directory = '',
+    output_directory=None,
 ):
     """
     unsolved_problems:
@@ -470,15 +491,17 @@ def propose_PDDL_goals_for_problems(
 
     Edits the unsolved problem objects - adds PDDL proposed goals to the problem.proposed_pddl_goals list
     """
-    prompt = current_domain.domain_definition_to_string() + NLgoals_PDDLgoals_prompt
-    n_solved = len(solved_problems)
-    solved_to_prompt = random.sample(solved_problems, n_solved//3 + 1)
     output_json = {}
     output_filepath = f"codex_PDDL_goals_{'_'.join(initial_pddl_predicates)}.json"
     if use_mock:
         mock_propose_PDDL_goals_for_problems(
-            output_filepath, unsolved_problems, output_directory, current_domain)
+            output_filepath, unsolved_problems, output_directory, current_domain
+        )
         return
+
+    prompt = current_domain.domain_definition_to_string() + NLgoals_PDDLgoals_prompt
+    n_solved = len(solved_problems)
+    solved_to_prompt = random.sample(solved_problems, n_solved // 3 + 1)
     for solved_problem in solved_to_prompt:  # constructing the input prompt
         prompt += get_supervised_goal_prompt(solved_problem)
     for problem in unsolved_problems:
@@ -488,8 +511,8 @@ def propose_PDDL_goals_for_problems(
                 temp_prompt, temperature=0.1, stop=STOP_TOKEN
             )
             output_json[problem.problem_id] = {
-                CODEX_PROMPT : temp_prompt,
-                CODEX_OUTPUT : goal_strings
+                CODEX_PROMPT: temp_prompt,
+                CODEX_OUTPUT: goal_strings,
             }
             problem.proposed_pddl_goals.extend(goal_strings)  # editing the problem
 
