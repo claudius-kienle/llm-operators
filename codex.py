@@ -27,8 +27,8 @@ PDDL_PLAN_START = ";; PDDL Plan: "
 OPERATOR_START_TOKEN = "(:action "
 CODEX_PROMPT = "codex_prompt"
 CODEX_OUTPUT = "codex_output"
-NLgoals_PDDLplans_prompt = "\n#### Natural language goals and PDDL plans\n\n"
-NLgoals_PDDLgoals_prompt = "\n#### Natural language goals and PDDL goals\n\n"
+NLgoals_PDDLplans_prompt = "\n;; Natural language goals and PDDL plans\n\n"
+NLgoals_PDDLgoals_prompt = "\n;; Natural language goals and PDDL goals\n\n"
 
 if not os.getenv("OPENAI_API_KEY"):
     raise ValueError(
@@ -150,6 +150,44 @@ def get_completions(
             print(e)
             pause_for_rate_limit = True
             completion = e
+
+
+def gen_prompt_with_other_domains(current_domain,goal_file,unsolved_problems,output_directory=None):
+    """
+    experimenting with different prompt engineering
+    Here we try to prompt with only domain name, requirements, and types
+    With goal examples from the domains Doors, Depot,  travel, river, alfred, movie
+    In case we want prompting to be dynamic, we would have to refactor this whole file
+    """
+    domain = current_domain.domain_types_to_string()
+    example_goals = json.load(open(goal_file))
+    goals_prompt = ""
+    for example in example_goals:
+        goals_prompt += example["NL_goal"] +"\n" + example["goal"]
+
+    prompt = domain + goals_prompt
+    output_json = {}
+    output_filepath = f"codex_PDDL_goals_with_other_domains.json"
+
+    for problem in unsolved_problems:
+        temp_prompt = prompt + "\n; " + problem.language
+        try:
+            goal_strings = get_completions(
+                temp_prompt, temperature=0.1, stop=STOP_TOKEN
+            )
+            output_json[problem.problem_id] = {
+                CODEX_PROMPT: temp_prompt,
+                CODEX_OUTPUT: goal_strings,
+            }
+            problem.proposed_pddl_goals.extend(goal_strings)  # editing the problem
+
+        except Exception as e:
+            print(e)
+            continue
+    if output_directory:
+        with open(os.path.join(output_directory, output_filepath), "w") as f:
+            json.dump(output_json, f)
+
 
 
 def propose_predicates_for_problems(problems, current_domain, use_mock):
@@ -522,3 +560,5 @@ def propose_PDDL_goals_for_problems(
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
+
+

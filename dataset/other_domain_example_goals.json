@@ -1,0 +1,31 @@
+[{
+    "domain": "Doors",
+    "problemfile":"problem05",
+    "NL_goal":"go to location 3",
+    "goal":"(:goal (and (at loc-0-3)))"
+},
+{
+    "domain": "Depot",
+    "problemfile":"pfile1",
+    "NL_goal": "place crate0 on pallet2 and crate1 on pallet1",
+    "goal":"(:goal (and\n(on crate0 pallet2)\n(on crate1 pallet1))\n)"
+},
+{
+    "domain":"travel",
+    "problemfile":"problem10",
+    "NL_goal":"visit WA, FL, OK, and ID",
+    "goal":"  (:goal (and\n(visited wa)\n(visited fl)\n(visited ok)\n(visited id)))"
+},
+{
+    "domain":"river",
+    "problemfile":"problem1",
+    "NL_goal":"go to the far bank",
+    "goal":"(:goal (and (on-far-bank))))"
+},
+{
+    "domain":"movie",
+    "problemfile":"instance-1",
+    "NL_goal":"watch the movie and eat chips with dip, cheease and crakers, and a pop",
+    "goal":"(:goal (and (movie-rewound)\n(counter-at-zero)\n(have-chips)\n(have-dip)\n(have-pop)\n(have-cheese)\n(have-crackers)))"
+}
+]

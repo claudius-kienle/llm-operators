@@ -121,6 +121,16 @@ class Domain:
             [self.requirements, self.types, self.predicates, self.functions]
         )
 
+    def domain_types_to_string(self):
+        # this is to to return shorter version of to_string with only the requirements and types
+        return f"""
+        (define (domain {self.domain_name})
+            {self.requirements}
+            {self.types}
+        )
+                    """
+
+
 
 def save_gt_and_learned_plans(
     curr_iteration, directory, dataset, gt_plans, solved_plans_pddl, problems
