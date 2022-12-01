@@ -3,7 +3,10 @@ main.py
 
 Usage:  
     # Load a debug fraction of the ALFRED dataset.
-    python main.py --dataset_name alfred --pddl_domain_name alfworld --dataset_fraction 0.001 --training_plans_fraction 0.1 --initial_pddl_operators GotoLocation PickupObject PutObject  --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_pddl --output_directory generated/test_outputs --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals 
+    python main.py --dataset_name 
+
+    
+    python main.py --dataset_name alfred_linearized_100 --pddl_domain_name alfworld --dataset_fraction 0.001 --training_plans_fraction 0.1 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_pddl --output_directory generated/test_outputs --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals 
 """
 import argparse
 import random
@@ -48,6 +51,13 @@ parser.add_argument(
     "--train_iterations", type=int, help="How many training iterations to run."
 )
 parser.add_argument(
+    "--initial_plans_prefix",
+    type=str,
+    nargs="+",
+    help="Which initial plan types to supervise on. Used to seed the Codex proposals",
+)
+
+parser.add_argument(
     "--initial_pddl_operators",
     type=str,
     nargs="+",
@@ -72,7 +82,7 @@ parser.add_argument("--verbose", action="store_true", help="Run on verbose.")
 parser.add_argument(
     "--debug_no_propose_plans_operators_goals",
     action="store_true",
-    help="debug: don't run propose_plans_operators_goals.",
+    help="debug: don't run propose_plans_operators_goals. Instead, use ground truths.",
 )
 parser.add_argument(
     "--debug_mock_propose_plans",
@@ -111,7 +121,7 @@ def main():
     )
 
     for curr_iteration in range(args.train_iterations):
-        if not args.debug_no_propose_plans_operators_goals:
+        if args.debug_no_propose_plans_operators_goals:
             # LLM proposal: propose plans, operators for plans, predicates for operators, and goals.
             codex.propose_plans_operators_goals_for_problems(
                 pddl_domain,
@@ -121,6 +131,9 @@ def main():
                 output_directory=args.output_directory,
                 command_args=args,
             )
+        else:
+            # TODO: use ground truths instead. This should only be done to test the planner.
+            pass
 
         # Task planner: evaluates costs with PDDL solver.
         task_planner.evaluate_task_plans_and_costs_for_problems(
@@ -128,8 +141,7 @@ def main():
             problems=planning_problems["train"],
             verbose=args.verbose,
         )
-
-        # TODO: hook up to evaluate costs with low-level planner.
+        # Motion planner: evaluate costs using motion planner.
 
         # Update the domain definition based on operators in solved problems.
         pddl.update_domain(
@@ -138,6 +150,7 @@ def main():
 
         # TODO: evaluate current progress.
         # Print some kind of output file showing 'how many problems were solved'.
+    # Evaluate on heldout test sets.
 
 
 if __name__ == "__main__":

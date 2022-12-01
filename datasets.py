@@ -99,6 +99,7 @@ def load_pddl_domain(pddl_domain_name, initial_pddl_operators, verbose):
 # ALFRED Dataset.
 ALFRED_PDDL_DOMAIN_NAME = "alfred"
 ALFWORLD_PDDL_DOMAIN_NAME = "alfworld"
+ALFRED_LINEARIZED_PDDL_DOMAIN_NAME = "alfred_linearized"
 
 
 def load_pddl_file_with_operators(domain_name, file_path, verbose=False):
@@ -150,6 +151,16 @@ def load_alfworld_pddl_domain(verbose=False):
     )
 
 
+@register_planning_pddl_domain(ALFRED_LINEARIZED_PDDL_DOMAIN_NAME)
+def load_alfworld_pddl_domain(verbose=False):
+    ALFWORLD_DOMAIN_FILE_PATH = "domains/alfred_linearized.pddl"
+    return load_pddl_file_with_operators(
+        domain_name=ALFRED_LINEARIZED_PDDL_DOMAIN_NAME,
+        file_path=ALFRED_LINEARIZED_PDDL_DOMAIN_NAME,
+        verbose=verbose,
+    )
+
+
 ######### PLANNING DOMAIN PROBLEM DATASET LOADERS.
 PLANNING_PROBLEMS_REGISTRY = dict()
 
@@ -192,7 +203,6 @@ def load_planning_problems_dataset(
     )
     for problem_id in problems_to_supervise:
         planning_dataset["train"][problem_id].should_supervise_pddl = True
-    # Initialize some fraction of the training problems for supervision. TODO (cw): maybe these shouldn't be random, but rather should have initial operators.
 
     if verbose:
         print(f"training_plans_fraction: {training_plans_fraction}")
@@ -228,6 +238,10 @@ def get_problem_ids_with_ground_truth_operators(
 ALFRED_DATASET_NAME = "alfred"
 ALFRED_DATASET_PATH = "dataset/alfred-NLgoals-operators.json"
 
+# Development subset of 100 learning problems.
+ALFRED_DATASET_NAME = "alfred_linearized_100"
+ALFRED_DATASET_PATH = "dataset/alfred-linearized-100-NLgoals-operators.json"
+
 
 def load_alfred_pddl_file(
     dataset_pddl_directory, problem_directory, pddl_file="problem_0.pddl"
@@ -236,12 +250,11 @@ def load_alfred_pddl_file(
     with open(os.path.join(dataset_pddl_directory, problem_directory, pddl_file)) as f:
         problem_file = f.read()
 
-    # Remove the canContain predicate.
-    problem_file = "\n".join([l for l in problem_file.split() if "canContain" not in l])
     return problem_file
 
 
-ALFRED_DEFAULT_PDDL_DIRECTORY = "dataset/alfred_pddl"
+# Use the linearized problems
+ALFRED_DEFAULT_PDDL_DIRECTORY = "dataset/alfred_linearized_pddl"
 
 
 @register_planning_domain_problems(ALFRED_DATASET_NAME)

@@ -52,20 +52,25 @@ def get_goals_for_prefix(goal_prefix, goals):
     for goal in goals:
         curr_goal_prefix = goal.split("/")[1].split("-")[0]
 
-        if curr_goal_prefix == "pick_and_place_simple":
-            if curr_goal_prefix == goal_prefix and not "Sliced" in goal.split("/")[1]:
-                goals_for_prefix.append(goal)
+        if (
+            "slice" not in goal_prefix
+            and curr_goal_prefix == goal_prefix
+            and not "Sliced" in goal.split("/")[1]
+        ):
+            goals_for_prefix.append(goal)
+        if (
+            "slice" in goal_prefix
+            and curr_goal_prefix == "_".join(goal_prefix.split("_")[:-1])
+            and "Sliced" in goal.split("/")[1]
+        ):
+            goals_for_prefix.append(goal)
         else:
-            if curr_goal_prefix == goal_prefix:
-                goals_for_prefix.append(goal)
+            pass
     return goals_for_prefix
 
 
 def preprocess_problem_domain(args, goal_file, goal_data):
     goal_pddl_file = os.path.join(args.dataset_path, goal_file, "problem_0.pddl")
-
-    print(goal_pddl_file)
-
     with open(goal_pddl_file) as f:
         problem_file = f.read()
 
@@ -113,17 +118,18 @@ def preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
         args.output_dataset_path, goal_file, "problem_0.pddl"
     )
     if args.skip_exists and os.path.exists(new_goal_pddl_file):
-        return
+        return True
 
     problem = PDDLProblem(ground_truth_pddl_problem_string=problem_file)
-    problem = problem.get_pddl_string_with_proposed_goal(alternate_goal)
+    alternate_problem = problem.get_pddl_string_with_proposed_goal(alternate_goal)
+
     # Check that we can solve the modified version.
-    solved, plan = task_planner.fd_plan_from_strings(domain_file, problem)
-    if not solved:
+    solved, plan = task_planner.fd_plan_from_strings(domain_file, alternate_problem)
+    if not solved or len(plan) < 1:
         print(f"Error at: {goal_file}")
-        print(solved, plan)
-        sys.exit(0)
-    write_preprocessed_file(args, goal_file, problem_string=problem)
+        return False
+    write_preprocessed_file(args, goal_file, problem_string=alternate_problem)
+    return True
 
 
 def pick_and_place_simple(args, goal_file, goal_data):
@@ -135,13 +141,38 @@ def pick_and_place_simple(args, goal_file, goal_data):
     )
     alternate_goal = f"""
     (:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
             (and 
                 (objectType ?o {goal_obj}Type) 
                 (receptacleType ?r {goal_recep}Type)
                 (inReceptacle ?o ?r) 
             )
-    )"""
-    preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
+    )))"""
+    return preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
+
+
+def pick_and_place_simple_slice(args, goal_file, goal_data):
+    # Reparse the goal.
+    curr_goal_prefix = goal_file.split("/")[1]
+    goal_obj, goal_recep = (
+        curr_goal_prefix.split("-")[1],
+        curr_goal_prefix.split("-")[3],
+    )
+    goal_obj = goal_obj.replace("Sliced", "")
+    alternate_goal = f"""
+    (:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o {goal_obj}Type) 
+                (receptacleType ?r {goal_recep}Type)
+                (inReceptacle ?o ?r) 
+                (sliceable ?o)
+                (isSliced ?o) 
+            )
+    )))"""
+    return preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
 
 
 def pick_clean_then_place_in_recep(args, goal_file, goal_data):
@@ -153,6 +184,8 @@ def pick_clean_then_place_in_recep(args, goal_file, goal_data):
     )
     alternate_goal = f"""
     (:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
             (and 
                 (objectType ?o {goal_obj}Type) 
                 (receptacleType ?r {goal_recep}Type)
@@ -160,32 +193,174 @@ def pick_clean_then_place_in_recep(args, goal_file, goal_data):
                 (cleanable ?o)
                 (isClean ?o) 
             )
-    )"""
-    preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
+    )))"""
+    return preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
+
+
+def pick_heat_then_place_in_recep_slice(args, goal_file, goal_data):
+    # Reparse the goal.
+    curr_goal_prefix = goal_file.split("/")[1]
+    goal_obj, goal_recep = (
+        curr_goal_prefix.split("-")[1],
+        curr_goal_prefix.split("-")[3],
+    )
+    goal_obj = goal_obj.replace("Sliced", "")
+    alternate_goal = f"""
+    (:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o {goal_obj}Type) 
+                (receptacleType ?r {goal_recep}Type)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))"""
+    return preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
+
+
+def pick_heat_then_place_in_recep(args, goal_file, goal_data):
+    # Reparse the goal.
+    curr_goal_prefix = goal_file.split("/")[1]
+    goal_obj, goal_recep = (
+        curr_goal_prefix.split("-")[1],
+        curr_goal_prefix.split("-")[3],
+    )
+    alternate_goal = f"""
+    (:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o {goal_obj}Type) 
+                (receptacleType ?r {goal_recep}Type)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o) 
+            )
+    )))"""
+    return preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
+
+
+def pick_cool_then_place_in_recep(args, goal_file, goal_data):
+    # Reparse the goal.
+    curr_goal_prefix = goal_file.split("/")[1]
+    goal_obj, goal_recep = (
+        curr_goal_prefix.split("-")[1],
+        curr_goal_prefix.split("-")[3],
+    )
+    alternate_goal = f"""
+    (:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o {goal_obj}Type) 
+                (receptacleType ?r {goal_recep}Type)
+                (inReceptacle ?o ?r)
+                (coolable ?o)
+                (isCool ?o) 
+            )
+    )))"""
+    return preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
+
+
+def pick_cool_then_place_in_recep_slice(args, goal_file, goal_data):
+    # Reparse the goal.
+    curr_goal_prefix = goal_file.split("/")[1]
+    goal_obj, goal_recep = (
+        curr_goal_prefix.split("-")[1],
+        curr_goal_prefix.split("-")[3],
+    )
+    goal_obj = goal_obj.replace("Sliced", "")
+    alternate_goal = f"""
+    (:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o {goal_obj}Type) 
+                (receptacleType ?r {goal_recep}Type)
+                (inReceptacle ?o ?r)
+                (coolable ?o)
+                (isCool ?o) 
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))"""
+    return preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
+
+
+# Go to a location, and toggle on the light.
+def look_at_obj_in_light(args, goal_file, goal_data):
+    # Reparse the goal.
+    curr_goal_prefix = goal_file.split("/")[1]
+    goal_obj, goal_recep = (
+        curr_goal_prefix.split("-")[1],
+        curr_goal_prefix.split("-")[3],
+    )
+
+    alternate_goal = f"""
+    (:goal
+        (exists (?a - agent)
+        (exists (?r - receptacle)
+        (exists (?o - object)
+        (exists (?ot - object)
+        (exists (?l - location)
+            (and 
+                (objectType ?ot {goal_recep}Type)
+                (toggleable ?ot)
+                (isToggled ?ot) 
+                (objectAtLocation ?ot ?l)
+                (atLocation ?a ?l)
+                (objectType ?o {goal_obj}Type)
+                (holds ?a ?o)
+            )
+    ))))))"""
+    return preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
 
 
 GOAL_PREFIXES = {
     "pick_and_place_simple": pick_and_place_simple,
     "pick_clean_then_place_in_recep": pick_clean_then_place_in_recep,
+    "pick_heat_then_place_in_recep": pick_clean_then_place_in_recep,
+    "pick_cool_then_place_in_recep": pick_clean_then_place_in_recep,
+    "pick_and_place_simple_slice": pick_and_place_simple_slice,
+    "pick_heat_then_place_in_recep_slice": pick_heat_then_place_in_recep_slice,
+    "pick_cool_then_place_in_recep_slice": pick_heat_then_place_in_recep_slice,
+    "look_at_obj_in_light": look_at_obj_in_light,
 }
 
 
 def main():
     args = parser.parse_args()
     alfred_nl_goals = load_alfred_nl_goals(args)
+
+    sucessfully_parsed = {}
     for split in alfred_nl_goals:
         print(f"Preparing split: {split} with {len(alfred_nl_goals[split])} tasks")
         goals = {goal["file_name"]: goal for goal in alfred_nl_goals[split]}
+        sucessfully_parsed[split] = []
+
         for goal_prefix in GOAL_PREFIXES:
             goals_for_prefix = get_goals_for_prefix(goal_prefix, goals)
             print(f"Modifying {len(goals_for_prefix)} goals for {goal_prefix}")
             goal_modification_fn = GOAL_PREFIXES[goal_prefix]
             for goal in goals_for_prefix:
-                goal_modification_fn(args, goal, goals[goal])
-
-    # Pick and place simple sliced.
-
-    #
+                successful = goal_modification_fn(args, goal, goals[goal])
+                if successful:
+                    sucessfully_parsed[split].append(goal)
+    # Log out any unsuccessful.
+    not_sucessfully_parsed = {}
+    for split in alfred_nl_goals:
+        not_sucessfully_parsed[split] = []
+        for goal in alfred_nl_goals[split]:
+            if goal not in sucessfully_parsed[split]:
+                not_sucessfully_parsed[split].append(goal["file_name"])
+    with open(os.path.join(args.output_dataset_path, "not_included.json"), "w") as f:
+        json.dump(not_sucessfully_parsed, f)
+    
+    # Create a subset of the p
 
 
 if __name__ == "__main__":

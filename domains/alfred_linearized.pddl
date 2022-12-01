@@ -4,6 +4,7 @@
 ;; The alfworld version at: https://github.com/alfworld/alfworld/blob/master/alfworld/data/alfred.pddl
 ;; Changes to the original: removed costs, and removed foralls, which we don't check.
 ;; Removed is on check from toggling.
+;; Flattened away the 'OR' to require the microwave, fridge, and sink.
 
 (define (domain put_task)
     (:requirements :adl
@@ -186,7 +187,7 @@
         )
     )
 
-    ;; agent cleans some object
+    ;; agent cleans some object - currently requires it to be in a sink.
     (:action CleanObject
         :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
         :precondition (and
@@ -204,9 +205,7 @@
     (:action HeatObject
         :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
         :precondition (and
-            (or
-                (receptacleType ?r MicrowaveType)
-            )
+            (receptacleType ?r MicrowaveType)
             (atLocation ?a ?l)
             (receptacleAtLocation ?r ?l)
             (holds ?a ?o)
@@ -220,9 +219,7 @@
     (:action CoolObject
         :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
         :precondition (and
-            (or
-                (receptacleType ?r FridgeType)
-            )
+            (receptacleType ?r FridgeType)
             (atLocation ?a ?l)
             (receptacleAtLocation ?r ?l)
             (holds ?a ?o)
