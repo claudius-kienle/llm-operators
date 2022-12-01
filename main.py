@@ -3,10 +3,7 @@ main.py
 
 Usage:  
     # Load a debug fraction of the ALFRED dataset.
-    python main.py --dataset_name 
-
-    
-    python main.py --dataset_name alfred_linearized_80 --pddl_domain_name alfworld --dataset_fraction 0.001 --training_plans_fraction 0.1 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_pddl --output_directory generated/test_outputs --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals 
+    python main.py --dataset_name alfred_linearized_100 --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated/test_outputs --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals 
 """
 import argparse
 import random
@@ -113,6 +110,7 @@ def main():
         training_plans_fraction=args.training_plans_fraction,
         dataset_pddl_directory=args.dataset_pddl_directory,
         initial_pddl_operators=args.initial_pddl_operators,
+        initial_plans_prefix=args.initial_plans_prefix,
         verbose=args.verbose,
     )
     # Load the PDDL domain definition.
@@ -121,7 +119,7 @@ def main():
     )
 
     for curr_iteration in range(args.train_iterations):
-        if args.debug_no_propose_plans_operators_goals:
+        if not args.debug_no_propose_plans_operators_goals:
             # LLM proposal: propose plans, operators for plans, predicates for operators, and goals.
             codex.propose_plans_operators_goals_for_problems(
                 pddl_domain,
