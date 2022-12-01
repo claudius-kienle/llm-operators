@@ -505,7 +505,7 @@ def propose_PDDL_goals_for_problems(
     for solved_problem in solved_to_prompt:  # constructing the input prompt
         prompt += get_supervised_goal_prompt(solved_problem)
     for problem in unsolved_problems:
-        temp_prompt = prompt + "\n# " + problem.language
+        temp_prompt = prompt + "\n; " + problem.language
         try:
             goal_strings = get_completions(
                 temp_prompt, temperature=0.1, stop=STOP_TOKEN

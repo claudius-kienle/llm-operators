@@ -145,6 +145,5 @@ def main():
     # test_propose_operator_definition()
     test_propose_PDDL_goals_for_problems()
 
-
 if __name__ == "__main__":
     main()
