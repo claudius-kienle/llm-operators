@@ -6,7 +6,7 @@ Usage:
     python main.py --dataset_name 
 
     
-    python main.py --dataset_name alfred_linearized_100 --pddl_domain_name alfworld --dataset_fraction 0.001 --training_plans_fraction 0.1 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_pddl --output_directory generated/test_outputs --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals 
+    python main.py --dataset_name alfred_linearized_80 --pddl_domain_name alfworld --dataset_fraction 0.001 --training_plans_fraction 0.1 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_pddl --output_directory generated/test_outputs --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals 
 """
 import argparse
 import random

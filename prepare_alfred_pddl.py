@@ -11,6 +11,9 @@ from pddl import PDDLProblem
 import task_planner
 from pathlib import Path
 
+import random
+
+random.seed(0)
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -336,31 +339,55 @@ def main():
     args = parser.parse_args()
     alfred_nl_goals = load_alfred_nl_goals(args)
 
-    sucessfully_parsed = {}
-    for split in alfred_nl_goals:
-        print(f"Preparing split: {split} with {len(alfred_nl_goals[split])} tasks")
-        goals = {goal["file_name"]: goal for goal in alfred_nl_goals[split]}
-        sucessfully_parsed[split] = []
+    # sucessfully_parsed = {}
+    # for split in alfred_nl_goals:
+    #     print(f"Preparing split: {split} with {len(alfred_nl_goals[split])} tasks")
+    #     goals = {goal["file_name"]: goal for goal in alfred_nl_goals[split]}
+    #     sucessfully_parsed[split] = []
 
-        for goal_prefix in GOAL_PREFIXES:
-            goals_for_prefix = get_goals_for_prefix(goal_prefix, goals)
-            print(f"Modifying {len(goals_for_prefix)} goals for {goal_prefix}")
-            goal_modification_fn = GOAL_PREFIXES[goal_prefix]
-            for goal in goals_for_prefix:
-                successful = goal_modification_fn(args, goal, goals[goal])
-                if successful:
-                    sucessfully_parsed[split].append(goal)
-    # Log out any unsuccessful.
-    not_sucessfully_parsed = {}
+    #     for goal_prefix in GOAL_PREFIXES:
+    #         goals_for_prefix = get_goals_for_prefix(goal_prefix, goals)
+    #         print(f"Modifying {len(goals_for_prefix)} goals for {goal_prefix}")
+    #         goal_modification_fn = GOAL_PREFIXES[goal_prefix]
+    #         for goal in goals_for_prefix:
+    #             successful = goal_modification_fn(args, goal, goals[goal])
+    #             if successful:
+    #                 sucessfully_parsed[split].append(goal)
+    # # Log out any unsuccessful.
+    # not_sucessfully_parsed = {}
+    # for split in alfred_nl_goals:
+    #     not_sucessfully_parsed[split] = []
+    #     for goal in alfred_nl_goals[split]:
+    #         if goal not in sucessfully_parsed[split]:
+    #             not_sucessfully_parsed[split].append(goal["file_name"])
+    # with open(os.path.join(args.output_dataset_path, "not_included.json"), "w") as f:
+    #     json.dump(not_sucessfully_parsed, f)
+
+    # Take a subset of the problems for a shorter debug set.
+    MAX_SET = 100
+    dataset_name = f"dataset/alfred-linearized-{MAX_SET}-NLgoals-operators.json"
+    dataset_subset = {}
     for split in alfred_nl_goals:
-        not_sucessfully_parsed[split] = []
-        for goal in alfred_nl_goals[split]:
-            if goal not in sucessfully_parsed[split]:
-                not_sucessfully_parsed[split].append(goal["file_name"])
-    with open(os.path.join(args.output_dataset_path, "not_included.json"), "w") as f:
-        json.dump(not_sucessfully_parsed, f)
-    
-    # Create a subset of the p
+        dataset_subset[split] = []
+        for goal_prefix in GOAL_PREFIXES:
+            goals = {goal["file_name"]: goal for goal in alfred_nl_goals[split]}
+            goals_for_prefix = get_goals_for_prefix(goal_prefix, goals)
+            max_goals = int(MAX_SET / len(GOAL_PREFIXES))
+            successfully_parsed_goals = [
+                g
+                for g in goals_for_prefix
+                if os.path.exists(os.path.join(args.output_dataset_path, g))
+            ]
+            # Randomly select some.
+            prefix_subset = random.sample(
+                successfully_parsed_goals,
+                min(max_goals, len(successfully_parsed_goals)),
+            )
+            for g in prefix_subset:
+                goals[g]["goal_prefix"] = goal_prefix
+                dataset_subset[split].append(goals[g])
+    with open(dataset_name, "w") as f:
+        json.dump(dataset_subset, f)
 
 
 if __name__ == "__main__":
