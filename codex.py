@@ -3,7 +3,6 @@ codex.py
 Utilities that call a large language-code model.
 """
 import time
-import code
 from collections import defaultdict
 
 import datasets

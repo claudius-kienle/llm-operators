@@ -1,3 +1,6 @@
+[submodule "pddlgym_planners"]
+	path = pddlgym_planners
+	url = https://github.com/ronuchit/pddlgym_planners.git
 [submodule "alfred"]
 	path = alfred
-	url = https://github.com/askforalfred/alfred.git
+	url = https://github.com/jiahai-feng/alfred

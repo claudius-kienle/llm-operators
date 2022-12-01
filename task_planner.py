@@ -2,7 +2,6 @@
 task_planner.py 
 Utilities for generating task level plans.
 """
-from cProfile import run
 from pddlgym_planners.fd import FD
 from pddlgym_planners.planner import PlanningFailure, PlanningTimeout
 from tempfile import NamedTemporaryFile

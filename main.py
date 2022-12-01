@@ -15,6 +15,12 @@ import pddl
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
+    "--experiment_name",
+    type=str,
+    default="",
+    help="Experiment name tag. This will be appended to any checkpointed data.",
+)
+parser.add_argument(
     "--dataset_name", type=str, help="Name of the dataset of planning problems to load."
 )
 parser.add_argument(
@@ -124,7 +130,6 @@ def main():
         )
 
         # TODO: hook up to evaluate costs with low-level planner.
-        
 
         # Update the domain definition based on operators in solved problems.
         pddl.update_domain(

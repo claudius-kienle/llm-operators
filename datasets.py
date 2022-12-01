@@ -3,7 +3,6 @@ planning_domain.py | Classes for representing planning domains and planning doma
 """
 import os
 import random
-from re import L
 import numpy as np
 import json
 from pddl import *

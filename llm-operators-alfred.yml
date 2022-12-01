@@ -1,0 +1,24 @@
+name: llm-operators-alfred
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7
+  - numpy
+  - pandas
+  - opencv
+  - networkx
+  - h5py
+  - tqdm
+  - openai
+  - numpy
+  - pip
+  - pip:
+    - vocab
+    - revtok
+    - Pillow==6.2.0
+    - torch==1.1.0
+    - torchvision==0.3.0
+    - tensorboardX==1.8
+    - ai2thor==2.1.0
+    - pddlgym
