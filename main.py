@@ -124,6 +124,7 @@ def main():
         )
 
         # TODO: hook up to evaluate costs with low-level planner.
+        
 
         # Update the domain definition based on operators in solved problems.
         pddl.update_domain(
