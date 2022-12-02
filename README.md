@@ -21,15 +21,7 @@ There are two relevant submodules:
 - The entrypoint to the full learning loop is currently at `main.py`.
 - This demo test command loads `dataset_fraction` fraction of the dataset and begins running a single full training iteration: 
 ```
-python main.py 
---dataset_name alfred  # Dataset of planning problems.
---pddl_domain_name alfred # Ground truth PDDL domain.
---dataset_fraction 0.001 # Fraction of full dataset.
---training_plans_fraction 0.1 # Fraction of given dataset to supervise on.
---initial_pddl_operators GotoLocation OpenObject  # Initialize with these operators.
---verbose # Include for verbose.
---train_iterations 1 # How many operations.
---dataset_pddl_directory dataset/alfred_pddl # Location of the PDDL ground truth files, if applicable.
+python main.py --dataset_name alfred_linearized_100 --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated/test_outputs --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals 
 ```
 --------------------------------------------
 ### ALFRED experiments. This dev section contains details on experiments run at each portion of the ALFRED loop.
