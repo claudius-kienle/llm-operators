@@ -137,7 +137,7 @@
     )
 
     ;; agent puts down an object in a receptacle
-    (:action PutObjectInReceptacle1
+    (:action PickupObject
         :parameters (?a - agent ?l - location ?ot - otype ?o - object ?r - receptacle)
         :precondition (and
             (atLocation ?a ?l)
