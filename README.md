@@ -29,13 +29,12 @@ python main.py --dataset_name alfred_linearized_100 --pddl_domain_name alfred_li
 1. Planning domains and datasets are housed in `datasets.py`. This registers datasets and PDDL domains loaded with the `--dataset_name` and `--pddl_domain_name` flags. 
 - PDDL domains are in domains. We created a custom version of the ALFRED domain and files, since our task planner is just used to ensure faster search. This was initially done by running `prepare_alfred_pddl.py` on the dataset originally extracted from above.
 
-We modified these as follows:
-- For the *domain files*, we: 
-    - Modified the predicate definition:
-    - Modified the operator definitions: 
-- For the *dataset files*, we:
-    - Modified the 
-    - Modified the *goals*, and we 
+This script prepares a *subset* of the original dataset, and modifies both the PDDL domain (alfred_linearized.pddl) and the problem files (in alfred_linearized/pddl).
+
+It was also used to produced the `alfred_linearized_100` subset of the dataset.
+
+2. Codex. We use Codex to propose goal, initial plan, and operator definitions. This is housed in `codex.py`.
+- Proposing plans. This is 
 
 
 --------------------------------------------
