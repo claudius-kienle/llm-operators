@@ -21,15 +21,7 @@ There are two relevant submodules:
 - The entrypoint to the full learning loop is currently at `main.py`.
 - This demo test command loads `dataset_fraction` fraction of the dataset and begins running a single full training iteration: 
 ```
-python main.py 
---dataset_name alfred  # Dataset of planning problems.
---pddl_domain_name alfred # Ground truth PDDL domain.
---dataset_fraction 0.001 # Fraction of full dataset.
---training_plans_fraction 0.1 # Fraction of given dataset to supervise on.
---initial_pddl_operators GotoLocation OpenObject  # Initialize with these operators.
---verbose # Include for verbose.
---train_iterations 1 # How many operations.
---dataset_pddl_directory dataset/alfred_pddl # Location of the PDDL ground truth files, if applicable.
+python main.py --dataset_name alfred_linearized_100 --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated/test_outputs --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals 
 ```
 --------------------------------------------
 ### ALFRED experiments. This dev section contains details on experiments run at each portion of the ALFRED loop.
@@ -37,13 +29,12 @@ python main.py
 1. Planning domains and datasets are housed in `datasets.py`. This registers datasets and PDDL domains loaded with the `--dataset_name` and `--pddl_domain_name` flags. 
 - PDDL domains are in domains. We created a custom version of the ALFRED domain and files, since our task planner is just used to ensure faster search. This was initially done by running `prepare_alfred_pddl.py` on the dataset originally extracted from above.
 
-We modified these as follows:
-- For the *domain files*, we: 
-    - Modified the predicate definition:
-    - Modified the operator definitions: 
-- For the *dataset files*, we:
-    - Modified the 
-    - Modified the *goals*, and we 
+This script prepares a *subset* of the original dataset, and modifies both the PDDL domain (alfred_linearized.pddl) and the problem files (in alfred_linearized/pddl).
+
+It was also used to produced the `alfred_linearized_100` subset of the dataset.
+
+2. Codex. We use Codex to propose goal, initial plan, and operator definitions. This is housed in `codex.py`.
+- Proposing plans. This is 
 
 
 --------------------------------------------
