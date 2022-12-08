@@ -40,6 +40,12 @@ class Domain:
         # One or more proposed operators.
         self.proposed_operators = defaultdict(list)  # Operator name -> definitions
 
+        # Some operators have had standardized names.
+        self.operator_canonicalization = {}
+
+        # Additional object types necessary to prompt codex.
+        self.codex_types = ""
+
     def init_pddl_domain(self, pddl_domain):
         if pddl_domain is not None:
             pddl_domain = PDDLParser._purge_comments(pddl_domain)
@@ -116,10 +122,21 @@ class Domain:
 )
             """
 
-    def domain_definition_to_string(self):
-        return "\n".join(
-            [self.requirements, self.types, self.predicates, self.functions]
-        )
+    def domain_definition_to_string(self, codex_prompt=False):
+        if codex_prompt:
+            return "\n".join(
+                [
+                    self.requirements,
+                    self.codex_types,
+                    self.types,
+                    self.predicates,
+                    self.functions,
+                ]
+            )
+        else:
+            return "\n".join(
+                [self.requirements, self.types, self.predicates, self.functions]
+            )
 
     def domain_types_to_string(self):
         # this is to to return shorter version of to_string with only the requirements and types
@@ -129,7 +146,6 @@ class Domain:
             {self.types}
         )
                     """
-
 
 
 def save_gt_and_learned_plans(
@@ -165,7 +181,7 @@ def save_learned_operators(curr_iteration, directory, dataset, train_domain, gt_
     return operators_filename
 
 
-def update_domain(domain,problems,n_ops):
+def update_domain(domain, problems, n_ops):
     """
     :params:
         domain - Domain object
@@ -174,14 +190,18 @@ def update_domain(domain,problems,n_ops):
     updates the domain
     """
     # run a planner that returns successful plans
-    successful_plans = run_planner(domain,problems)
-    op_scores= defaultdict() # operator name and the count of successful plans they appeared in
+    successful_plans = run_planner(domain, problems)
+    op_scores = (
+        defaultdict()
+    )  # operator name and the count of successful plans they appeared in
     for plan in successful_plans:
         for op in plan:
             op_scores[op] += 1
 
-    top_n_ops = nlargest(n_ops,op_scores,key = op_scores.get)
-    domain.proposed_operators = defaultdict(list) # might want to leave propsed operators that didn't make the cut? currently resetting
+    top_n_ops = nlargest(n_ops, op_scores, key=op_scores.get)
+    domain.proposed_operators = defaultdict(
+        list
+    )  # might want to leave propsed operators that didn't make the cut? currently resetting
     domain.operators.extend(top_n_ops)
 
 
@@ -293,7 +313,7 @@ class PDDLPlan:
         overall_plan_cost=PDDL_INFINITE_COST,
         pddl_domain=None,
     ):
-        self.plan = plan # list of dictionaries, where each dict is an action
+        self.plan = plan  # list of dictionaries, where each dict is an action
         self.plan_string = plan_string
         if self.plan is None and self.plan_string:
             self.plan = self.string_to_plan(self.plan_string, pddl_domain=pddl_domain)

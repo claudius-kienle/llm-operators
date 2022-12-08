@@ -181,11 +181,128 @@ def load_alfworld_pddl_domain(verbose=False):
 @register_planning_pddl_domain(ALFRED_LINEARIZED_PDDL_DOMAIN_NAME)
 def load_alfworld_pddl_domain(verbose=False):
     ALFRED_LINEARIZED_PDDL_FILE_PATH = "domains/alfred_linearized.pddl"
-    return load_pddl_file_with_operators(
+    domain = load_pddl_file_with_operators(
         domain_name=ALFRED_LINEARIZED_PDDL_DOMAIN_NAME,
         file_path=ALFRED_LINEARIZED_PDDL_FILE_PATH,
         verbose=verbose,
     )
+    domain.operator_canonicalization = {
+        "PickupObjectInReceptacle": "PickupObject",
+        "PickupObjectNotInReceptacle": "PickupObject",
+        "PutObjectInReceptacle": "PutObject",
+        "PutReceptacleObjectInReceptacle": "PutObject",
+    }
+    domain.codex_types = """(:otype 
+        CandleType - otype
+        ShowerGlassType - otype
+        CDType - otype
+        TomatoType - otype
+        MirrorType - otype
+        ScrubBrushType - otype
+        MugType - otype
+        ToasterType - otype
+        PaintingType - otype
+        CellPhoneType - otype
+        LadleType - otype
+        BreadType - otype
+        PotType - otype
+        BookType - otype
+        TennisRacketType - otype
+        ButterKnifeType - otype
+        ShowerDoorType - otype
+        KeyChainType - otype
+        BaseballBatType - otype
+        EggType - otype
+        PenType - otype
+        ForkType - otype
+        VaseType - otype
+        ClothType - otype
+        WindowType - otype
+        PencilType - otype
+        StatueType - otype
+        LightSwitchType - otype
+        WatchType - otype
+        SpatulaType - otype
+        PaperTowelRollType - otype
+        FloorLampType - otype
+        KettleType - otype
+        SoapBottleType - otype
+        BootsType - otype
+        TowelType - otype
+        PillowType - otype
+        AlarmClockType - otype
+        PotatoType - otype
+        ChairType - otype
+        PlungerType - otype
+        SprayBottleType - otype
+        HandTowelType - otype
+        BathtubType - otype
+        RemoteControlType - otype
+        PepperShakerType - otype
+        PlateType - otype
+        BasketBallType - otype
+        DeskLampType - otype
+        FootstoolType - otype
+        GlassbottleType - otype
+        PaperTowelType - otype
+        CreditCardType - otype
+        PanType - otype
+        ToiletPaperType - otype
+        SaltShakerType - otype
+        PosterType - otype
+        ToiletPaperRollType - otype
+        LettuceType - otype
+        WineBottleType - otype
+        KnifeType - otype
+        LaundryHamperLidType - otype
+        SpoonType - otype
+        TissueBoxType - otype
+        BowlType - otype
+        BoxType - otype
+        SoapBarType - otype
+        HousePlantType - otype
+        NewspaperType - otype
+        CupType - otype
+        DishSpongeType - otype
+        LaptopType - otype
+        TelevisionType - otype
+        StoveKnobType - otype
+        CurtainsType - otype
+        BlindsType - otype
+        TeddyBearType - otype
+        AppleType - otype
+        WateringCanType - otype
+        SinkType - otype
+(:rtype
+        ArmChairType - rtype
+        BedType - rtype
+        BathtubBasinType - rtype
+        DresserType - rtype
+        SafeType - rtype
+        DiningTableType - rtype
+        SofaType - rtype
+        HandTowelHolderType - rtype
+        StoveBurnerType - rtype
+        CartType - rtype
+        DeskType - rtype
+        CoffeeMachineType - rtype
+        MicrowaveType - rtype
+        ToiletType - rtype
+        CounterTopType - rtype
+        GarbageCanType - rtype
+        CoffeeTableType - rtype
+        CabinetType - rtype
+        SinkBasinType - rtype
+        OttomanType - rtype
+        ToiletPaperHangerType - rtype
+        TowelHolderType - rtype
+        FridgeType - rtype
+        DrawerType - rtype
+        SideTableType - rtype
+        ShelfType - rtype
+        LaundryHamperType - rtype
+)"""
+    return domain
 
 
 ######### PLANNING DOMAIN PROBLEM DATASET LOADERS.

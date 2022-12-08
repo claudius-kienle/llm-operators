@@ -106,6 +106,11 @@ parser.add_argument(
     action="store_true",
     help="debug: mock out goal_proposal.",
 )
+parser.add_argument(
+    "--debug_ground_truth_goals",
+    action="store_true",
+    help="debug: use ground_truth_goals.",
+)
 
 
 def main():
@@ -144,9 +149,6 @@ def main():
                 output_directory=args.output_directory,
                 command_args=args,
             )
-        else:
-            # TODO: use ground truths instead. This should only be done to test the planner.
-            pass
 
         # Task planner: evaluates costs with PDDL solver.
         task_planner.evaluate_task_plans_and_costs_for_problems(

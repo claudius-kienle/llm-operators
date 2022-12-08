@@ -3,7 +3,7 @@ codex.py
 Utilities that call a large language-code model.
 """
 import time
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 import datasets
 import task_planner
@@ -87,11 +87,13 @@ def propose_plans_operators_goals_for_problems(
     propose_operators_for_problems(
         problems=problems,
         current_domain=current_domain,
+        supervision_pddl=supervision_pddl,
         verbose=verbose,
         temperature=temperature,
         n_samples=n_samples,
         output_directory=output_directory,
         initial_pddl_predicates=command_args.initial_pddl_predicates,
+        experiment_name=command_args.experiment_name,
         use_mock=command_args.debug_mock_propose_operators,
     )
 
@@ -201,20 +203,35 @@ def propose_predicates_for_problems(problems, current_domain, use_mock):
 def propose_operators_for_problems(
     problems,
     current_domain,
+    supervision_pddl,
     verbose,
     temperature,
     n_samples,
     output_directory,
     initial_pddl_predicates,
+    experiment_name,
     use_mock,
+    minimum_usage=2,  # Minimum time the operator was used.
 ):
     output_json = {}
-    output_filepath = f"codex_operators{'_'.join(initial_pddl_predicates)}.json"
+    experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
 
-    # What operators were proposed across the problems?
-    operator_uses = get_operator_uses(problems)
+    output_filepath = (
+        f"{experiment_tag}codex_operators{'_'.join(initial_pddl_predicates)}.json"
+    )
+
+    # What operators were proposed across the problems? Rank by usage.
+    operator_uses, operator_use_counts = get_operator_uses(problems)
     # Propose definitions for any operators we haven't implemented.
-    proposed_operators = [p for p in operator_uses if p not in current_domain.operators]
+    proposed_operators = get_operators_to_propose(
+        current_domain, operator_uses, operator_use_counts, minimum_usage
+    )
+    if verbose:
+        print(
+            f"propose_operators_for_problems: proposing for {len(proposed_operators)} operators."
+        )
+
+    # Get valid operators, and use a standardized operator mapping.
     if use_mock:
         mock_propose_operators_for_problems(
             output_filepath, proposed_operators, output_directory, current_domain
@@ -231,12 +248,14 @@ def propose_operators_for_problems(
             n_samples=n_samples,
             verbose=verbose,
             initial_pddl_predicates=initial_pddl_predicates,
+            supervision_pddl=supervision_pddl,
         )
         current_domain.proposed_operators[o] += proposed_operator_definitions
         output_json[o] = {
             CODEX_PROMPT: codex_prompt,
             CODEX_OUTPUT: proposed_operator_definitions,
         }
+
     if verbose:
         num_proposed = [
             o
@@ -268,7 +287,27 @@ def mock_propose_operators_for_problems(
     )
 
 
+def get_operators_to_propose(
+    current_domain, operator_uses, operator_use_counts, minimum_usage
+):
+    existing_operators = set(
+        [
+            o
+            if o not in current_domain.operator_canonicalization
+            else current_domain.operator_canonicalization[o]
+            for o in current_domain.operators
+        ]
+    )
+    proposed_operators = [p for p in operator_uses if p not in existing_operators]
+    # Filter by those with minimum usage.
+    proposed_operators = [
+        p for p in proposed_operators if operator_use_counts[p] >= minimum_usage
+    ]
+    return proposed_operators
+
+
 def get_operator_uses(problems):
+    operator_use_counts = Counter()
     existing_operator_uses = defaultdict(list)
     for problem in problems.values():
         plans = []
@@ -283,7 +322,8 @@ def get_operator_uses(problems):
                 existing_operator_uses[action_usage[PDDLPlan.PDDL_ACTION]].append(
                     action_usage
                 )
-    return existing_operator_uses
+                operator_use_counts[action_usage[PDDLPlan.PDDL_ACTION]] += 1
+    return existing_operator_uses, operator_use_counts
 
 
 def get_operator_from_action(action):
@@ -302,10 +342,11 @@ def propose_operator_definition(
     current_domain,
     operator_name_to_define,
     operator_uses={},
+    supervision_pddl="",
     max_operator_examples=10,
     max_usage_examples=10,
-    temperature=0.0,
-    n_samples=1,
+    temperature=0.3,
+    n_samples=3,
     verbose=False,
     initial_pddl_predicates=[],
 ):
@@ -322,17 +363,17 @@ def propose_operator_definition(
             f"propose_operator_definition: operator_name_to_define - {operator_name_to_define}"
         )
     # Codex prompt header.
-    nl_header = (
-        ";;;; Define planning operators based on a PDDL domain and example usages.\n\n"
-    )
+    nl_header = ";;;; Define PDDL planning operators.\n\n"
     codex_prompt = nl_header
-    if len(initial_pddl_predicates) < 0:
+    if len(initial_pddl_predicates) <= 0:
         pddl_domain = (
-            ";;;; PDDL domain definition.\n"
-            + current_domain.domain_definition_to_string()
+            ";;;; Predicates in the PDDL domain definition.\n"
+            + current_domain.domain_definition_to_string(codex_prompt=True)
             + "\n\n"
         )
-        translation_header = ";;;; Define operators based on examples of their usage and the PDDL domain definition above. Only use predicates and functions available in the PDDL domain.\n\n"
+        translation_header = (
+            ";;;; Only use predicates and functions available in the PDDL domain.\n\n"
+        )
 
         codex_prompt += pddl_domain + translation_header
 
@@ -342,15 +383,16 @@ def propose_operator_definition(
         min(len(current_domain.operators), max_operator_examples),
     )
     for o in operator_examples:
-        codex_prompt += f"{OPERATOR_START}{o}\n"
         if o in operator_uses:
+            codex_prompt += f"{OPERATOR_START}{o}\n"
+
             usage_examples = random.sample(
                 list(operator_uses[o]), min(len(operator_uses[o]), max_usage_examples),
             )
-            for use_example in operator_uses[o]:
+            for use_example in usage_examples:
                 codex_prompt += f"{EXAMPLE_START}{use_example}\n"
-        codex_prompt += f"{current_domain.operators[o]}\n"
-        codex_prompt += f"{STOP_TOKEN}\n"
+            codex_prompt += f"{current_domain.operators[o]}\n"
+            codex_prompt += f"{STOP_TOKEN}\n"
 
     # Codex prompt for operator definition.
     codex_prompt += f"{OPERATOR_START}{operator_name_to_define}\n"
