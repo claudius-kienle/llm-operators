@@ -39,6 +39,7 @@ openai.api_key = os.environ["OPENAI_API_KEY"]
 def propose_plans_operators_goals_for_problems(
     current_domain,
     problems,
+    supervision_pddl=[],
     n_samples=1,  # How many samples to take from codex.
     temperature=0.0,
     verbose=False,
@@ -74,10 +75,12 @@ def propose_plans_operators_goals_for_problems(
         unsolved_problems=unsolved_problems,
         solved_problems=solved_problems,
         current_domain=current_domain,
+        supervision_pddl=supervision_pddl,
         n_samples=n_samples,
         temperature=temperature,
         verbose=verbose,
         output_directory=output_directory,
+        experiment_name=command_args.experiment_name,
         use_mock=command_args.debug_mock_propose_plans,
     )
     # Condition on: new operator names. Propose: PDDL operator definitions.
@@ -151,7 +154,9 @@ def get_completions(
             completion = e
 
 
-def gen_prompt_with_other_domains(current_domain,goal_file,unsolved_problems,output_directory=None):
+def gen_prompt_with_other_domains(
+    current_domain, goal_file, unsolved_problems, output_directory=None
+):
     """
     experimenting with different prompt engineering
     Here we try to prompt with only domain name, requirements, and types
@@ -162,7 +167,7 @@ def gen_prompt_with_other_domains(current_domain,goal_file,unsolved_problems,out
     example_goals = json.load(open(goal_file))
     goals_prompt = ""
     for example in example_goals:
-        goals_prompt += example["NL_goal"] +"\n" + example["goal"]
+        goals_prompt += example["NL_goal"] + "\n" + example["goal"]
 
     prompt = domain + goals_prompt
     output_json = {}
@@ -186,7 +191,6 @@ def gen_prompt_with_other_domains(current_domain,goal_file,unsolved_problems,out
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
-
 
 
 def propose_predicates_for_problems(problems, current_domain, use_mock):
@@ -369,11 +373,14 @@ def propose_plans_for_problems(
     unsolved_problems,
     solved_problems,
     current_domain,
-    max_plan_examples=10,
+    supervision_pddl,
+    max_supervision_examples=3,
+    max_plan_examples=2,
     temperature=0.0,
     n_samples=1,
     verbose=False,
     output_directory=None,
+    experiment_name="",
     use_mock=False,
 ):
     """
@@ -387,19 +394,36 @@ def propose_plans_for_problems(
         list of Problem objects with solutions
     current_domain:
         Domain object describing the domain
+    supervision_pddl:
+         If not empty, use these external pddl action sequences.
 
     Edits the unsolved problem objects - adds plans to the problem.proposed_pddl_plan list
     """
     output_json = {}
-    output_filepath = "codex_plans.json"
+    experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
+    output_filepath = f"{experiment_tag}codex_plans.json"
     if use_mock:
         mock_propose_plans_for_problems(
             output_filepath, unsolved_problems, output_directory
         )
         return
     # Codex prompt header.
-    nl_header = ";;;; Semantic parsing from natural language goals into PDDL plans.\n"
-    # Note that we do not actually use the current domain.
+    nl_header = (
+        ";;;; Given natural language goals, predict a sequence of PDDL actions.\n"
+    )
+
+    # Add supervision.
+    if len(supervision_pddl) > 1:
+        supervision_examples = random.sample(
+            list(supervision_pddl.keys()),
+            min(max_supervision_examples, len(supervision_pddl)),
+        )
+        for domain_file in supervision_examples:
+            nl_header += f"{NATURAL_LANGUAGE_GOAL_START}{supervision_pddl[domain_file]['NL_goal']}\n"
+            nl_header += f"{PDDL_PLAN_START}\n"
+            nl_header += f"{get_plan_string_from_supervision_pddl(supervision_pddl[domain_file])}"
+            nl_header += f"{STOP_TOKEN}\n"
+
     shared_header = nl_header
     for idx, unsolved_problem in enumerate(unsolved_problems):
         if verbose:
@@ -419,6 +443,7 @@ def propose_plans_for_problems(
         # Add the current problem.
         codex_prompt += f"{NATURAL_LANGUAGE_GOAL_START}{unsolved_problem.language}\n"
         codex_prompt += f"{PDDL_PLAN_START}\n"
+
         try:
             plan_strings = get_completions(
                 codex_prompt, temperature=temperature, stop=STOP_TOKEN
@@ -462,6 +487,11 @@ def mock_propose_plans_for_problems(
     print(
         f"\t Loaded a total of {len([p for p in unsolved_problems if len(p.proposed_pddl_plans) > 0])} plans for {len(unsolved_problems)} unsolved problems."
     )
+
+
+def get_plan_string_from_supervision_pddl(supervision_pddl):
+    plan = PDDLPlan(plan=supervision_pddl["operator_sequence"])
+    return plan.plan_to_string(plan.plan)
 
 
 def get_plan_string_from_solved_problem(problem):
@@ -559,5 +589,4 @@ def propose_PDDL_goals_for_problems(
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
-
 

@@ -3,7 +3,7 @@ main.py
 
 Usage:  
     # Load a debug fraction of the ALFRED dataset.
-    python main.py --dataset_name alfred_linearized_100 --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated/test_outputs 
+    python main.py --experiment_name alfred_linearized_100 --dataset_name alfred_linearized_100 --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated/test_outputs 
     
     # Append these flags if you want to mock out the Codex proposals with previous checkpoints.
     --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals 
@@ -50,6 +50,13 @@ parser.add_argument(
 parser.add_argument(
     "--train_iterations", type=int, help="How many training iterations to run."
 )
+parser.add_argument(
+    "--supervision_name",
+    type=str,
+    default="supervision",
+    help="Tag for the supervision dataset to load.",
+)
+
 parser.add_argument(
     "--initial_plans_prefix",
     type=str,
@@ -120,6 +127,10 @@ def main():
     pddl_domain = datasets.load_pddl_domain(
         args.pddl_domain_name, args.initial_pddl_operators, args.verbose
     )
+    # Load any external supervision on PDDL domains.
+    supervision_pddl = datasets.load_pddl_supervision(
+        supervision_name=args.supervision_name, verbose=args.verbose,
+    )
 
     for curr_iteration in range(args.train_iterations):
         if not args.debug_no_propose_plans_operators_goals:
@@ -127,6 +138,7 @@ def main():
             codex.propose_plans_operators_goals_for_problems(
                 pddl_domain,
                 planning_problems["train"],
+                supervision_pddl=supervision_pddl,
                 n_samples=1,
                 verbose=args.verbose,
                 output_directory=args.output_directory,

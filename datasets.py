@@ -71,6 +71,31 @@ class Problem:
         )
 
 
+### Load supervision on external PDDL domains.
+def load_pddl_supervision(supervision_name, verbose=False):
+    # Load the supervision goals and operators. These should be in dataset/<supervision_name>-NLgoals-operators.json
+    if supervision_name is None:
+        return []
+    with open(f"dataset/{supervision_name}-NLgoals-operators.json") as f:
+        pddl_supervision = {goal["domain_file"]: goal for goal in json.load(f)}
+
+    # Load natural language for these.  These should be in dataset/<supervision_name>-NL.json
+    with open(f"dataset/{supervision_name}-NL.json") as f:
+        for nl_goal in json.load(f):
+            if nl_goal["domain_file"] in pddl_supervision:
+                pddl_supervision[nl_goal["domain_file"]]["NL_goal"] = nl_goal["NL_goal"]
+
+    for domain_file in list(pddl_supervision.keys()):
+        if "NL_goal" not in pddl_supervision[domain_file]:
+            del pddl_supervision[domain_file]
+    if verbose:
+        print("load_pddl_supervision from the following domain files:")
+        for domain_file in pddl_supervision:
+            print(domain_file)
+
+    return pddl_supervision
+
+
 ######### PLANNING DOMAIN PDDL DOMAIN DEFINITION LOADERS.
 # Planning domains available for the --dataset_name flag.
 PLANNING_PDDL_DOMAINS_REGISTRY = dict()
