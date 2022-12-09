@@ -24,6 +24,7 @@ class Domain:
         functions=None,
     ):
         self.pddl_domain = self.init_pddl_domain(pddl_domain)
+
         self.parent_domain = parent_domain
         self.domain_name = self.init_domain_name(domain_name)
         self.requirements = self.init_simple_pddl(requirements, "requirements")
@@ -33,7 +34,9 @@ class Domain:
         self.functions = self.init_simple_pddl(functions, "functions")
         self.operators = self.init_operators(operators)  # Evaluated operators.
         self.ground_truth_operators = None
-        self.ground_truth_predicates = None
+        self.ground_truth_predicates = PDDLParser._parse_domain_predicates(
+            self.pddl_domain
+        )
 
         # One or more proposed predicates.
         self.proposed_predicates = []
@@ -108,19 +111,45 @@ class Domain:
     def init_requirements(self, requirements):
         return PDDLParser._find_labelled_expression(self.pddl_domain, ":requirements")
 
-    def operators_to_string(self, separator="\n"):
-        return separator.join([f"""{s}""" for _, s in self.operators.items()])
+    def operators_to_string(
+        self,
+        current_operators,
+        ground_truth_operators,
+        proposed_operators,
+        proposed_operator_index=0,
+        separator="\n",
+    ):
+        if ground_truth_operators:
+            return separator.join(
+                [f"""{s}""" for _, s in self.ground_truth_operators.items()]
+            )
+        else:
+            o = ""
+            if current_operators:
+                o += separator.join([f"""{s}""" for _, s in self.operators.items()])
+            o += separator.join(
+                [
+                    f"{self.proposed_operators[o][proposed_operator_index]}"
+                    for o in proposed_operators
+                ]
+            )
+            return o
 
-    def to_string(self):
+    def to_string(
+        self,
+        current_operators=True,
+        ground_truth_operators=False,
+        proposed_operators=[],
+    ):
         return f"""
-(define (domain {self.domain_name})
-    {self.requirements}
-    {self.types}
-    {self.predicates}
-    {self.functions}
-    {self.operators_to_string()}
-)
-            """
+    (define (domain {self.domain_name})
+        {self.requirements}
+        {self.types}
+        {self.predicates}
+        {self.functions}
+        {self.operators_to_string(current_operators, ground_truth_operators, proposed_operators)}
+    )
+                """
 
     def domain_definition_to_string(self, codex_prompt=False):
         if codex_prompt:
@@ -244,6 +273,41 @@ class PDDLParser:
         return operators
 
     @classmethod
+    def _parse_domain_predicates(cls, pddl_domain):
+        start_ind = re.search(r"\(:predicates", pddl_domain).start()
+        predicates = cls._find_balanced_expression(pddl_domain, start_ind)
+
+        predicates = predicates[12:-1].strip()
+        predicates = cls._find_all_balanced_expressions(predicates)
+
+        predicate_names = {}
+        for pred in predicates:
+            pred_object = cls._parse_predicate(pred)
+            predicate_names[pred_object.name] = pred_object
+        return predicate_names
+
+    @classmethod
+    def _parse_predicate(cls, pred):
+        pred = pred.strip()[1:-1].split("?")
+        pred_name = pred[0].strip()
+        # arg_types = [self.types[arg.strip().split("-")[1].strip()]
+        #              for arg in pred[1:]]
+        arg_types = []
+        arg_values = []
+        for arg in pred[1:]:
+            if " - " in arg:
+                arg_value = arg.strip().split("-", 1)[0].strip()
+                arg_values.append(arg_value)
+                arg_type = arg.strip().split("-", 1)[1].strip()
+                arg_types.append(arg_type)
+            else:
+                arg_values.append(arg.strip())
+                arg_types.append("")
+        return PDDLPredicate(
+            pred_name, len(pred[1:]), arg_types, argument_values=arg_values
+        )
+
+    @classmethod
     def _find_labelled_expression(cls, string, label):
         # label like :action
         mat = re.search(r"\(" + label, string)
@@ -349,6 +413,14 @@ class PDDLPlan:
         return actions
 
 
+class PDDLPredicate:
+    def __init__(self, name, arguments, arg_types, argument_values):
+        self.name = name
+        self.arguments = arguments
+        self.arg_types = arg_types
+        self.argument_values = argument_values
+
+
 class PDDLProblem:
     def __init__(self, ground_truth_pddl_problem_string=None):
         self.ground_truth_pddl_problem_string = ground_truth_pddl_problem_string
@@ -366,4 +438,124 @@ class PDDLProblem:
     def parse_goal_pddl(self, pddl_problem):
         pddl_problem = PDDLParser._purge_comments(pddl_problem)
         return PDDLParser._find_labelled_expression(pddl_problem, ":goal")
+
+
+def preprocess_proposed_plans_operators_goals(
+    pddl_domain, verbose=False, output_directory=None, command_args=None
+):
+    # Preprocess operators for correctness.
+    preprocess_operators(
+        pddl_domain,
+        output_directory=output_directory,
+        command_args=command_args,
+        verbose=verbose,
+    )
+
+
+def preprocess_operators(
+    pddl_domain, output_directory, command_args=None, verbose=False
+):
+    if verbose:
+        print(
+            f"preprocess_operators: preprocessing {len(pddl_domain.proposed_operators)} operators."
+        )
+    for o in list(pddl_domain.proposed_operators.keys()):
+        preprocessed_operators = []
+        for proposed_operator_body in pddl_domain.proposed_operators[o]:
+            success, preprocessed_operator = preprocess_operator(
+                o, proposed_operator_body, pddl_domain, use_ground_truth_predicates=True
+            )
+            if success:
+                preprocessed_operators.append(preprocessed_operator)
+        if len(preprocess_operators) > 0:
+            pddl_domain.proposed_operators[o] = preprocess_operators
+        else:
+            del pddl_domain.proposed_operators[o]
+
+
+def preprocess_operator(
+    operator_name, operator_body, pddl_domain, use_ground_truth_predicates=True
+):
+    # Purge comments.
+    preprocessed_operator = PDDLParser._purge_comments(operator_body)
+    matches = re.finditer(r"\(:action", preprocessed_operator)
+
+    for match in matches:
+        start_ind = match.start()
+        op = PDDLParser._find_balanced_expression(operator_body, start_ind).strip()
+        patt = r"\(:action(.*):parameters(.*):precondition(.*):effect(.*)\)"
+        op_match = re.match(patt, op, re.DOTALL)
+        op_name, params, preconds, effects = op_match.groups()
+        op_name = op_name.strip()
+        precond_parameters, processed_preconds = preprocess_conjunction_predicates(
+            preconds, pddl_domain.ground_truth_predicates
+        )
+        effect_parameters, processed_effects = preprocess_conjunction_predicates(
+            effects, pddl_domain.ground_truth_predicates
+        )
+        precond_parameters.update(effect_parameters)
+
+        params_string = " ".join(
+            [
+                f"?{name} - {param_type}"
+                for (name, param_type) in sorted(precond_parameters)
+            ]
+        )
+        precond_string = "\n".join(processed_preconds)
+        precond_string = f"(and \n{precond_string}\n)"
+        effect_string = "\n".join(processed_effects)
+        effect_string = f"(and \n{effect_string}\n)"
+
+        preprocessed_operator = f"""
+(:action {op_name}
+        (:parameters ({params_string}))
+        
+        :precondition {precond_string}
+        :effect {effect_string}
+        """.strip()
+        return True, preprocessed_operator
+
+        # Construct an operator!
+    return False, ""
+
+
+def preprocess_conjunction_predicates(conjunction_predicates, ground_truth_predicates):
+    patt = r"\(and(.*)\)"
+    op_match = re.match(patt, conjunction_predicates.strip(), re.DOTALL)
+    if len(op_match.groups()) != 1:
+        import pdb
+
+        pdb.set_trace()
+
+    parameters = set()
+    conjunction_predicates = op_match.groups()[0].strip()
+    predicates_list = [
+        p.strip()
+        for p in PDDLParser._find_all_balanced_expressions(op_match.groups()[0].strip())
+    ]
+    preprocessed_predicates = []
+    for pred_string in predicates_list:
+        patt = r"\(not(.*)\)"
+        not_match = re.match(patt, pred_string, re.DOTALL)
+        if not_match is not None:
+            inner_predicate = not_match.groups()[0].strip()
+        else:
+            inner_predicate = pred_string
+
+        parsed_predicate = PDDLParser._parse_predicate(inner_predicate)
+        if (
+            (parsed_predicate.name not in ground_truth_predicates)
+            or parsed_predicate.arguments
+            != ground_truth_predicates[parsed_predicate.name].arguments
+        ):
+            continue
+        else:
+            preprocessed_predicates.append(pred_string)
+            typed_parameters = zip(
+                parsed_predicate.argument_values,
+                ground_truth_predicates[parsed_predicate.name].arg_types,
+            )
+            for typed_parameter in list(typed_parameters):
+                parameters.add(typed_parameter)
+    return parameters, preprocessed_predicates
 

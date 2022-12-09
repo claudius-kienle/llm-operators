@@ -136,7 +136,6 @@ def load_pddl_file_with_operators(domain_name, file_path, verbose=False):
     domain.ground_truth_operators = {
         o: copy.deepcopy(domain.operators[o]) for o in domain.operators
     }
-    domain.ground_truth_predicates = []
     if verbose:
         print(f"\nload_pddl_file_with_operators: loaded {domain_name} from {file_path}")
         print("\nGround truth operators: ")

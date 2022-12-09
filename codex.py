@@ -105,6 +105,7 @@ def propose_plans_operators_goals_for_problems(
         output_directory=output_directory,
         initial_pddl_predicates=command_args.initial_pddl_predicates,
         use_mock=command_args.debug_mock_propose_goals,
+        use_gt=command_args.debug_ground_truth_goals,
     )
 
 
@@ -589,6 +590,7 @@ def propose_PDDL_goals_for_problems(
     n_samples=1,
     verbose=False,
     output_directory=None,
+    use_gt=False,
 ):
     """
     unsolved_problems:
@@ -600,6 +602,9 @@ def propose_PDDL_goals_for_problems(
 
     Edits the unsolved problem objects - adds PDDL proposed goals to the problem.proposed_pddl_goals list
     """
+    if use_gt:
+        print("Using ground truth goals, skipping: propose_PDDL_goals_for_problems")
+        return
     output_json = {}
     output_filepath = f"codex_PDDL_goals_{'_'.join(initial_pddl_predicates)}.json"
     if use_mock:

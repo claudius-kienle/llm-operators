@@ -149,12 +149,20 @@ def main():
                 output_directory=args.output_directory,
                 command_args=args,
             )
+            # Preprocess the Codex proposals.
+            pddl.preprocess_proposed_plans_operators_goals(
+                pddl_domain,
+                verbose=args.verbose,
+                output_directory=args.output_directory,
+                command_args=args,
+            )
 
         # Task planner: evaluates costs with PDDL solver.
         task_planner.evaluate_task_plans_and_costs_for_problems(
             pddl_domain=pddl_domain,
             problems=planning_problems["train"],
             verbose=args.verbose,
+            command_args=args,
         )
         # Motion planner: evaluate costs using motion planner.
 
