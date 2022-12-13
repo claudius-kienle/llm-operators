@@ -69,9 +69,6 @@ def run_planner(
         success, raw_plan_list = fd_plan_from_strings(
             domain_str=current_domain_string, problem_str=current_problem_string
         )
-        import pdb
-
-        pdb.set_trace()
         # Convert the planner into a plan object.
         # TBD: include the exact sequence of operators.
         if success:
