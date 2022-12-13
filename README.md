@@ -2,7 +2,7 @@
 Learning planning domain models from natural language and grounding.
 
 ### ALFRED experiment quickstart. This sets up the repository to run experiments with the ALFRED dataset.
-1. *Download the ALFRED PDDL files*. We use a preprocessed set of Alfred files that is available [here](https://drive.google.com/file/d/1sg8v1hf40Eu1K7hLGZ_LP5I-9N4zwLCU/view?usp=sharing), and should be placed in `dataset/alfred_linearized_pddl`. This contains the PDDL paths referenced in `dataset/alfred-linearized-100-NLgoals-operators.json`.
+1. *Download the ALFRED PDDL files*. We use a preprocessed set of Alfred files that is available [here](https://drive.google.com/drive/u/0/folders/1sE90a87rWNHPzwwm3HPg_XAxyi6HTOBc), and should be placed in `dataset/alfred_linearized_pddl`. This contains the PDDL paths referenced in `dataset/alfred-linearized-100-NLgoals-operators.json`.
 
 To prepare this from scratch, use the dataset [here](https://drive.google.com/file/d/1sg8v1hf40Eu1K7hLGZ_LP5I-9N4zwLCU/view?usp=sharing), and is originally copied from the MIT internal version at `/data/vision/torralba/datasets/ALFRED/data/full_2.1.0/`. We extract this to `dataset/alfred_pddl`; you should see three internal folders (train, valid_seen, valid_unseen). This provides the PDDL paths referenced in `dataset/alfred-NLgoal-operators.json`.
    - Prepare the ALFRED PDDL files. We modify the ALFRED domain to support simple fast downward planning. Run `prepare_alfred_pddl.py` to do so, or, download our extracted and updated version at [TBD].
