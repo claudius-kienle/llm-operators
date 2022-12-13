@@ -167,9 +167,9 @@ def main():
         # Motion planner: evaluate costs using motion planner.
 
         # Update the domain definition based on operators in solved problems.
-        pddl.update_domain(
-            pddl_domain, planning_problems["train"], n_ops
-        )  # n_ops - how many top operators we want to update each time
+        # pddl.update_domain(
+            #pddl_domain, planning_problems["train"], n_ops
+        #)  # n_ops - how many top operators we want to update each time
 
         # TODO: evaluate current progress.
         # Print some kind of output file showing 'how many problems were solved'.
