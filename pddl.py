@@ -304,12 +304,12 @@ class PDDLParser:
 
         predicate_names = {}
         for pred in predicates:
-            pred_object = cls._parse_predicate(pred)
+            pred_object = cls._parse_predicate(pred, neg=False)
             predicate_names[pred_object.name] = pred_object
         return predicate_names
 
     @classmethod
-    def _parse_predicate(cls, pred):
+    def _parse_predicate(cls, pred, neg=False):
         pred = pred.strip()[1:-1].split("?")
         pred_name = pred[0].strip()
         # arg_types = [self.types[arg.strip().split("-")[1].strip()]
@@ -326,7 +326,7 @@ class PDDLParser:
                 arg_values.append(arg.strip())
                 arg_types.append("")
         return PDDLPredicate(
-            pred_name, len(pred[1:]), arg_types, argument_values=arg_values
+            pred_name, len(pred[1:]), arg_types, argument_values=arg_values, neg=neg
         )
 
     @classmethod
@@ -445,13 +445,42 @@ class PDDLPlan:
                     action[PDDLPlan.PDDL_OPERATOR_BODY] = operator_body
         return actions
 
+    @classmethod
+    def get_postcondition_predicates(cls, action, pddl_domain):
+        operator_body = action[PDDLPlan.PDDL_OPERATOR_BODY]
+        parameters, processed_preconds, processed_effects = parse_operator_components(
+            operator_body, pddl_domain
+        )
+        parameters_ordered = [p[0] for p in sorted(parameters)]
+        ground_arguments_map = {
+            argument: ground
+            for (argument, ground) in zip(parameters_ordered, action["args"])
+        }
+        ground_postcondition_predicates = []
+        for lifted_predicate in processed_effects:
+            ground_postcondition_predicates.append(
+                PDDLPredicate(
+                    name=lifted_predicate.name,
+                    arguments=lifted_predicate.arguments,
+                    arg_types=lifted_predicate.argument_values,
+                    neg=lifted_predicate.neg,
+                    argument_values=[
+                        ground_arguments_map[arg]
+                        for arg in lifted_predicate.argument_values
+                    ],
+                )
+            )
+        return ground_postcondition_predicates
+
 
 class PDDLPredicate:
-    def __init__(self, name, arguments, arg_types, argument_values):
+    def __init__(self, name, arguments, arg_types, argument_values, neg=False):
         self.name = name
         self.arguments = arguments
         self.arg_types = arg_types
         self.argument_values = argument_values
+        self.neg = neg
+    
 
 
 class PDDLProblem:
@@ -516,6 +545,45 @@ def preprocess_operators(
             print("====")
 
 
+def parse_operator_components(operator_body, pddl_domain):
+    preprocessed_operator = PDDLParser._purge_comments(operator_body)
+
+    matches = re.finditer(r"\(:action", preprocessed_operator)
+
+    for match in matches:
+        start_ind = match.start()
+        op = PDDLParser._find_balanced_expression(
+            preprocessed_operator, start_ind
+        ).strip()
+        patt = r"\(:action(.*):parameters(.*):precondition(.*):effect(.*)\)"
+        op_match = re.match(patt, op, re.DOTALL)
+        if op_match is None:
+            return False, ""
+        op_name, params, preconds, effects = op_match.groups()
+        op_name = op_name.strip()
+        (
+            precond_parameters,
+            processed_preconds,
+            precondition_predicates,
+        ) = preprocess_conjunction_predicates(
+            preconds, pddl_domain.ground_truth_predicates
+        )
+        if not precond_parameters:
+            return False, ""
+        (
+            effect_parameters,
+            processed_effects,
+            effect_predicates,
+        ) = preprocess_conjunction_predicates(
+            effects, pddl_domain.ground_truth_predicates
+        )
+        if not effect_parameters:
+            return False, ""
+        precond_parameters.update(effect_parameters)
+
+        return precond_parameters, precondition_predicates, effect_predicates
+
+
 def preprocess_operator(
     operator_name, operator_body, pddl_domain, use_ground_truth_predicates=True
 ):
@@ -535,12 +603,12 @@ def preprocess_operator(
             return False, ""
         op_name, params, preconds, effects = op_match.groups()
         op_name = op_name.strip()
-        precond_parameters, processed_preconds = preprocess_conjunction_predicates(
+        precond_parameters, processed_preconds, _ = preprocess_conjunction_predicates(
             preconds, pddl_domain.ground_truth_predicates
         )
         if not precond_parameters:
             return False, ""
-        effect_parameters, processed_effects = preprocess_conjunction_predicates(
+        effect_parameters, processed_effects, _ = preprocess_conjunction_predicates(
             effects, pddl_domain.ground_truth_predicates
         )
         if not effect_parameters:
@@ -580,26 +648,30 @@ def preprocess_conjunction_predicates(conjunction_predicates, ground_truth_predi
 
         pdb.set_trace()
     if not op_match:
-        return False, ""
+        return False, "", None
 
     parameters = set()
     conjunction_predicates = op_match.groups()[0].strip()
     if len(conjunction_predicates) <= 0:
-        return False, ""
+        return False, "", None
     predicates_list = [
         p.strip()
         for p in PDDLParser._find_all_balanced_expressions(op_match.groups()[0].strip())
     ]
     preprocessed_predicates = []
+    structured_predicates = []
     for pred_string in predicates_list:
         patt = r"\(not(.*)\)"
         not_match = re.match(patt, pred_string, re.DOTALL)
         if not_match is not None:
+            neg = True
             inner_predicate = not_match.groups()[0].strip()
         else:
+            neg = False
             inner_predicate = pred_string
 
-        parsed_predicate = PDDLParser._parse_predicate(inner_predicate)
+        parsed_predicate = PDDLParser._parse_predicate(inner_predicate, neg=neg)
+        structured_predicates.append(parsed_predicate)
         if (
             (parsed_predicate.name not in ground_truth_predicates)
             or parsed_predicate.arguments
@@ -614,5 +686,5 @@ def preprocess_conjunction_predicates(conjunction_predicates, ground_truth_predi
             )
             for typed_parameter in list(typed_parameters):
                 parameters.add(typed_parameter)
-    return parameters, preprocessed_predicates
+    return parameters, preprocessed_predicates, structured_predicates
 
