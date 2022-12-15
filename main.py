@@ -107,6 +107,11 @@ parser.add_argument(
     help="debug: mock out goal_proposal.",
 )
 parser.add_argument(
+    "--debug_mock_task_plans",
+    action="store_true",
+    help="debug: mock out task plan proposal.",
+)
+parser.add_argument(
     "--debug_ground_truth_goals",
     action="store_true",
     help="debug: use ground_truth_goals.",
@@ -163,13 +168,15 @@ def main():
             problems=planning_problems["train"],
             verbose=args.verbose,
             command_args=args,
+            output_directory=args.output_directory,
+            use_mock=args.debug_mock_task_plans,
         )
         # Motion planner: evaluate costs using motion planner.
 
         # Update the domain definition based on operators in solved problems.
         # pddl.update_domain(
-            #pddl_domain, planning_problems["train"], n_ops
-        #)  # n_ops - how many top operators we want to update each time
+        # pddl_domain, planning_problems["train"], n_ops
+        # )  # n_ops - how many top operators we want to update each time
 
         # TODO: evaluate current progress.
         # Print some kind of output file showing 'how many problems were solved'.

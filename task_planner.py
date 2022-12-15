@@ -6,28 +6,62 @@ from pddlgym_planners.fd import FD
 from pddlgym_planners.planner import PlanningFailure, PlanningTimeout
 from tempfile import NamedTemporaryFile
 from pddl import PDDLPlan
+import json
+import os
 
 TASK_PLANNER_FD = "task_planner_fd"
 
 
 def evaluate_task_plans_and_costs_for_problems(
-    pddl_domain, problems, command_args, verbose=False
+    pddl_domain,
+    problems,
+    command_args,
+    verbose=False,
+    output_directory=None,
+    use_mock=False,
 ):
     """
     Runs task planner to evaluate task plans for a set of planning problems, given a PDDL domain.
+
+    For now, this just runs using the first operator definition.
     :ret: problems updated with PDDL plans.
     """
     print(f"evaluate_task_plans_and_costs_for_problems on {len(problems)}.")
+
+    output_json = []
+    experiment_tag = (
+        ""
+        if len(command_args.experiment_name) < 1
+        else f"{command_args.experiment_name}_"
+    )
+
+    output_filepath = f"{experiment_tag}task_plans.json"
+
+    if use_mock:
+        mock_evaluate_task_plans_and_costs_for_problems(
+            output_filepath, output_directory
+        )
+
     if verbose:
         print(f"Use ground truth goals? {command_args.debug_ground_truth_goals}")
-    for problem_id in problems:
-        run_planner(
+    for max_problems, problem_id in enumerate(problems):
+        if verbose:
+            print(problems[problem_id].language)
+        problem_json = run_planner(
             pddl_domain=pddl_domain,
             problem=problems[problem_id],
             planner_type=TASK_PLANNER_FD,
             verbose=verbose,
             debug_ground_truth_goals=command_args.debug_ground_truth_goals,
         )
+        output_json.append(problem_json)
+    if output_directory:
+        with open(os.path.join(output_directory, output_filepath), "w") as f:
+            json.dump(output_json, f)
+
+
+def mock_evaluate_task_plans_and_costs_for_problems(output_filepath, output_directory):
+    pass
 
 
 def run_planner(
@@ -48,7 +82,7 @@ def run_planner(
         goal : PDDLPlan
     } if a PDDLPlan is found, along with a score for this plan.
     """
-
+    output_json = {"file_name": problem.problem_id, "plans": []}
     if debug_ground_truth_goals:
         goals = [problem.ground_truth_pddl_problem.ground_truth_goal]
     else:
@@ -70,18 +104,21 @@ def run_planner(
             domain_str=current_domain_string, problem_str=current_problem_string
         )
         # Convert the planner into a plan object.
-        # TBD: include the exact sequence of operators.
         if success:
             plan_string = "\n".join(["(" + a + ")" for a in raw_plan_list])
-            pddl_plan = PDDLPlan(plan_string=plan_string, pddl_domain=pddl_domain)
+            pddl_plan = PDDLPlan(plan_string=plan_string, pddl_domain=pddl_domain,)
             problem.evaluated_pddl_plans[goal] = pddl_plan
+            if verbose:
+                print(plan_string)
+            output_json["plans"].append({"goal": goal, "plan": pddl_plan.plan})
     if verbose:
         print(
             f"Found {len(problem.evaluated_pddl_plans)}/{len(problem.proposed_pddl_goals)} evaluated plans for proposed goals"
         )
+    return output_json
 
 
-def fd_plan_from_strings(domain_str, problem_str):
+def fd_plan_from_strings(domain_str, problem_str, timeout=10):
     with NamedTemporaryFile(mode="w") as domain_file, NamedTemporaryFile(
         mode="w"
     ) as problem_file:
@@ -89,16 +126,19 @@ def fd_plan_from_strings(domain_str, problem_str):
         problem_file.write(problem_str)
         domain_file.flush()
         problem_file.flush()
-        success, out = fd_plan_from_file(domain_file.name, problem_file.name)
+        success, out = fd_plan_from_file(
+            domain_file.name, problem_file.name, timeout=timeout
+        )
+
         return (success, out)
 
 
-def fd_plan_from_file(domain_fname, problem_fname):
+def fd_plan_from_file(domain_fname, problem_fname, timeout=5):
     # TBD: don't use PDDL gym planner, use original FD.
     fd_planner = FD(alias_flag='--alias "lama-first"')
     try:
 
-        plan = fd_planner.plan_from_pddl(domain_fname, problem_fname, timeout=5)
+        plan = fd_planner.plan_from_pddl(domain_fname, problem_fname, timeout=timeout)
     except PlanningFailure as pf:
         return False, pf
     except PlanningTimeout as pt:

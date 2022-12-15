@@ -96,10 +96,26 @@ class Domain:
     def remove_operator(self, operator_name):
         del self.operators[operator_name]
 
-    def get_canonical_operator(self, operator_name):
-        operators_lower = {o.lower(): o for o in self.operators}
-        operators_upper = {o.upper(): o for o in self.operators}
+    def get_operator_body(self, operator_name, proposed_operator_index=0):
         if operator_name in self.operators:
+            return self.operators[operator_name][proposed_operator_index]
+        elif operator_name in self.proposed_operators:
+            return self.proposed_operators[operator_name][proposed_operator_index]
+        else:
+            return False
+
+    def get_canonical_operator(self, operator_name):
+        operators_lower = {
+            o.lower(): o
+            for o in list(self.operators.keys()) + list(self.proposed_operators.keys())
+        }
+        operators_upper = {
+            o.upper(): o
+            for o in list(self.operators.keys()) + list(self.proposed_operators.keys())
+        }
+        if operator_name in list(self.operators.keys()) + list(
+            self.proposed_operators.keys()
+        ):
             return operator_name
         elif operator_name in operators_lower:
             return operators_lower[operator_name]
@@ -127,12 +143,16 @@ class Domain:
             o = ""
             if current_operators:
                 o += separator.join([f"""{s}""" for _, s in self.operators.items()])
+            o += "\n"
             o += separator.join(
                 [
                     f"{self.proposed_operators[o][proposed_operator_index]}"
                     for o in proposed_operators
+                    if o in self.proposed_operators
+                    and proposed_operator_index < len(self.proposed_operators[o])
                 ]
             )
+
             return o
 
     def to_string(
@@ -141,7 +161,7 @@ class Domain:
         ground_truth_operators=False,
         proposed_operators=[],
     ):
-        return f"""
+        domain_str = f"""
     (define (domain {self.domain_name})
         {self.requirements}
         {self.types}
@@ -150,6 +170,8 @@ class Domain:
         {self.operators_to_string(current_operators, ground_truth_operators, proposed_operators)}
     )
                 """
+
+        return domain_str
 
     def domain_definition_to_string(self, codex_prompt=False):
         if codex_prompt:
@@ -337,6 +359,10 @@ class PDDLParser:
         """Return a list of all balanced expressions in a string,
         starting from the beginning.
         """
+        if not string[0] == "(" and string[-1] == ")":
+            import pdb
+
+            pdb.set_trace()
         assert string[0] == "("
         assert string[-1] == ")"
         exprs = []
@@ -368,6 +394,7 @@ class PDDLParser:
 class PDDLPlan:
     PDDL_ACTION = "action"
     PDDL_ARGUMENTS = "args"
+    PDDL_OPERATOR_BODY = "operator_body"
     PDDL_INFINITE_COST = 100000
 
     def __init__(
@@ -410,6 +437,12 @@ class PDDLPlan:
                 action[PDDLPlan.PDDL_ACTION] = pddl_domain.get_canonical_operator(
                     action[PDDLPlan.PDDL_ACTION]
                 )
+
+                operator_body = pddl_domain.get_operator_body(
+                    action[PDDLPlan.PDDL_ACTION]
+                )
+                if operator_body:
+                    action[PDDLPlan.PDDL_OPERATOR_BODY] = operator_body
         return actions
 
 
@@ -455,6 +488,7 @@ def preprocess_proposed_plans_operators_goals(
 def preprocess_operators(
     pddl_domain, output_directory, command_args=None, verbose=False
 ):
+    # Preprocess operators, making the hard assumption that we want to operators to be conjunctions of existing predicates only.
     if verbose:
         print(
             f"preprocess_operators: preprocessing {len(pddl_domain.proposed_operators)} operators."
@@ -462,15 +496,24 @@ def preprocess_operators(
     for o in list(pddl_domain.proposed_operators.keys()):
         preprocessed_operators = []
         for proposed_operator_body in pddl_domain.proposed_operators[o]:
+            if verbose:
+                print("Trying to process...")
+                print(proposed_operator_body)
             success, preprocessed_operator = preprocess_operator(
                 o, proposed_operator_body, pddl_domain, use_ground_truth_predicates=True
             )
             if success:
                 preprocessed_operators.append(preprocessed_operator)
-        if len(preprocess_operators) > 0:
-            pddl_domain.proposed_operators[o] = preprocess_operators
+        if len(preprocessed_operators) > 0:
+            pddl_domain.proposed_operators[o] = preprocessed_operators
         else:
             del pddl_domain.proposed_operators[o]
+        if verbose:
+            print(f"Preprocessed operator: {o}")
+            print(f"Processed forms {len( pddl_domain.proposed_operators[o])}: ")
+            for operator_body in pddl_domain.proposed_operators[o]:
+                print(operator_body)
+            print("====")
 
 
 def preprocess_operator(
@@ -478,21 +521,30 @@ def preprocess_operator(
 ):
     # Purge comments.
     preprocessed_operator = PDDLParser._purge_comments(operator_body)
+
     matches = re.finditer(r"\(:action", preprocessed_operator)
 
     for match in matches:
         start_ind = match.start()
-        op = PDDLParser._find_balanced_expression(operator_body, start_ind).strip()
+        op = PDDLParser._find_balanced_expression(
+            preprocessed_operator, start_ind
+        ).strip()
         patt = r"\(:action(.*):parameters(.*):precondition(.*):effect(.*)\)"
         op_match = re.match(patt, op, re.DOTALL)
+        if op_match is None:
+            return False, ""
         op_name, params, preconds, effects = op_match.groups()
         op_name = op_name.strip()
         precond_parameters, processed_preconds = preprocess_conjunction_predicates(
             preconds, pddl_domain.ground_truth_predicates
         )
+        if not precond_parameters:
+            return False, ""
         effect_parameters, processed_effects = preprocess_conjunction_predicates(
             effects, pddl_domain.ground_truth_predicates
         )
+        if not effect_parameters:
+            return False, ""
         precond_parameters.update(effect_parameters)
 
         params_string = " ".join(
@@ -501,17 +553,18 @@ def preprocess_operator(
                 for (name, param_type) in sorted(precond_parameters)
             ]
         )
-        precond_string = "\n".join(processed_preconds)
-        precond_string = f"(and \n{precond_string}\n)"
-        effect_string = "\n".join(processed_effects)
-        effect_string = f"(and \n{effect_string}\n)"
+        precond_string = "\n\t\t".join(processed_preconds)
+        precond_string = f"(and \n\t\t{precond_string}\n\t\t)"
+        effect_string = "\n\t\t".join(processed_effects)
+        effect_string = f"(and \n\t\t{effect_string}\n\t\t)"
 
         preprocessed_operator = f"""
 (:action {op_name}
-        (:parameters ({params_string}))
+        :parameters ({params_string})
         
         :precondition {precond_string}
         :effect {effect_string}
+)
         """.strip()
         return True, preprocessed_operator
 
@@ -526,9 +579,13 @@ def preprocess_conjunction_predicates(conjunction_predicates, ground_truth_predi
         import pdb
 
         pdb.set_trace()
+    if not op_match:
+        return False, ""
 
     parameters = set()
     conjunction_predicates = op_match.groups()[0].strip()
+    if len(conjunction_predicates) <= 0:
+        return False, ""
     predicates_list = [
         p.strip()
         for p in PDDLParser._find_all_balanced_expressions(op_match.groups()[0].strip())
