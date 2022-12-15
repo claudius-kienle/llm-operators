@@ -5,20 +5,25 @@
         "goal": "(:goal (and\n(on crate0 pallet2)\n(on crate1 pallet1))\n)",
         "file_name": "domains/supervision_domains/depot_problem_0.pddl",
         "domain_file": "domains/supervision_domains/depot_domain.pddl",
-        "object_list": ["depot0","distributor0",]
+        "object_list": ["depot0","distributor0","distributor1","truck0","truck1","pallet0","pallet1","pallet2",
+        "crate0","crate1","hoist0","hoist1","hoist2"]
     },
     {
         "domain": "movie",
         "NL_goal": "rewind the movie and eat chips with dip, cheese and crakers, and a soda",
         "goal": "(:goal (and (movie-rewound)\n(counter-at-zero)\n(have-chips)\n(have-dip)\n(have-pop)\n(have-cheese)\n(have-crackers)))",
         "file_name": "domains/supervision_domains/movie_problem_0.pddl",
-        "domain_file": "domains/supervision_domains/movie_domain.pddl"
+        "domain_file": "domains/supervision_domains/movie_domain.pddl",
+        "object_list":["chips5","chips4","chips3","chips2","chips1","dip5","dip4","dip3","dip2","dip1",
+        "pop5","pop4","pop3","pop2","pop1","cheese5","cheese4","cheese3","cheese2","cheese1","crackers5","crackers4",
+        "crackers3","crackers2","crackers1"]
     },
     {
         "domain": "travel",
         "NL_goal": "the bulldozer is at location g and the jack is at location a",
         "goal": "(:goal\n        (and (at bulldozer g) (at jack a))\n    )",
         "file_name": "domains/supervision_domains/travel_problem_0.pddl",
-        "domain_file": "domains/supervision_domains/travel_domain.pddl"
-    },
+        "domain_file": "domains/supervision_domains/travel_domain.pddl",
+        "object_list":["a","b","c","d", "e", "f", "g", "jack", "bulldozer"]
+    }
 ]
