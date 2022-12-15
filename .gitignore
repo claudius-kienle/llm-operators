@@ -5,3 +5,5 @@ dataset/alfred_linearized_pddl
 __pycache__
 .idea
 .DS_Store
+alfred
+pddlgym_planners

@@ -1,36 +1,14 @@
 [
     {
-        "domain": "Barman",
-        "problemfile": "invented",
-        "NL_goal": "make a gin and tonic coacktail",
-        "goal": "(:goal (and\n(contains gin cocktail1)\n(contains tonic cocktail1)))",
-        "domain_file": ""
-    },
-    {
         "domain": "Depot",
-        "problemfile": "pfile1",
         "NL_goal": "place the first crate on the third pallet and the second crate on the second pallet",
         "goal": "(:goal (and\n(on crate0 pallet2)\n(on crate1 pallet1))\n)",
         "file_name": "domains/supervision_domains/depot_problem_0.pddl",
-        "domain_file": "domains/supervision_domains/depot_domain.pddl"
-    },
-    {
-        "domain": "travel",
-        "problemfile": "problem10",
-        "NL_goal": "visit Washington, Florida, Oklahoma, and Idaho",
-        "goal": "  (:goal (and\n(visited wa)\n(visited fl)\n(visited ok)\n(visited id)))",
-        "domain_file": ""
-    },
-    {
-        "domain": "river",
-        "problemfile": "problem1",
-        "NL_goal": "go to the far bank of the river",
-        "goal": "(:goal (and (on-far-bank))))",
-        "domain_file": ""
+        "domain_file": "domains/supervision_domains/depot_domain.pddl",
+        "object_list": ["depot0","distributor0",]
     },
     {
         "domain": "movie",
-        "problemfile": "instance-1",
         "NL_goal": "rewind the movie and eat chips with dip, cheese and crakers, and a soda",
         "goal": "(:goal (and (movie-rewound)\n(counter-at-zero)\n(have-chips)\n(have-dip)\n(have-pop)\n(have-cheese)\n(have-crackers)))",
         "file_name": "domains/supervision_domains/movie_problem_0.pddl",
@@ -42,5 +20,5 @@
         "goal": "(:goal\n        (and (at bulldozer g) (at jack a))\n    )",
         "file_name": "domains/supervision_domains/travel_problem_0.pddl",
         "domain_file": "domains/supervision_domains/travel_domain.pddl"
-    }
+    },
 ]

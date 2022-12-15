@@ -1,4 +1,4 @@
-;; Source: https://github.com/pellierd/pddl4j/tree/master/pddl/depots
+;; Source: https://github.com/pellierd/pddl4j/tree/master/pddl/depots/p01.pddl
 (define (problem depotprob1818)
     (:domain Depot)
     (:objects
