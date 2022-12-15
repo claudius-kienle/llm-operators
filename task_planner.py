@@ -39,8 +39,9 @@ def evaluate_task_plans_and_costs_for_problems(
 
     if use_mock:
         mock_evaluate_task_plans_and_costs_for_problems(
-            output_filepath, output_directory
+            output_filepath, output_directory, problems
         )
+        return
 
     if verbose:
         print(f"Use ground truth goals? {command_args.debug_ground_truth_goals}")
@@ -60,8 +61,24 @@ def evaluate_task_plans_and_costs_for_problems(
             json.dump(output_json, f)
 
 
-def mock_evaluate_task_plans_and_costs_for_problems(output_filepath, output_directory):
-    pass
+def mock_evaluate_task_plans_and_costs_for_problems(
+    output_filepath, output_directory, problems
+):
+    with open(os.path.join(output_directory, output_filepath), "r") as f:
+        output_json = json.load(f)
+        print(
+            f"Now in: mock_evaluate_task_plans_and_costs_for_problems: from {os.path.join(output_directory, output_filepath)}"
+        )
+    for plan in output_json:
+        if plan["file_name"] in problems:
+            problem = problems[plan["file_name"]]
+            for plan_json in plan["plans"]:
+                problem.evaluated_pddl_plans[plan_json["goal"]] = PDDLPlan(
+                    plan=plan_json["plan"]
+                )
+    print(
+        f"After initialization, there are {len([p for p in problems if len(problems[p].evaluated_pddl_plans) > 0])} problems with plans."
+    )
 
 
 def run_planner(

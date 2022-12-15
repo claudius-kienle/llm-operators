@@ -13,12 +13,13 @@ There are two relevant submodules:
 - `pddlgym_planners`. This contains a fast-downward task planner.
 - `alfred`. This is a fork of the main ALFRED repository (https://github.com/jiahai-feng/alfred) that we have updated to support task and motion planning from PDDL with custom operators.
 
-3. *Create a Python environment*. This conda environment has been tested on the following machines so far:
+3. *Add an OpenAI environment key.* You will need to edit your bash_profile or enviromment to include a line that contains `export OPENAI_API_KEY=<OPEN_AI_KEY>` and ask Cathy (zyzzyva@mit.edu) if you need one.
+
+
+4. *Create a Python environment*. This conda environment has been tested on the following machines so far:
 - 
 
-4. *Add an OpenAI environment key.* You will need to edit your bash_profile or enviromment to include a line that contains `export OPENAI_API_KEY=<OPEN_AI_KEY>` and ask Cathy (zyzzyva@mit.edu) if you need one.
-
-6. *Test your Thor installation.*
+5. *Test your Thor installation.* You shoudl be able to run the alfred/test_thor.py function to check your installation.
 
 7. *Test your learning loop.* 
 - The entrypoint to the full learning loop is currently at `main.py`.

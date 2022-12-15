@@ -7,12 +7,15 @@ Usage:
     
     # Append these flags if you want to mock out the Codex proposals with previous checkpoints.
     --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals 
+    # Append this flag if you want to mock out the task planner with previous plans.
+    --debug_mock_task_plans
 """
 import argparse
 import random
 import codex
 import datasets
 import task_planner
+import motion_planner
 import pddl
 
 
@@ -109,7 +112,12 @@ parser.add_argument(
 parser.add_argument(
     "--debug_mock_task_plans",
     action="store_true",
-    help="debug: mock out task plan proposal.",
+    help="debug: mock out task plan symbolic search.",
+)
+parser.add_argument(
+    "--debug_mock_motion_plans",
+    action="store_true",
+    help="debug: mock out motion plan grounded search.",
 )
 parser.add_argument(
     "--debug_ground_truth_goals",
@@ -172,6 +180,15 @@ def main():
             use_mock=args.debug_mock_task_plans,
         )
         # Motion planner: evaluate costs using motion planner.
+        motion_planner.evaluate_motion_plans_and_costs_for_problems(
+            pddl_domain=pddl_domain,
+            problems=planning_problems["train"],
+            verbose=args.verbose,
+            command_args=args,
+            output_directory=args.output_directory,
+            use_mock=args.debug_mock_motion_plans,
+            dataset_name=args.dataset_name,
+        )
 
         # Update the domain definition based on operators in solved problems.
         # pddl.update_domain(
