@@ -3,6 +3,12 @@ motion_planner.py
 Utilities for generating motion plans.
 """
 from pddl import PDDLPlan
+import os, sys
+
+os.environ["ALFRED_ROOT"] = os.path.join(os.getcwd(), "alfred")
+sys.path.append(os.path.join(os.environ["ALFRED_ROOT"]))
+sys.path.append(os.path.join(os.environ["ALFRED_ROOT"], "gen"))
+
 from alfred.alfredplanner import init_alfred, search, Literal, Fluent
 
 
@@ -92,8 +98,14 @@ def preprocess_alfred_action_arg(action_arg):
     return action_arg
 
 
-def attempt_sequential_plan_alfred(pddl_plan, pddl_domain, verbose=False):
+def attempt_sequential_plan_alfred(
+    pddl_plan, pddl_domain, verbose=False, num_rollouts_per_action=500
+):
     """"pddl_plan: a PDDLPlan object with operators on it."""
+    # Initialize the ALFRED environment for the problem.
+    motion_plan = {"successful_actions": [], "oracle_success": []}
+
+    sim_env = init_alfred(task_idx=1)  # TODO: intialize correctly
     for action in pddl_plan.plan:
         print("Attempting to ex")
         ground_postcondition_predicates = PDDLPlan.get_postcondition_predicates(
@@ -103,7 +115,7 @@ def attempt_sequential_plan_alfred(pddl_plan, pddl_domain, verbose=False):
             Literal(
                 fluent=Fluent(
                     predicate=predicate.name,
-                    objects=(
+                    objects=list(
                         preprocess_alfred_action_arg(action_arg)
                         for action_arg in predicate.argument_values
                     ),
@@ -112,6 +124,14 @@ def attempt_sequential_plan_alfred(pddl_plan, pddl_domain, verbose=False):
             )
             for predicate in ground_postcondition_predicates
         ]
-        import pdb
-
-        pdb.set_trace()
+        success, traj = search(
+            sim_env, ground_postcondition_fluents, num_roll_outs=1000,
+        )
+        if success:
+            motion_plan["successful_actions"].append(
+                {"task_action": action, "motion_trajectory": traj}
+            )
+        else:
+            motion_plan["oracle_success"] = False
+            return motion_plan
+    # TODO: check if the trajectory is correct.
