@@ -62,6 +62,3 @@ def test_parse_problem_objects_alfred():
         test_problem_string = f.read()
     pddl_problem = PDDLProblem(ground_truth_pddl_problem_string=test_problem_string)
     return pddl_problem.parse_problem_objects_alfred()
-
-
-print(test_parse_problem_objects_alfred())

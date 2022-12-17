@@ -28,6 +28,7 @@ parser.add_argument(
 )
 
 
+
 def load_domains_and_problems(args):
 
     files = [f for f in os.listdir(args.supervision_path) if ".pddl" in f]
@@ -60,6 +61,7 @@ def plan_domains_and_problems(args, domains_and_problems):
             with open(os.path.join(args.supervision_path, problem)) as f:
                 problem_string = f.read()
             goal = PDDLProblem(problem_string).ground_truth_goal
+            objects = PDDLProblem(problem_string).parse_problem_objects_pddl()
             if solved:
                 operator_sequence = get_operator_sequence(plan)
                 domains_and_solutions.append(
@@ -70,6 +72,7 @@ def plan_domains_and_problems(args, domains_and_problems):
                         "operator_sequence": operator_sequence,
                         "file_name": os.path.join(args.supervision_path, problem),
                         "domain_file": os.path.join(args.supervision_path, domain),
+                        "objects": objects
                     }
                 )
     return domains_and_solutions
