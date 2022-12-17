@@ -502,6 +502,47 @@ class PDDLProblem:
         return PDDLParser._find_labelled_expression(pddl_problem, ":goal")
 
 
+    def parse_object_types_to_list(self,object_types):
+        """
+        object_types is a list of the string form rows of what is listed inside the objects section in a pddl problem
+        returns a list of the objects
+        """
+        object_list = []
+        for row in object_types:
+            instances,type = row.split("-")
+            instances = instances.split()
+            object_list.extend(instances)
+        return object_list
+
+
+    def parse_problem_objects_pddl(self):
+        """
+        This parser returns all the objects in the object section in a PDDL problem
+        works on both alfred and other supervision domains problems
+
+        based on the assumption there's one type per row, and the different instances are separated by spaces
+
+        returns a list of the objects in the pddl problem
+        """
+        pddl_problem = PDDLParser._purge_comments(self.ground_truth_pddl_problem_string)
+        object_types = PDDLParser._find_labelled_expression(pddl_problem, ":objects").split("\n")[1:-1]
+        return self.parse_object_types_to_list(object_types)
+
+
+    def parse_problem_objects_alfred(self):
+        """
+        same as parse_problem_objects_pddl(), but works only on alfred because of the weird structure of the problem files.
+        returns only the objects, without the location.
+        Based on the assumption that the objects and location are separated by an empty row
+
+        returns a list of the objects in the pddl problem, without location objects
+        """
+        pddl_problem = PDDLParser._purge_comments(self.ground_truth_pddl_problem_string)
+        # taking the first bunch of objects bc they are separated from location by \n\n
+        object_types = PDDLParser._find_labelled_expression(pddl_problem, ":objects").split("\n\n")[0].split("\n")[1:-1]
+        return self.parse_object_types_to_list(object_types)
+
+
 def preprocess_proposed_plans_operators_goals(
     pddl_domain, verbose=False, output_directory=None, command_args=None
 ):
