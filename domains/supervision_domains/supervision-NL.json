@@ -25,5 +25,21 @@
         "file_name": "domains/supervision_domains/travel_problem_0.pddl",
         "domain_file": "domains/supervision_domains/travel_domain.pddl",
         "object_list":["a","b","c","d", "e", "f", "g", "jack", "bulldozer"]
+    },
+    {
+        "domain": "barman",
+        "NL_goal": "make three cocktails, cocktail16 with shot1, cocktail with shot2, and cocktail20 with shot20",
+        "goal": "(:goal\n          (and\n               (contains shot1 cocktail16)\n               (contains shot2 cocktail3)\n               (contains shot3 cocktail20)\n          )\n     )",
+        "file_name": "domains/supervision_domains/barman_problem_0.pddl",
+        "domain_file": "domains/supervision_domains/barman_domain.pddl",
+        "object_list": ["shaker1", "left", "right", "shot1", "shot2", "shot3", "shot4", "shot5", "shot6", "shot7",
+            "shot8", "shot9", "shot10", "shot11", "shot12", "shot13", "shot14", "shot15", "shot16", "shot17", "shot18",
+            "shot19", "shot20", "shot21", "shot22", "shot23", "shot24", "shot25", "ingredient1", "ingredient2",
+            "ingredient3", "ingredient4", "ingredient5", "ingredient6", "ingredient7", "ingredient8", "ingredient9",
+            "ingredient10", "cocktail1", "cocktail2", "cocktail3", "cocktail4", "cocktail5", "cocktail6",
+            "cocktail7", "cocktail8", "cocktail9", "cocktail10", "cocktail11", "cocktail12", "cocktail13",
+            "cocktail14", "cocktail15", "cocktail16", "cocktail17", "cocktail18", "cocktail19", "cocktail20", "cocktail21",
+            "cocktail22", "cocktail23", "cocktail24", "dispenser1", "dispenser2", "dispenser3", "dispenser4", "dispenser5",
+            "dispenser6", "dispenser7", "dispenser8", "dispenser9", "dispenser10", "level0", "level1", "level2"]
     }
 ]

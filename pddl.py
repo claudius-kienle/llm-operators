@@ -509,7 +509,7 @@ class PDDLProblem:
         """
         object_list = []
         for row in object_types:
-            instances,type = row.split("-")
+            instances = row.split("-")[0]
             instances = instances.split()
             object_list.extend(instances)
         return object_list
