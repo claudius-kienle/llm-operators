@@ -79,11 +79,12 @@ def load_pddl_supervision(supervision_name, verbose=False):
     with open(f"dataset/{supervision_name}-NLgoals-operators.json") as f:
         pddl_supervision = {goal["domain_file"]: goal for goal in json.load(f)}
 
-    # Load natural language for these.  These should be in dataset/<supervision_name>-NL.json
+    # Load natural language + objects for these.  These should be in dataset/<supervision_name>-NL.json
     with open(f"dataset/{supervision_name}-NL.json") as f:
         for nl_goal in json.load(f):
             if nl_goal["domain_file"] in pddl_supervision:
                 pddl_supervision[nl_goal["domain_file"]]["NL_goal"] = nl_goal["NL_goal"]
+                pddl_supervision[nl_goal["domain_file"]]["object_list"] = nl_goal["object_list"]
 
     for domain_file in list(pddl_supervision.keys()):
         if "NL_goal" not in pddl_supervision[domain_file]:
