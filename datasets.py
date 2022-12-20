@@ -85,6 +85,10 @@ def load_pddl_supervision(supervision_name, verbose=False):
             if nl_goal["domain_file"] in pddl_supervision:
                 pddl_supervision[nl_goal["domain_file"]]["NL_goal"] = nl_goal["NL_goal"]
                 pddl_supervision[nl_goal["domain_file"]]["object_list"] = nl_goal["object_list"]
+                with open(nl_goal["domain_file"]) as j:
+                    pddl_supervision[nl_goal["domain_file"]]["domain"] = OtherDomain(j.read())
+                with open(pddl_supervision[nl_goal["domain_file"]]["file_name"]) as g:
+                    pddl_supervision[nl_goal["domain_file"]]["pddl_problem_string"] = g.read()
 
     for domain_file in list(pddl_supervision.keys()):
         if "NL_goal" not in pddl_supervision[domain_file]:

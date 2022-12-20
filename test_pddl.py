@@ -1,4 +1,6 @@
 from pddl import PDDLProblem
+from pddl import Domain
+from pddl import OtherDomain
 
 
 def test_pddl_problem_alfred():
@@ -62,3 +64,34 @@ def test_parse_problem_objects_alfred():
         test_problem_string = f.read()
     pddl_problem = PDDLProblem(ground_truth_pddl_problem_string=test_problem_string)
     return pddl_problem.parse_problem_objects_alfred()
+
+def test_parse_goal_for_prompting():
+    TEST_PDDL_PROBLEM_FILE = "dataset/alfred-sample-problem-0-0.pddl"
+    with open(TEST_PDDL_PROBLEM_FILE) as f:
+        test_problem_string = f.read()
+    pddl_problem = PDDLProblem(ground_truth_pddl_problem_string=test_problem_string)
+    return pddl_problem.parse_goal_for_prompting()
+
+def test_OtherDomain_for_goal_prompting():
+    TEST_DOMAIN_OTHER = "domains/supervision_domains/movie_domain.pddl"
+    with open(TEST_DOMAIN_OTHER) as g:
+        other_domain = OtherDomain(pddl_domain=g.read())
+    TEST_PDDL_PROBLEM_FILE = "domains/supervision_domains/movie_problem_0.pddl"
+    with open(TEST_PDDL_PROBLEM_FILE) as f:
+        test_problem_string = f.read()
+    return other_domain.domain_for_goal_prompting(test_problem_string)
+
+def test_alfred_for_goal_prompting():
+    TEST_DOMAIN_OTHER = "domains/alfred_linearized.pddl"
+    with open(TEST_DOMAIN_OTHER) as g:
+        domain = Domain(pddl_domain=g.read())
+    TEST_PDDL_PROBLEM_FILE = "dataset/alfred-sample-problem-0-0.pddl"
+    with open(TEST_PDDL_PROBLEM_FILE) as f:
+        test_problem_string = f.read()
+    return domain.domain_for_goal_prompting(test_problem_string)
+
+print(test_alfred_for_goal_prompting())
+
+
+
+

@@ -189,14 +189,62 @@ class Domain:
                 [self.requirements, self.types, self.predicates, self.functions]
             )
 
-    def domain_types_to_string(self):
+
+    def domain_for_goal_prompting(self,pddl_problem):
+        # pddl_problem is the problem string
         # this is to to return shorter version of to_string with only the requirements and types
+        problem_types = PDDLParser._find_labelled_expression(pddl_problem, ":objects").split("\n\n")[0].split("\n")[1:-1]
+        domain_types = self.types.split("\n")[1:-1]
+        type_list = domain_types + problem_types
+        types = "(:types\n" + "\n".join(type_list) + ")"
         return f"""
         (define (domain {self.domain_name})
-            {self.requirements}
-            {self.types}
-        )
+            {self.predicates}
+            {types}
                     """
+
+
+class OtherDomain:
+    def __init__(
+        self,
+        pddl_domain=None,
+    ):
+        self.pddl_domain = self.init_pddl_domain(pddl_domain)
+        self.types = self.init_simple_pddl("types")
+        self.predicates = self.init_simple_pddl("predicates")
+        self.domain_name = self.init_domain_name()
+
+
+    def init_pddl_domain(self, pddl_domain):
+        if pddl_domain is not None:
+            pddl_domain = PDDLParser._purge_comments(pddl_domain)
+        return pddl_domain
+
+    def init_simple_pddl(self, str_keyword):
+        try:
+            return PDDLParser._find_labelled_expression(
+                self.pddl_domain, f":{str_keyword}"
+            )
+        except:
+            return ""
+
+    def init_domain_name(self):
+        patt = r"\(domain(.*?)\)"
+        return re.search(patt, self.pddl_domain).groups()[0].strip()
+
+    def domain_for_goal_prompting(self,pddl_problem):
+        # pddl_problem is the problem string
+        # this is to to return shorter version of to_string with only the requirements and types
+        problem_types = PDDLParser._find_labelled_expression(pddl_problem, ":objects").split("\n")[1:-1]
+        domain_types = self.types.split("\n")[1:-1]
+        type_list = domain_types + problem_types
+        types = "(:types\n" + "\n".join(type_list) + ")"
+        return f"""
+        (define (domain {self.domain_name})
+            {self.predicates}
+            {types}
+                    """
+
 
 
 def save_gt_and_learned_plans(
@@ -501,6 +549,14 @@ class PDDLProblem:
         pddl_problem = PDDLParser._purge_comments(pddl_problem)
         return PDDLParser._find_labelled_expression(pddl_problem, ":goal")
 
+    def parse_goal_for_prompting(self):
+        """
+        When prompting Codex for goals, we remove the exists statements for alfred problems to match other domain formats
+        """
+        goal = self.ground_truth_goal.split("\n")
+        new_goal = []
+        new_goal.extend([row + "\n" for row in goal if "exists" not in row])
+        return "".join(new_goal)
 
     def parse_object_types_to_list(self,object_types):
         """
