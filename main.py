@@ -165,6 +165,7 @@ def main():
             # Preprocess the Codex proposals.
             pddl.preprocess_proposed_plans_operators_goals(
                 pddl_domain,
+                problems=planning_problems["train"],
                 verbose=args.verbose,
                 output_directory=args.output_directory,
                 command_args=args,

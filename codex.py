@@ -28,7 +28,7 @@ OPERATOR_START_TOKEN = "(:action "
 CODEX_PROMPT = "codex_prompt"
 CODEX_OUTPUT = "codex_output"
 NLgoals_PDDLplans_prompt = "\n;; Natural language goals and PDDL plans\n\n"
-NLgoals_PDDLgoals_prompt = "\n;; Natural language goals and PDDL goals\n\n"
+
 
 if not os.getenv("OPENAI_API_KEY"):
     raise ValueError(
@@ -99,13 +99,16 @@ def propose_plans_operators_goals_for_problems(
     )
 
     # Condition on: NL goals. Propose: PDDL goals.
-    propose_PDDL_goals_for_problems(
+    propose_goals_for_problems(
         unsolved_problems=unsolved_problems,
         solved_problems=solved_problems,
         current_domain=current_domain,
         output_directory=output_directory,
-        supervision_pddl = supervision_pddl,
+        supervision_pddl=supervision_pddl,
+        verbose=verbose,
+        temperature=temperature,
         initial_pddl_predicates=command_args.initial_pddl_predicates,
+        experiment_name=command_args.experiment_name,
         use_mock=command_args.debug_mock_propose_goals,
         use_gt=command_args.debug_ground_truth_goals,
     )
@@ -515,17 +518,25 @@ def get_plan_string_from_solved_problem(problem):
     return plan.plan_to_string(plan.plan)
 
 
-def get_alfred_goal_prompt(domain,problem):
+def get_alfred_goal_prompt(domain, problem):
     """
     problem:
         PDDL.Problem object
     returns:
         prompt
     """
-    domain_string = domain.domain_for_goal_prompting(problem.ground_truth_pddl_problem_string)
+    domain_string = domain.domain_for_goal_prompting(
+        problem.ground_truth_pddl_problem.ground_truth_pddl_problem_string
+    )
     NL_goal = NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language
-    pddl_goal = PDDL_GOAL_START + "\n" + problem.ground_truth_pddl_problem.ground_truth_goal + "\n" + STOP_TOKEN
-    return "\n\n".join([domain_string,NL_goal,pddl_goal])
+    pddl_goal = (
+        PDDL_GOAL_START
+        + "\n"
+        + problem.ground_truth_pddl_problem.ground_truth_goal
+        + "\n"
+        + STOP_TOKEN
+    )
+    return "\n\n".join([domain_string, NL_goal, pddl_goal])
 
 
 def get_supervision_goal_prompt(supervision_pddl):
@@ -534,20 +545,31 @@ def get_supervision_goal_prompt(supervision_pddl):
         domain = supervision_pddl[domain_file]["domain"]
         pddl_problem_string = supervision_pddl[domain_file]["pddl_problem_string"]
         domain_string = domain.domain_for_goal_prompting(pddl_problem_string)
-        NL_goal = NATURAL_LANGUAGE_GOAL_START + "\n" + supervision_pddl[domain_file]["NL_goal"]
-        pddl_goal = PDDL_GOAL_START + "\n" + supervision_pddl[domain_file]["pddl_goal"] + "\n" + STOP_TOKEN
-        prompt += "\n\n".join([domain_string,NL_goal,pddl_goal])
+        NL_goal = (
+            NATURAL_LANGUAGE_GOAL_START
+            + "\n"
+            + supervision_pddl[domain_file]["NL_goal"]
+        )
+        pddl_goal = (
+            PDDL_GOAL_START
+            + "\n"
+            + supervision_pddl[domain_file]["goal_pddl"]
+            + "\n"
+            + STOP_TOKEN
+        )
+        prompt += "\n\n".join([domain_string, NL_goal, pddl_goal])
     return prompt
 
 
 def get_unsolved_goal_prompt(domain, problem):
-    domain_string = domain.domain_for_goal_prompting(problem.ground_truth_pddl_problem_string)
+    domain_string = domain.domain_for_goal_prompting(
+        problem.ground_truth_pddl_problem.ground_truth_pddl_problem_string
+    )
     NL_goal = NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language
     return "\n\n".join([domain_string, NL_goal])
 
 
-
-def mock_propose_PDDL_goals_for_problems(
+def mock_propose_goals_for_problems(
     output_filepath, unsolved_problems, output_directory, current_domain
 ):
     with open(os.path.join(output_directory, output_filepath), "r") as f:
@@ -564,17 +586,21 @@ def mock_propose_PDDL_goals_for_problems(
     return
 
 
-def propose_PDDL_goals_for_problems(
+def propose_goals_for_problems(
     unsolved_problems,
     solved_problems,
     current_domain,
     initial_pddl_predicates,
     supervision_pddl,
-    use_mock,
+    experiment_name,
+    temperature=0.0,
+    use_mock=False,
+    max_goal_examples=2,
     n_samples=1,
     verbose=False,
     output_directory=None,
     use_gt=False,
+    print_every=2,
 ):
     """
     unsolved_problems:
@@ -590,32 +616,51 @@ def propose_PDDL_goals_for_problems(
         print("Using ground truth goals, skipping: propose_PDDL_goals_for_problems")
         return
     output_json = {}
-    output_filepath = f"codex_PDDL_goals_{'_'.join(initial_pddl_predicates)}.json"
+    experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
+    output_filepath = (
+        f"{experiment_tag}codex_goals_{'_'.join(initial_pddl_predicates)}.json"
+    )
     if use_mock:
-        mock_propose_PDDL_goals_for_problems(
+        mock_propose_goals_for_problems(
             output_filepath, unsolved_problems, output_directory, current_domain
         )
         return
 
-    prompt = NLgoals_PDDLgoals_prompt
+    if verbose:
+        print(
+            f"propose_goals_for_problems: proposing for {len(unsolved_problems)} operators."
+        )
+
+    nl_header = "\n;; Natural language goals and PDDL goals\n\n"
+    prompt = nl_header
+
+    # Add supervision from external prompts.
     if supervision_pddl:
         prompt += get_supervision_goal_prompt(supervision_pddl)
     n_solved = len(solved_problems)
-    solved_to_prompt = random.sample(solved_problems, n_solved // 3 + 1)
+    solved_to_prompt = random.sample(solved_problems, max_goal_examples)
     for solved_problem in solved_to_prompt:  # constructing the input prompt
-        prompt += get_alfred_goal_prompt(current_domain,solved_problem)
-    for problem in unsolved_problems:
-        temp_prompt = prompt + get_unsolved_goal_prompt(current_domain,problem)
+        prompt += get_alfred_goal_prompt(current_domain, solved_problem)
+    for idx, problem in enumerate(unsolved_problems):
+        if verbose and idx % print_every == 0:
+            print(
+                f"propose_goals_for_problems: now on {idx} / {len(unsolved_problems)}"
+            )
+
+        # Add supervision from ALFRED goals.
+        temp_prompt = prompt + get_unsolved_goal_prompt(current_domain, problem)
         try:
             goal_strings = get_completions(
-                temp_prompt, temperature=0.1, stop=STOP_TOKEN
+                temp_prompt,
+                temperature=temperature,
+                stop=STOP_TOKEN,
+                n_samples=n_samples,
             )
             output_json[problem.problem_id] = {
                 CODEX_PROMPT: temp_prompt,
                 CODEX_OUTPUT: goal_strings,
             }
             problem.proposed_pddl_goals.extend(goal_strings)  # editing the problem
-
         except Exception as e:
             print(e)
             continue

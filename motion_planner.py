@@ -78,28 +78,18 @@ def evaluate_alfred_motion_plans_and_costs_for_problems(
                     print(
                         problems[problem_id].ground_truth_pddl_problem.ground_truth_goal
                     )
-                    # TODO: return some value indicating whch operators were successfully executed.
+                    # Convert plan to sequential plan predicates.
+                    postcondition_predicates_json = plan.to_postcondition_predicates_json(
+                        pddl_domain, remove_alfred_object_ids=True
+                    )
+                    import pdb
+
+                    pdb.set_trace()
+                    # TODO: [PS] overwrite this.
                     attempt_sequential_plan_alfred(
                         problem_id, plan, pddl_domain, verbose
                     )
                     # TODO: check if the oracle goal was actually satisfied. This is: problems[problem_id].ground_truth_pddl_problem.ground_truth_goal; but Jiahai also implements a separate oracle class.
-
-
-def preprocess_alfred_action_arg(action_arg):
-    from alfred.gen.utils.py_util import multireplace
-
-    action_arg = multireplace(
-        action_arg,
-        {
-            "_minus_": "-",
-            "-": "#",
-            "_bar_": "|",
-            "_plus_": "+",
-            "_dot_": ".",
-            "_comma_": ",",
-        },
-    )
-    return action_arg
 
 
 def attempt_sequential_plan_alfred(
@@ -123,11 +113,7 @@ def attempt_sequential_plan_alfred(
         ground_postcondition_fluents = [
             Literal(
                 fluent=Fluent(
-                    predicate=predicate.name,
-                    objects=list(
-                        preprocess_alfred_action_arg(action_arg)
-                        for action_arg in predicate.argument_values
-                    ),
+                    predicate=predicate.name, objects=list(predicate.argument_values),
                 ),
                 neg=predicate.neg,
             )

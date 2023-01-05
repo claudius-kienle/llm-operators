@@ -189,11 +189,14 @@ class Domain:
                 [self.requirements, self.types, self.predicates, self.functions]
             )
 
-
-    def domain_for_goal_prompting(self,pddl_problem):
+    def domain_for_goal_prompting(self, pddl_problem):
         # pddl_problem is the problem string
         # this is to to return shorter version of to_string with only the requirements and types
-        problem_types = PDDLParser._find_labelled_expression(pddl_problem, ":objects").split("\n\n")[0].split("\n")[1:-1]
+        problem_types = (
+            PDDLParser._find_labelled_expression(pddl_problem, ":objects")
+            .split("\n\n")[0]
+            .split("\n")[1:-1]
+        )
         domain_types = self.types.split("\n")[1:-1]
         type_list = domain_types + problem_types
         types = "(:types\n" + "\n".join(type_list) + ")"
@@ -206,14 +209,12 @@ class Domain:
 
 class OtherDomain:
     def __init__(
-        self,
-        pddl_domain=None,
+        self, pddl_domain=None,
     ):
         self.pddl_domain = self.init_pddl_domain(pddl_domain)
         self.types = self.init_simple_pddl("types")
         self.predicates = self.init_simple_pddl("predicates")
         self.domain_name = self.init_domain_name()
-
 
     def init_pddl_domain(self, pddl_domain):
         if pddl_domain is not None:
@@ -232,10 +233,12 @@ class OtherDomain:
         patt = r"\(domain(.*?)\)"
         return re.search(patt, self.pddl_domain).groups()[0].strip()
 
-    def domain_for_goal_prompting(self,pddl_problem):
+    def domain_for_goal_prompting(self, pddl_problem):
         # pddl_problem is the problem string
         # this is to to return shorter version of to_string with only the requirements and types
-        problem_types = PDDLParser._find_labelled_expression(pddl_problem, ":objects").split("\n")[1:-1]
+        problem_types = PDDLParser._find_labelled_expression(
+            pddl_problem, ":objects"
+        ).split("\n")[1:-1]
         domain_types = self.types.split("\n")[1:-1]
         type_list = domain_types + problem_types
         types = "(:types\n" + "\n".join(type_list) + ")"
@@ -244,7 +247,6 @@ class OtherDomain:
             {self.predicates}
             {types}
                     """
-
 
 
 def save_gt_and_learned_plans(
@@ -359,6 +361,7 @@ class PDDLParser:
     @classmethod
     def _parse_predicate(cls, pred, neg=False):
         pred = pred.strip()[1:-1].split("?")
+
         pred_name = pred[0].strip()
         # arg_types = [self.types[arg.strip().split("-")[1].strip()]
         #              for arg in pred[1:]]
@@ -443,6 +446,7 @@ class PDDLPlan:
     PDDL_ACTION = "action"
     PDDL_ARGUMENTS = "args"
     PDDL_OPERATOR_BODY = "operator_body"
+    PDDL_GROUND_PREDICATES = "ground_predicates"
     PDDL_INFINITE_COST = 100000
 
     def __init__(
@@ -493,8 +497,39 @@ class PDDLPlan:
                     action[PDDLPlan.PDDL_OPERATOR_BODY] = operator_body
         return actions
 
+    def to_postcondition_predicates_json(self, pddl_domain, remove_alfred_object_ids):
+        """
+        :ret: [
+            {
+                "action": OPERATOR_NAME,
+                "ground_postcondition_predicates": [
+                    "predicate_name": "isHeated",
+                    "arguments": "apple",
+                    "isNeg": False
+                ]
+            }
+        ]
+        """
+        postcondition_predicates_json = []
+        for action in self.plan:
+            ground_postcondition_predicates = PDDLPlan.get_postcondition_predicates(
+                action, pddl_domain, remove_alfred_object_ids=remove_alfred_object_ids
+            )
+            postcondition_predicates_json.append(
+                {
+                    PDDLPlan.PDDL_ACTION: action[PDDLPlan.PDDL_ACTION],
+                    PDDLPlan.PDDL_GROUND_PREDICATES: [
+                        ground_predicate.to_json()
+                        for ground_predicate in ground_postcondition_predicates
+                    ],
+                }
+            )
+        return postcondition_predicates_json
+
     @classmethod
-    def get_postcondition_predicates(cls, action, pddl_domain):
+    def get_postcondition_predicates(
+        cls, action, pddl_domain, remove_alfred_object_ids=True
+    ):
         operator_body = action[PDDLPlan.PDDL_OPERATOR_BODY]
         parameters, processed_preconds, processed_effects = parse_operator_components(
             operator_body, pddl_domain
@@ -506,29 +541,63 @@ class PDDLPlan:
         }
         ground_postcondition_predicates = []
         for lifted_predicate in processed_effects:
+            ground_arguments = [
+                ground_arguments_map[arg] for arg in lifted_predicate.argument_values
+            ]
+            if remove_alfred_object_ids:
+                ground_arguments = [
+                    PDDLPredicate.remove_alfred_object_ids(a) for a in ground_arguments
+                ]
             ground_postcondition_predicates.append(
                 PDDLPredicate(
                     name=lifted_predicate.name,
                     arguments=lifted_predicate.arguments,
                     arg_types=lifted_predicate.argument_values,
                     neg=lifted_predicate.neg,
-                    argument_values=[
-                        ground_arguments_map[arg]
-                        for arg in lifted_predicate.argument_values
-                    ],
+                    argument_values=ground_arguments,
                 )
             )
         return ground_postcondition_predicates
 
 
 class PDDLPredicate:
-    def __init__(self, name, arguments, arg_types, argument_values, neg=False):
+    PDDL_PREDICATE_NAME = "predicate_name"
+    PDDL_PREDICATE_ARGUMENTS = "arguments"
+    PDDL_PREDICATE_IS_NEG = "is_neg"
+
+    def __init__(
+        self,
+        name,
+        arguments,
+        arg_types,
+        argument_values,
+        argument_is_ground=[],
+        neg=False,
+    ):
+        """
+        name: name of predicate.
+        arguments: number of arguments.
+        arg_types: domain types of the arguments.
+        argument_values: these are the ARGUMENT names of the values.
+        arguments_is_ground: boolean list of ground arguments.
+        """
         self.name = name
         self.arguments = arguments
         self.arg_types = arg_types
         self.argument_values = argument_values
         self.neg = neg
-    
+        self.argument_is_ground = argument_is_ground
+
+    def to_json(self):
+        return {
+            PDDLPredicate.PDDL_PREDICATE_NAME: self.name,
+            PDDLPredicate.PDDL_PREDICATE_ARGUMENTS: self.argument_values,
+            PDDLPredicate.PDDL_PREDICATE_IS_NEG: self.neg,
+        }
+
+    @classmethod
+    def remove_alfred_object_ids(cls, argument_value):
+        return argument_value.split("_")[0]
 
 
 class PDDLProblem:
@@ -558,7 +627,7 @@ class PDDLProblem:
         new_goal.extend([row + "\n" for row in goal if "exists" not in row])
         return "".join(new_goal)
 
-    def parse_object_types_to_list(self,object_types):
+    def parse_object_types_to_list(self, object_types):
         """
         object_types is a list of the string form rows of what is listed inside the objects section in a pddl problem
         returns a list of the objects
@@ -570,7 +639,6 @@ class PDDLProblem:
             object_list.extend(instances)
         return object_list
 
-
     def parse_problem_objects_pddl(self):
         """
         This parser returns all the objects in the object section in a PDDL problem
@@ -581,9 +649,10 @@ class PDDLProblem:
         returns a list of the objects in the pddl problem
         """
         pddl_problem = PDDLParser._purge_comments(self.ground_truth_pddl_problem_string)
-        object_types = PDDLParser._find_labelled_expression(pddl_problem, ":objects").split("\n")[1:-1]
+        object_types = PDDLParser._find_labelled_expression(
+            pddl_problem, ":objects"
+        ).split("\n")[1:-1]
         return self.parse_object_types_to_list(object_types)
-
 
     def parse_problem_objects_alfred(self):
         """
@@ -595,12 +664,16 @@ class PDDLProblem:
         """
         pddl_problem = PDDLParser._purge_comments(self.ground_truth_pddl_problem_string)
         # taking the first bunch of objects bc they are separated from location by \n\n
-        object_types = PDDLParser._find_labelled_expression(pddl_problem, ":objects").split("\n\n")[0].split("\n")[1:-1]
+        object_types = (
+            PDDLParser._find_labelled_expression(pddl_problem, ":objects")
+            .split("\n\n")[0]
+            .split("\n")[1:-1]
+        )
         return self.parse_object_types_to_list(object_types)
 
 
 def preprocess_proposed_plans_operators_goals(
-    pddl_domain, verbose=False, output_directory=None, command_args=None
+    pddl_domain, problems, verbose=False, output_directory=None, command_args=None
 ):
     # Preprocess operators for correctness.
     preprocess_operators(
@@ -609,6 +682,86 @@ def preprocess_proposed_plans_operators_goals(
         command_args=command_args,
         verbose=verbose,
     )
+    # Preprocess goals for correctness.
+    preprocess_goals(
+        problems=problems,
+        pddl_domain=pddl_domain,
+        output_directory=output_directory,
+        command_args=command_args,
+        verbose=verbose,
+    )
+
+
+def preprocess_goals(
+    problems, pddl_domain, output_directory, command_args=None, verbose=False
+):
+    # Preprocess goals, making the hard assumption that we want goals to be conjunctions of existing predicates only.
+    unsolved_problems = [
+        problems[p]
+        for p in problems
+        if (len(problems[p].evaluated_pddl_plans) == 0)
+        and not problems[p].should_supervise_pddl
+    ]
+    if verbose:
+        print(
+            f"preprocess_goals: preprocessing {len(unsolved_problems)} unsolved problems."
+        )
+    for problem in unsolved_problems:
+        preprocessed_goals = []
+        for proposed_goal in problem.proposed_pddl_goals:
+            if verbose:
+                print("Trying to process...")
+                print(proposed_goal)
+            success, preprocessed_goal = preprocess_goal(
+                proposed_goal, pddl_domain, use_ground_truth_predicates=True
+            )
+            if success:
+                preprocessed_goals.append(preprocessed_goal)
+            if verbose:
+                print(f"Preprocessed goal: {preprocessed_goal}")
+                print("====")
+        problem.proposed_pddl_goals = preprocessed_goals
+
+
+def preprocess_goal(goal, pddl_domain, use_ground_truth_predicates=True):
+    """
+    Preprocesses a goal. Assumes it must be in the following form, with an exists and a set of conjunctions.
+    (:goal
+        (exists (?o - object)
+        (and 
+            (objectType ?o TomatoType) 
+            (isSliced ?o) 
+        )
+    )
+)   
+    """
+
+    # Purge comments.
+    preprocessed_goal = PDDLParser._purge_comments(goal)
+    # Extract the conjunction.
+    try:
+        goal_conjunction = PDDLParser._find_labelled_expression(
+            preprocessed_goal, "and"
+        )
+    except:
+        print(f"Failure, could not find goal_conjunction in {preprocessed_goal}.")
+        return False, ""
+    try:
+        (
+            parameters,
+            preprocessed_predicates,
+            structured_predicates,
+        ) = preprocess_conjunction_predicates(
+            goal_conjunction, pddl_domain.ground_truth_predicates, debug=True
+        )
+    except:
+        print(
+            f"Failure, could not find extract ground truth predicates from conjunction in {goal_conjunction}."
+        )
+        return False, ""
+    import pdb
+
+    pdb.set_trace()
 
 
 def preprocess_operators(
@@ -737,7 +890,9 @@ def preprocess_operator(
     return False, ""
 
 
-def preprocess_conjunction_predicates(conjunction_predicates, ground_truth_predicates):
+def preprocess_conjunction_predicates(
+    conjunction_predicates, ground_truth_predicates, debug=False
+):
     patt = r"\(and(.*)\)"
     op_match = re.match(patt, conjunction_predicates.strip(), re.DOTALL)
     if len(op_match.groups()) != 1:
@@ -769,6 +924,10 @@ def preprocess_conjunction_predicates(conjunction_predicates, ground_truth_predi
 
         parsed_predicate = PDDLParser._parse_predicate(inner_predicate, neg=neg)
         structured_predicates.append(parsed_predicate)
+        if debug:
+            import pdb
+
+            pdb.set_trace()
         if (
             (parsed_predicate.name not in ground_truth_predicates)
             or parsed_predicate.arguments
