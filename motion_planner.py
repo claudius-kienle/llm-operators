@@ -78,7 +78,11 @@ def evaluate_alfred_motion_plans_and_costs_for_problems(
                     print(
                         problems[problem_id].ground_truth_pddl_problem.ground_truth_goal
                     )
-                    attempt_sequential_plan_alfred(plan, pddl_domain, verbose)
+                    # TODO: return some value indicating whch operators were successfully executed.
+                    attempt_sequential_plan_alfred(
+                        problem_id, plan, pddl_domain, verbose
+                    )
+                    # TODO: check if the oracle goal was actually satisfied. This is: problems[problem_id].ground_truth_pddl_problem.ground_truth_goal; but Jiahai also implements a separate oracle class.
 
 
 def preprocess_alfred_action_arg(action_arg):
@@ -99,18 +103,23 @@ def preprocess_alfred_action_arg(action_arg):
 
 
 def attempt_sequential_plan_alfred(
-    pddl_plan, pddl_domain, verbose=False, num_rollouts_per_action=500
+    problem_id, pddl_plan, pddl_domain, verbose=False, num_rollouts_per_action=500
 ):
-    """"pddl_plan: a PDDLPlan object with operators on it."""
+    """"pddl_plan: a PDDLPlan object with operators on it. Attempts to execute a plan step by step, satisfying a series of postconditions."""
     # Initialize the ALFRED environment for the problem.
     motion_plan = {"successful_actions": [], "oracle_success": []}
 
-    sim_env = init_alfred(task_idx=1)  # TODO: intialize correctly
+    # TODO [PS/CW]: initialize to the correct task: use problem_id, which is a path name like 'train/pick_and_place_simple-CellPhone-None-Drawer-302/trial_T20190907_235412_132976'
+    sim_env = init_alfred(task_idx=1)
+
     for action in pddl_plan.plan:
         print("Attempting to ex")
         ground_postcondition_predicates = PDDLPlan.get_postcondition_predicates(
             action, pddl_domain
         )
+
+        # TODO [PS / CW]: check that these predicates are implemented in Alfred. A predicate is a PDDLPredicate defined in pddl.py.
+        # argument_values are currently a list of object_ids; these should be changed to object types.
         ground_postcondition_fluents = [
             Literal(
                 fluent=Fluent(
@@ -124,6 +133,7 @@ def attempt_sequential_plan_alfred(
             )
             for predicate in ground_postcondition_predicates
         ]
+
         success, traj = search(
             sim_env, ground_postcondition_fluents, num_roll_outs=1000,
         )
@@ -134,4 +144,3 @@ def attempt_sequential_plan_alfred(
         else:
             motion_plan["oracle_success"] = False
             return motion_plan
-    # TODO: check if the trajectory is correct.
