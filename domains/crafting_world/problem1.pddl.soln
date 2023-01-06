@@ -1,0 +1,2 @@
+(move-right t1 t2)
+(mine-iron-ore i1 i2 o1 o2 o5 t2)
