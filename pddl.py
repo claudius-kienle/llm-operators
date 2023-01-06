@@ -359,8 +359,11 @@ class PDDLParser:
         return predicate_names
 
     @classmethod
-    def _parse_predicate(cls, pred, neg=False):
-        pred = pred.strip()[1:-1].split("?")
+    def _parse_predicate(cls, pred, allow_partial_ground_predicates=False, neg=False):
+        if allow_partial_ground_predicates:
+            pred = pred.strip()[1:-1].split()
+        else:
+            pred = pred.strip()[1:-1].split("?")
 
         pred_name = pred[0].strip()
         # arg_types = [self.types[arg.strip().split("-")[1].strip()]
@@ -735,7 +738,6 @@ def preprocess_goal(goal, pddl_domain, use_ground_truth_predicates=True):
     )
 )   
     """
-
     # Purge comments.
     preprocessed_goal = PDDLParser._purge_comments(goal)
     # Extract the conjunction.
@@ -752,16 +754,31 @@ def preprocess_goal(goal, pddl_domain, use_ground_truth_predicates=True):
             preprocessed_predicates,
             structured_predicates,
         ) = preprocess_conjunction_predicates(
-            goal_conjunction, pddl_domain.ground_truth_predicates, debug=True
+            goal_conjunction,
+            pddl_domain.ground_truth_predicates,
+            allow_partial_ground_predicates=True,
+            debug=True,
         )
     except:
         print(
             f"Failure, could not find extract ground truth predicates from conjunction in {goal_conjunction}."
         )
         return False, ""
-    import pdb
+    # Extract the unground parameters.
+    unground_parameters = sorted([p for p in parameters if p[0].startswith("?")])
 
-    pdb.set_trace()
+    # Conjunction
+    predicate_string = "\n\t\t".join(preprocessed_predicates)
+    preprocessed_goal = f"(and \n\t\t{predicate_string})"
+
+    # Add exists.
+    for (variable_name, variable_type) in unground_parameters:
+        preprocessed_goal = (
+            f"(exists ({variable_name} - {variable_type})\n{preprocessed_goal})"
+        )
+    # Add goal.
+    preprocessed_goal = f"(:goal\n\t{preprocessed_goal}\n)"
+    return True, preprocessed_goal
 
 
 def preprocess_operators(
@@ -865,6 +882,8 @@ def preprocess_operator(
             return False, ""
         precond_parameters.update(effect_parameters)
 
+        # TODO: only get unground parameters
+
         params_string = " ".join(
             [
                 f"?{name} - {param_type}"
@@ -891,7 +910,10 @@ def preprocess_operator(
 
 
 def preprocess_conjunction_predicates(
-    conjunction_predicates, ground_truth_predicates, debug=False
+    conjunction_predicates,
+    ground_truth_predicates,
+    allow_partial_ground_predicates=False,
+    debug=False,
 ):
     patt = r"\(and(.*)\)"
     op_match = re.match(patt, conjunction_predicates.strip(), re.DOTALL)
@@ -922,12 +944,12 @@ def preprocess_conjunction_predicates(
             neg = False
             inner_predicate = pred_string
 
-        parsed_predicate = PDDLParser._parse_predicate(inner_predicate, neg=neg)
+        parsed_predicate = PDDLParser._parse_predicate(
+            inner_predicate,
+            allow_partial_ground_predicates=allow_partial_ground_predicates,
+            neg=neg,
+        )
         structured_predicates.append(parsed_predicate)
-        if debug:
-            import pdb
-
-            pdb.set_trace()
         if (
             (parsed_predicate.name not in ground_truth_predicates)
             or parsed_predicate.arguments

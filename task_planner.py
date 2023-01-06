@@ -108,9 +108,13 @@ def run_planner(
         current_problem_string = problem.ground_truth_pddl_problem.get_pddl_string_with_proposed_goal(
             proposed_goal=goal
         )
+        if verbose:
+            print("Ground truth goal: ")
+            print(problem.ground_truth_pddl_problem.ground_truth_goal)
+            print("Proposed goal:")
+            print(goal)
         if planner_type != TASK_PLANNER_FD:
             assert False
-
         # Get domain strings. Pick the first one that parses.
         current_domain_string = pddl_domain.to_string(
             ground_truth_operators=False,
