@@ -56,13 +56,13 @@ def propose_plans_operators_goals_for_problems(
     unsolved_problems = [
         problems[p]
         for p in problems
-        if (len(problems[p].evaluated_pddl_plans) == 0)
+        if not problems[p].best_evaluated_plan_at_iteration
         and not problems[p].should_supervise_pddl
     ]
     solved_problems = [
         problems[p]
         for p in problems
-        if (len(problems[p].evaluated_pddl_plans) > 0)
+        if (problems[p].best_evaluated_plan_at_iteration)
         or problems[p].should_supervise_pddl
     ]
     if verbose:

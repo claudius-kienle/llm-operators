@@ -1,4 +1,9 @@
 #### Experiments log.
+#### Supervision PDDL, alfred_linearized_100 pick and place. Multiple iterations.
+Resuming off of one iteration.
+```python main.py --experiment_name alfred_linearized_100_supervision_pddl_pick_place --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 2 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals --debug_mock_task_plans --debug_skip_motion_plans```
+
+
 #### Supervision PDDL, alfred_linearized_100 pick and place. All with ground truth goals.
 Original command: ```python main.py --experiment_name alfred_linearized_100_supervision_pddl_pick_place --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated/test_outputs```
 

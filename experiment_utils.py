@@ -1,12 +1,15 @@
 import os
 import json
+import pathlib
 
 
 def get_output_directory(curr_iteration, command_args, experiment_name_to_load):
     output_directory = command_args.output_directory
+
     full_output_directory = os.path.join(
-        output_directory, experiment_name_to_load, curr_iteration
+        output_directory, experiment_name_to_load, str(curr_iteration)
     )
+    pathlib.Path(full_output_directory).mkdir(parents=True, exist_ok=True)
     return full_output_directory
 
 

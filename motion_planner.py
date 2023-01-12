@@ -78,6 +78,9 @@ def evaluate_alfred_motion_plans_and_costs_for_problems(
         for pddl_goal in problems[problem_id].evaluated_pddl_plans:
             pddl_plan = problems[problem_id].evaluated_pddl_plans[pddl_goal]
             if pddl_plan is not None and pddl_plan != {} and pddl_plan.plan is not None:
+                # run_motion_planner
+                # not implemented envname to task_id
+                # recording videos. quicktime player.
                 motion_plan_result = evaluate_alfred_motion_plans_and_costs_for_goal_plan(
                     problem_id,
                     problems,

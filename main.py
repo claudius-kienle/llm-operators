@@ -162,16 +162,24 @@ def main():
         supervision_name=args.supervision_name, verbose=args.verbose,
     )
 
+    # TODO (zyzzyva): there should be some kind of -1 pre-evaluation using the supervision.
+
     for curr_iteration in range(args.train_iterations):
+
+        output_directory = experiment_utils.get_output_directory(
+            curr_iteration=curr_iteration,
+            command_args=args,
+            experiment_name_to_load=args.experiment_name,
+        )
         if not args.debug_no_propose_plans_operators_goals:
             # LLM proposal: propose plans, operators for plans, predicates for operators, and goals.
             codex.propose_plans_operators_goals_for_problems(
-                pddl_domain,
-                planning_problems["train"],
+                current_domain=pddl_domain,
+                problems=planning_problems["train"],
                 supervision_pddl=supervision_pddl,
                 n_samples=1,
                 verbose=args.verbose,
-                output_directory=args.output_directory,
+                output_directory=output_directory,
                 command_args=args,
             )
             # Preprocess the Codex proposals.
@@ -179,7 +187,7 @@ def main():
                 pddl_domain,
                 problems=planning_problems["train"],
                 verbose=args.verbose,
-                output_directory=args.output_directory,
+                output_directory=output_directory,
                 command_args=args,
             )
 
@@ -189,7 +197,7 @@ def main():
             problems=planning_problems["train"],
             verbose=args.verbose,
             command_args=args,
-            output_directory=args.output_directory,
+            output_directory=output_directory,
             use_mock=args.debug_mock_task_plans,
         )
         # Motion planner: evaluate costs using motion planner.
@@ -199,7 +207,7 @@ def main():
             problems=planning_problems["train"],
             verbose=args.verbose,
             command_args=args,
-            output_directory=args.output_directory,
+            output_directory=output_directory,
             use_mock=args.debug_mock_motion_plans,
             debug_skip=args.debug_skip_motion_plans,
             dataset_name=args.dataset_name,
@@ -212,7 +220,7 @@ def main():
             top_n_operators=args.top_n_operators,
             verbose=args.verbose,
             command_args=args,
-            output_directory=args.output_directory,
+            output_directory=output_directory,
             dataset_name=args.dataset_name,
         )
         experiment_utils.output_iteration_summary(
@@ -220,7 +228,7 @@ def main():
             pddl_domain=pddl_domain,
             problems=planning_problems["train"],
             command_args=args,
-            output_directory=args.output_directory,
+            output_directory=output_directory,
         )
 
         # TODO: reset the proposed problem plans?
