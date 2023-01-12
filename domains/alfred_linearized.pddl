@@ -22,7 +22,6 @@
         (inReceptacle ?o - object ?r - receptacle) ; object ?o is in receptacle ?r
         (isReceptacleObject ?o - object) ; true if the object can have things put inside it
         (inReceptacleObject ?innerObject - object ?outerObject - object) ; object ?innerObject is inside object ?outerObject
-        (wasInReceptacle ?o - object ?r - receptacle) ; object ?o was or is in receptacle ?r now or some time in the past
         (receptacleType ?r - receptacle ?t - rtype) ; the type of receptacle (Cabinet vs Cabinet|01|2...)
         (objectType ?o - object ?t - otype) ; the type of object (Apple vs Apple|01|2...)
         (holds ?a - agent ?o - object) ; object ?o is held by agent ?a

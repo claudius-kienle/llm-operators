@@ -2,6 +2,8 @@ import os
 import json
 import pathlib
 
+RANDOM_SEED = 0
+
 
 def get_output_directory(curr_iteration, command_args, experiment_name_to_load):
     output_directory = command_args.output_directory

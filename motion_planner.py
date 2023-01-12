@@ -4,12 +4,13 @@ Utilities for generating motion plans.
 """
 from pddl import PDDLPlan
 import os, sys
+from experiment_utils import RANDOM_SEED
 
 os.environ["ALFRED_ROOT"] = os.path.join(os.getcwd(), "alfred")
 sys.path.append(os.path.join(os.environ["ALFRED_ROOT"]))
 sys.path.append(os.path.join(os.environ["ALFRED_ROOT"], "gen"))
 
-from alfred.alfredplanner import init_alfred, search, Literal, Fluent
+import alfred.alfredplanner as alfredplanner
 
 
 def evaluate_motion_plans_and_costs_for_problems(
@@ -97,10 +98,17 @@ def evaluate_alfred_motion_plans_and_costs_for_problems(
                     problems[
                         problem_id
                     ].best_evaluated_plan_at_iteration = curr_iteration
+                if verbose:
+                    print(
+                        f"Motion plan result: task_success: {motion_plan_result.task_success}"
+                    )
+                    print(
+                        f"Successfully executed: {motion_plan_result.last_failed_operator} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan.\n\n\n"
+                    )
 
 
 def evaluate_alfred_motion_plans_and_costs_for_goal_plan(
-    problem_id, problems, pddl_goal, pddl_plan, pddl_domain, verbose, debug_skip=False
+    problem_id, problems, pddl_goal, pddl_plan, pddl_domain, verbose, debug_skip=False,
 ):
     if verbose:
         print(f"Motion planning for: {problem_id}")
@@ -122,8 +130,34 @@ def evaluate_alfred_motion_plans_and_costs_for_goal_plan(
             debug_skip=debug_skip,
         )
     else:
-        # Not yet implemented.
-        assert False
+        # Run the motion planner.
+        dataset_split = os.path.split(problem_id)[0]
+        task_name = os.path.join(*os.path.split(problem_id)[1:])
+        if verbose:
+            print("Attempting to execute the following motion plan:")
+            print(postcondition_predicates_json)
+
+            print("Ground truth PDDL plan is: ")
+            print(problems[problem_id].ground_truth_pddl_plan.plan_string)
+        alfred_motion_task = {
+            "task": task_name,
+            "repeat_idx": 0,  # How do we know which one it is?
+        }
+        raw_motion_plan_result = alfredplanner.run_motion_planner(
+            task=alfred_motion_task,
+            operator_sequence=postcondition_predicates_json,
+            robot_init=RANDOM_SEED,
+            dataset_split=dataset_split,
+        )
+
+        return MotionPlanResult(
+            pddl_plan=pddl_plan,
+            postcondition_predicates_json=postcondition_predicates_json,
+            task_success=raw_motion_plan_result["task_success"],
+            last_failed_operator=raw_motion_plan_result["last_failed_operator"],
+            last_failed_predicate=raw_motion_plan_result["last_failed_predicate"],
+            debug_skip=debug_skip,
+        )
 
 
 class MotionPlanResult:
@@ -154,42 +188,3 @@ class MotionPlanResult:
             ][-1]
         )
 
-
-def attempt_sequential_plan_alfred(
-    problem_id, pddl_plan, pddl_domain, verbose=False, num_rollouts_per_action=500
-):
-    """"pddl_plan: a PDDLPlan object with operators on it. Attempts to execute a plan step by step, satisfying a series of postconditions."""
-    # Initialize the ALFRED environment for the problem.
-    motion_plan = {"successful_actions": [], "oracle_success": []}
-
-    # TODO [PS/CW]: initialize to the correct task: use problem_id, which is a path name like 'train/pick_and_place_simple-CellPhone-None-Drawer-302/trial_T20190907_235412_132976'
-    sim_env = init_alfred(task_idx=1)
-
-    for action in pddl_plan.plan:
-        print("Attempting to ex")
-        ground_postcondition_predicates = PDDLPlan.get_postcondition_predicates(
-            action, pddl_domain
-        )
-
-        # TODO [PS / CW]: check that these predicates are implemented in Alfred. A predicate is a PDDLPredicate defined in pddl.py.
-        # argument_values are currently a list of object_ids; these should be changed to object types.
-        ground_postcondition_fluents = [
-            Literal(
-                fluent=Fluent(
-                    predicate=predicate.name, objects=list(predicate.argument_values),
-                ),
-                neg=predicate.neg,
-            )
-            for predicate in ground_postcondition_predicates
-        ]
-
-        success, traj = search(
-            sim_env, ground_postcondition_fluents, num_roll_outs=1000,
-        )
-        if success:
-            motion_plan["successful_actions"].append(
-                {"task_action": action, "motion_trajectory": traj}
-            )
-        else:
-            motion_plan["oracle_success"] = False
-            return motion_plan
