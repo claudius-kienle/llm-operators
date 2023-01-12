@@ -13,12 +13,14 @@ from alfred.alfredplanner import init_alfred, search, Literal, Fluent
 
 
 def evaluate_motion_plans_and_costs_for_problems(
+    curr_iteration,
     pddl_domain,
     problems,
     command_args,
     verbose=False,
     output_directory=None,
     use_mock=False,
+    debug_skip=False,
     dataset_name="",
 ):
     """
@@ -26,12 +28,14 @@ def evaluate_motion_plans_and_costs_for_problems(
     """
     if "alfred" in dataset_name:
         evaluate_alfred_motion_plans_and_costs_for_problems(
+            curr_iteration,
             pddl_domain,
             problems,
             command_args,
             verbose=verbose,
             output_directory=output_directory,
             use_mock=use_mock,
+            debug_skip=debug_skip,
         )
     else:
         print(f"Unsupported dataset name: {dataset_name}")
@@ -45,12 +49,14 @@ def mock_alfred_motion_plans_and_costs_for_problems(
 
 
 def evaluate_alfred_motion_plans_and_costs_for_problems(
+    curr_iteration,
     pddl_domain,
     problems,
     command_args,
     verbose=False,
     output_directory=None,
     use_mock=False,
+    debug_skip=False,
 ):
     print(f"evaluate_motion_plans_and_costs_for_problems on {len(problems)} problems.")
     output_json = []
@@ -65,31 +71,85 @@ def evaluate_alfred_motion_plans_and_costs_for_problems(
         mock_alfred_motion_plans_and_costs_for_problems(
             output_filepath, output_directory, problems
         )
-        return
+        # Not implemented
+        assert False
+
     for max_problems, problem_id in enumerate(problems):
         for pddl_goal in problems[problem_id].evaluated_pddl_plans:
-            plan = problems[problem_id].evaluated_pddl_plans[pddl_goal]
-            if plan is not None and plan != {}:
-                if verbose:
-                    print(f"Motion planning for: {problem_id}")
-                    print(f"Proposed goal is: ")
-                    print(pddl_goal)
-                    print(f"Ground truth oracle goal is: ")
-                    print(
-                        problems[problem_id].ground_truth_pddl_problem.ground_truth_goal
-                    )
-                    # Convert plan to sequential plan predicates.
-                    postcondition_predicates_json = plan.to_postcondition_predicates_json(
-                        pddl_domain, remove_alfred_object_ids=True
-                    )
-                    import pdb
+            pddl_plan = problems[problem_id].evaluated_pddl_plans[pddl_goal]
+            if pddl_plan is not None and pddl_plan != {} and pddl_plan.plan is not None:
+                motion_plan_result = evaluate_alfred_motion_plans_and_costs_for_goal_plan(
+                    problem_id,
+                    problems,
+                    pddl_goal,
+                    pddl_plan,
+                    pddl_domain,
+                    verbose,
+                    debug_skip=debug_skip,
+                )
+                problems[problem_id].evaluated_motion_planner_results[
+                    pddl_goal
+                ] = motion_plan_result
+                if motion_plan_result.task_success:
+                    problems[
+                        problem_id
+                    ].best_evaluated_plan_at_iteration = curr_iteration
 
-                    pdb.set_trace()
-                    # TODO: [PS] overwrite this.
-                    attempt_sequential_plan_alfred(
-                        problem_id, plan, pddl_domain, verbose
-                    )
-                    # TODO: check if the oracle goal was actually satisfied. This is: problems[problem_id].ground_truth_pddl_problem.ground_truth_goal; but Jiahai also implements a separate oracle class.
+
+def evaluate_alfred_motion_plans_and_costs_for_goal_plan(
+    problem_id, problems, pddl_goal, pddl_plan, pddl_domain, verbose, debug_skip=False
+):
+    if verbose:
+        print(f"Motion planning for: {problem_id}")
+        print(f"Proposed goal is: ")
+        print(pddl_goal)
+        print(f"Ground truth oracle goal is: ")
+        print(problems[problem_id].ground_truth_pddl_problem.ground_truth_goal)
+    # Convert plan to sequential plan predicates.
+    postcondition_predicates_json = pddl_plan.to_postcondition_predicates_json(
+        pddl_domain, remove_alfred_object_ids=True
+    )
+    if debug_skip:
+        return MotionPlanResult(
+            pddl_plan=pddl_plan,
+            postcondition_predicates_json=postcondition_predicates_json,
+            task_success=True,
+            last_failed_operator=None,
+            last_failed_predicate=None,
+            debug_skip=debug_skip,
+        )
+    else:
+        # Not yet implemented.
+        assert False
+
+
+class MotionPlanResult:
+    # A motion planning result.
+    def __init__(
+        self,
+        pddl_plan,
+        postcondition_predicates_json,
+        task_success,
+        last_failed_operator,
+        last_failed_predicate,
+        debug_skip=False,
+    ):
+        """
+        task_success: bool
+        last_failed_operator: returns index of last failed operator.  
+        last_failed_predicate: return last failed predicate in that operator.
+        """
+        self.pddl_plan = pddl_plan  # PDDLPlan
+        self.postcondition_predicates_json = postcondition_predicates_json
+        self.task_success = task_success
+        self.last_failed_operator = last_failed_operator if not debug_skip else None
+        self.last_failed_predicate = (
+            last_failed_predicate
+            if not debug_skip
+            else self.postcondition_predicates_json[-1][
+                PDDLPlan.PDDL_GROUND_PREDICATES
+            ][-1]
+        )
 
 
 def attempt_sequential_plan_alfred(

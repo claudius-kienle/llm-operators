@@ -98,7 +98,7 @@ class Domain:
 
     def get_operator_body(self, operator_name, proposed_operator_index=0):
         if operator_name in self.operators:
-            return self.operators[operator_name][proposed_operator_index]
+            return self.operators[operator_name]
         elif operator_name in self.proposed_operators:
             return self.proposed_operators[operator_name][proposed_operator_index]
         else:
@@ -123,6 +123,9 @@ class Domain:
             return operators_upper[operator_name]
         else:
             assert False
+
+    def reset_proposed_operators(self):
+        self.proposed_operators = defaultdict(list)
 
     def init_requirements(self, requirements):
         return PDDLParser._find_labelled_expression(self.pddl_domain, ":requirements")
@@ -280,6 +283,59 @@ def save_learned_operators(curr_iteration, directory, dataset, train_domain, gt_
     with open(operators_filename, "w") as f:
         json.dump(output_operators, f)
     return operators_filename
+
+
+def update_pddl_domain_from_planner_results(
+    pddl_domain,
+    problems,
+    top_n_operators,
+    verbose,
+    command_args,
+    output_directory,
+    dataset_name,
+):
+    """Updates a pddl domain based on scores from evaluating a task and motion planner. Removes other proposed operators."""
+
+    # Simplest possible objective function: assign EXECUTED + TASK_SUCCESS score for any operator on a motion plan that worked. Take the top n.
+    EXECUTED_SCORE = 1
+    TASK_SUCCESS_SCORE = 1
+    operator_scores = defaultdict(float)
+    for problem_id in problems:
+        for goal in problems[problem_id].evaluated_motion_planner_results:
+            motion_plan_result = problems[problem_id].evaluated_motion_planner_results[
+                goal
+            ]
+            successful_operator_names = [
+                o[PDDLPlan.PDDL_ACTION]
+                for o in motion_plan_result.pddl_plan.plan[
+                    : motion_plan_result.last_failed_operator
+                ]
+            ]
+            for o in successful_operator_names:
+                if o not in pddl_domain.operators:
+                    operator_scores[o] += EXECUTED_SCORE
+                    task_success_score = (
+                        TASK_SUCCESS_SCORE if motion_plan_result.task_success else 0
+                    )
+                    operator_scores[o] += task_success_score
+    # Print the top operators and scores.
+    top_operators = sorted(
+        list(operator_scores.keys()), key=lambda o: -operator_scores[o]
+    )[:top_n_operators]
+    if verbose:
+        print(
+            f"Adding {len(top_operators)} operators to the domain with the following scores:"
+        )
+
+    # Add these operator definitions.
+    for o in top_operators:
+        if verbose:
+            print(f"Adding operator: {o} with score {operator_scores[o]}")
+            print(pddl_domain.get_operator_body(o))
+            assert o not in pddl_domain.operators
+            pddl_domain.operators[o] = pddl_domain.get_operator_body(o)
+    # Clear out the proposed operators.
+    pddl_domain.reset_proposed_operators()
 
 
 def update_domain(domain, problems, n_ops):
@@ -515,9 +571,16 @@ class PDDLPlan:
         """
         postcondition_predicates_json = []
         for action in self.plan:
-            ground_postcondition_predicates = PDDLPlan.get_postcondition_predicates(
-                action, pddl_domain, remove_alfred_object_ids=remove_alfred_object_ids
-            )
+            try:
+                ground_postcondition_predicates = PDDLPlan.get_postcondition_predicates(
+                    action,
+                    pddl_domain,
+                    remove_alfred_object_ids=remove_alfred_object_ids,
+                )
+            except:
+                import pdb
+
+                pdb.set_trace()
             postcondition_predicates_json.append(
                 {
                     PDDLPlan.PDDL_ACTION: action[PDDLPlan.PDDL_ACTION],
@@ -533,7 +596,9 @@ class PDDLPlan:
     def get_postcondition_predicates(
         cls, action, pddl_domain, remove_alfred_object_ids=True
     ):
-        operator_body = action[PDDLPlan.PDDL_OPERATOR_BODY]
+        operator_body = pddl_domain.get_operator_body(action[PDDLPlan.PDDL_ACTION])
+        # There's a chance that this is a predefined operator, in which case we need to get it directly.
+
         parameters, processed_preconds, processed_effects = parse_operator_components(
             operator_body, pddl_domain
         )
@@ -785,6 +850,8 @@ def preprocess_operators(
     pddl_domain, output_directory, command_args=None, verbose=False
 ):
     # Preprocess operators, making the hard assumption that we want to operators to be conjunctions of existing predicates only.
+    output_json = {}
+
     if verbose:
         print(
             f"preprocess_operators: preprocessing {len(pddl_domain.proposed_operators)} operators."
@@ -810,6 +877,15 @@ def preprocess_operators(
             for operator_body in pddl_domain.proposed_operators[o]:
                 print(operator_body)
             print("====")
+        output_json[o] = operator_body
+    # Write out to an output JSON.
+
+    experiment_name = command_args.experiment_name
+    experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
+    output_filepath = f"{experiment_tag}preprocessed_operators.json"
+    if output_directory:
+        with open(os.path.join(output_directory, output_filepath), "w") as f:
+            json.dump(output_json, f)
 
 
 def parse_operator_components(operator_body, pddl_domain):

@@ -17,7 +17,7 @@ import datasets
 import task_planner
 import motion_planner
 import pddl
-
+import experiment_utils
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -120,9 +120,21 @@ parser.add_argument(
     help="debug: mock out motion plan grounded search.",
 )
 parser.add_argument(
+    "--debug_skip_motion_plans",
+    action="store_true",
+    help="debug: skip motion plan grounded search and assume that all of the task plans succeeded.",
+)
+
+parser.add_argument(
     "--debug_ground_truth_goals",
     action="store_true",
     help="debug: use ground_truth_goals.",
+)
+parser.add_argument(
+    "--top_n_operators",
+    type=int,
+    default=5,
+    help="Threshold for maximum number of operators to keep at each iteration.",
 )
 
 
@@ -182,22 +194,39 @@ def main():
         )
         # Motion planner: evaluate costs using motion planner.
         motion_planner.evaluate_motion_plans_and_costs_for_problems(
+            curr_iteration=curr_iteration,
             pddl_domain=pddl_domain,
             problems=planning_problems["train"],
             verbose=args.verbose,
             command_args=args,
             output_directory=args.output_directory,
             use_mock=args.debug_mock_motion_plans,
+            debug_skip=args.debug_skip_motion_plans,
             dataset_name=args.dataset_name,
         )
 
         # Update the domain definition based on operators in solved problems.
-        # pddl.update_domain(
-        # pddl_domain, planning_problems["train"], n_ops
-        # )  # n_ops - how many top operators we want to update each time
+        pddl.update_pddl_domain_from_planner_results(
+            pddl_domain=pddl_domain,
+            problems=planning_problems["train"],
+            top_n_operators=args.top_n_operators,
+            verbose=args.verbose,
+            command_args=args,
+            output_directory=args.output_directory,
+            dataset_name=args.dataset_name,
+        )
+        experiment_utils.output_iteration_summary(
+            curr_iteration=curr_iteration,
+            pddl_domain=pddl_domain,
+            problems=planning_problems["train"],
+            command_args=args,
+            output_directory=args.output_directory,
+        )
 
+        # TODO: reset the proposed problem plans?
         # TODO: evaluate current progress.
         # Print some kind of output file showing 'how many problems were solved'.
+        # Print some kind of summary file with the current best cleaned operator set.
     # Evaluate on heldout test sets.
 
 

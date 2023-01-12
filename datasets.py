@@ -39,6 +39,11 @@ class Problem:
             should_supervise_pddl  # Whether to include the PDDL in initial supervision
         )
 
+        # When the best plan was solved at.
+        self.best_evaluated_plan_at_iteration = (
+            None if not self.should_supervise_pddl else -1
+        )
+
         # One or more proposed PDDL goals.
         self.proposed_pddl_goals = []
         # One or more proposed plans. Array of PDDL {action, args} operator sequences.
@@ -48,11 +53,8 @@ class Problem:
         # This is a dict from {goal : PDDLPlan}
         self.evaluated_pddl_plans = {}
 
-        # Array of dicts containing evaluated motion plans and associated planning costs, evaluated by a symbolic planner.
-        self.evaluated_low_level_plans = []
-
-    def get_best_evaluated_pddl_plan(self):
-        return sorted(self.evaluated_pddl_plans, key=lambda p: p.overall_plan_cost)[0]
+        # This is a dict from {goal : MotionPlanResult}
+        self.evaluated_motion_planner_results = {}
 
     def __repr__(self):
         return (
