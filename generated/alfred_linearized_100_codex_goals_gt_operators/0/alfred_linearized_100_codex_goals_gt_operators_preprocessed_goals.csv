@@ -1,0 +1,1570 @@
+problem,nl_goal,gt_pddl_goal,codex_raw_goals,codex_preprocessed_goal
+train/pick_and_place_simple-TomatoSliced-None-SinkBasin-5/trial_T20190907_233342_973242,cut a tomato in half.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r SinkBasinType)
+                (inReceptacle ?o ?r) 
+                (sliceable ?o)
+                (isSliced ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?o - object)\n            (and \n                (objectType ?o TomatoType) \n                (sliceable ?o)\n                (isSliced ?o) \n            )\n    ))\n'],"(:goal
+	(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(sliceable ?o)
+		(isSliced ?o)))
+)"
+train/pick_and_place_simple-TomatoSliced-None-CounterTop-25/trial_T20190908_233907_188674,slice off the top of a tomato while holding a butter knife.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r CounterTopType)
+                (inReceptacle ?o ?r) 
+                (sliceable ?o)
+                (isSliced ?o) 
+            )
+    )))",[' \n\n;; PDDL Goal: \n(:goal\n        (exists (?o - object)\n        (exists (?b - object)\n        (exists (?a - agent)     \n            (and \n                (objectType ?o TomatoType) \n                (isSliced ?o)\n                (objectType ?b ButterKnifeType)\n                (holds ?a ?b) \n            )\n    )))\n)\n'],"(:goal
+	(exists (?o - object)
+(exists (?b - object)
+(exists (?a - agent)
+(and 
+		(objectType ?o TomatoType)
+		(isSliced ?o)
+		(objectType ?b ButterKnifeType)
+		(holds ?a ?b)))))
+)"
+train/pick_heat_then_place_in_recep-Potato-None-DiningTable-20/trial_T20190908_001123_581082,place a cooked potato on the table.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotatoType) 
+                (receptacleType ?r DiningTableType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and (objectType ?o PotatoType) \n                (receptacleType ?r DiningTableType)\n                (inReceptacle ?o ?r) \n                (isHot ?o) )) ) )\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(isHot ?o))))
+)"
+train/pick_heat_then_place_in_recep-TomatoSliced-None-GarbageCan-24/trial_T20190911_060653_582126,put the heated slice tomato in the trash bin.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r GarbageCanType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o TomatoType) \n                (sliceable ?o)\n                (isHot ?o)\n                (receptacleType ?r GarbageCanType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(sliceable ?o)
+		(isHot ?o)
+		(receptacleType ?r GarbageCanType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-SideTable-21/trial_T20190908_094218_095450,put a microwaved slice of potato on the stand next to the kitchen counter.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotatoType) 
+                (receptacleType ?r SideTableType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o PotatoType) \n                (receptacleType ?r CounterTopType)\n                (inReceptacle ?o ?r) \n                (isHot ?o)\n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r)
+		(isHot ?o))))
+)"
+train/pick_and_place_simple-BreadSliced-None-SideTable-3/trial_T20190907_000313_868459,place a sliced loaf of bread in front of the microwave.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o BreadType) 
+                (receptacleType ?r SideTableType)
+                (inReceptacle ?o ?r) 
+                (sliceable ?o)
+                (isSliced ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o BreadType) \n                (receptacleType ?r MicrowaveType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_cool_then_place_in_recep-Lettuce-None-GarbageCan-27/trial_T20190908_135424_349613,"put the lettuce in the fridge for 7 seconds , throw the lettuce in the trash.","(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o LettuceType) 
+                (receptacleType ?r GarbageCanType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o LettuceType) \n                (receptacleType ?r FridgeType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o LettuceType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-Fridge-27/trial_T20190908_130243_360292,put a heated slice of potato on the refrigerator.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotatoType) 
+                (receptacleType ?r FridgeType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (and \n            (objectAtLocation Plate refrigerator3)\n            (isHot Potato)\n            (isSliced Potato)\n            (isClean Potato)\n        ))\n'],"(:goal
+	(and 
+		(objectAtLocation Plate refrigerator3)
+		(isHot Potato)
+		(isSliced Potato)
+		(isClean Potato))
+)"
+train/pick_cool_then_place_in_recep-Potato-None-DiningTable-19/trial_T20190908_010010_675612,put the cooled potato on the table.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotatoType) 
+                (receptacleType ?r DiningTableType)
+                (inReceptacle ?o ?r)
+                (coolable ?o)
+                (isCool ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o PotatoType) \n                (receptacleType ?r DiningTableType)\n                (inReceptacle ?o ?r) \n                (isHot ?o) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(isHot ?o))))
+)"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-GarbageCan-22/trial_T20190909_040714_562307,"put a knife in the fridge , and a cold potato slice in the trashcan.","(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotatoType) 
+                (receptacleType ?r GarbageCanType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?o - object)\n        (exists (?r - receptacle)\n            (and \n                (objectType ?o KnifeType) \n                (receptacleType ?r FridgeType)\n                (inReceptacle ?o ?r) \n            )\n    \n    ))\n\n    (exists (?o - object)\n        (exists (?r - receptacle)\n            (and \n                (objectType ?o PotatoType) \n                (receptacleType ?r GarbageCanType)\n                (isCool ?o)\n                (inReceptacle ?o ?r) \n            )\n    ))\n    )\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_heat_then_place_in_recep-Mug-None-SideTable-3/trial_T20190908_231853_151753,place a hot cup of coffee near the microwave.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o MugType) 
+                (receptacleType ?r SideTableType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?o - object)\n        (exists (?r - receptacle)\n            (and \n                (receptacleType ?r MicrowaveType) \n                (isHot ?o) \n                (receptacleAtLocation ?r ?l) \n                (objectAtLocation ?o ?l) \n            )\n    )))\n\n<END>'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(exists (?l - location)
+(and 
+		(receptacleType ?r MicrowaveType)
+		(isHot ?o)
+		(receptacleAtLocation ?r ?l)
+		(objectAtLocation ?o ?l)))))
+)"
+train/pick_heat_then_place_in_recep-AppleSliced-None-DiningTable-21/trial_T20190919_014912_467631,place a warm apple near the microwave.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o AppleType) 
+                (receptacleType ?r DiningTableType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?o - object)\n        (exists (?r - receptacle)\n            (and \n                (objectType ?o AppleType) \n                (id ?o apple7)\n                (isHot ?o)\n                (receptacleType ?r MicrowaveType)\n                (receptacleAtLocation ?r ?l)\n                (isCloseTo ?o ?l)\n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(exists (?l - location)
+(and 
+		(objectType ?o AppleType)
+		(isHot ?o)
+		(receptacleType ?r MicrowaveType)
+		(receptacleAtLocation ?r ?l)))))
+)"
+train/pick_clean_then_place_in_recep-SoapBar-None-Cabinet-403/trial_T20190906_161856_202281,put a washed bar of soap in a cabinet.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o SoapBarType) 
+                (receptacleType ?r CabinetType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o SoapBarType) \n                (receptacleType ?r CabinetType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o SoapBarType)
+		(receptacleType ?r CabinetType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_cool_then_place_in_recep-Tomato-None-Microwave-17/trial_T20190908_073132_917743,put chilled tomato in the microwave.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r MicrowaveType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o TomatoType) \n                (receptacleType ?r MicrowaveType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-Microwave-5/trial_T20190907_122718_864040,put a cooled potato slice inside of the microwave.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotatoType) 
+                (receptacleType ?r MicrowaveType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o PotatoType) \n                (receptacleType ?r MicrowaveType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_clean_then_place_in_recep-SoapBar-None-Cabinet-408/trial_T20190908_032540_685424,put a wet bar of soap in the cabinet.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o SoapBarType) 
+                (receptacleType ?r CabinetType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o SoapBarType) \n                (receptacleType ?r CabinetType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o SoapBarType)
+		(receptacleType ?r CabinetType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_heat_then_place_in_recep-Tomato-None-DiningTable-16/trial_T20190907_201040_216331,put the cooked tomato on the round table.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r DiningTableType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o TomatoType) \n                (receptacleType ?r DiningTableType)\n                (inReceptacle ?o ?r) \n                (isHot ?o) \n                (isSliced ?o) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(isHot ?o)
+		(isSliced ?o))))
+)"
+train/pick_heat_then_place_in_recep-TomatoSliced-None-Fridge-5/trial_T20190908_061553_146524,put the cooked tomato slice in the fridge.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r FridgeType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o TomatoType) \n                (receptacleType ?r FridgeType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_clean_then_place_in_recep-SoapBar-None-Drawer-423/trial_T20190906_202403_601985,put a clean bar of soap into the cabinet drawer.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o SoapBarType) 
+                (receptacleType ?r DrawerType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o SoapBarType) \n                (isClean ?o) \n                (receptacleType ?r DrawerType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o SoapBarType)
+		(isClean ?o)
+		(receptacleType ?r DrawerType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_cool_then_place_in_recep-Tomato-None-Microwave-17/trial_T20190912_065518_499928,chill and microwave a tomato.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r MicrowaveType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?o - object)\n            (and \n                (objectType ?o TomatoType) \n                (isCool ?o) \n                (isHot ?o) \n            )\n    ))\n'],"(:goal
+	(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(isCool ?o)
+		(isHot ?o)))
+)"
+train/pick_cool_then_place_in_recep-AppleSliced-None-Microwave-7/trial_T20190912_053132_463243,to cool a piece of apple and place it in the fridge.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o AppleType) 
+                (receptacleType ?r MicrowaveType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",[' \n\n;; PDDL Goal: \n(:goal\n        (exists (?o - object)\n            (and (objectType ?o AppleType) (isCool ?o) \n        ) ) )\n'],"(:goal
+	(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(isCool ?o)))
+)"
+train/pick_cool_then_place_in_recep-Egg-None-SideTable-21/trial_T20190907_044013_708280,refrigerate an egg from a table.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o EggType) 
+                (receptacleType ?r SideTableType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (and \n            (receptacleType ?r FridgeType)\n            (exists (?o - object)\n                (and \n                    (objectType ?o EggType) \n                    (inReceptacle ?o ?r) \n                )\n        )))\n    )\n'],"(:goal
+	(exists (?r - receptacle)
+(and 
+		(receptacleType ?r FridgeType)))
+)"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-SinkBasin-1/trial_T20190909_120657_683509,place a heated potato slice in a sink.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotatoType) 
+                (receptacleType ?r SinkBasinType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (heatable ?o)\n                (isHot ?o)\n                (objectType ?o PotatoType) \n                (receptacleType ?r SinkBasinType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(heatable ?o)
+		(isHot ?o)
+		(objectType ?o PotatoType)
+		(receptacleType ?r SinkBasinType)
+		(inReceptacle ?o ?r))))
+)"
+train/look_at_obj_in_light-BasketBall-None-DeskLamp-301/trial_T20190907_025246_085192,examine a basketball by the light of a lamp.,"(:goal
+        (exists (?a - agent)
+        (exists (?r - receptacle)
+        (exists (?o - object)
+        (exists (?ot - object)
+        (exists (?l - location)
+            (and 
+                (objectType ?ot DeskLampType)
+                (toggleable ?ot)
+                (isToggled ?ot) 
+                (objectAtLocation ?ot ?l)
+                (atLocation ?a ?l)
+                (objectType ?o BasketBallType)
+                (holds ?a ?o)
+            )
+    ))))))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?o - object)\n        (exists (?r - receptacle)\n            (and \n                (objectType ?o BasketBallType) \n                (receptacleType ?r FloorLampType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BasketBallType)
+		(receptacleType ?r FloorLampType)
+		(inReceptacle ?o ?r))))
+)"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-217/trial_T20190908_001701_138210,carry the remote while turning on a lamp.,"(:goal
+        (exists (?a - agent)
+        (exists (?r - receptacle)
+        (exists (?o - object)
+        (exists (?ot - object)
+        (exists (?l - location)
+            (and 
+                (objectType ?ot FloorLampType)
+                (toggleable ?ot)
+                (isToggled ?ot) 
+                (objectAtLocation ?ot ?l)
+                (atLocation ?a ?l)
+                (objectType ?o RemoteControlType)
+                (holds ?a ?o)
+            )
+    ))))))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?o - object)\n        (and \n            (holds ?agent1 ?o)\n            (objectType ?o RemoteControlType) \n        )\n    ))\n'],"(:goal
+	(exists (?o - object)
+(exists (?agent1 - agent)
+(and 
+		(holds ?agent1 ?o)
+		(objectType ?o RemoteControlType))))
+)"
+train/pick_and_place_simple-AppleSliced-None-Microwave-14/trial_T20190908_171220_804585,use a butter knife to slice up an apple that is in the microwave.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o AppleType) 
+                (receptacleType ?r MicrowaveType)
+                (inReceptacle ?o ?r) 
+                (sliceable ?o)
+                (isSliced ?o) 
+            )
+    )))",[' \n\n;; PDDL Goal: \n(:goal\n        (and\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o AppleType) \n                (receptacleType ?r MicrowaveType)\n                (inReceptacle ?o ?r) \n            ))\n        (exists (?o - object) \n            (and \n                (objectType ?o ButterKnifeType)\n                (isSliced ?o AppleType)\n            ))\n    ))\n    )\n'],"(:goal
+	(and 
+		)
+)"
+train/pick_cool_then_place_in_recep-Cup-None-SinkBasin-12/trial_T20190906_180338_338989,put a chilled glass in the sink.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o CupType) 
+                (receptacleType ?r SinkBasinType)
+                (inReceptacle ?o ?r)
+                (coolable ?o)
+                (isCool ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o GlassbottleType) \n                (receptacleType ?r SinkType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o GlassbottleType)
+		(receptacleType ?r SinkType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_heat_then_place_in_recep-Apple-None-Fridge-14/trial_T20190907_085309_386416,place a warmed apple in the fridge.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o AppleType) 
+                (receptacleType ?r FridgeType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o AppleType) \n                (receptacleType ?r FridgeType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r))))
+)"
+train/look_at_obj_in_light-CreditCard-None-FloorLamp-221/trial_T20190909_032534_513559,find your credit card and turn on the den lamp.,"(:goal
+        (exists (?a - agent)
+        (exists (?r - receptacle)
+        (exists (?o - object)
+        (exists (?ot - object)
+        (exists (?l - location)
+            (and 
+                (objectType ?ot FloorLampType)
+                (toggleable ?ot)
+                (isToggled ?ot) 
+                (objectAtLocation ?ot ?l)
+                (atLocation ?a ?l)
+                (objectType ?o CreditCardType)
+                (holds ?a ?o)
+            )
+    ))))))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?o - object)\n        (and \n            (isOn ?o)\n            (objectType ?o DeskLampType) \n        )))\n'],"(:goal
+	(exists (?o - object)
+(and 
+		(isOn ?o)
+		(objectType ?o DeskLampType)))
+)"
+train/pick_and_place_simple-LettuceSliced-None-DiningTable-24/trial_T20190906_220047_928975,slice lettuce on the table with the knife.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o LettuceType) 
+                (receptacleType ?r DiningTableType)
+                (inReceptacle ?o ?r) 
+                (sliceable ?o)
+                (isSliced ?o) 
+            )
+    )))",['\nput slices lettuce in a bowl on the countertop.\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (receptacleType ?r CounterTopType)\n                (isReceptacleObject ?o Bowl)\n                (inReceptacle ?o ?r)\n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r))))
+)"
+train/look_at_obj_in_light-AlarmClock-None-DeskLamp-314/trial_T20190908_042454_725701,examine an alarm clock by the light of a desk lamp.,"(:goal
+        (exists (?a - agent)
+        (exists (?r - receptacle)
+        (exists (?o - object)
+        (exists (?ot - object)
+        (exists (?l - location)
+            (and 
+                (objectType ?ot DeskLampType)
+                (toggleable ?ot)
+                (isToggled ?ot) 
+                (objectAtLocation ?ot ?l)
+                (atLocation ?a ?l)
+                (objectType ?o AlarmClockType)
+                (holds ?a ?o)
+            )
+    ))))))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o AlarmClockType) \n                (receptacleType ?r DeskLampType)\n                (inReceptacleObject ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?r - object)
+(exists (?o - object)
+(and 
+		(objectType ?o AlarmClockType)
+		(receptacleType ?r DeskLampType)
+		(inReceptacleObject ?o ?r)))))
+)"
+train/look_at_obj_in_light-Box-None-DeskLamp-316/trial_T20190909_012406_369460,carry a box while turning on a lamp.,"(:goal
+        (exists (?a - agent)
+        (exists (?r - receptacle)
+        (exists (?o - object)
+        (exists (?ot - object)
+        (exists (?l - location)
+            (and 
+                (objectType ?ot DeskLampType)
+                (toggleable ?ot)
+                (isToggled ?ot) 
+                (objectAtLocation ?ot ?l)
+                (atLocation ?a ?l)
+                (objectType ?o BoxType)
+                (holds ?a ?o)
+            )
+    ))))))",['\n\n;; PDDL Goal: \n(:goal\n        (and (holds agent1 Box) (isOn DeskLamp))\n    )\n'],"(:goal
+	(and 
+		(holds agent1 Box)
+		(isOn DeskLamp))
+)"
+train/pick_and_place_simple-TomatoSliced-None-SinkBasin-5/trial_T20190907_233429_191138,cut the stalk off of the tomato on the right.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r SinkBasinType)
+                (inReceptacle ?o ?r) 
+                (sliceable ?o)
+                (isSliced ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and\n                (receptacleType ?r DrawerType) \n                (isReceptacleObject ?r) \n                (objectType ?o KnifeType) \n                (inReceptacle ?o ?r) \n            )\n            (exists (?cut - object)\n                (and \n                    (objectType ?cut TomatoType)\n                    (isSliced ?cut)\n            )\n    ))\n    ))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?r - object)
+(exists (?o - object)
+(and 
+		(receptacleType ?r DrawerType)
+		(isReceptacleObject ?r)
+		(objectType ?o KnifeType)
+		(inReceptacle ?o ?r)))))
+)"
+train/pick_heat_then_place_in_recep-Cup-None-Cabinet-3/trial_T20190908_233045_285903,place the microwaved green cup inside of the cabinet beneath the sink to the right.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o CupType) 
+                (receptacleType ?r CabinetType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o CupType) \n                (objectType ?o GreenCupType) \n                (isCool ?o) \n                (receptacleType ?r CabinetType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o CupType)
+		(objectType ?o GreenCupType)
+		(isCool ?o)
+		(receptacleType ?r CabinetType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-DiningTable-7/trial_T20190908_032410_853210,place a cooked slice of potato on the table.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotatoType) 
+                (receptacleType ?r DiningTableType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o PotatoType) \n                (isSliced ?o) \n                (receptacleType ?r DiningTableType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(isSliced ?o)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_cool_then_place_in_recep-Pot-None-Cabinet-1/trial_T20190908_184232_754519,put the cold pot in the cabinet.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotType) 
+                (receptacleType ?r CabinetType)
+                (inReceptacle ?o ?r)
+                (coolable ?o)
+                (isCool ?o) 
+            )
+    )))","['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o PotType) \n                (iseCool ?o), \n                (receptacleType ?r CabinetType) \n                (inReceptacle ?o ?r) \n            )\n    )))\n']","(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotType)
+		(receptacleType ?r CabinetType)
+		(inReceptacle ?o ?r))))
+)"
+train/look_at_obj_in_light-AlarmClock-None-DeskLamp-328/trial_T20190908_212905_950861,examine the clock in the light of the lamp on the desk.,"(:goal
+        (exists (?a - agent)
+        (exists (?r - receptacle)
+        (exists (?o - object)
+        (exists (?ot - object)
+        (exists (?l - location)
+            (and 
+                (objectType ?ot DeskLampType)
+                (toggleable ?ot)
+                (isToggled ?ot) 
+                (objectAtLocation ?ot ?l)
+                (atLocation ?a ?l)
+                (objectType ?o AlarmClockType)
+                (holds ?a ?o)
+            )
+    ))))))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o AlarmClockType) \n                (receptacleType ?r DeskType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AlarmClockType)
+		(receptacleType ?r DeskType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_heat_then_place_in_recep-Potato-None-SinkBasin-1/trial_T20190909_003249_280701,heat a potato and replace it.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotatoType) 
+                (receptacleType ?r SinkBasinType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (and\n            (exists (?o - object)\n        (and\n            (objectType ?o PotatoType) \n            (isHot ?o)\n        ))\n        (exists (?o - object)\n        (and\n            (objectType ?o PotatoType) \n            (inReceptacle ?o ?r) \n            (receptacleType ?r StoveBurnerType)\n        ))\n        )\n    )\n'],"(:goal
+	(and 
+		)
+)"
+train/pick_heat_then_place_in_recep-TomatoSliced-None-DiningTable-11/trial_T20190918_192905_921181,place a warm tomato slice on the table.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r DiningTableType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o TomatoType) \n                (receptacleType ?r DiningTableType)\n                (inReceptacle ?o ?r) \n                (isHot ?o)\n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(isHot ?o))))
+)"
+train/pick_and_place_simple-TomatoSliced-None-Fridge-6/trial_T20190918_162404_957531,place a slice of tomato in the fridge.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r FridgeType)
+                (inReceptacle ?o ?r) 
+                (sliceable ?o)
+                (isSliced ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (inReceptacleObject ?o TomatoType) \n                (receptacleType ?r FridgeType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(inReceptacleObject ?o TomatoType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_cool_then_place_in_recep-AppleSliced-None-GarbageCan-25/trial_T20190908_193803_869487,to put an apple slice in the trash can.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o AppleType) 
+                (receptacleType ?r GarbageCanType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n        (exists (?innerObject - object)\n            (and \n                (objectType ?o AppleType)\n                (isSliced ?o)\n                (receptacleType ?r GarbageCanType)\n                (inReceptacleObject ?innerObject ?o) \n                (inReceptacle ?innerObject ?r) \n            )\n    )))\n)\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(exists (?innerObject - object)
+(and 
+		(objectType ?o AppleType)
+		(isSliced ?o)
+		(receptacleType ?r GarbageCanType)
+		(inReceptacleObject ?innerObject ?o)
+		(inReceptacle ?innerObject ?r)))))
+)"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-Fridge-12/trial_T20190908_130547_241966,place a cooked potato slice inside the refrigerator.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotatoType) 
+                (receptacleType ?r FridgeType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o PotatoType) \n                (receptacleType ?r SafeType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SafeType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_and_place_simple-TomatoSliced-None-SideTable-3/trial_T20190908_091615_973891,slice a tomato that is on the microwave stand.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r SideTableType)
+                (inReceptacle ?o ?r) 
+                (sliceable ?o)
+                (isSliced ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o TomatoType) \n                (receptacleType ?r MicrowaveType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_cool_then_place_in_recep-TomatoSliced-None-SinkBasin-4/trial_T20190907_071641_645198,put a cooled tomato slice in the sink.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r SinkBasinType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (and\n            (isClean Tomato) )\n)\n'],"(:goal
+	(and 
+		(isClean Tomato))
+)"
+train/pick_heat_then_place_in_recep-Egg-None-SideTable-21/trial_T20190907_045010_383014,put a heated egg on the small black table.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o EggType) 
+                (receptacleType ?r SideTableType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o EggType) \n                (receptacleType ?r SideTableType)\n                (and (inReceptacle ?o ?r) (isHot ?o)) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r SideTableType))))
+)"
+train/pick_clean_then_place_in_recep-Mug-None-CoffeeMachine-13/trial_T20190907_171959_889613,place a clean mug in the coffee maker.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o MugType) 
+                (receptacleType ?r CoffeeMachineType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o MugType) \n                (receptacleType ?r CoffeeMachineType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o MugType)
+		(receptacleType ?r CoffeeMachineType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_clean_then_place_in_recep-Mug-None-CoffeeMachine-24/trial_T20190906_185300_516151,get a mug to make coffee.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o MugType) 
+                (receptacleType ?r CoffeeMachineType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o MugType) \n                (receptacleType ?r StoveBurnerType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o MugType)
+		(receptacleType ?r StoveBurnerType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_clean_then_place_in_recep-Mug-None-CoffeeMachine-30/trial_T20190909_072422_690945,put a clean coffee mug in a coffee machine.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o MugType) 
+                (receptacleType ?r CoffeeMachineType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o MugType) \n                (receptacleType ?r CoffeeMachineType)\n                (isClean ?o) \n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o MugType)
+		(receptacleType ?r CoffeeMachineType)
+		(isClean ?o)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-Fridge-6/trial_T20190907_214020_312152,move a heated slice of potato to the fridge.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotatoType) 
+                (receptacleType ?r FridgeType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o PotatoType)\n                (inReceptacleObject HeatedSliceOfPotatoType ?o) \n                (receptacleType ?r FridgeType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(inReceptacleObject HeatedSliceOfPotatoType ?o)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_cool_then_place_in_recep-BreadSliced-None-SideTable-21/trial_T20190907_101202_135300,place a cooled slice of bread down on the black table.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o BreadType) 
+                (receptacleType ?r SideTableType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o BreadType) \n                (receptacleType ?r DiningTableType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_clean_then_place_in_recep-SoapBar-None-Cabinet-418/trial_T20190907_035207_764646,put the cleaned soap bar in the cabinet.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o SoapBarType) 
+                (receptacleType ?r CabinetType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o SoapBarType) \n                (inReceptacle ?o ?r) \n                (receptacleType ?r CabinetType)\n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o SoapBarType)
+		(inReceptacle ?o ?r)
+		(receptacleType ?r CabinetType))))
+)"
+train/pick_cool_then_place_in_recep-Tomato-None-GarbageCan-15/trial_T20190907_082803_736076,place a cool tomato in the bin.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r GarbageCanType)
+                (inReceptacle ?o ?r)
+                (coolable ?o)
+                (isCool ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o TomatoType) \n                (receptacleType ?r GarbageCanType)\n                (isCool ?o) \n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r GarbageCanType)
+		(isCool ?o)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_cool_then_place_in_recep-TomatoSliced-None-Microwave-17/trial_T20190912_091403_416819,to cool a slice of tomato and place it in the microwave.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r MicrowaveType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o TomatoType) \n                (receptacleType ?r MicrowaveType)\n                (inReceptacle ?o ?r) \n                (isCool ?o) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r)
+		(isCool ?o))))
+)"
+train/pick_heat_then_place_in_recep-Potato-None-Fridge-2/trial_T20190909_030845_198194,put a warm potato in the fridge.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotatoType) 
+                (receptacleType ?r FridgeType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o PotatoType) \n                (receptacleType ?r FridgeType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_heat_then_place_in_recep-Tomato-None-Fridge-15/trial_T20190909_020250_544216,put a heated tomato in the fridge.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r FridgeType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (and (isOn tomato) (inReceptacle tomato fridge)))\n'],"(:goal
+	(and 
+		(isOn tomato)
+		(inReceptacle tomato fridge))
+)"
+train/pick_cool_then_place_in_recep-BreadSliced-None-Microwave-27/trial_T20190906_184607_515048,place a piece of sliced bread in a microwave.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o BreadType) 
+                (receptacleType ?r MicrowaveType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o BreadType) \n                (receptacleType ?r MicrowaveType)\n                (isSliced ?o)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r MicrowaveType)
+		(isSliced ?o)
+		(inReceptacle ?o ?r))))
+)"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-223/trial_T20190909_110037_453430,turn on the lamp with a remote.,"(:goal
+        (exists (?a - agent)
+        (exists (?r - receptacle)
+        (exists (?o - object)
+        (exists (?ot - object)
+        (exists (?l - location)
+            (and 
+                (objectType ?ot FloorLampType)
+                (toggleable ?ot)
+                (isToggled ?ot) 
+                (objectAtLocation ?ot ?l)
+                (atLocation ?a ?l)
+                (objectType ?o RemoteControlType)
+                (holds ?a ?o)
+            )
+    ))))))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o RemoteControlType) \n                (receptacleType ?r DeskLampType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o RemoteControlType)
+		(receptacleType ?r DeskLampType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_cool_then_place_in_recep-Plate-None-DiningTable-17/trial_T20190909_122939_032098,place a chilled plate on a table.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PlateType) 
+                (receptacleType ?r DiningTableType)
+                (inReceptacle ?o ?r)
+                (coolable ?o)
+                (isCool ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o PlateType) \n                (receptacleType ?r DiningTableType)\n                (isCool ?o) \n                (openable ?r) \n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PlateType)
+		(receptacleType ?r DiningTableType)
+		(isCool ?o)
+		(openable ?r)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-DiningTable-27/trial_T20190918_192826_449156,place a cool potato slice on the table.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotatoType) 
+                (receptacleType ?r DiningTableType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",[' \n\n;; PDDL Goal: \n(:goal\n        (exists (?o - object)\n            (and\n                (objectType ?o PotatoType)\n                (isCool ?o)\n                (objectAtLocation ?o DiningTable)\n    )))\n'],"(:goal
+	(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(isCool ?o)
+		(objectAtLocation ?o DiningTable)))
+)"
+train/look_at_obj_in_light-CreditCard-None-FloorLamp-213/trial_T20190909_144528_257789,look at the credit card under the lamp.,"(:goal
+        (exists (?a - agent)
+        (exists (?r - receptacle)
+        (exists (?o - object)
+        (exists (?ot - object)
+        (exists (?l - location)
+            (and 
+                (objectType ?ot FloorLampType)
+                (toggleable ?ot)
+                (isToggled ?ot) 
+                (objectAtLocation ?ot ?l)
+                (atLocation ?a ?l)
+                (objectType ?o CreditCardType)
+                (holds ?a ?o)
+            )
+    ))))))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o CreditCardType) \n                (receptacleType ?r FloorLampType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o CreditCardType)
+		(receptacleType ?r FloorLampType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_cool_then_place_in_recep-Potato-None-CounterTop-14/trial_T20190908_053512_113312,"take the potato , put it in the fridge and set it on the counter.","(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotatoType) 
+                (receptacleType ?r CounterTopType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o PotatoType) \n                (receptacleType ?r CounterTopType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_cool_then_place_in_recep-BreadSliced-None-SideTable-21/trial_T20190907_101038_416790,place a cold slice of bread on a brown table.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o BreadType) 
+                (receptacleType ?r SideTableType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o BreadType) \n                (receptacleType ?r DiningTableType)\n                (and (isCooled ?o)\n                    (inReceptacle ?o ?r)) \n            \n            )\n    )))\n\n<END>'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r DiningTableType))))
+)"
+train/pick_heat_then_place_in_recep-Mug-None-CoffeeMachine-30/trial_T20190908_175003_052826,put a heated cup on the coffee maker.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o MugType) 
+                (receptacleType ?r CoffeeMachineType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal (exists (?l - location ?rtxt - text) (exists (?o - object ?otype - otype ?t - time ?t2 - time ?h - heat)\n    (and (= ?h Hot)\n    (objectType ?o MugType)\n    (receptacleType ?r ShelfType)\n    (inReceptacle ?o ?r)\n    (= ?otype CoffeeMachineType)\n    (openable ?r)\n    (objectAtLocation ?o ShelfType)\n    (= ?t1 08:00:00)\n    (= ?t2 08:08:00)\n    ))))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o MugType)
+		(receptacleType ?r ShelfType)
+		(inReceptacle ?o ?r)
+		(openable ?r)
+		(objectAtLocation ?o ShelfType))))
+)"
+train/pick_clean_then_place_in_recep-Bowl-None-Microwave-23/trial_T20190908_101019_780853,put a bowl of water in the microwave.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o BowlType) 
+                (receptacleType ?r MicrowaveType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))","['\nunstack the bowl that is clean and place it in the microwave, turn the microwave on, and place the candle there.\n\n;; PDDL Goal: \n(:goal\n    (exists (?r - receptacle)\n        (exists (?o - object)\n            (and\n                (receptacleType ?r MicrowaveType)\n                (objectType ?o BowlType)\n                (isClean ?o)\n                (inReceptacle ?o ?r)\n            )\n        )\n    )\n    (exists (?c - object)\n        (exists (?r - receptacle)\n            (exists (?o - object)\n                (and \n                    (objectType ?o CandleType) \n                    (receptacleType ?r MicrowaveType)\n                    (inReceptacle ?o ?r) \n                )\n            )\n        )\n    )\n    (exists (?a - receptacle)\n        (exists (?b - receptacle)\n            (forall (?o - object)\n                (if\n                    (inReceptacle ?o']","(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(receptacleType ?r MicrowaveType)
+		(objectType ?o BowlType)
+		(isClean ?o)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_heat_then_place_in_recep-Egg-None-Fridge-6/trial_T20190907_184237_946198,heat up an egg from the fridge and put it back in the fridge.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o EggType) 
+                (receptacleType ?r FridgeType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o EggType) \n                (receptacleType ?r FridgeType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_and_place_simple-PotatoSliced-None-SinkBasin-25/trial_T20190907_062007_896057,slice a potato in a sink with a knife.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotatoType) 
+                (receptacleType ?r SinkBasinType)
+                (inReceptacle ?o ?r) 
+                (sliceable ?o)
+                (isSliced ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (and (inReceptacle Potato Pot) \n        (inReceptacle Knife Pot) \n        (isSliced Potato)\n    ))\n'],"(:goal
+	(and 
+		(inReceptacle Potato Pot)
+		(inReceptacle Knife Pot)
+		(isSliced Potato))
+)"
+train/pick_heat_then_place_in_recep-Potato-None-Fridge-5/trial_T20190908_140553_410521,place a microwaved potato inside of the refrigerator.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotatoType) 
+                (receptacleType ?r FridgeType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o PotatoType) \n                (receptacleType ?r FridgeType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_clean_then_place_in_recep-SoapBar-None-BathtubBasin-402/trial_T20190908_184105_132211,bring the soap from the tub to the sink and return the soap to the tub.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o SoapBarType) 
+                (receptacleType ?r BathtubBasinType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (and \n            (exists (?r - receptacle)\n            (exists (?o - object)\n                (and \n                    (objectType ?o SoapBarType) \n                    (receptacleType ?r SinkBasinType)\n                    (inReceptacle ?o ?r) \n                )\n    )))\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o SoapBarType) \n                (receptacleType ?r BathtubBasinType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n    )\n'],"(:goal
+	(and 
+		)
+)"
+train/pick_heat_then_place_in_recep-AppleSliced-None-SinkBasin-18/trial_T20190909_005603_590931,put a microwaved slice of apple in the sink.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o AppleType) 
+                (receptacleType ?r SinkBasinType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n        (exists (?inn - object)\n            (and \n                (objectType ?o AppleType) \n                (receptacleType ?r SinkType)\n                (inReceptacle ?inn ?r) \n                (inReceptacleObject ?o ?inn) \n                (isClean ?inn) \n            )\n    ))))\n\n<END>'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(exists (?inn - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r SinkType)
+		(inReceptacle ?inn ?r)
+		(inReceptacleObject ?o ?inn)
+		(isClean ?inn)))))
+)"
+train/pick_cool_then_place_in_recep-TomatoSliced-None-DiningTable-18/trial_T20190909_101216_297477,"pick up knife , cut tomato , place tomato in the fridge , remove from fridge , place on table.","(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r DiningTableType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (and (inReceptacle tomato21 FridgeType) (inReceptacle Knifetype2 FridgeType))\n    )\n'],"(:goal
+	(and 
+		(inReceptacle tomato21 FridgeType)
+		(inReceptacle Knifetype2 FridgeType))
+)"
+train/pick_cool_then_place_in_recep-Mug-None-CoffeeMachine-23/trial_T20190908_143209_571893,place the chilled mug in the coffee machine.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o MugType) 
+                (receptacleType ?r CoffeeMachineType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o MugType) \n                (receptacleType ?r CoffeeMachineType)\n                (isCool ?o)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o MugType)
+		(receptacleType ?r CoffeeMachineType)
+		(isCool ?o)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_cool_then_place_in_recep-BreadSliced-None-Microwave-12/trial_T20190910_202932_311719,put cold bread inside the microwave.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o BreadType) 
+                (receptacleType ?r MicrowaveType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (and   \n            (exists (?o - object)\n            (exists (?ro - object)\n                (and\n                    (objectType ?o BreadType) \n                    (toggleable ?ro)\n                    (isToggled ?ro) \n                    (inReceptacleObject ?o ?ro)\n                )\n            )\n    )\n            (exists (?r - receptacle)\n                (and\n                    (openable ?r)\n                    (opened ?r)\n                    (exists (?o - object)\n                        (and\n                            (objectType ?o BreadType) \n                            (toggleable ?ro)\n                            (isToggled ?ro) \n                            (inReceptacle ?o ?r)\n                            (inReceptacleObject ?o ?ro)\n                        )\n                    )\n                )\n            )\n        )\n    )\n'],"(:goal
+	(and 
+		)
+)"
+train/pick_cool_then_place_in_recep-Bowl-None-SinkBasin-18/trial_T20190909_034530_204738,put a chilled black bowl in the sink.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o BowlType) 
+                (receptacleType ?r SinkBasinType)
+                (inReceptacle ?o ?r)
+                (coolable ?o)
+                (isCool ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n        (exists (?l - location)\n            (and \n                (objectType ?o BowlType) \n                (locationType ?l SinkType) \n                (receptacleAtLocation ?r ?l) \n                (atLocation ?o ?l) \n                (isCool ?o)\n            )\n        ))) \n    )\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(exists (?o - agent)
+(exists (?l - location)
+(and 
+		(objectType ?o BowlType)
+		(receptacleAtLocation ?r ?l)
+		(atLocation ?o ?l)
+		(isCool ?o))))))
+)"
+train/pick_and_place_simple-TomatoSliced-None-SinkBasin-5/trial_T20190907_233445_502551,get a knife to cut a tomato.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r SinkBasinType)
+                (inReceptacle ?o ?r) 
+                (sliceable ?o)
+                (isSliced ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o KnifeType) \n                (receptacleType ?r ArmChairType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r ArmChairType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_heat_then_place_in_recep-AppleSliced-None-DiningTable-17/trial_T20190908_095621_618627,move a heated piece of apple from the refrigerator to the table.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o AppleType) 
+                (receptacleType ?r DiningTableType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (heatable ?o) \n                (objectType ?o AppleType) \n                (receptacleType ?r DiningTableType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(heatable ?o)
+		(objectType ?o AppleType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_clean_then_place_in_recep-Pot-None-StoveBurner-1/trial_T20190908_134336_754601,put a pot of water on the stove.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotType) 
+                (receptacleType ?r StoveBurnerType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o PotType) \n                (receptacleType ?r StoveBurnerType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotType)
+		(receptacleType ?r StoveBurnerType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_and_place_simple-AppleSliced-None-Microwave-14/trial_T20190908_171151_027975,to place an apple in the microwave and cut it into three slices.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o AppleType) 
+                (receptacleType ?r MicrowaveType)
+                (inReceptacle ?o ?r) 
+                (sliceable ?o)
+                (isSliced ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n    (and \n        (isSliced Apple 3) \n            (inReceptacle Apple Microwave) \n    )\n)\n'],"(:goal
+	(and 
+		(inReceptacle Apple Microwave))
+)"
+train/look_at_obj_in_light-Laptop-None-FloorLamp-202/trial_T20190908_020311_901786,turn on a lamp while holding a laptop.,"(:goal
+        (exists (?a - agent)
+        (exists (?r - receptacle)
+        (exists (?o - object)
+        (exists (?ot - object)
+        (exists (?l - location)
+            (and 
+                (objectType ?ot FloorLampType)
+                (toggleable ?ot)
+                (isToggled ?ot) 
+                (objectAtLocation ?ot ?l)
+                (atLocation ?a ?l)
+                (objectType ?o LaptopType)
+                (holds ?a ?o)
+            )
+    ))))))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?o - object)\n            (and \n                (objectType ?o DeskLampType) \n                (holdsAnyReceptacleObject ?a)\n                (isOn ?o)\n            )\n    ))\n'],"(:goal
+	(exists (?o - object)
+(exists (?a - agent)
+(and 
+		(objectType ?o DeskLampType)
+		(holdsAnyReceptacleObject ?a)
+		(isOn ?o))))
+)"
+train/look_at_obj_in_light-KeyChain-None-FloorLamp-213/trial_T20190908_203732_806577,look at keys using the lamp.,"(:goal
+        (exists (?a - agent)
+        (exists (?r - receptacle)
+        (exists (?o - object)
+        (exists (?ot - object)
+        (exists (?l - location)
+            (and 
+                (objectType ?ot FloorLampType)
+                (toggleable ?ot)
+                (isToggled ?ot) 
+                (objectAtLocation ?ot ?l)
+                (atLocation ?a ?l)
+                (objectType ?o KeyChainType)
+                (holds ?a ?o)
+            )
+    ))))))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o DeskLampType) \n                (receptacleType ?r SideTableType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o DeskLampType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_clean_then_place_in_recep-ButterKnife-None-Drawer-11/trial_T20190906_215647_678103,put a washed knife in a drawer.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o ButterKnifeType) 
+                (receptacleType ?r DrawerType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (receptacleType ?r DrawerType) \n                (objectType ?o KnifeType) \n                (inReceptacle ?o ?r) \n                (isClean ?o) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(receptacleType ?r DrawerType)
+		(objectType ?o KnifeType)
+		(inReceptacle ?o ?r)
+		(isClean ?o))))
+)"
+train/pick_and_place_simple-BreadSliced-None-SideTable-3/trial_T20190907_000233_574076,put a slice of bread on a stand.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o BreadType) 
+                (receptacleType ?r SideTableType)
+                (inReceptacle ?o ?r) 
+                (sliceable ?o)
+                (isSliced ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o BreadType) \n                (receptacleType ?r CoffeeTableType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r CoffeeTableType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_clean_then_place_in_recep-Pan-None-CounterTop-22/trial_T20190910_161415_317849,clean a pan and place it on the counter.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PanType) 
+                (receptacleType ?r CounterTopType)
+                (inReceptacle ?o ?r)
+                (cleanable ?o)
+                (isClean ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o PanType) \n                (receptacleType ?r CounterTopType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PanType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r))))
+)"

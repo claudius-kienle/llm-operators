@@ -29,12 +29,30 @@ CODEX_PROMPT = "codex_prompt"
 CODEX_OUTPUT = "codex_output"
 NLgoals_PDDLplans_prompt = "\n;; Natural language goals and PDDL plans\n\n"
 
+DEFAULT_GOAL_TEMPERATURE = 0.0
+
 
 if not os.getenv("OPENAI_API_KEY"):
     raise ValueError(
         "OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`"
     )
 openai.api_key = os.environ["OPENAI_API_KEY"]
+
+
+def get_solved_unsolved_problems(problems):
+    unsolved_problems = [
+        problems[p]
+        for p in problems
+        if not problems[p].best_evaluated_plan_at_iteration
+        and not problems[p].should_supervise_pddl
+    ]
+    solved_problems = [
+        problems[p]
+        for p in problems
+        if (problems[p].best_evaluated_plan_at_iteration)
+        or problems[p].should_supervise_pddl
+    ]
+    return unsolved_problems, solved_problems
 
 
 def propose_plans_operators_goals_for_problems(
@@ -84,6 +102,7 @@ def propose_plans_operators_goals_for_problems(
         experiment_name=command_args.experiment_name,
         use_mock=command_args.debug_mock_propose_plans,
     )
+
     # Condition on: new operator names. Propose: PDDL operator definitions.
     propose_operators_for_problems(
         problems=problems,
@@ -100,8 +119,7 @@ def propose_plans_operators_goals_for_problems(
 
     # Condition on: NL goals. Propose: PDDL goals.
     propose_goals_for_problems(
-        unsolved_problems=unsolved_problems,
-        solved_problems=solved_problems,
+        problems=problems,
         current_domain=current_domain,
         output_directory=output_directory,
         supervision_pddl=supervision_pddl,
@@ -111,6 +129,63 @@ def propose_plans_operators_goals_for_problems(
         experiment_name=command_args.experiment_name,
         use_mock=command_args.debug_mock_propose_goals,
         use_gt=command_args.debug_ground_truth_goals,
+    )
+
+
+def use_ground_truth_operators(current_domain, verbose):
+    if verbose:
+        print(f"propose_operators_for_problems: using ground truth operators.")
+    current_domain.proposed_operators = {
+        o: [current_domain.ground_truth_operators[o]]
+        for o in current_domain.ground_truth_operators
+        if o not in current_domain.operators
+    }
+    if verbose:
+        print("Added the following ground truth operators: ")
+        for o in current_domain.proposed_operators:
+            print(o)
+
+
+def propose_plans_operators_for_problems(
+    current_domain,
+    problems,
+    supervision_pddl=[],
+    n_samples=1,  # How many samples to take from codex.
+    temperature=0.0,
+    verbose=False,
+    output_directory=None,
+    command_args=None,
+):
+    unsolved_problems, solved_problems = get_solved_unsolved_problems(problems)
+    if command_args.debug_ground_truth_operators:
+        use_ground_truth_operators(current_domain, verbose)
+        return
+
+    # Condition on: NL goals. Propose: PDDL plans.
+    propose_plans_for_problems(
+        unsolved_problems=unsolved_problems,
+        solved_problems=solved_problems,
+        current_domain=current_domain,
+        supervision_pddl=supervision_pddl,
+        n_samples=n_samples,
+        temperature=temperature,
+        verbose=verbose,
+        output_directory=output_directory,
+        experiment_name=command_args.experiment_name,
+        use_mock=command_args.debug_mock_propose_plans,
+    )
+    # Condition on: new operator names. Propose: PDDL operator definitions.
+    propose_operators_for_problems(
+        problems=problems,
+        current_domain=current_domain,
+        supervision_pddl=supervision_pddl,
+        verbose=verbose,
+        temperature=temperature,
+        n_samples=n_samples,
+        output_directory=output_directory,
+        initial_pddl_predicates=command_args.initial_pddl_predicates,
+        experiment_name=command_args.experiment_name,
+        use_mock=command_args.debug_mock_propose_operators,
     )
 
 
@@ -587,8 +662,7 @@ def mock_propose_goals_for_problems(
 
 
 def propose_goals_for_problems(
-    unsolved_problems,
-    solved_problems,
+    problems,
     current_domain,
     initial_pddl_predicates,
     supervision_pddl,
@@ -612,6 +686,7 @@ def propose_goals_for_problems(
 
     Edits the unsolved problem objects - adds PDDL proposed goals to the problem.proposed_pddl_goals list
     """
+    unsolved_problems, solved_problems = get_solved_unsolved_problems(problems)
     if use_gt:
         print("Using ground truth goals, skipping: propose_PDDL_goals_for_problems")
         return
@@ -628,7 +703,7 @@ def propose_goals_for_problems(
 
     if verbose:
         print(
-            f"propose_goals_for_problems: proposing for {len(unsolved_problems)} operators."
+            f"propose_goals_for_problems: proposing for {len(unsolved_problems)} unsolved problems."
         )
 
     nl_header = "\n;; Natural language goals and PDDL goals\n\n"

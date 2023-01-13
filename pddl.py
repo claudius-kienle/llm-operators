@@ -3,6 +3,7 @@ pddl_parser.py | Utilities related to PDDL.
 """
 from collections import defaultdict
 import copy
+import csv
 import re
 from contextlib import contextmanager
 import os
@@ -336,30 +337,6 @@ def update_pddl_domain_from_planner_results(
             pddl_domain.operators[o] = pddl_domain.get_operator_body(o)
     # Clear out the proposed operators.
     pddl_domain.reset_proposed_operators()
-
-
-def update_domain(domain, problems, n_ops):
-    """
-    :params:
-        domain - Domain object
-        problems - list of datasets.Problem objects
-        n_ops = int, indicating how many best operators to update
-    updates the domain
-    """
-    # run a planner that returns successful plans
-    successful_plans = run_planner(domain, problems)
-    op_scores = (
-        defaultdict()
-    )  # operator name and the count of successful plans they appeared in
-    for plan in successful_plans:
-        for op in plan:
-            op_scores[op] += 1
-
-    top_n_ops = nlargest(n_ops, op_scores, key=op_scores.get)
-    domain.proposed_operators = defaultdict(
-        list
-    )  # might want to leave propsed operators that didn't make the cut? currently resetting
-    domain.operators.extend(top_n_ops)
 
 
 @contextmanager
@@ -767,7 +744,7 @@ def preprocess_goals(
     unsolved_problems = [
         problems[p]
         for p in problems
-        if (len(problems[p].evaluated_pddl_plans) == 0)
+        if not problems[p].best_evaluated_plan_at_iteration
         and not problems[p].should_supervise_pddl
     ]
     if verbose:
@@ -788,7 +765,44 @@ def preprocess_goals(
             if verbose:
                 print(f"Preprocessed goal: {preprocessed_goal}")
                 print("====")
+        problem.codex_raw_goals = problem.proposed_pddl_goals
         problem.proposed_pddl_goals = preprocessed_goals
+    log_preprocessed_goals(problems, output_directory, command_args, verbose)
+
+
+def log_preprocessed_goals(problems, output_directory, command_args, verbose=False):
+    # Human readable CSV.
+    experiment_name = command_args.experiment_name
+    experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
+    output_filepath = f"{experiment_tag}preprocessed_goals.csv"
+
+    if output_directory:
+        print(
+            f"Logging preprocessed goals: {os.path.join(output_directory, output_filepath)}"
+        )
+        with open(os.path.join(output_directory, output_filepath), "w") as f:
+            fieldnames = [
+                "problem",
+                "nl_goal",
+                "gt_pddl_goal",
+                "codex_raw_goals",
+                "codex_preprocessed_goal",
+            ]
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+
+            writer.writeheader()
+            for p_id in problems:
+                problem = problems[p_id]
+                for goal in problem.proposed_pddl_goals:
+                    writer.writerow(
+                        {
+                            "problem": problem.problem_id,
+                            "nl_goal": problem.language,
+                            "gt_pddl_goal": problem.ground_truth_pddl_problem.ground_truth_goal,
+                            "codex_raw_goals": problem.codex_raw_goals,
+                            "codex_preprocessed_goal": goal,
+                        }
+                    )
 
 
 def preprocess_goal(goal, pddl_domain, use_ground_truth_predicates=True):

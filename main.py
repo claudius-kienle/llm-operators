@@ -126,9 +126,21 @@ parser.add_argument(
 )
 
 parser.add_argument(
+    "--debug_ground_truth_operators",
+    action="store_true",
+    help="debug: use ground_truth_operators.",
+)
+parser.add_argument(
     "--debug_ground_truth_goals",
     action="store_true",
     help="debug: use ground_truth_goals.",
+)
+
+parser.add_argument(
+    "--codex_goal_temperature",
+    type=float,
+    default=codex.DEFAULT_GOAL_TEMPERATURE,
+    help="OpenAI temperature for goal proposal.",
 )
 parser.add_argument(
     "--top_n_operators",
@@ -162,18 +174,38 @@ def main():
         supervision_name=args.supervision_name, verbose=args.verbose,
     )
 
-    # TODO (zyzzyva): there should be some kind of -1 pre-evaluation using the supervision.
-
     for curr_iteration in range(args.train_iterations):
-
         output_directory = experiment_utils.get_output_directory(
             curr_iteration=curr_iteration,
             command_args=args,
             experiment_name_to_load=args.experiment_name,
         )
+
+        # Codex proposal.
         if not args.debug_no_propose_plans_operators_goals:
-            # LLM proposal: propose plans, operators for plans, predicates for operators, and goals.
-            codex.propose_plans_operators_goals_for_problems(
+            #### Goal proposal and preprocessing.
+            codex.propose_goals_for_problems(
+                problems=planning_problems["train"],
+                current_domain=pddl_domain,
+                output_directory=output_directory,
+                supervision_pddl=supervision_pddl,
+                verbose=args.verbose,
+                temperature=args.codex_goal_temperature,
+                initial_pddl_predicates=args.initial_pddl_predicates,
+                experiment_name=args.experiment_name,
+                use_mock=args.debug_mock_propose_goals,
+                use_gt=args.debug_ground_truth_goals,
+            )
+            pddl.preprocess_goals(
+                problems=planning_problems["train"],
+                pddl_domain=pddl_domain,
+                output_directory=output_directory,
+                command_args=args,
+                verbose=args.verbose,
+            )
+
+            #### Operator proposal and preprocessing.
+            codex.propose_plans_operators_for_problems(
                 current_domain=pddl_domain,
                 problems=planning_problems["train"],
                 supervision_pddl=supervision_pddl,
@@ -182,10 +214,9 @@ def main():
                 output_directory=output_directory,
                 command_args=args,
             )
-            # Preprocess the Codex proposals.
-            pddl.preprocess_proposed_plans_operators_goals(
+            # TODO (LCW) - this removes the partially grounded (receptacleType ?r FridgeType) rn.
+            pddl.preprocess_operators(
                 pddl_domain,
-                problems=planning_problems["train"],
                 verbose=args.verbose,
                 output_directory=output_directory,
                 command_args=args,

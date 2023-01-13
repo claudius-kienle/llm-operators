@@ -4,9 +4,23 @@ This top-level command (without any of the checkpointing flags) will run the mod
 
 ```python main.py --experiment_name alfred_linearized_100_supervision_pddl_pick_place --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated```
 
+================================================================
+### Supervision PDDL, alfred_linearized_100 pick and place. How many of the Codex-proposed goals could we solve if we used the ground truth operator set? 
+```--experiment_name  alfred_linearized_100_codex_goals_gt_operators```
 
-#### First end-end run. Supervision PDDL, alfred_linearized_100 pick and place.
+To run:
+```python main.py --experiment_name alfred_linearized_100_codex_goals_gt_operators --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated --debug_ground_truth_operators --debug_skip_motion_plans```
+To debug once its run with the cached goals:
+````python main.py --experiment_name alfred_linearized_100_codex_goals_gt_operators --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated --debug_ground_truth_operators --debug_skip_motion_plans --debug_mock_propose_goals```
+
+
+
+
+================================================================
+#### First end-end run. Supervision PDDL, alfred_linearized_100 pick and place. (Experiment tag: alfred_linearized_100_supervision_pddl_pick_place_1_13_2023)
 # alfred_linearized_100_supervision_pddl_pick_place_1_13_2023 - contains the first end-end run from commit: https://github.com/CatherineWong/llm-operators/commit/f2d82771edaad76e3d4559b797fe9d692250ff88 
+# Resuming this means you need to resume with 
+```--experiment_name  alfred_linearized_100_supervision_pddl_pick_place_1_13_2023 experiment_name```
 Original command: ```python main.py --experiment_name alfred_linearized_100_supervision_pddl_pick_place --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated```
 
 Replicate with cached operators and GT goals using:

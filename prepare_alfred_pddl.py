@@ -110,6 +110,7 @@ def preprocess_problem_domain(args, goal_file, goal_data):
 
 def write_preprocessed_file(args, goal_file, problem_string):
     output_pddl_file = os.path.join(args.output_dataset_path, goal_file)
+    print(f"Writing to: {os.path.join(output_pddl_file, 'problem_0.pddl')}\n\n")
     Path(output_pddl_file).mkdir(parents=True, exist_ok=True)
     with open(os.path.join(output_pddl_file, "problem_0.pddl"), "w") as f:
         f.write(problem_string)
@@ -131,6 +132,9 @@ def preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
     if not solved or len(plan) < 1:
         print(f"Error at: {goal_file}")
         return False
+    print("Linearized goal: ")
+    print(problem.ground_truth_goal)
+    print(f"Successfully solved with: {plan}")
     write_preprocessed_file(args, goal_file, problem_string=alternate_problem)
     return True
 
@@ -326,11 +330,11 @@ def look_at_obj_in_light(args, goal_file, goal_data):
 GOAL_PREFIXES = {
     "pick_and_place_simple": pick_and_place_simple,
     "pick_clean_then_place_in_recep": pick_clean_then_place_in_recep,
-    "pick_heat_then_place_in_recep": pick_clean_then_place_in_recep,
-    "pick_cool_then_place_in_recep": pick_clean_then_place_in_recep,
+    "pick_heat_then_place_in_recep": pick_heat_then_place_in_recep,
+    "pick_cool_then_place_in_recep": pick_cool_then_place_in_recep,
     "pick_and_place_simple_slice": pick_and_place_simple_slice,
     "pick_heat_then_place_in_recep_slice": pick_heat_then_place_in_recep_slice,
-    "pick_cool_then_place_in_recep_slice": pick_heat_then_place_in_recep_slice,
+    "pick_cool_then_place_in_recep_slice": pick_cool_then_place_in_recep_slice,
     "look_at_obj_in_light": look_at_obj_in_light,
 }
 
@@ -349,7 +353,10 @@ def main():
             goals_for_prefix = get_goals_for_prefix(goal_prefix, goals)
             print(f"Modifying {len(goals_for_prefix)} goals for {goal_prefix}")
             goal_modification_fn = GOAL_PREFIXES[goal_prefix]
-            for goal in goals_for_prefix:
+            for idx, goal in enumerate(goals_for_prefix):
+                print(
+                    f"Now on: {idx} / {len(goals_for_prefix)} for goals of type {goal_prefix}"
+                )
                 successful = goal_modification_fn(args, goal, goals[goal])
                 if successful:
                     sucessfully_parsed[split].append(goal)

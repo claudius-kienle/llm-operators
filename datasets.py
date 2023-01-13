@@ -45,6 +45,7 @@ class Problem:
         )
 
         # One or more proposed PDDL goals.
+        self.codex_raw_goals = []
         self.proposed_pddl_goals = []
         # One or more proposed plans. Array of PDDL {action, args} operator sequences.
         self.proposed_pddl_plans = []
