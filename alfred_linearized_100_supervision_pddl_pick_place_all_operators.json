@@ -14,7 +14,6 @@
         (inReceptacle ?o - object ?r - receptacle) 
         (isReceptacleObject ?o - object) 
         (inReceptacleObject ?innerObject - object ?outerObject - object) 
-        (wasInReceptacle ?o - object ?r - receptacle) 
         (receptacleType ?r - receptacle ?t - rtype) 
         (objectType ?o - object ?t - otype) 
         (holds ?a - agent ?o - object) 
@@ -120,58 +119,8 @@
 		(inReceptacle ?o ?rStart)
 		)
         :effect (and 
-		(wasInReceptacle ?o ?rStart)
 		(not (inReceptacle ?o ?rStart))
 		(inReceptacle ?o ?rEnd)
-		)
-)
-(:action put-apple-piece
-        :parameters (?a - agent ?l - location ?o - object)
-        
-        :precondition (and 
-		(holdsAny ?a)
-		(atLocation ?a ?l)
-		(objectAtLocation ?o ?l)
-		)
-        :effect (and 
-		(isToggled ?o)
-		(not (isHot ?o))
-		(not (isCool ?o))
-		(atLocation ?a ?l)
-		(not (objectAtLocation ?o ?l))
-		)
-)
-(:action PutdownObject
-        :parameters (?a - agent ?l - location ?o - object)
-        
-        :precondition (and 
-		(atLocation ?a ?l)
-		(holds ?a ?o)
-		)
-        :effect (and 
-		(not (holds ?a ?o))
-		(objectAtLocation ?o ?l)
-		)
-)
-(:action CleanObject
-        :parameters (?a - agent ?l - location ?o - object)
-        
-        :precondition (and 
-		(atLocation ?a ?l)
-		)
-        :effect (and 
-		(isClean ?o)
-		)
-)
-(:action Go2Location
-        :parameters (?a - agent ?l1 - location ?location - location)
-        
-        :precondition (and 
-		(atLocation ?a ?l1)
-		)
-        :effect (and 
-		(atLocation ?a ?location)
-		(not (atLocation ?a ?l1))
 		)
 )
 
