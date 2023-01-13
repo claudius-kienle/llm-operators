@@ -1,5 +1,6 @@
 ### LLM-Operators
 Learning planning domain models from natural language and grounding.
+See experiments_README.md for a log of development commands.
 
 ### ALFRED experiment quickstart. This sets up the repository to run experiments with the ALFRED dataset.
 1. *Download the ALFRED PDDL files*. We use a preprocessed set of Alfred files that is available [here](https://drive.google.com/drive/u/0/folders/1sE90a87rWNHPzwwm3HPg_XAxyi6HTOBc), and should be placed in `dataset/alfred_linearized_pddl`. This contains the PDDL paths referenced in `dataset/alfred-linearized-100-NLgoals-operators.json`.
