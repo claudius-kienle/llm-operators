@@ -1,8 +1,13 @@
 #### Experiments log.
+### Supervision PDDL, alfred_linearized_100 pick and place.
+This top-level command (without any of the checkpointing flags) will run the model on the ```alfred_linearized_100`` dataset of goals, with the GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle operators (pick and place).
 
-#### Supervision PDDL, alfred_linearized_100 pick and place. All with ground truth goals.
-# alfred_linearized_100_supervision_pddl_pick_place_1_13_2023 - contains 
-Original command: ```python main.py --experiment_name alfred_linearized_100_supervision_pddl_pick_place --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated/test_outputs```
+```python main.py --experiment_name alfred_linearized_100_supervision_pddl_pick_place --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated```
+
+
+#### First end-end run. Supervision PDDL, alfred_linearized_100 pick and place.
+# alfred_linearized_100_supervision_pddl_pick_place_1_13_2023 - contains the first end-end run from commit: https://github.com/CatherineWong/llm-operators/commit/f2d82771edaad76e3d4559b797fe9d692250ff88 
+Original command: ```python main.py --experiment_name alfred_linearized_100_supervision_pddl_pick_place --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated```
 
 Replicate with cached operators and GT goals using:
  ```python main.py --experiment_name alfred_linearized_100_supervision_pddl_pick_place --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated/test_outputs --debug_mock_propose_plans --debug_mock_propose_operators --debug_ground_truth_goals```
