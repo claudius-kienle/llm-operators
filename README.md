@@ -29,6 +29,14 @@ There are two relevant submodules:
 python main.py --dataset_name alfred_linearized_100 --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated/test_outputs --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals 
 ```
 --------------------------------------------
+##### Adding in new domains. 
+The following describes how we add in the ALFRED domain, which comprises a ground truth PDDL domain file, a set of individual PDDL tasks and NL annotations, and a motion planner.
+1. Registering a PDDL domain: to register a new PDDL domain (which you can then specify using the `--pddl_domain_name` flag for `main.py`), you should register a new PDDL domain file loader, like the ALFRED example [here](https://github.com/CatherineWong/llm-operators/blob/main/datasets.py#L201), which initializes a new [Domain](https://github.com/CatherineWong/llm-operators/blob/main/pddl.py#L14) object. Our example also optionally implements a `operator_canonicalization` and `codex_types` attribute that is only used to construct Codex prompts, and is probably not necessary for new, non-ALFRED domains. In general, this PDDL file should contain both a set of ground truth operators and all of the predicates you want to plan over in FD and prompt Codex with.
+2. Registering a dataset of new tasks: register a new dataset loader (which you can then specify using the `--dataset_name` flag for `main.py`) , like the example [here](https://github.com/CatherineWong/llm-operators/blob/main/datasets.py#L447). This should load both a set of PDDL problem files (the ALFRED ones are downloaded separately, see below, ALFRED PDDL dataset) and NL annotations, and creates a {<SPLIT_NAME> : {task_id : [Problem](https://github.com/CatherineWong/llm-operators/blob/main/datasets.py#L14)}} structure for loading train/test splits of problems.
+These two steps should be enough to get the basic task planning + Codex portion running. To then add a domain-specific motion planner,
+3. Adding a motion planner: you'd add in another motion planner [here](https://github.com/CatherineWong/llm-operators/blob/main/motion_planner.py#L30).
+
+--------------------------------------------
 ### ALFRED experiments. This dev section contains details on experiments run at each portion of the ALFRED loop.
 ##### ALFRED PDDL dataset.
 1. Planning domains and datasets are housed in `datasets.py`. This registers datasets and PDDL domains loaded with the `--dataset_name` and `--pddl_domain_name` flags. 
