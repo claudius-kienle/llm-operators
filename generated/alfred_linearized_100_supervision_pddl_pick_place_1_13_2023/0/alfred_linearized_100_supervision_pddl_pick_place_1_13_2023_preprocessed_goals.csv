@@ -1,0 +1,125 @@
+problem,nl_goal,gt_pddl_goal,codex_raw_goals,codex_preprocessed_goal
+train/pick_and_place_simple-TomatoSliced-None-CounterTop-25/trial_T20190908_233907_188674,slice off the top of a tomato while holding a butter knife.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o TomatoType) 
+                (receptacleType ?r CounterTopType)
+                (inReceptacle ?o ?r) 
+                (sliceable ?o)
+                (isSliced ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o TomatoType) \n                (exists (?s ?nn ?n - receptacle ?a - agent ?o - object)) \n                (isSliced ?o) \n            )\n    )))\n'],"(:goal
+	(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(isSliced ?o)))
+)"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-DiningTable-7/trial_T20190908_032410_853210,place a cooked slice of potato on the table.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o PotatoType) 
+                (receptacleType ?r DiningTableType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o)
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (inReceptacle ?o ?r) \n                (objectType ?o PotatoType) \n                (receptacleType ?r DiningTableType)\n                (isClean ?o) \n                (isOnPotentiometre marge cold)\n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(inReceptacle ?o ?r)
+		(objectType ?o PotatoType)
+		(receptacleType ?r DiningTableType)
+		(isClean ?o))))
+)"
+train/pick_heat_then_place_in_recep-Mug-None-SideTable-3/trial_T20190908_231853_151753,place a hot cup of coffee near the microwave.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o MugType) 
+                (receptacleType ?r SideTableType)
+                (inReceptacle ?o ?r)
+                (heatable ?o)
+                (isHot ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?l2 - location)\n        (exists (?l1 - location)\n        (exists (?o2 - object)\n        (exists (?o1 - object)\n        (exists (?r1 - receptacle)\n            (and \n                (isHot ?o1)\n                (objectType ?o1 CupType) \n                (objectType ?o2 MicrowaveType) \n                (receptacleType ?r1 MicrowaveType)\n                (near ?l1 ?l2) \n                \n                (inReceptacle ?o2 ?r1) \n                (atLocation ?o1 ?l1) \n                (atLocation ?o2 ?l2) \n            )\n    )))))\n'],"(:goal
+	(exists (?r1 - receptacle)
+(exists (?o2 - object)
+(exists (?o2 - agent)
+(exists (?o1 - object)
+(exists (?o1 - agent)
+(exists (?l2 - location)
+(exists (?l1 - location)
+(and 
+		(isHot ?o1)
+		(objectType ?o1 CupType)
+		(objectType ?o2 MicrowaveType)
+		(receptacleType ?r1 MicrowaveType)
+		(inReceptacle ?o2 ?r1)
+		(atLocation ?o1 ?l1)
+		(atLocation ?o2 ?l2)))))))))
+)"
+train/pick_cool_then_place_in_recep-BreadSliced-None-SideTable-21/trial_T20190907_101038_416790,place a cold slice of bread on a brown table.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o BreadType) 
+                (receptacleType ?r SideTableType)
+                (inReceptacle ?o ?r)
+                (coolable ?o)
+                (isCool ?o) 
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o BreadType) \n                (receptacleType ?r DiningTableType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_cool_then_place_in_recep-AppleSliced-None-GarbageCan-25/trial_T20190908_193803_869487,to put an apple slice in the trash can.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o AppleType) 
+                (receptacleType ?r GarbageCanType)
+                (inReceptacle ?o ?r)
+                (coolable ?o)
+                (isCool ?o) 
+                (sliceable ?o)
+                (isSliced ?o)  
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?r - receptacle)\n        (exists (?o - object)\n            (and \n                (objectType ?o AppleType) \n                (isSliced ?o)\n                (receptacleType ?r GarbageCanType)\n                (inReceptacle ?o ?r) \n            )\n    )))\n'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(isSliced ?o)
+		(receptacleType ?r GarbageCanType)
+		(inReceptacle ?o ?r))))
+)"
+train/pick_and_place_simple-AppleSliced-None-Microwave-14/trial_T20190908_171220_804585,use a butter knife to slice up an apple that is in the microwave.,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o AppleType) 
+                (receptacleType ?r MicrowaveType)
+                (inReceptacle ?o ?r) 
+                (sliceable ?o)
+                (isSliced ?o) 
+            )
+    )))",['\n\n;; PDDL Goal: \n(:goal\n        (exists (?o - object)\n        (exists (?r - receptacle)\n            (and \n                (objectType ?o AppleType) \n                (receptacleType ?r MicrowaveType)\n                (inReceptacle ?o ?r) \n                (isSliced ?o) \n    ))))\n\n<END>'],"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r)
+		(isSliced ?o))))
+)"
