@@ -1,23 +1,26 @@
 """
 main.py
 
-Usage:  
+Usage:
     # Load a debug fraction of the ALFRED dataset.
-    python main.py --experiment_name alfred_linearized_100 --dataset_name alfred_linearized_100 --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated/test_outputs 
-    
+    python main.py --experiment_name alfred_linearized_100 --dataset_name alfred_linearized_100 --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated/test_outputs
+
     # Append these flags if you want to mock out the Codex proposals with previous checkpoints.
-    --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals 
+    --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals
     # Append this flag if you want to mock out the task planner with previous plans.
     --debug_mock_task_plans
 """
 import argparse
 import random
-import codex
-import datasets
-import task_planner
-import motion_planner
-import pddl
-import experiment_utils
+import jacinle
+import llm_operators.codex as codex
+import llm_operators.datasets as datasets
+import llm_operators.task_planner as task_planner
+import llm_operators.motion_planner as motion_planner
+import llm_operators.pddl as pddl
+import llm_operators.experiment_utils as experiment_utils
+
+jacinle.hook_exception_ipdb()
 
 parser = argparse.ArgumentParser()
 parser.add_argument(

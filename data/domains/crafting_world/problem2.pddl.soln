@@ -1,0 +1,7 @@
+(move-right t1 t2)
+(mine-wood i1 i2 o1 o2 o4 t2)
+(move-left t2 t1)
+(place-down i2 o4 t1)
+(place-down i1 o2 t1)
+(pick-up i1 o4 t1)
+(craft-wood-plank i1 i2 o3 o4 o5 t1)

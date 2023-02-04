@@ -1,9 +1,14 @@
 alfred_data
 alfred_gen
-dataset/alfred_pddl
-dataset/alfred_linearized_pddl
+data/dataset/alfred_pddl
+data/dataset/alfred_linearized_pddl
+
 __pycache__
 .idea
 .DS_Store
+
 alfred
 pddlgym_planners
+
+/.vim*
+
