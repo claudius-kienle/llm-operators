@@ -42,8 +42,10 @@ class Domain:
 
         # One or more proposed predicates.
         self.proposed_predicates = []
+        self.codex_raw_predicates = []
         # One or more proposed operators.
         self.proposed_operators = defaultdict(list)  # Operator name -> definitions
+        self.codex_raw_operators = defaultdict(list)
 
         # Some operators have had standardized names.
         self.operator_canonicalization = {}
@@ -194,7 +196,7 @@ class Domain:
                 [self.requirements, self.types, self.predicates, self.functions]
             )
 
-    def domain_for_goal_prompting(self, pddl_problem):
+    def domain_for_goal_prompting(self, pddl_problem, include_codex_types: bool = False):
         # pddl_problem is the problem string
         # this is to to return shorter version of to_string with only the requirements and types
         problem_types = (
@@ -209,6 +211,7 @@ class Domain:
         (define (domain {self.domain_name})
             {self.predicates}
             {types}
+            {self.codex_types if include_codex_types else ""}
                     """
 
 
@@ -495,9 +498,9 @@ class PDDLPlan:
     ):
         self.plan = plan  # list of dictionaries, where each dict is an action
         self.plan_string = plan_string
-        if self.plan is None and self.plan_string:
+        if self.plan is None and self.plan_string is not None:
             self.plan = self.string_to_plan(self.plan_string, pddl_domain=pddl_domain)
-        if self.plan_string is None and self.plan:
+        if self.plan_string is None and self.plan is not None:
             self.plan_string = self.plan_to_string(self.plan)
 
         self.overall_plan_cost = overall_plan_cost
@@ -571,7 +574,7 @@ class PDDLPlan:
         return postcondition_predicates_json
 
     @classmethod
-    def get_postcondition_predicates(
+    def Gget_postcondition_predicates(
         cls, action, pddl_domain, remove_alfred_object_ids=True
     ):
         operator_body = pddl_domain.get_operator_body(action[PDDLPlan.PDDL_ACTION])
@@ -650,6 +653,14 @@ class PDDLPredicate:
     @classmethod
     def remove_alfred_object_ids(cls, argument_value):
         return argument_value.split("_")[0]
+
+    def __str__(self):
+        if self.neg:
+            return f'(not ({self.name} {" ".join(self.argument_values)}))'
+        return f'({self.name} {" ".join(self.argument_values)})'
+
+    def __repr__(self):
+        return f'PDDLPredicate[{self.__str__()}]'
 
 
 class PDDLProblem:
@@ -754,6 +765,7 @@ def preprocess_goals(
         if not problems[p].best_evaluated_plan_at_iteration
         and not problems[p].should_supervise_pddl
     ]
+    output_json = dict()
     if verbose:
         print(
             f"preprocess_goals: preprocessing {len(unsolved_problems)} unsolved problems."
@@ -774,42 +786,15 @@ def preprocess_goals(
                 print("====")
         problem.codex_raw_goals = problem.proposed_pddl_goals
         problem.proposed_pddl_goals = preprocessed_goals
-    log_preprocessed_goals(problems, output_directory, command_args, verbose)
+        output_json[problem.problem_id] = preprocessed_goals
 
-
-def log_preprocessed_goals(problems, output_directory, command_args, verbose=False):
-    # Human readable CSV.
     experiment_name = command_args.experiment_name
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
-    output_filepath = f"{experiment_tag}preprocessed_goals.csv"
-
+    output_filepath = f"{experiment_tag}preprocessed_goals.json"
     if output_directory:
-        print(
-            f"Logging preprocessed goals: {os.path.join(output_directory, output_filepath)}"
-        )
         with open(os.path.join(output_directory, output_filepath), "w") as f:
-            fieldnames = [
-                "problem",
-                "nl_goal",
-                "gt_pddl_goal",
-                "codex_raw_goals",
-                "codex_preprocessed_goal",
-            ]
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
-
-            writer.writeheader()
-            for p_id in problems:
-                problem = problems[p_id]
-                for goal in problem.proposed_pddl_goals:
-                    writer.writerow(
-                        {
-                            "problem": problem.problem_id,
-                            "nl_goal": problem.language,
-                            "gt_pddl_goal": problem.ground_truth_pddl_problem.ground_truth_goal,
-                            "codex_raw_goals": problem.codex_raw_goals,
-                            "codex_preprocessed_goal": goal,
-                        }
-                    )
+            json.dump(output_json, f)
+    log_preprocessed_goals(problems, output_directory, command_args.experiment_name, verbose)
 
 
 def preprocess_goal(goal, pddl_domain, use_ground_truth_predicates=True):
@@ -867,17 +852,54 @@ def preprocess_goal(goal, pddl_domain, use_ground_truth_predicates=True):
     return True, preprocessed_goal
 
 
+def log_preprocessed_goals(problems, output_directory, experiment_name, verbose=False):
+    # Human readable CSV.
+    experiment_name = experiment_name
+    experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
+    output_filepath = f"{experiment_tag}preprocessed_goals.csv"
+
+    if output_directory:
+        print(
+            f"Logging preprocessed goals: {os.path.join(output_directory, output_filepath)}"
+        )
+        with open(os.path.join(output_directory, output_filepath), "w") as f:
+            fieldnames = [
+                "problem",
+                "nl_goal",
+                "gt_pddl_goal",
+                "codex_raw_goals",
+                "codex_preprocessed_goal",
+            ]
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+
+            writer.writeheader()
+            for p_id in problems:
+                problem = problems[p_id]
+                for goal in problem.proposed_pddl_goals:
+                    writer.writerow(
+                        {
+                            "problem": problem.problem_id,
+                            "nl_goal": problem.language,
+                            "gt_pddl_goal": problem.ground_truth_pddl_problem.ground_truth_goal,
+                            "codex_raw_goals": problem.codex_raw_goals,
+                            "codex_preprocessed_goal": goal,
+                        }
+                    )
+
+
 def preprocess_operators(
     pddl_domain, output_directory, command_args=None, verbose=False
 ):
     # Preprocess operators, making the hard assumption that we want to operators to be conjunctions of existing predicates only.
-    output_json = {}
+    output_json = dict()
+    logs = dict()
 
     if verbose:
         print(
             f"preprocess_operators: preprocessing {len(pddl_domain.proposed_operators)} operators."
         )
     for o in list(pddl_domain.proposed_operators.keys()):
+        logs[o] = list()
         preprocessed_operators = []
         for proposed_operator_body in pddl_domain.proposed_operators[o]:
             if verbose:
@@ -887,7 +909,12 @@ def preprocess_operators(
                 o, proposed_operator_body, pddl_domain, use_ground_truth_predicates=True
             )
             if success:
+                logs[o].append((proposed_operator_body, preprocessed_operator))
                 preprocessed_operators.append(preprocessed_operator)
+            else:
+                logs[o].append((proposed_operator_body, "FAILED"))
+
+        pddl_domain.codex_raw_operators[o] = pddl_domain.proposed_operators[o]
         if len(preprocessed_operators) > 0:
             pddl_domain.proposed_operators[o] = preprocessed_operators
         else:
@@ -898,6 +925,7 @@ def preprocess_operators(
             for operator_body in pddl_domain.proposed_operators[o]:
                 print(operator_body)
             print("====")
+        # TODO(Jiayuan Mao @ 2023/02/04): is this intentional? Only keep the last operator proposal?
         output_json[o] = operator_body
     # Write out to an output JSON.
 
@@ -907,6 +935,38 @@ def preprocess_operators(
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
+    log_preprocessed_operators(pddl_domain, logs, output_directory, experiment_name=command_args.experiment_name, verbose=verbose)
+
+
+def log_preprocessed_operators(pddl_domain, logs, output_directory, experiment_name, verbose=False):
+    # Human readable CSV.
+    experiment_name = experiment_name
+    experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
+    output_filepath = f"{experiment_tag}preprocessed_operators.csv"
+
+    if output_directory:
+        print(f"Logging preprocessed operators: {os.path.join(output_directory, output_filepath)}")
+        with open(os.path.join(output_directory, output_filepath), "w") as f:
+            fieldnames = [
+                "operator_name",
+                "gt_operator",
+                "codex_raw_goals",
+                "codex_preprocessed_goal",
+                ""
+            ]
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+
+            for operator_name, operator in logs.items():
+                for (raw_operator, preprocessed_operator) in operator:
+                    writer.writerow(
+                        {
+                            "operator_name": operator_name,
+                            "gt_operator": pddl_domain.ground_truth_operators[operator_name] if operator_name in pddl_domain.ground_truth_operators else "",
+                            "codex_raw_goals": raw_operator,
+                            "codex_preprocessed_goal": preprocessed_operator,
+                        }
+                    )
 
 
 def parse_operator_components(operator_body, pddl_domain):
@@ -930,7 +990,7 @@ def parse_operator_components(operator_body, pddl_domain):
             processed_preconds,
             precondition_predicates,
         ) = preprocess_conjunction_predicates(
-            preconds, pddl_domain.ground_truth_predicates
+            preconds, pddl_domain.ground_truth_predicates, allow_partial_ground_predicates=pddl_domain.constants != ''
         )
         if not precond_parameters:
             return False, ""
@@ -939,7 +999,7 @@ def parse_operator_components(operator_body, pddl_domain):
             processed_effects,
             effect_predicates,
         ) = preprocess_conjunction_predicates(
-            effects, pddl_domain.ground_truth_predicates
+            effects, pddl_domain.ground_truth_predicates, allow_partial_ground_predicates=pddl_domain.constants != ''
         )
         if not effect_parameters:
             return False, ""
@@ -958,9 +1018,16 @@ def preprocess_operator(
 
     for match in matches:
         start_ind = match.start()
-        op = PDDLParser._find_balanced_expression(
-            preprocessed_operator, start_ind
-        ).strip()
+        try:
+            op = PDDLParser._find_balanced_expression(
+                preprocessed_operator, start_ind
+            ).strip()
+        except IndexError:
+            # NB(Jiayuan Mao @ 2023/02/04): sometimes when the length is too short, Codex may
+            # propose only a partial operator, which will cause the parser to fail.
+            print(f"Failure, operatror proposal is not valid {preprocessed_operator}.")
+            return False, ""
+
         patt = r"\(:action(.*):parameters(.*):precondition(.*):effect(.*)\)"
         op_match = re.match(patt, op, re.DOTALL)
         if op_match is None:
@@ -968,12 +1035,12 @@ def preprocess_operator(
         op_name, params, preconds, effects = op_match.groups()
         op_name = op_name.strip()
         precond_parameters, processed_preconds, _ = preprocess_conjunction_predicates(
-            preconds, pddl_domain.ground_truth_predicates
+            preconds, pddl_domain.ground_truth_predicates, allow_partial_ground_predicates=pddl_domain.constants != ''
         )
         if not precond_parameters:
             return False, ""
         effect_parameters, processed_effects, _ = preprocess_conjunction_predicates(
-            effects, pddl_domain.ground_truth_predicates
+            effects, pddl_domain.ground_truth_predicates, allow_partial_ground_predicates=pddl_domain.constants != ''
         )
         if not effect_parameters:
             return False, ""
@@ -1012,19 +1079,19 @@ def preprocess_conjunction_predicates(
     allow_partial_ground_predicates=False,
     debug=False,
 ):
+    if conjunction_predicates.strip() == '()':
+        return False, [], []
     patt = r"\(and(.*)\)"
     op_match = re.match(patt, conjunction_predicates.strip(), re.DOTALL)
     if len(op_match.groups()) != 1:
-        import pdb
-
-        pdb.set_trace()
+        import pdb; pdb.set_trace()
     if not op_match:
-        return False, "", None
+        return False, None, None
 
     parameters = set()
     conjunction_predicates = op_match.groups()[0].strip()
     if len(conjunction_predicates) <= 0:
-        return False, "", None
+        return False, None, None
     predicates_list = [
         p.strip()
         for p in PDDLParser._find_all_balanced_expressions(op_match.groups()[0].strip())
@@ -1047,6 +1114,7 @@ def preprocess_conjunction_predicates(
             neg=neg,
         )
         structured_predicates.append(parsed_predicate)
+
         if (
             (parsed_predicate.name not in ground_truth_predicates)
             or parsed_predicate.arguments

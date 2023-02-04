@@ -9,19 +9,6 @@
 # Distributed under terms of the MIT license.
 
 
-def load_source(filename, name=None):
-    import os.path as osp
-    from importlib.machinery import SourceFileLoader
-
-    if name is None:
-        basename = osp.basename(filename)
-        if basename.endswith('.py'):
-            basename = basename[:-3]
-        name = basename.replace('.', '_')
-
-    return SourceFileLoader(name, filename).load_module()
-
-
 def underline_to_pascal(s):
     return ''.join([w.capitalize() for w in s.split('_')])
 
@@ -121,7 +108,7 @@ crafting_template_2 = """
 
 
 def main():
-    rules = load_source('./crafting_world_rules.py')
+    import llm_operators.datasets.crafting_world_gen.crafting_world_rules as rules
 
     mining_rules = ''
     for r in rules.MINING_RULES:

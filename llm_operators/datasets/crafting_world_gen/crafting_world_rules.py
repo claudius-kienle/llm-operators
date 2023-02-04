@@ -1,3 +1,6 @@
+from functools import lru_cache
+from typing import List
+
 MINING_RULES = [
     dict(
         rule_name='mine_iron_ore',
@@ -213,3 +216,35 @@ CRAFTING_RULES = [
 ]
 
 
+@lru_cache()
+def get_all_mining_tools() -> List[str]:
+    """Return a list of tools that can be used in mining actions."""
+
+    tools = list()
+    for rule in MINING_RULES:
+        for holding in rule['holding']:
+            if holding not in tools:
+                tools.append(holding)
+    return tools
+
+
+@lru_cache()
+def get_all_mining_locations() -> List[str]:
+    """Return a list of locations that can be mined."""
+
+    locations = list()
+    for rule in MINING_RULES:
+        if rule['location'] not in locations:
+            locations.append(rule['location'])
+    return locations
+
+
+@lru_cache()
+def get_all_mining_outcomes() -> List[str]:
+    """Return a list of outcomes that can be mined."""
+
+    outcomes = list()
+    for rule in MINING_RULES:
+        if rule['create'] not in outcomes:
+            outcomes.append(rule['create'])
+    return outcomes

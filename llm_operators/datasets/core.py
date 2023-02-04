@@ -29,9 +29,15 @@ class Problem:
         self.ground_truth_pddl_problem = (
             ground_truth_pddl_problem  # Ground truth PDDL problem object.
         )
-        self.ground_truth_pddl_plan = PDDLPlan(
-            plan=ground_truth_pddl_plan
-        )  # A ground truth PDDLPlan object.
+
+        self.ground_truth_pddl_plan = None
+        if ground_truth_pddl_plan is not None:
+            if isinstance(ground_truth_pddl_plan, PDDLPlan):
+                self.ground_truth_pddl_plan = ground_truth_pddl_plan
+            elif isinstance(ground_truth_pddl_plan, str):
+                self.ground_truth_pddl_plan = PDDLPlan(plan_string=ground_truth_pddl_plan)
+            else:
+                self.ground_truth_pddl_plan = PDDLPlan(plan=ground_truth_pddl_plan)  # A ground truth PDDLPlan object.
 
         self.should_supervise_pddl = (
             should_supervise_pddl  # Whether to include the PDDL in initial supervision
