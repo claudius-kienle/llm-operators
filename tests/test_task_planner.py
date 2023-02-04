@@ -2,7 +2,7 @@
 test_task_planner.py
 """
 
-from llm_operators.datasets import load_alfred_pddl_domain, load_alfred_planning_domain_problems
+from llm_operators.datasets.alfred import load_alfred_pddl_domain, load_alfred_planning_domain_problems
 from llm_operators.task_planner import run_planner
 
 

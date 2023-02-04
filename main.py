@@ -10,17 +10,21 @@ Usage:
     # Append this flag if you want to mock out the task planner with previous plans.
     --debug_mock_task_plans
 """
+
+import os.path as osp
+import sys
+ALFRED_PATH = osp.join(osp.dirname(osp.abspath(__file__)), 'alfred')
+print('Adding ALFRED path: {}'.format(ALFRED_PATH))
+sys.path.insert(0, ALFRED_PATH)
+
 import argparse
 import random
-import jacinle
 import llm_operators.codex as codex
 import llm_operators.datasets as datasets
 import llm_operators.task_planner as task_planner
 import llm_operators.motion_planner as motion_planner
 import llm_operators.pddl as pddl
 import llm_operators.experiment_utils as experiment_utils
-
-jacinle.hook_exception_ipdb()
 
 parser = argparse.ArgumentParser()
 parser.add_argument(

@@ -7,7 +7,8 @@ import copy
 
 import llm_operators.codex as codex
 from llm_operators.pddl import Domain, PDDLProblem
-from llm_operators.datasets import Problem, load_alfred_pddl_file
+from llm_operators.datasets import Problem
+from llm_operators.datasets.alfred import load_alfred_pddl_file
 
 
 def create_mock_domain(ALFRED_DOMAIN_FILE_PATH="data/domains/alfred.pddl"):
@@ -21,9 +22,7 @@ def create_mock_domain(ALFRED_DOMAIN_FILE_PATH="data/domains/alfred.pddl"):
     return domain
 
 
-def create_mock_ablated_domain(
-        domain, operators_to_keep=["GotoLocation", "OpenObject"]
-):
+def create_mock_ablated_domain(domain, operators_to_keep=("GotoLocation", "OpenObject")):
     # Create a mock domain with only a few operators.
     for o in list(domain.operators.keys()):
         if o not in operators_to_keep:
@@ -134,12 +133,12 @@ def test_propose_plans_for_problems():
         assert(len(problem.proposed_pddl_plans) != 0)
         print(problem)
 
+
 def test_propose_PDDL_goals_for_problems():
     unsolved_problems = create_mock_unsolved_problem_list()
     solved_problems = create_mock_solved_problem_list()
     current_domain = create_mock_domain()
-    propose_PDDL_goals_for_problems(unsolved_problems, solved_problems, current_domain,initial_pddl_predicates = ["test"],use_mock = False, output_directory = './generated/mock_data')
+    codex.propose_goals_for_problems(unsolved_problems, solved_problems, current_domain,initial_pddl_predicates = ["test"],use_mock = False, output_directory = './generated/mock_data')
     for problem in unsolved_problems:
         assert(len(problem.proposed_pddl_goals) != 0)
         print(problem)
-

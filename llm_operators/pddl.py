@@ -605,6 +605,12 @@ class PDDLPlan:
             )
         return ground_postcondition_predicates
 
+    def __str__(self):
+        return 'PDDLPlan[{}]'.format(self.plan_string.replace("\n", " "))
+
+    def __repr__(self):
+        return self.__str__()
+
 
 class PDDLPredicate:
     PDDL_PREDICATE_NAME = "predicate_name"

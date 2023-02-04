@@ -4,12 +4,6 @@ Utilities for generating motion plans.
 """
 
 import os
-import sys
-
-os.environ["ALFRED_ROOT"] = os.path.join(os.getcwd(), "alfred")
-sys.path.append(os.path.join(os.environ["ALFRED_ROOT"]))
-sys.path.append(os.path.join(os.environ["ALFRED_ROOT"], "gen"))
-
 import alfred.alfredplanner as alfredplanner
 
 from llm_operators.pddl import PDDLPlan

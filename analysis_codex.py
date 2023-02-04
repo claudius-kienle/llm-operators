@@ -1,7 +1,5 @@
-from pddl import *
-from codex import *
-from datasets import *
-import csv
+import llm_operators.codex as codex
+from llm_operators.datasets import load_planning_problems_dataset, load_pddl_domain
 import pandas as pd
 
 ###############################################################
@@ -19,7 +17,7 @@ initial_pddl_operators = "GotoLocation OpenObject"
 verbose = False
 
 # Load dataset.
-load_problems = datasets.load_planning_problems_dataset(
+load_problems = load_planning_problems_dataset(
     dataset_name=dataset_name,
     dataset_fraction=dataset_fraction,
     dataset_pddl_directory=dataset_pddl_directory,
@@ -34,7 +32,7 @@ solved_problems = problems[:n//2]
 unsolved_problems = problems[n//2:]
 
 # Load the PDDL domain definition.
-pddl_domain = datasets.load_pddl_domain(
+pddl_domain = load_pddl_domain(
     pddl_domain_name, initial_pddl_operators,verbose = False)
 
 # ground_truth_vs_proposed_goals = {}
@@ -42,7 +40,7 @@ pddl_domain = datasets.load_pddl_domain(
 
 ground_truth_vs_proposed_goals = []
 
-propose_PDDL_goals_for_problems(unsolved_problems, solved_problems, pddl_domain)
+codex.propose_goals_for_problems(unsolved_problems, solved_problems, pddl_domain)
 
 for problem in unsolved_problems:
     problem_id = problem.problem_id
