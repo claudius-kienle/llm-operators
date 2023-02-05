@@ -1,0 +1,45 @@
+[
+    {
+        "domain": "Depot",
+        "NL_goal": "place the first crate on the third pallet and the second crate on the second pallet",
+        "goal": "(:goal (and\n(on crate0 pallet2)\n(on crate1 pallet1))\n)",
+        "file_name": "data/domains/supervision_domains/depot_problem_0.pddl",
+        "domain_file": "data/domains/supervision_domains/depot_domain.pddl",
+        "object_list": ["depot0","distributor0","distributor1","truck0","truck1","pallet0","pallet1","pallet2",
+        "crate0","crate1","hoist0","hoist1","hoist2"]
+    },
+    {
+        "domain": "movie",
+        "NL_goal": "rewind the movie and eat chips with dip, cheese and crakers, and a soda",
+        "goal": "(:goal (and (movie-rewound)\n(counter-at-zero)\n(have-chips)\n(have-dip)\n(have-pop)\n(have-cheese)\n(have-crackers)))",
+        "file_name": "data/domains/supervision_domains/movie_problem_0.pddl",
+        "domain_file": "data/domains/supervision_domains/movie_domain.pddl",
+        "object_list":["chips5","chips4","chips3","chips2","chips1","dip5","dip4","dip3","dip2","dip1",
+        "pop5","pop4","pop3","pop2","pop1","cheese5","cheese4","cheese3","cheese2","cheese1","crackers5","crackers4",
+        "crackers3","crackers2","crackers1"]
+    },
+    {
+        "domain": "travel",
+        "NL_goal": "the bulldozer is at location g and the jack is at location a",
+        "goal": "(:goal\n        (and (at bulldozer g) (at jack a))\n    )",
+        "file_name": "data/domains/supervision_domains/travel_problem_0.pddl",
+        "domain_file": "data/domains/supervision_domains/travel_domain.pddl",
+        "object_list":["a","b","c","d", "e", "f", "g", "jack", "bulldozer"]
+    },
+    {
+        "domain": "barman",
+        "NL_goal": "make three cocktails, cocktail16 with shot1, cocktail with shot2, and cocktail20 with shot20",
+        "goal": "(:goal\n          (and\n               (contains shot1 cocktail16)\n               (contains shot2 cocktail3)\n               (contains shot3 cocktail20)\n          )\n     )",
+        "file_name": "data/domains/supervision_domains/barman_problem_0.pddl",
+        "domain_file": "data/domains/supervision_domains/barman_domain.pddl",
+        "object_list": ["shaker1", "left", "right", "shot1", "shot2", "shot3", "shot4", "shot5", "shot6", "shot7",
+            "shot8", "shot9", "shot10", "shot11", "shot12", "shot13", "shot14", "shot15", "shot16", "shot17", "shot18",
+            "shot19", "shot20", "shot21", "shot22", "shot23", "shot24", "shot25", "ingredient1", "ingredient2",
+            "ingredient3", "ingredient4", "ingredient5", "ingredient6", "ingredient7", "ingredient8", "ingredient9",
+            "ingredient10", "cocktail1", "cocktail2", "cocktail3", "cocktail4", "cocktail5", "cocktail6",
+            "cocktail7", "cocktail8", "cocktail9", "cocktail10", "cocktail11", "cocktail12", "cocktail13",
+            "cocktail14", "cocktail15", "cocktail16", "cocktail17", "cocktail18", "cocktail19", "cocktail20", "cocktail21",
+            "cocktail22", "cocktail23", "cocktail24", "dispenser1", "dispenser2", "dispenser3", "dispenser4", "dispenser5",
+            "dispenser6", "dispenser7", "dispenser8", "dispenser9", "dispenser10", "level0", "level1", "level2"]
+    }
+]

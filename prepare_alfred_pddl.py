@@ -19,25 +19,25 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "--pddl_domain_file",
     type=str,
-    default="domains/alfred_linearized.pddl",
+    default="data/domains/alfred_linearized.pddl",
     help="Location of the original PDDL domain file.",
 )
 parser.add_argument(
     "--dataset_path",
     type=str,
-    default="dataset/alfred_pddl",
+    default="data/dataset/alfred_pddl",
     help="Location of the original PDDL dataset files.",
 )
 parser.add_argument(
     "--output_dataset_path",
     type=str,
-    default="dataset/alfred_linearized_pddl",
+    default="data/dataset/alfred_linearized_pddl",
     help="Location of the original PDDL dataset files.",
 )
 parser.add_argument(
     "--tasks_json",
     type=str,
-    default="dataset/alfred-NLgoals-operators.json",
+    default="data/dataset/alfred-NLgoals-operators.json",
     help="Location of the JSON containing the original problems.",
 )
 parser.add_argument(
@@ -150,10 +150,10 @@ def pick_and_place_simple(args, goal_file, goal_data):
     (:goal
         (exists (?r - receptacle)
         (exists (?o - object)
-            (and 
-                (objectType ?o {goal_obj}Type) 
+            (and
+                (objectType ?o {goal_obj}Type)
                 (receptacleType ?r {goal_recep}Type)
-                (inReceptacle ?o ?r) 
+                (inReceptacle ?o ?r)
             )
     )))"""
     return preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
@@ -171,12 +171,12 @@ def pick_and_place_simple_slice(args, goal_file, goal_data):
     (:goal
         (exists (?r - receptacle)
         (exists (?o - object)
-            (and 
-                (objectType ?o {goal_obj}Type) 
+            (and
+                (objectType ?o {goal_obj}Type)
                 (receptacleType ?r {goal_recep}Type)
-                (inReceptacle ?o ?r) 
+                (inReceptacle ?o ?r)
                 (sliceable ?o)
-                (isSliced ?o) 
+                (isSliced ?o)
             )
     )))"""
     return preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
@@ -193,12 +193,12 @@ def pick_clean_then_place_in_recep(args, goal_file, goal_data):
     (:goal
         (exists (?r - receptacle)
         (exists (?o - object)
-            (and 
-                (objectType ?o {goal_obj}Type) 
+            (and
+                (objectType ?o {goal_obj}Type)
                 (receptacleType ?r {goal_recep}Type)
                 (inReceptacle ?o ?r)
                 (cleanable ?o)
-                (isClean ?o) 
+                (isClean ?o)
             )
     )))"""
     return preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
@@ -216,14 +216,14 @@ def pick_heat_then_place_in_recep_slice(args, goal_file, goal_data):
     (:goal
         (exists (?r - receptacle)
         (exists (?o - object)
-            (and 
-                (objectType ?o {goal_obj}Type) 
+            (and
+                (objectType ?o {goal_obj}Type)
                 (receptacleType ?r {goal_recep}Type)
                 (inReceptacle ?o ?r)
                 (heatable ?o)
                 (isHot ?o)
                 (sliceable ?o)
-                (isSliced ?o)  
+                (isSliced ?o)
             )
     )))"""
     return preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
@@ -240,12 +240,12 @@ def pick_heat_then_place_in_recep(args, goal_file, goal_data):
     (:goal
         (exists (?r - receptacle)
         (exists (?o - object)
-            (and 
-                (objectType ?o {goal_obj}Type) 
+            (and
+                (objectType ?o {goal_obj}Type)
                 (receptacleType ?r {goal_recep}Type)
                 (inReceptacle ?o ?r)
                 (heatable ?o)
-                (isHot ?o) 
+                (isHot ?o)
             )
     )))"""
     return preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
@@ -262,12 +262,12 @@ def pick_cool_then_place_in_recep(args, goal_file, goal_data):
     (:goal
         (exists (?r - receptacle)
         (exists (?o - object)
-            (and 
-                (objectType ?o {goal_obj}Type) 
+            (and
+                (objectType ?o {goal_obj}Type)
                 (receptacleType ?r {goal_recep}Type)
                 (inReceptacle ?o ?r)
                 (coolable ?o)
-                (isCool ?o) 
+                (isCool ?o)
             )
     )))"""
     return preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
@@ -285,14 +285,14 @@ def pick_cool_then_place_in_recep_slice(args, goal_file, goal_data):
     (:goal
         (exists (?r - receptacle)
         (exists (?o - object)
-            (and 
-                (objectType ?o {goal_obj}Type) 
+            (and
+                (objectType ?o {goal_obj}Type)
                 (receptacleType ?r {goal_recep}Type)
                 (inReceptacle ?o ?r)
                 (coolable ?o)
-                (isCool ?o) 
+                (isCool ?o)
                 (sliceable ?o)
-                (isSliced ?o)  
+                (isSliced ?o)
             )
     )))"""
     return preprocess_file_and_replace_goal(args, goal_file, goal_data, alternate_goal)
@@ -314,10 +314,10 @@ def look_at_obj_in_light(args, goal_file, goal_data):
         (exists (?o - object)
         (exists (?ot - object)
         (exists (?l - location)
-            (and 
+            (and
                 (objectType ?ot {goal_recep}Type)
                 (toggleable ?ot)
-                (isToggled ?ot) 
+                (isToggled ?ot)
                 (objectAtLocation ?ot ?l)
                 (atLocation ?a ?l)
                 (objectType ?o {goal_obj}Type)

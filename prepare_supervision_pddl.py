@@ -17,13 +17,13 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "--supervision_path",
     type=str,
-    default="domains/supervision_domains",
+    default="data/domains/supervision_domains",
     help="Location of the original PDDL dataset files.",
 )
 parser.add_argument(
     "--output_JSON",
     type=str,
-    default="dataset/supervision-NLgoals-operators.json",
+    default="data/dataset/supervision-NLgoals-operators.json",
     help="Output to produce the supervision.",
 )
 
