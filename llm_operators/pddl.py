@@ -574,7 +574,7 @@ class PDDLPlan:
         return postcondition_predicates_json
 
     @classmethod
-    def Gget_postcondition_predicates(
+    def get_postcondition_predicates(
         cls, action, pddl_domain, remove_alfred_object_ids=True
     ):
         operator_body = pddl_domain.get_operator_body(action[PDDLPlan.PDDL_ACTION])
@@ -970,6 +970,7 @@ def log_preprocessed_operators(pddl_domain, logs, output_directory, experiment_n
 
 
 def parse_operator_components(operator_body, pddl_domain):
+    allow_partial_ground_predicates = pddl_domain.constants != ''
     preprocessed_operator = PDDLParser._purge_comments(operator_body)
 
     matches = re.finditer(r"\(:action", preprocessed_operator)
@@ -990,7 +991,7 @@ def parse_operator_components(operator_body, pddl_domain):
             processed_preconds,
             precondition_predicates,
         ) = preprocess_conjunction_predicates(
-            preconds, pddl_domain.ground_truth_predicates, allow_partial_ground_predicates=pddl_domain.constants != ''
+            preconds, pddl_domain.ground_truth_predicates, allow_partial_ground_predicates=allow_partial_ground_predicates
         )
         if not precond_parameters:
             return False, ""
@@ -999,13 +1000,20 @@ def parse_operator_components(operator_body, pddl_domain):
             processed_effects,
             effect_predicates,
         ) = preprocess_conjunction_predicates(
-            effects, pddl_domain.ground_truth_predicates, allow_partial_ground_predicates=pddl_domain.constants != ''
+            effects, pddl_domain.ground_truth_predicates, allow_partial_ground_predicates=allow_partial_ground_predicates
         )
         if not effect_parameters:
             return False, ""
         precond_parameters.update(effect_parameters)
 
-        return precond_parameters, precondition_predicates, effect_predicates
+        if allow_partial_ground_predicates:
+            # NB(Jiayuan Mao @ 2021/02/04): drop the '?' for parameters, because when allow_partial_ground_predicates is True,
+            #   the parameters will have a leading '?'.
+            parameters = {k[1:]: v for k, v in precond_parameters.items() if k.startswith("?")}
+        else:
+            parameters = precond_parameters
+
+        return parameters, precondition_predicates, effect_predicates
 
 
 def preprocess_operator(
