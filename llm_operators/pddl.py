@@ -950,8 +950,8 @@ def log_preprocessed_operators(pddl_domain, logs, output_directory, experiment_n
             fieldnames = [
                 "operator_name",
                 "gt_operator",
-                "codex_raw_goals",
-                "codex_preprocessed_goal",
+                "codex_raw_operator",
+                "codex_preprocessed_operator",
                 ""
             ]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
@@ -963,8 +963,8 @@ def log_preprocessed_operators(pddl_domain, logs, output_directory, experiment_n
                         {
                             "operator_name": operator_name,
                             "gt_operator": pddl_domain.ground_truth_operators[operator_name] if operator_name in pddl_domain.ground_truth_operators else "",
-                            "codex_raw_goals": raw_operator,
-                            "codex_preprocessed_goal": preprocessed_operator,
+                            "codex_raw_operator": raw_operator,
+                            "codex_preprocessed_operator": preprocessed_operator,
                         }
                     )
 
