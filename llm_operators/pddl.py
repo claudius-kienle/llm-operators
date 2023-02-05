@@ -1011,6 +1011,7 @@ def parse_operator_components(operator_body, pddl_domain):
 def preprocess_operator(
     operator_name, operator_body, pddl_domain, use_ground_truth_predicates=True
 ):
+    allow_partial_ground_predicates = pddl_domain.constants != ''
     # Purge comments.
     preprocessed_operator = PDDLParser._purge_comments(operator_body)
 
@@ -1035,25 +1036,33 @@ def preprocess_operator(
         op_name, params, preconds, effects = op_match.groups()
         op_name = op_name.strip()
         precond_parameters, processed_preconds, _ = preprocess_conjunction_predicates(
-            preconds, pddl_domain.ground_truth_predicates, allow_partial_ground_predicates=pddl_domain.constants != ''
+            preconds, pddl_domain.ground_truth_predicates, allow_partial_ground_predicates=allow_partial_ground_predicates
         )
         if not precond_parameters:
             return False, ""
         effect_parameters, processed_effects, _ = preprocess_conjunction_predicates(
-            effects, pddl_domain.ground_truth_predicates, allow_partial_ground_predicates=pddl_domain.constants != ''
+            effects, pddl_domain.ground_truth_predicates, allow_partial_ground_predicates=allow_partial_ground_predicates
         )
         if not effect_parameters:
             return False, ""
         precond_parameters.update(effect_parameters)
 
-        # TODO: only get unground parameters
-
-        params_string = " ".join(
-            [
-                f"?{name} - {param_type}"
-                for (name, param_type) in sorted(precond_parameters)
-            ]
-        )
+        if not allow_partial_ground_predicates:
+            # NB(Jiayuan Mao @ 2023/02/04): if we don't allow partial ground predicates, the parameters do not contain '?'.
+            params_string = " ".join(
+                [
+                    f"?{name} - {param_type}"
+                    for (name, param_type) in precond_parameters
+                ]
+            )
+        else:
+            params_string = " ".join(
+                [
+                    f"{name} - {param_type}"
+                    for (name, param_type) in precond_parameters
+                    if name.startswith('?')
+                ]
+            )
         precond_string = "\n\t\t".join(processed_preconds)
         precond_string = f"(and \n\t\t{precond_string}\n\t\t)"
         effect_string = "\n\t\t".join(processed_effects)
@@ -1083,10 +1092,12 @@ def preprocess_conjunction_predicates(
         return False, [], []
     patt = r"\(and(.*)\)"
     op_match = re.match(patt, conjunction_predicates.strip(), re.DOTALL)
-    if len(op_match.groups()) != 1:
-        import pdb; pdb.set_trace()
+
     if not op_match:
         return False, None, None
+
+    if len(op_match.groups()) != 1:
+        import pdb; pdb.set_trace()
 
     parameters = set()
     conjunction_predicates = op_match.groups()[0].strip()
