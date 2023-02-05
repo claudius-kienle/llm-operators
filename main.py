@@ -17,8 +17,12 @@ ALFRED_PATH = osp.join(osp.dirname(osp.abspath(__file__)), 'alfred')
 print('Adding ALFRED path: {}'.format(ALFRED_PATH))
 sys.path.insert(0, ALFRED_PATH)
 
-import jacinle
-jacinle.hook_exception_ipdb()
+try:
+    import jacinle
+    jacinle.hook_exception_ipdb()
+except ImportError:
+    # If Jacinle is not installed, that's fine.
+    pass
 
 import argparse
 import random
