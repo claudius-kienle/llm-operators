@@ -28,6 +28,22 @@ CRAFTING_WORLD_20230204_DATASET_NAME = 'crafting_world_20230204_minining_only'
 
 @register_planning_domain_problems(CRAFTING_WORLD_20230204_DATASET_NAME)
 def load_crafting_world_20230204_minining_only(dataset_pddl_directory: str, dataset_fraction: float, verbose=False):
+    """Experiments crafting_world_v20230204_mining_only
+
+        1. The map is a linear chain: t1 t2 t3 ...
+        2. Agent only needs to accomplish mining tasks in this environment.
+        3. All types of resources (e.g., Tree, IronOre) will be randomly distributed on the map.
+        4. All types of tools (only tools that can be used for mining) will be randomly distributed on the map.
+        5. The agent starts at tile 1.
+        6. To solve the task, the "GT" plan is to find a corresponding tool, pick it up, navigate to the resource tile, and execute mining.
+        7. Instructions are generated with a single template: Mine X from the map.
+
+    .. code::
+        python main.py --experiment_name cw_v20230204_mining_only_full --dataset_name crafting_world_20230204_minining_only --supervision_name supervision --pddl_domain_name crafting_world --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix mining --initial_pddl_operators move-up move-down move-left move-right pick-up place-down mine-iron-ore --verbose --train_iterations 1 --dataset_pddl_directory data/dataset/crafting_world_v202302024_mining_only --goal_propose_include_codex_types --operator_propose_minimum_usage 1 --output_directory generated --debug_stop_after_first_proposal
+
+    Note that since the task planner will timeout on this domain, we need to implement a new task planner (skipped for now, only testing for proposals).
+    See generated/cw_v20230204_mining_only_full/0/cw_v20230204_mining_only_full_preprocessed_operators.csv for results.
+    """
     with open(osp.join(dataset_pddl_directory, 'dataset.json')) as f:
         dataset = json.load(f)
 
