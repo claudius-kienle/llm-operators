@@ -10,17 +10,28 @@ Usage:
     # Append this flag if you want to mock out the task planner with previous plans.
     --debug_mock_task_plans
 """
+
+import os.path as osp
+import sys
+ALFRED_PATH = osp.join(osp.dirname(osp.abspath(__file__)), 'alfred')
+print('Adding ALFRED path: {}'.format(ALFRED_PATH))
+sys.path.insert(0, ALFRED_PATH)
+
+try:
+    import jacinle
+    jacinle.hook_exception_ipdb()
+except ImportError:
+    # If Jacinle is not installed, that's fine.
+    pass
+
 import argparse
 import random
-import jacinle
 import llm_operators.codex as codex
 import llm_operators.datasets as datasets
 import llm_operators.task_planner as task_planner
 import llm_operators.motion_planner as motion_planner
 import llm_operators.pddl as pddl
 import llm_operators.experiment_utils as experiment_utils
-
-jacinle.hook_exception_ipdb()
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -83,6 +94,8 @@ parser.add_argument(
     default=[],
     help="Which initial PDDL predicates to run with.  Used to seed the Codex proposals.",
 )
+parser.add_argument('--operator_propose_minimum_usage', type=int, default=2, help='Minimum number of times an operator must be used to be considered for proposal.')
+parser.add_argument('--goal_propose_include_codex_types', action='store_true', help='Whether to include Codex types in the prompts for goal proposal.')
 parser.add_argument(
     "--planner", type=str, default="fd", help="Which planner to use.",
 )
@@ -98,6 +111,11 @@ parser.add_argument(
     help="debug: don't run propose_plans_operators_goals. Instead, use ground truths.",
 )
 parser.add_argument(
+    "--debug_mock_propose_goals",
+    action="store_true",
+    help="debug: mock out goal_proposal.",
+)
+parser.add_argument(
     "--debug_mock_propose_plans",
     action="store_true",
     help="debug: mock out plan proposal.",
@@ -106,11 +124,6 @@ parser.add_argument(
     "--debug_mock_propose_operators",
     action="store_true",
     help="debug: mock out operator_proposal.",
-)
-parser.add_argument(
-    "--debug_mock_propose_goals",
-    action="store_true",
-    help="debug: mock out goal_proposal.",
 )
 parser.add_argument(
     "--debug_mock_task_plans",
@@ -138,6 +151,7 @@ parser.add_argument(
     action="store_true",
     help="debug: use ground_truth_goals.",
 )
+parser.add_argument('--debug_stop_after_first_proposal', action='store_true', help='debug: stop after the first proposal for goals, plans, and operators (no evaluation).')
 
 parser.add_argument(
     "--codex_goal_temperature",
@@ -213,6 +227,7 @@ def main():
                 problems=planning_problems["train"],
                 supervision_pddl=supervision_pddl,
                 n_samples=1,
+                minimum_usage=args.operator_propose_minimum_usage,
                 verbose=args.verbose,
                 output_directory=output_directory,
                 command_args=args,
@@ -224,6 +239,9 @@ def main():
                 output_directory=output_directory,
                 command_args=args,
             )
+
+        if args.debug_stop_after_first_proposal:
+            break
 
         # Task planner: evaluates costs with PDDL solver.
         task_planner.evaluate_task_plans_and_costs_for_problems(
@@ -269,6 +287,7 @@ def main():
         # TODO: evaluate current progress.
         # Print some kind of output file showing 'how many problems were solved'.
         # Print some kind of summary file with the current best cleaned operator set.
+
     # Evaluate on heldout test sets.
 
 

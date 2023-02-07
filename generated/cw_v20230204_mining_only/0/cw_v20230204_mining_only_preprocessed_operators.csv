@@ -1,0 +1,387 @@
+operator_name,gt_operator,codex_raw_goals,codex_preprocessed_goal,
+mine-wood,"(:action mine-wood
+  :parameters (?toolinv - inventory ?targetinv - inventory ?x - object ?tool - object ?target - object ?t - tile)
+  :precondition (and
+    (agent-at ?t)
+    (object-at ?x ?t)
+    (object-of-type ?x Tree)
+    (inventory-holding ?toolinv ?tool)
+    (object-of-type ?tool Axe)
+    (inventory-empty ?targetinv)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and
+    (not (inventory-empty ?targetinv))
+    (inventory-holding ?targetinv ?target)
+    (not (object-of-type ?target Hypothetical))
+    (object-of-type ?target Wood)
+  )
+ )","(:action mine-wood
+  :parameters (?toolinv - inventory ?targetinv - inventory ?x - object ?tool - object ?target - object ?t - tile)
+  :precondition (and
+    (agent-at ?t)
+    (object-at ?x ?t)
+    (object-of-type ?x Tree)
+    (inventory-holding ?toolinv ?tool)
+    (object-of-type ?tool Axe)
+    (inventory-empty ?targetinv)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and
+    (not (inventory-empty ?targetinv))
+    (inventory-holding ?targetinv ?target)
+    (not (object-of-type ?target Hypothetical))
+    (object-of-type ?target Wood)
+  )
+ )
+","(:action mine-wood
+        :parameters (??t - tile ??target - object ??targetinv - inventory ??tool - object ??toolinv - inventory ??x - object ?Axe - object-type ?Hypothetical - object-type ?Tree - object-type ?Wood - object-type)
+
+        :precondition (and 
+		(agent-at ?t)
+		(object-at ?x ?t)
+		(object-of-type ?x Tree)
+		(inventory-holding ?toolinv ?tool)
+		(object-of-type ?tool Axe)
+		(inventory-empty ?targetinv)
+		(object-of-type ?target Hypothetical)
+		)
+        :effect (and 
+		(not (inventory-empty ?targetinv))
+		(inventory-holding ?targetinv ?target)
+		(not (object-of-type ?target Hypothetical))
+		(object-of-type ?target Wood)
+		)
+)",
+mine-wool1,"(:action mine-wool1
+  :parameters (?toolinv - inventory ?targetinv - inventory ?x - object ?tool - object ?target - object ?t - tile)
+  :precondition (and
+    (agent-at ?t)
+    (object-at ?x ?t)
+    (object-of-type ?x Sheep)
+    (inventory-holding ?toolinv ?tool)
+    (object-of-type ?tool Shears)
+    (inventory-empty ?targetinv)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and
+    (not (inventory-empty ?targetinv))
+    (inventory-holding ?targetinv ?target)
+    (not (object-of-type ?target Hypothetical))
+    (object-of-type ?target Wool)
+  )
+ )","(:action mine-wool1
+  :parameters (?toolinv - inventory ?targetinv - inventory ?x - object ?tool - object ?target - object ?t - tile)
+  :precondition (and
+    (agent-at ?t)
+    (object-at ?x ?t)
+    (object-of-type ?x Sheep)
+    (inventory-holding ?toolinv ?tool)
+    (object-of-type ?tool Shears)
+    (inventory-empty ?targetinv)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and
+    (not (inventory-empty ?targetinv))
+    (inventory-holding ?targetinv ?target)
+    (not (object-of-type ?target Hypothetical))
+    (object-of-type ?target Wool)
+  )
+ )
+","(:action mine-wool1
+        :parameters (??t - tile ??target - object ??targetinv - inventory ??tool - object ??toolinv - inventory ??x - object ?Hypothetical - object-type ?Shears - object-type ?Sheep - object-type ?Wool - object-type)
+
+        :precondition (and 
+		(agent-at ?t)
+		(object-at ?x ?t)
+		(object-of-type ?x Sheep)
+		(inventory-holding ?toolinv ?tool)
+		(object-of-type ?tool Shears)
+		(inventory-empty ?targetinv)
+		(object-of-type ?target Hypothetical)
+		)
+        :effect (and 
+		(not (inventory-empty ?targetinv))
+		(inventory-holding ?targetinv ?target)
+		(not (object-of-type ?target Hypothetical))
+		(object-of-type ?target Wool)
+		)
+)",
+mine-potato,"(:action mine-potato
+  :parameters (?targetinv - inventory ?x - object ?target - object ?t - tile)
+  :precondition (and
+    (agent-at ?t)
+    (object-at ?x ?t)
+    (object-of-type ?x PotatoPlant)
+    (inventory-empty ?targetinv)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and
+    (not (inventory-empty ?targetinv))
+    (inventory-holding ?targetinv ?target)
+    (not (object-of-type ?target Hypothetical))
+    (object-of-type ?target Potato)
+  )
+ )","(:action mine-potato
+  :parameters (?toolinv - inventory ?targetinv - inventory ?x - object ?tool - object ?target - object ?t - tile)
+  :precondition (and
+    (agent-at ?t)
+    (object-at ?x ?t)
+    (object-of-type ?x PotatoPlant)
+    (inventory-holding ?toolinv ?tool)
+    (object-of-type ?tool Hoe)
+    (inventory-empty ?targetinv)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and
+    (not (inventory-empty ?targetinv))
+    (inventory-holding ?targetinv ?target)
+    (not (object-of-type ?target Hypothetical))
+    (object-of-type ?target Potato)
+  )
+ )
+","(:action mine-potato
+        :parameters (??t - tile ??target - object ??targetinv - inventory ??tool - object ??toolinv - inventory ??x - object ?Hoe - object-type ?Hypothetical - object-type ?Potato - object-type ?PotatoPlant - object-type)
+
+        :precondition (and 
+		(agent-at ?t)
+		(object-at ?x ?t)
+		(object-of-type ?x PotatoPlant)
+		(inventory-holding ?toolinv ?tool)
+		(object-of-type ?tool Hoe)
+		(inventory-empty ?targetinv)
+		(object-of-type ?target Hypothetical)
+		)
+        :effect (and 
+		(not (inventory-empty ?targetinv))
+		(inventory-holding ?targetinv ?target)
+		(not (object-of-type ?target Hypothetical))
+		(object-of-type ?target Potato)
+		)
+)",
+mine-sugar-cane,"(:action mine-sugar-cane
+  :parameters (?targetinv - inventory ?x - object ?target - object ?t - tile)
+  :precondition (and
+    (agent-at ?t)
+    (object-at ?x ?t)
+    (object-of-type ?x SugarCanePlant)
+    (inventory-empty ?targetinv)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and
+    (not (inventory-empty ?targetinv))
+    (inventory-holding ?targetinv ?target)
+    (not (object-of-type ?target Hypothetical))
+    (object-of-type ?target SugarCane)
+  )
+ )","(:action mine-sugar-cane
+  :parameters (?toolinv - inventory ?targetinv - inventory ?tool - object ?target - object ?t - tile)
+  :precondition (and
+    (agent-at ?t)
+    (inventory-holding ?toolinv ?tool)
+    (object-of-type ?tool Axe)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and
+    (not (inventory-empty ?targetinv))
+    (inventory-holding ?targetinv ?target)
+    (not (object-of-type ?target Hypothetical))
+    (object-of-type ?target SugarCane)
+  )
+ )
+","(:action mine-sugar-cane
+        :parameters (??t - tile ??target - object ??targetinv - inventory ??tool - object ??toolinv - inventory ?Axe - object-type ?Hypothetical - object-type ?SugarCane - object-type)
+
+        :precondition (and 
+		(agent-at ?t)
+		(inventory-holding ?toolinv ?tool)
+		(object-of-type ?tool Axe)
+		(object-of-type ?target Hypothetical)
+		)
+        :effect (and 
+		(not (inventory-empty ?targetinv))
+		(inventory-holding ?targetinv ?target)
+		(not (object-of-type ?target Hypothetical))
+		(object-of-type ?target SugarCane)
+		)
+)",
+mine-wool2,"(:action mine-wool2
+  :parameters (?toolinv - inventory ?targetinv - inventory ?x - object ?tool - object ?target - object ?t - tile)
+  :precondition (and
+    (agent-at ?t)
+    (object-at ?x ?t)
+    (object-of-type ?x Sheep)
+    (inventory-holding ?toolinv ?tool)
+    (object-of-type ?tool Sword)
+    (inventory-empty ?targetinv)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and
+    (not (inventory-empty ?targetinv))
+    (inventory-holding ?targetinv ?target)
+    (not (object-of-type ?target Hypothetical))
+    (object-of-type ?target Wool)
+  )
+ )","(:action mine-wool2
+  :parameters (?inv - inventory ?inv2 - inventory ?tool - object ?t - tile)
+  :precondition (and
+    (agent-at ?t)
+    (inventory-holding ?inv ?tool)
+    (object-of-type ?tool Shears)
+    (inventory-empty ?inv)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and
+    (not (inventory-empty ?inv2))
+    (inventory-holding ?inv2 ?target)
+    (not (object-of-type ?target Hypothetical))
+    (object-of-type ?target Wool)
+  )
+ )
+","(:action mine-wool2
+        :parameters (??inv - inventory ??inv2 - inventory ??t - tile ??target - object ??tool - object ?Hypothetical - object-type ?Shears - object-type ?Wool - object-type)
+
+        :precondition (and 
+		(agent-at ?t)
+		(inventory-holding ?inv ?tool)
+		(object-of-type ?tool Shears)
+		(inventory-empty ?inv)
+		(object-of-type ?target Hypothetical)
+		)
+        :effect (and 
+		(not (inventory-empty ?inv2))
+		(inventory-holding ?inv2 ?target)
+		(not (object-of-type ?target Hypothetical))
+		(object-of-type ?target Wool)
+		)
+)",
+fit-boat,,"(:action fit-boat
+  :parameters (?x - object ?x1 - object ?x2 - object ?x3 - object ?x4 - object ?x5 - object ?x6 - object)
+  :precondition (and (object-of-type ?x BoatStation) (object-of-type ?x1 Cobblestone) (object-of-type ?x2 Cobblestone) (object-of-type ?x3 Cobblestone) (object-of-type ?x4 Cobblestone) (object-of-type ?x5 Cobblestone) (object-of-type ?x6 Cobblestone))
+  :effect (and (object-of-type ?x Boat))
+ )
+","(:action fit-boat
+        :parameters (??x - object ??x1 - object ??x2 - object ??x3 - object ??x4 - object ??x5 - object ??x6 - object ?Boat - object-type ?BoatStation - object-type ?Cobblestone - object-type)
+
+        :precondition (and 
+		(object-of-type ?x BoatStation)
+		(object-of-type ?x1 Cobblestone)
+		(object-of-type ?x2 Cobblestone)
+		(object-of-type ?x3 Cobblestone)
+		(object-of-type ?x4 Cobblestone)
+		(object-of-type ?x5 Cobblestone)
+		(object-of-type ?x6 Cobblestone)
+		)
+        :effect (and 
+		(object-of-type ?x Boat)
+		)
+)",
+float-boat,,"(:action float-boat
+  :parameters ()
+  :precondition ()
+  :effect ()
+ )
+",FAILED,
+come-ashore,,"(:action come-ashore
+  :parameters (?t1 - tile ?t2 - tile)
+  :precondition (and (agent-at ?t1) (tile-up ?t1 ?t2))
+  :effect (and (agent-at ?t2) (not (agent-at ?t1)))
+ )
+","(:action come-ashore
+        :parameters (??t1 - tile ??t2 - tile)
+
+        :precondition (and 
+		(agent-at ?t1)
+		(tile-up ?t1 ?t2)
+		)
+        :effect (and 
+		(agent-at ?t2)
+		(not (agent-at ?t1))
+		)
+)",
+mine-sugar,,"(:action mine-sugar
+  :parameters (?targetinv - inventory ?toolinv - inventory ?target - object ?tool - object ?t - tile)
+  :precondition (and
+    (inventory-empty ?targetinv)
+    (inventory-holding ?toolinv ?tool)
+    (agent-at ?t)
+    (object-at ?tool ?t)
+    (object-of-type ?tool Shears)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and (inventory-holding ?targetinv ?target)
+               (object-of-type ?target SugarCane)
+               (not (object-of-type ?target Hypothetical))
+  )
+ )
+","(:action mine-sugar
+        :parameters (??t - tile ??target - object ??targetinv - inventory ??tool - object ??toolinv - inventory ?Hypothetical - object-type ?Shears - object-type ?SugarCane - object-type)
+
+        :precondition (and 
+		(inventory-empty ?targetinv)
+		(inventory-holding ?toolinv ?tool)
+		(agent-at ?t)
+		(object-at ?tool ?t)
+		(object-of-type ?tool Shears)
+		(object-of-type ?target Hypothetical)
+		)
+        :effect (and 
+		(inventory-holding ?targetinv ?target)
+		(object-of-type ?target SugarCane)
+		(not (object-of-type ?target Hypothetical))
+		)
+)",
+mine-gold-ore,"(:action mine-gold-ore
+  :parameters (?toolinv - inventory ?targetinv - inventory ?x - object ?tool - object ?target - object ?t - tile)
+  :precondition (and
+    (agent-at ?t)
+    (object-at ?x ?t)
+    (object-of-type ?x GoldOreVein)
+    (inventory-holding ?toolinv ?tool)
+    (object-of-type ?tool Pickaxe)
+    (inventory-empty ?targetinv)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and
+    (not (inventory-empty ?targetinv))
+    (inventory-holding ?targetinv ?target)
+    (not (object-of-type ?target Hypothetical))
+    (object-of-type ?target GoldOre)
+  )
+ )","(:action mine-gold-ore
+  :parameters (?toolinv - inventory ?targetinv - inventory ?x - object ?tool - object ?target - object ?t - tile)
+  :precondition (and
+    (agent-at ?t)
+    (object-at ?x ?t)
+    (object-of-type ?x GoldOreVein)
+    (inventory-holding ?toolinv ?tool)
+    (object-of-type ?tool Pickaxe)
+    (inventory-empty ?targetinv)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and
+    (not (inventory-empty ?targetinv))
+    (inventory-holding ?targetinv ?target)
+    (not (object-of-type ?target Hypothetical))
+    (object-of-type ?target GoldOre)
+  )
+ )
+","(:action mine-gold-ore
+        :parameters (??t - tile ??target - object ??targetinv - inventory ??tool - object ??toolinv - inventory ??x - object ?GoldOre - object-type ?GoldOreVein - object-type ?Hypothetical - object-type ?Pickaxe - object-type)
+
+        :precondition (and 
+		(agent-at ?t)
+		(object-at ?x ?t)
+		(object-of-type ?x GoldOreVein)
+		(inventory-holding ?toolinv ?tool)
+		(object-of-type ?tool Pickaxe)
+		(inventory-empty ?targetinv)
+		(object-of-type ?target Hypothetical)
+		)
+        :effect (and 
+		(not (inventory-empty ?targetinv))
+		(inventory-holding ?targetinv ?target)
+		(not (object-of-type ?target Hypothetical))
+		(object-of-type ?target GoldOre)
+		)
+)",

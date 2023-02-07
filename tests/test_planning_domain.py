@@ -2,7 +2,8 @@
 test_planning_domain.py | Classes for representing planning domains and planning domain datasets.
 """
 
-from llm_operators.datasets import PLANNING_PROBLEMS_REGISTRY, ALFRED_DATASET_NAME, PLANNING_PDDL_DOMAINS_REGISTRY, ALFRED_PDDL_DOMAIN_NAME
+from llm_operators.datasets import PLANNING_PROBLEMS_REGISTRY, PLANNING_PDDL_DOMAINS_REGISTRY
+from llm_operators.datasets.alfred import ALFRED_DATASET_NAME, ALFRED_PDDL_DOMAIN_NAME
 
 
 def test_load_alfred_planning_problems():
