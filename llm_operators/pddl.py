@@ -172,6 +172,7 @@ class Domain:
     (define (domain {self.domain_name})
         {self.requirements}
         {self.types}
+        {self.constants}
         {self.predicates}
         {self.functions}
         {self.operators_to_string(current_operators, ground_truth_operators, proposed_operators)}

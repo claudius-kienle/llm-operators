@@ -13,6 +13,7 @@ from pddlgym_planners.planner import PlanningFailure, PlanningTimeout
 from llm_operators.pddl import PDDLPlan
 
 TASK_PLANNER_FD = "task_planner_fd"
+TASK_PLANNER_PDSKETCH_ONTHEFLY = "task_planner_pdsketch_onthefly"
 
 
 def evaluate_task_plans_and_costs_for_problems(
@@ -54,7 +55,7 @@ def evaluate_task_plans_and_costs_for_problems(
         problem_json = run_planner(
             pddl_domain=pddl_domain,
             problem=problems[problem_id],
-            planner_type=TASK_PLANNER_FD,
+            planner_type=command_args.planner,
             verbose=verbose,
             debug_ground_truth_goals=command_args.debug_ground_truth_goals,
         )
@@ -116,21 +117,27 @@ def run_planner(
             print(problem.ground_truth_pddl_problem.ground_truth_goal)
             print("Proposed goal:")
             print(goal)
-        if planner_type != TASK_PLANNER_FD:
-            assert False
+
         # Get domain strings. Pick the first one that parses.
         current_domain_string = pddl_domain.to_string(
             ground_truth_operators=False,
             current_operators=True,
             proposed_operators=pddl_domain.proposed_operators.keys(),
         )
-        success, raw_plan_list = fd_plan_from_strings(
-            domain_str=current_domain_string, problem_str=current_problem_string
-        )
+
+        if planner_type == TASK_PLANNER_FD:
+            success, plan_string = fd_plan_from_strings(
+                domain_str=current_domain_string, problem_str=current_problem_string
+            )
+        elif planner_type == TASK_PLANNER_PDSKETCH_ONTHEFLY:
+            success, plan_string = pdsketch_onthefly_plan_from_strings(
+                domain_str=current_domain_string, problem_str=current_problem_string
+            )
+        else:
+            raise ValueError(f"Unknown planner type: {planner_type}")
         # Convert the planner into a plan object.
         if success:
-            plan_string = "\n".join(["(" + a + ")" for a in raw_plan_list])
-            pddl_plan = PDDLPlan(plan_string=plan_string, pddl_domain=pddl_domain,)
+            pddl_plan = PDDLPlan(plan_string=plan_string, pddl_domain=pddl_domain)
             problem.evaluated_pddl_plans[goal] = pddl_plan
             if verbose:
                 print(plan_string)
@@ -161,11 +168,29 @@ def fd_plan_from_file(domain_fname, problem_fname, timeout=5):
     # TBD: don't use PDDL gym planner, use original FD.
     fd_planner = FD(alias_flag='--alias "lama-first"')
     try:
-
         plan = fd_planner.plan_from_pddl(domain_fname, problem_fname, timeout=timeout)
+        plan_string = "\n".join(["(" + a + ")" for a in plan])
     except PlanningFailure as pf:
         return False, pf
     except PlanningTimeout as pt:
-        print("timed out")
+        print("Time out")
         return False, pt
-    return True, plan
+    return True, plan_string
+
+
+def pdsketch_onthefly_plan_from_strings(domain_str, problem_str, timeout=10):
+    import concepts.pdsketch as pds
+
+    domain = pds.load_domain_string(domain_str)
+    problem = pds.load_problem_string(problem_str, domain, return_tensor_state=False)
+
+    from concepts.pdsketch.strips.strips_grounding_onthefly import OnTheFlyGStripsProblem, ogstrips_generate_applicable_actions
+    gproblem = OnTheFlyGStripsProblem.from_domain_and_problem(domain, problem)
+
+    from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_search
+    plan = ogstrips_search(gproblem, timeout=timeout)
+
+    if plan is None:
+        return False, None
+    return True, '\n'.join([op.to_applier_pddl_str(arguments) for op, arguments in plan])
+

@@ -97,7 +97,7 @@ parser.add_argument(
 parser.add_argument('--operator_propose_minimum_usage', type=int, default=2, help='Minimum number of times an operator must be used to be considered for proposal.')
 parser.add_argument('--goal_propose_include_codex_types', action='store_true', help='Whether to include Codex types in the prompts for goal proposal.')
 parser.add_argument(
-    "--planner", type=str, default="fd", help="Which planner to use.",
+    "--planner", type=str, default="task_planner_fd", help="Which planner to use.",
 )
 parser.add_argument(
     "--output_directory",
@@ -186,6 +186,7 @@ def main():
     pddl_domain = datasets.load_pddl_domain(
         args.pddl_domain_name, args.initial_pddl_operators, args.verbose
     )
+
     # Load any external supervision on PDDL domains.
     supervision_pddl = datasets.load_pddl_supervision(
         supervision_name=args.supervision_name, verbose=args.verbose,

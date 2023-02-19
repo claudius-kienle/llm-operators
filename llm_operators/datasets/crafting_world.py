@@ -8,6 +8,8 @@ import json
 from llm_operators.datasets.core import register_planning_pddl_domain, register_planning_domain_problems
 from llm_operators.datasets.dataset_utils import load_pddl_file_with_operators
 from llm_operators.datasets.crafting_world_gen.cw_20230204_minining_only import problem_from_raw_record, gen_v20230204_solution
+from llm_operators.datasets.crafting_world_gen.utils import underline_to_pascal
+from llm_operators.datasets.crafting_world_gen.crafting_world_rules import MINING_RULES
 
 CRAFTING_WORLD_PDDL_DOMAIN_NAME = 'crafting_world'
 CRAFTING_WORLD_PDDL_DOMAIN_FILE = 'data/domains/crafting_world/domain.pddl'
@@ -58,6 +60,138 @@ def load_crafting_world_20230204_minining_only(dataset_pddl_directory: str, data
         problem.should_supervise_pddl = True
 
     return dataset
+
+
+class CraftingWorld20230204Simulator(object):
+    def __init__(self):
+        self.nr_grids = 15
+        self.agent_pos = 1
+        self.objects = dict()  # str: (str, int), name: (type, pos)
+        self.inventory = dict()  # int: Optional[Tuple[str, str]]  # (type, name)
+        self.hypothetical = set()  # str
+
+    def reset_from_state(self, objects, state):
+        agent_at = list(state['agent-at'])[0][0]
+        self.agent_pos = int(agent_at[1:])
+
+        nr_inventory = len(objects['inventory'])
+
+        self.objects = dict()
+        self.inventory = {i: None for i in range(1, 1 + nr_inventory)}
+
+        for obj_name, obj_loc in state.get('object-at', []):
+            obj_type = None
+            for obj_name2, obj_type2 in state['object-of-type']:
+                if obj_name2 == obj_name:
+                    obj_type = obj_type2
+                    break
+            assert obj_type is not None
+            self.objects[obj_name] = (obj_type, int(obj_loc[1:]))
+
+        for inv_id, obj_name in state.get('inventory-holding', []):
+            obj_type = None
+            for obj_name2, obj_type2 in state['object-of-type']:
+                if obj_name2 == obj_name:
+                    obj_type = obj_type2
+            assert obj_type is not None
+            self.inventory[int(inv_id[1:])] = (obj_type, obj_name)
+
+        for obj_name, obj_type in state['object-of-type']:
+            if obj_type == 'Hypothetical':
+                self.hypothetical.add(obj_name)
+
+    def move_left(self):
+        self.agent_pos = max(1, self.agent_pos - 1)
+        return True
+
+    def move_right(self):
+        self.agent_pos = min(self.nr_grids, self.agent_pos + 1)
+        return True
+
+    def pick_up(self, inventory, obj_name):
+        if self.inventory[inventory] is not None:
+            return False
+        if self.objects[obj_name][1] != self.agent_pos:
+            return False
+
+        self.inventory[inventory] = self.objects[obj_name][0], obj_name
+        del self.objects[obj_name]
+        return True
+
+    def place_down(self, inventory):
+        if self.inventory[inventory] is None:
+            return False
+
+        obj_type, obj_name = self.inventory[inventory]
+        self.objects[obj_name] = obj_type, self.agent_pos
+
+    def mine(self, obj_name, inventory, hypothetical_object_name, tool_inventory=None):
+        if self.objects[obj_name][1] != self.agent_pos:
+            return False
+        if self.inventory[inventory] is not None:
+            return False
+        if hypothetical_object_name not in self.hypothetical:
+            return False
+        if tool_inventory is not None and self.inventory[tool_inventory] is None:
+            return False
+
+        obj_type, _ = self.objects[obj_name]
+
+        for rule in MINING_RULES:
+            if underline_to_pascal(rule['location']) == obj_type:
+                if tool_inventory is None:
+                    if len(rule['holding']) == 0:
+                        new_obj_type = underline_to_pascal(rule['create'])
+                        self.inventory[inventory] = (new_obj_type, hypothetical_object_name)
+                        self.hypothetical.remove(hypothetical_object_name)
+                        return True
+                else:
+                    tool_type, _ = self.inventory[tool_inventory]
+                    if len(rule['holding']) == 0 or (len(rule['holding']) == 1 and underline_to_pascal(rule['holding'][0]) == tool_type):
+                        new_obj_type = underline_to_pascal(rule['create'])
+                        self.inventory[inventory] = (new_obj_type, hypothetical_object_name)
+                        self.hypothetical.remove(hypothetical_object_name)
+                        return True
+
+        return False
+
+    def goal_satisfied(self, goals):
+        for goal in goals:
+            parts = goal.split(' ')
+            if parts[0] == 'inventory-holding':
+                inv_id = int(parts[1][1:])
+                obj_name = parts[2]
+                if self.inventory[inv_id] is None:
+                    return False
+                if self.inventory[inv_id][1] != obj_name:
+                    return False
+            elif parts[0] == 'object-of-type':
+                obj_name = parts[1]
+                obj_type = parts[2]
+
+                found = False
+                if obj_name in self.objects:
+                    found = True
+                    if self.objects[obj_name][0] != obj_type:
+                        return False
+
+                if found:
+                    continue
+
+                for inv in self.inventory.values():
+                    if inv is not None:
+                        obj_type2, obj_name2 = inv
+                        print(obj_name2, obj_type2, obj_name, obj_type)
+                        if obj_name == obj_name2 and obj_type == obj_type2:
+                            found = True
+                            break
+
+                if not found:
+                    return False
+            else:
+                raise NotImplementedError()
+
+        return True
 
 
 CRAFTING_WORLD_CODEX_TYPES = """
