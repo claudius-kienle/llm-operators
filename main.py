@@ -13,12 +13,14 @@ Usage:
 
 import os.path as osp
 import sys
-ALFRED_PATH = osp.join(osp.dirname(osp.abspath(__file__)), 'alfred')
-print('Adding ALFRED path: {}'.format(ALFRED_PATH))
+
+ALFRED_PATH = osp.join(osp.dirname(osp.abspath(__file__)), "alfred")
+print("Adding ALFRED path: {}".format(ALFRED_PATH))
 sys.path.insert(0, ALFRED_PATH)
 
 try:
     import jacinle
+
     jacinle.hook_exception_ipdb()
 except ImportError:
     # If Jacinle is not installed, that's fine.
@@ -94,8 +96,17 @@ parser.add_argument(
     default=[],
     help="Which initial PDDL predicates to run with.  Used to seed the Codex proposals.",
 )
-parser.add_argument('--operator_propose_minimum_usage', type=int, default=2, help='Minimum number of times an operator must be used to be considered for proposal.')
-parser.add_argument('--goal_propose_include_codex_types', action='store_true', help='Whether to include Codex types in the prompts for goal proposal.')
+parser.add_argument(
+    "--operator_propose_minimum_usage",
+    type=int,
+    default=2,
+    help="Minimum number of times an operator must be used to be considered for proposal.",
+)
+parser.add_argument(
+    "--goal_propose_include_codex_types",
+    action="store_true",
+    help="Whether to include Codex types in the prompts for goal proposal.",
+)
 parser.add_argument(
     "--planner", type=str, default="task_planner_fd", help="Which planner to use.",
 )
@@ -151,7 +162,11 @@ parser.add_argument(
     action="store_true",
     help="debug: use ground_truth_goals.",
 )
-parser.add_argument('--debug_stop_after_first_proposal', action='store_true', help='debug: stop after the first proposal for goals, plans, and operators (no evaluation).')
+parser.add_argument(
+    "--debug_stop_after_first_proposal",
+    action="store_true",
+    help="debug: stop after the first proposal for goals, plans, and operators (no evaluation).",
+)
 
 parser.add_argument(
     "--codex_goal_temperature",

@@ -7,7 +7,11 @@ import json
 
 import numpy as np
 
-from llm_operators.datasets.core import Problem, register_planning_pddl_domain, register_planning_domain_problems
+from llm_operators.datasets.core import (
+    Problem,
+    register_planning_pddl_domain,
+    register_planning_domain_problems,
+)
 from llm_operators.datasets.dataset_utils import load_pddl_file_with_operators
 from llm_operators.pddl import PDDLProblem
 
@@ -72,7 +76,6 @@ def load_alfred_linearized_pddl_domain(verbose=False):
     return domain
 
 
-
 # ALFRED Dataset.
 ALFRED_DATASET_NAME = "alfred"
 ALFRED_DATASET_PATH = "data/dataset/alfred-NLgoals-operators.json"
@@ -135,7 +138,9 @@ def load_alfred_planning_domain_problems(
 
 # Development subset of 100 learning problems.
 ALFRED_LINEARIZED_100_DATASET_NAME = "alfred_linearized_100"
-ALFRED_LINEARIZED_100_DATASET_PATH = "data/dataset/alfred-linearized-100-NLgoals-operators.json"
+ALFRED_LINEARIZED_100_DATASET_PATH = (
+    "data/dataset/alfred-linearized-100-NLgoals-operators.json"
+)
 
 
 @register_planning_domain_problems(ALFRED_LINEARIZED_100_DATASET_NAME)
@@ -186,7 +191,7 @@ def load_alfred_linearized_planning_domain_problems(
 
     if verbose:
         print(
-            f"\nload_alfred_planning_domain_problems: loaded {ALFRED_DATASET_NAME} from {ALFRED_DATASET_PATH}"
+            f"\nload_alfred_linearized_planning_domain_problems: loaded {ALFRED_DATASET_NAME} from {ALFRED_LINEARIZED_100_DATASET_PATH}"
         )
         for dataset_split in dataset:
             print(

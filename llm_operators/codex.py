@@ -269,7 +269,9 @@ def propose_operators_for_problems(
     )
 
     if verbose:
-        print(f"propose_operators_for_problems:: proposing for {len(proposed_operators)} operators.")
+        print(
+            f"propose_operators_for_problems:: proposing for {len(proposed_operators)} operators."
+        )
 
     # Get valid operators, and use a standardized operator mapping.
     if use_mock:
@@ -302,7 +304,9 @@ def propose_operators_for_problems(
             for o in current_domain.proposed_operators[o]
             if len(current_domain.proposed_operators[o]) > 1
         ]
-        print(f"\npropose_operators_for_problems: proposed operators for {len(num_proposed)} / {len(proposed_operators)}")
+        print(
+            f"\npropose_operators_for_problems: proposed operators for {len(num_proposed)} / {len(proposed_operators)}"
+        )
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
@@ -397,7 +401,9 @@ def propose_operator_definition(
     :ret: list of up to n_samples operator definitions. Empty list if prompting fails.
     """
     if verbose:
-        print(f"propose_operator_definition:: operator_name_to_define - {operator_name_to_define}")
+        print(
+            f"propose_operator_definition:: operator_name_to_define - {operator_name_to_define}"
+        )
     # Codex prompt header.
     nl_header = ";;;; Define PDDL planning operators.\n\n"
     codex_prompt = nl_header
@@ -408,7 +414,9 @@ def propose_operator_definition(
             + current_domain.domain_definition_to_string(codex_prompt=True)
             + "\n\n"
         )
-        translation_header = ";;;; Only use predicates and functions available in the PDDL domain.\n\n"
+        translation_header = (
+            ";;;; Only use predicates and functions available in the PDDL domain.\n\n"
+        )
 
         codex_prompt += pddl_domain + translation_header
 
@@ -441,7 +449,9 @@ def propose_operator_definition(
             codex_prompt, temperature=temperature, stop=STOP_TOKEN, n_samples=n_samples,
         )
         if verbose:
-            print(f'propose_operator_definition:: completion for {operator_name_to_define}')
+            print(
+                f"propose_operator_definition:: completion for {operator_name_to_define}"
+            )
             for c in completions:
                 print(operator_prefix + c)
         return codex_prompt, [operator_prefix + o for o in completions]
@@ -485,7 +495,10 @@ def propose_plans_for_problems(
     output_filepath = f"{experiment_tag}codex_plans.json"
     if use_mock:
         mock_propose_plans_for_problems(
-            output_filepath, unsolved_problems, output_directory, experiment_name=experiment_name
+            output_filepath,
+            unsolved_problems,
+            output_directory,
+            experiment_name=experiment_name,
         )
         return
     # Codex prompt header.
@@ -508,7 +521,9 @@ def propose_plans_for_problems(
     shared_header = nl_header
     for idx, unsolved_problem in enumerate(unsolved_problems):
         if verbose:
-            print(f"propose_plans_for_problems:: Now on problem {idx} / {len(unsolved_problems)} ... ")
+            print(
+                f"propose_plans_for_problems:: Now on problem {idx} / {len(unsolved_problems)} ... "
+            )
 
         codex_prompt = shared_header
         # Codex prompt example natural language goals and plans.
@@ -549,11 +564,16 @@ def propose_plans_for_problems(
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
-    log_proposed_plans_for_problems(unsolved_problems, output_json, output_directory, experiment_name=experiment_name)
+    log_proposed_plans_for_problems(
+        unsolved_problems,
+        output_json,
+        output_directory,
+        experiment_name=experiment_name,
+    )
 
 
 def mock_propose_plans_for_problems(
-    output_filepath, unsolved_problems, output_directory, experiment_name=''
+    output_filepath, unsolved_problems, output_directory, experiment_name=""
 ):
     with open(os.path.join(output_directory, output_filepath), "r") as f:
         output_json = json.load(f)
@@ -569,28 +589,42 @@ def mock_propose_plans_for_problems(
     print(
         f"mock_propose_plans_for_problems:: loaded a total of {len([p for p in unsolved_problems if len(p.proposed_pddl_plans) > 0])} plans for {len(unsolved_problems)} unsolved problems."
     )
-    log_proposed_plans_for_problems(unsolved_problems, output_json, output_directory, experiment_name)
+    log_proposed_plans_for_problems(
+        unsolved_problems, output_json, output_directory, experiment_name
+    )
 
 
-def log_proposed_plans_for_problems(unsolved_problems, output_json, output_directory, experiment_name):
+def log_proposed_plans_for_problems(
+    unsolved_problems, output_json, output_directory, experiment_name
+):
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
     output_filepath = f"{experiment_tag}codex_plans.csv"
 
     if output_directory:
-        print(f'Logging proposed plans: {os.path.join(output_directory, output_filepath)}')
+        print(
+            f"Logging proposed plans: {os.path.join(output_directory, output_filepath)}"
+        )
         with open(os.path.join(output_directory, output_filepath), "w") as f:
-            fieldnames = ['problem', 'nl_goal', 'gt_pddl_goal', 'gt_plan', 'proposed_plan']
+            fieldnames = [
+                "problem",
+                "nl_goal",
+                "gt_pddl_goal",
+                "gt_plan",
+                "proposed_plan",
+            ]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             for problem in unsolved_problems:
                 for proposed_plan in problem.proposed_pddl_plans:
-                    writer.writerow({
-                        'problem': problem.problem_id,
-                        'nl_goal': problem.language,
-                        'gt_pddl_goal': problem.ground_truth_pddl_problem.ground_truth_goal,
-                        'gt_plan': problem.ground_truth_pddl_plan.plan_string,
-                        'proposed_plan': proposed_plan.plan_string
-                    })
+                    writer.writerow(
+                        {
+                            "problem": problem.problem_id,
+                            "nl_goal": problem.language,
+                            "gt_pddl_goal": problem.ground_truth_pddl_problem.ground_truth_goal,
+                            "gt_plan": problem.ground_truth_pddl_plan.plan_string,
+                            "proposed_plan": proposed_plan.plan_string,
+                        }
+                    )
 
 
 def get_plan_string_from_supervision_pddl(supervision_pddl):
@@ -622,7 +656,7 @@ def get_solved_goal_prompt(domain, problem):
     """
     domain_string = domain.domain_for_goal_prompting(
         problem.ground_truth_pddl_problem.ground_truth_pddl_problem_string,
-        include_codex_types=False  # For solved problems, do not include codex types.
+        include_codex_types=False,  # For solved problems, do not include codex types.
     )
     NL_goal = NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language
     pddl_goal = (
@@ -660,7 +694,7 @@ def get_supervision_goal_prompt(supervision_pddl):
 def get_unsolved_goal_prompt(domain, problem, include_codex_types=False):
     domain_string = domain.domain_for_goal_prompting(
         problem.ground_truth_pddl_problem.ground_truth_pddl_problem_string,
-        include_codex_types=include_codex_types
+        include_codex_types=include_codex_types,
     )
     NL_goal = NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language
     return "\n\n".join([domain_string, NL_goal])
@@ -744,7 +778,9 @@ def propose_goals_for_problems(
                 f"propose_goals_for_problems:: now on {idx} / {len(unsolved_problems)}"
             )
 
-        temp_prompt = prompt + get_unsolved_goal_prompt(current_domain, problem, include_codex_types=include_codex_types)
+        temp_prompt = prompt + get_unsolved_goal_prompt(
+            current_domain, problem, include_codex_types=include_codex_types
+        )
         try:
             goal_strings = get_completions(
                 temp_prompt,
@@ -757,7 +793,9 @@ def propose_goals_for_problems(
                 CODEX_OUTPUT: goal_strings,
             }
             if verbose:
-                print(f'propose_goals_for_problems:: proposed goals for "{problem.language}":: {goal_strings[0]}')
+                print(
+                    f'propose_goals_for_problems:: proposed goals for "{problem.language}":: {goal_strings[0]}'
+                )
             problem.proposed_pddl_goals.extend(goal_strings)  # editing the problem
         except Exception as e:
             print(e)
