@@ -1,4 +1,8 @@
 #### Experiments log.
+
+### Supervision PDDL, alfred_linearized_100, with CleanObject
+```python main.py --experiment_name alfred_linearized_100_supervision_pddl_pick_place_clean --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle CleanObject --verbose --train_iterations 1 --dataset_pddl_directory data/dataset/alfred_linearized_pddl --output_directory generated```
+
 ### Supervision PDDL, alfred_linearized_100 pick and place.
 This top-level command (without any of the checkpointing flags) will run the model on the ```alfred_linearized_100`` dataset of goals, with the GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle operators (pick and place).
 
