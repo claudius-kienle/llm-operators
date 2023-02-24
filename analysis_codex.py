@@ -11,7 +11,7 @@ import json
 
 
 path = "alfred_data/"  # where to save csv files
-dataset_name = "alfred"
+dataset_name = "alfred_linearized_100"
 dataset_fraction = 0.001
 dataset_pddl_directory = "/Users/noakorneev/Documents/llm-operators/data/dataset/alfred_linearized_pddl"
 pddl_domain_name = "alfred"

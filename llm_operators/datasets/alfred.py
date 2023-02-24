@@ -198,7 +198,6 @@ def load_alfred_linearized_planning_domain_problems(
 def load_alfred_pddl_file(
     dataset_pddl_directory, problem_directory, pddl_file="problem_0.pddl"
 ):
-
     with open(os.path.join(dataset_pddl_directory, problem_directory, pddl_file)) as f:
         problem_file = f.read()
 
