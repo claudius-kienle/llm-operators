@@ -239,7 +239,8 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_problems(
 
 
 def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
-    current_domain_string, current_problem_string, pddl_goal, pddl_plan
+    current_domain_string, current_problem_string, pddl_goal, pddl_plan,
+    verbose: bool = False,
 ):
     import concepts.pdsketch as pds
     domain = pds.load_domain_string(current_domain_string)
@@ -258,13 +259,16 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
         action_args = action[PDDLPlan.PDDL_ARGUMENTS]
 
         if action_name == 'move-right':
-            print('move-right')
+            if verbose:
+                print('move-right')
             simulator.move_right()
         elif action_name == 'move-left':
-            print('move-left')
+            if verbose:
+                print('move-left')
             simulator.move_left()
         elif action_name == 'pick-up':
-            print('pick-up')
+            if verbose:
+                print('pick-up')
             simulator.pick_up(
                 int(_find_string_start_with(action_args, 'i', first=True)[1:]),
                 _find_string_start_with(action_args, 'o', first=True)
@@ -278,28 +282,32 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
 
             hypothetical_object = [x for x in object_indices if x in simulator.hypothetical]
             if len(hypothetical_object) != 1:
-                print('Hypothetical object not found.', object_indices)
+                if verbose:
+                    print('Hypothetical object not found.', object_indices)
                 last_failed_operator = i
                 break
             hypothetical_object = hypothetical_object[0]
 
             empty_inventory = [x for x in inventory_indices if simulator.inventory[x] is None]
             if len(empty_inventory) != 1:
-                print('Empty inventory not found.', inventory_indices)
+                if verbose:
+                    print('Empty inventory not found.', inventory_indices)
                 last_failed_operator = i
                 break
             empty_inventory = empty_inventory[0]
 
             target_object = [x for x in object_indices if x in simulator.objects and simulator.objects[x][1] == simulator.agent_pos]
             if len(target_object) != 1:
-                print('Target object not found.', object_indices)
+                if verbose:
+                    print('Target object not found.', object_indices)
                 last_failed_operator = i
                 break
             target_object = target_object[0]
 
             tool_inventory = list(set(inventory_indices) - set([empty_inventory]))
 
-            print('Mining', empty_inventory, hypothetical_object, target_object, tool_inventory)
+            if verbose:
+                print('Mining', empty_inventory, hypothetical_object, target_object, tool_inventory)
             simulator.mine(
                 target_object,
                 empty_inventory,

@@ -324,6 +324,9 @@ def update_pddl_domain_from_planner_results(
                         TASK_SUCCESS_SCORE if motion_plan_result.task_success else 0
                     )
                     operator_scores[o] += task_success_score
+
+    log_motion_planner_results(problems, command_args, output_directory)
+
     # Print the top operators and scores.
     top_operators = sorted(
         list(operator_scores.keys()), key=lambda o: -operator_scores[o]
@@ -332,6 +335,13 @@ def update_pddl_domain_from_planner_results(
         print(
             f"Adding {len(top_operators)} operators to the domain with the following scores:"
         )
+
+    experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
+    output_filepath = f"{experiment_tag}operator_scores.json"
+    if output_directory:
+        print('Logging operator scores to', os.path.join(output_directory, output_filepath))
+        with open(os.path.join(output_directory, output_filepath), "w") as f:
+            json.dump(operator_scores, f)
 
     # Add these operator definitions.
     for o in top_operators:
@@ -342,6 +352,30 @@ def update_pddl_domain_from_planner_results(
             pddl_domain.operators[o] = pddl_domain.get_operator_body(o)
     # Clear out the proposed operators.
     pddl_domain.reset_proposed_operators()
+
+
+def log_motion_planner_results(problems, command_args, output_directory):
+    experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
+    output_filepath = f"{experiment_tag}motion_planner_results.csv"
+
+    if output_directory:
+        print('Logging motion planner results to', os.path.join(output_directory, output_filepath))
+
+        with open(os.path.join(output_directory, output_filepath), 'w') as f:
+            fieldnames = ['problem_id', 'goal', 'task_success', 'task_plan', 'task_plan_success_prefix']
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            for problem in problems.values():
+                for goal, r in problem.evaluated_motion_planner_results.items():
+                    task_plan = ', '.join([x['action'] for x in r.pddl_plan.plan])
+                    task_plan_success_prefix = ', '.join([x['action'] for x in r.pddl_plan.plan[:r.last_failed_operator]])
+                    writer.writerow({
+                        'problem_id': problem.problem_id,
+                        'goal': goal,
+                        'task_success': r.task_success,
+                        'task_plan': task_plan,
+                        'task_plan_success_prefix': task_plan_success_prefix,
+                    })
 
 
 @contextmanager

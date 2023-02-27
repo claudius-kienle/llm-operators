@@ -6,6 +6,7 @@ Utilities for generating task level plans.
 import os
 import json
 from tempfile import NamedTemporaryFile
+from typing import Optional, Sequence
 
 from pddlgym_planners.fd import FD
 from pddlgym_planners.planner import PlanningFailure, PlanningTimeout
@@ -23,6 +24,7 @@ def evaluate_task_plans_and_costs_for_problems(
     verbose=False,
     output_directory=None,
     use_mock=False,
+    proposed_operators: Optional[Sequence[str]] = None,
 ):
     """
     Runs task planner to evaluate task plans for a set of planning problems, given a PDDL domain.
@@ -58,6 +60,7 @@ def evaluate_task_plans_and_costs_for_problems(
             planner_type=command_args.planner,
             verbose=verbose,
             debug_ground_truth_goals=command_args.debug_ground_truth_goals,
+            proposed_operators=proposed_operators,
         )
         output_json.append(problem_json)
     if output_directory:
@@ -91,6 +94,7 @@ def run_planner(
     planner_type=TASK_PLANNER_FD,
     verbose=False,
     debug_ground_truth_goals=False,
+    proposed_operators: Optional[Sequence[str]] = None,
 ):
     """
     pddl_domain: Domain object.
@@ -104,10 +108,22 @@ def run_planner(
     } if a PDDLPlan is found, along with a score for this plan.
     """
     output_json = {"file_name": problem.problem_id, "plans": []}
+
+    if proposed_operators is None:
+        proposed_operators = pddl_domain.proposed_operators.keys()
+
+    # Get domain strings. Pick the first one that parses.
+    current_domain_string = pddl_domain.to_string(
+        ground_truth_operators=False,
+        current_operators=True,
+        proposed_operators=proposed_operators,
+    )
+
     if debug_ground_truth_goals:
         goals = [problem.ground_truth_pddl_problem.ground_truth_goal]
     else:
         goals = problem.proposed_pddl_goals
+
     for goal in goals:
         current_problem_string = problem.ground_truth_pddl_problem.get_pddl_string_with_proposed_goal(
             proposed_goal=goal
@@ -117,14 +133,6 @@ def run_planner(
             print(problem.ground_truth_pddl_problem.ground_truth_goal)
             print("Proposed goal:")
             print(goal)
-
-        # Get domain strings. Pick the first one that parses.
-        current_domain_string = pddl_domain.to_string(
-            ground_truth_operators=False,
-            current_operators=True,
-            proposed_operators=pddl_domain.proposed_operators.keys(),
-        )
-
         if planner_type == TASK_PLANNER_FD:
             success, plan_string = fd_plan_from_strings(
                 domain_str=current_domain_string, problem_str=current_problem_string
@@ -184,7 +192,7 @@ def pdsketch_onthefly_plan_from_strings(domain_str, problem_str, timeout=10):
     domain = pds.load_domain_string(domain_str)
     problem = pds.load_problem_string(problem_str, domain, return_tensor_state=False)
 
-    from concepts.pdsketch.strips.strips_grounding_onthefly import OnTheFlyGStripsProblem, ogstrips_generate_applicable_actions
+    from concepts.pdsketch.strips.strips_grounding_onthefly import OnTheFlyGStripsProblem
     gproblem = OnTheFlyGStripsProblem.from_domain_and_problem(domain, problem)
 
     from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_search
