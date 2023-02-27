@@ -12,7 +12,7 @@ import json
 
 path = "alfred_data/"  # where to save csv files
 dataset_name = "alfred_linearized_100"
-dataset_fraction = 0.001
+dataset_fraction = 1
 dataset_pddl_directory = "/Users/noakorneev/Documents/llm-operators/data/dataset/alfred_linearized_pddl"
 pddl_domain_name = "alfred"
 verbose = False
@@ -76,13 +76,28 @@ def csv_gt_vs_proposed_goals(csv_path,csv_name):
     my_df.to_csv(os.path.join(csv_path,csv_name), index=False, header=False)
 
 def csv_gt_vs_proposed_goals_from_json(json_file,dataset_pddl_directory,initial_pddl_operators):
+    """
+    generates csv comparing the proposed goals in json_file to ground truth
+    """
     problems = load_problems_dataset(dataset_name,dataset_fraction,dataset_pddl_directory,initial_pddl_operators)
     f = open(json_file)
-    prompt_and_output = json.load(f)
-    # for file_name in prompt_and_output:
+    experiment_results = json.load(f)
+    ground_truth_vs_proposed_goals = [["problem","nl_goal","gt_pddl_goal","proposed_goal"]]
 
-    
-    return
+    for problem in problems:
+        problem_id = problem.problem_id
+        if problem_id in experiment_results:
+            nl_goal = problem.language
+            ground_truth = problem.ground_truth_pddl_problem.ground_truth_goal
+            proposed_goal = experiment_results[problem_id]["codex_output"][0]
+            header = "(:goal"
+            header_index = proposed_goal.index(header)
+            proposed_goal = proposed_goal[header_index:]
+            ground_truth_vs_proposed_goals.append([problem_id,nl_goal,ground_truth, proposed_goal])
+    my_df = pd.DataFrame(ground_truth_vs_proposed_goals)
+    csv_name = json_file[:-5] + ".csv"
+    my_df.to_csv(csv_name, index=False, header=False)
 
-json_file = "generated/alfred_linearized_100_supervision_pddl_pick_place/0/alfred_linearized_100_supervision_pddl_pick_place_codex_goals_.json"
+
+json_file = "generated/alfred_linearized_100_supervision_pddl_pick_place_clean/0/alfred_linearized_100_supervision_pddl_pick_place_clean_codex_goals_.json"
 csv_gt_vs_proposed_goals_from_json(json_file,dataset_pddl_directory,initial_pddl_operators)
