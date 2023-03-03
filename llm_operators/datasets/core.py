@@ -62,6 +62,7 @@ class Problem:
         self.evaluated_motion_planner_results = {}
 
     def get_best_evaluated_pddl_plan(self):
+        """Returns the best evaluated PDDL plan, or None if no plans have been evaluated."""
         import pdb
 
         pdb.set_trace()

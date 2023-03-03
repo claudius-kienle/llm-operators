@@ -1,0 +1,1560 @@
+problem,nl_goal,gt_pddl_goal,codex_raw_goals,codex_preprocessed_goal
+train_3,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_3,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_4,Mine sugar cane from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 SugarCane)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 SugarCanes))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 SugarCane)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCanes))
+)"
+train_4,Mine sugar cane from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 SugarCane)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 SugarCanes))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 SugarCane)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)"
+train_5,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_5,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_6,Mine sugar cane from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 SugarCane)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 SugarCane))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 SugarCane)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)"
+train_6,Mine sugar cane from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 SugarCane)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 SugarCane))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 SugarCane)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)"
+train_7,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)"
+train_7,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)"
+train_8,Mine sugar cane from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 SugarCane)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 SugarCane))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i2 o16)\n   (object-of-type o16 SugarCane)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)"
+train_8,Mine sugar cane from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 SugarCane)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 SugarCane))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i2 o16)\n   (object-of-type o16 SugarCane)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i2 o16)
+		(object-of-type o16 SugarCane))
+)"
+train_9,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_9,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_10,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Beetroot))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Beetroot)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)"
+train_10,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Beetroot))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Beetroot)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)"
+train_11,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n\n<END>']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_11,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n\n<END>']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_12,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_12,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_13,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (not(inventory-empty i3))\n   (inventory-holding i3 o17)\n   (object-of-type o17 Charcoal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_13,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (not(inventory-empty i3))\n   (inventory-holding i3 o17)\n   (object-of-type o17 Charcoal)\n ))\n']","(:goal
+	(and 
+		(not(inventory-empty i3))
+		(inventory-holding i3 o17)
+		(object-of-type o17 Charcoal))
+)"
+train_14,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Beetroot))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Beetroot)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)"
+train_14,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Beetroot))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Beetroot)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)"
+train_15,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_15,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_16,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Charcoal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Charcoal))
+)"
+train_16,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Charcoal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)"
+train_17,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Charcoal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Charcoal))
+)"
+train_17,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Charcoal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)"
+train_18,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o3)\n\t\t(object-of-type o3 IronOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o16)\n   (object-of-type o16 Wood)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o3)
+		(object-of-type o3 IronOre))
+)"
+train_18,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o3)\n\t\t(object-of-type o3 IronOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o16)\n   (object-of-type o16 Wood)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o16)
+		(object-of-type o16 Wood))
+)"
+train_19,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_19,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_20,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Beetroot))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Beetroot)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)"
+train_20,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Beetroot))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Beetroot)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)"
+train_21,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_21,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_22,Mine wood from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wood)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 WoodLog))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wood)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 WoodLog))
+)"
+train_22,Mine wood from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wood)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 WoodLog))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wood)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)"
+train_23,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)"
+train_23,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)"
+train_24,Mine cobblestone from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Cobblestone)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Cobblestone))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Cobblestone)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Cobblestone))
+)"
+train_24,Mine cobblestone from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Cobblestone)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Cobblestone))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Cobblestone)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Cobblestone))
+)"
+train_25,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_25,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_26,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o16)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o16)\n   (object-of-type o16 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o16)
+		(object-of-type o17 Feather))
+)"
+train_26,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o16)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o16)\n   (object-of-type o16 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o16)
+		(object-of-type o16 Feather))
+)"
+train_27,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_27,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_28,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_28,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_29,Mine sugar cane from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 SugarCane)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 SugarCane))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 SugarCane)\n ) )\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)"
+train_29,Mine sugar cane from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 SugarCane)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 SugarCane))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 SugarCane)\n ) )\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)"
+train_30,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_30,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_31,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_31,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_32,Mine wood from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wood)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wood))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wood)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)"
+train_32,Mine wood from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wood)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wood))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wood)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)"
+train_33,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 wool))
+)"
+train_33,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)"
+train_34,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_34,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_35,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n    to produce a Minecraft weapon.\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_35,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n    to produce a Minecraft weapon.\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)"
+train_36,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_36,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_37,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i1 o6)\n\t\t(object-of-type o6 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i2 o16)\n   (object-of-type o16 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i1 o6)
+		(object-of-type o6 Wool))
+)"
+train_37,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i1 o6)\n\t\t(object-of-type o6 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i2 o16)\n   (object-of-type o16 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i2 o16)
+		(object-of-type o16 Wool))
+)"
+train_38,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_38,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_39,Mine sugar cane from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 SugarCane)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 SugarCane))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 SugarCane)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)"
+train_39,Mine sugar cane from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 SugarCane)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 SugarCane))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 SugarCane)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)"
+train_40,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_40,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_41,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i2 o16)\n   (object-of-type o16 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)"
+train_41,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i2 o16)\n   (object-of-type o16 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i2 o16)
+		(object-of-type o16 Wool))
+)"
+train_42,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 IronOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o16)\n   (object-of-type o16 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)"
+train_42,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 IronOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o16)\n   (object-of-type o16 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o16)
+		(object-of-type o16 IronOre))
+)"
+train_43,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_43,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_44,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_44,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_45,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)"
+train_45,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)"
+train_46,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 IronOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o16)\n   (object-of-type o16 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)"
+train_46,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 IronOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o16)\n   (object-of-type o16 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o16)
+		(object-of-type o16 IronOre))
+)"
+train_47,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 CoalOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 CoalOre))
+)"
+train_47,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 CoalOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_48,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_48,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_49,Mine sugar cane from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 SugarCane)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 SugarCane))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 SugarCane)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)"
+train_49,Mine sugar cane from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 SugarCane)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 SugarCane))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 SugarCane)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)"
+train_50,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o16)\n\t\t(object-of-type o16 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o16)
+		(object-of-type o16 Wool))
+)"
+train_50,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o16)\n\t\t(object-of-type o16 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)"
+train_51,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_51,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_52,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o16)\n   (object-of-type o16 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)"
+train_52,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o16)\n   (object-of-type o16 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o16)
+		(object-of-type o16 Wool))
+)"
+train_53,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 BeetrootSeeds))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Beetroot)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 BeetrootSeeds))
+)"
+train_53,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 BeetrootSeeds))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Beetroot)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)"
+train_54,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)"
+train_54,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)"
+train_55,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_55,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_56,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Grass))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i1 o13)\n   (object-of-type o13 Wool)\n   (inventory-holding i2 o14)\n   (object-of-type o14 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Grass))
+)"
+train_56,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Grass))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i1 o13)\n   (object-of-type o13 Wool)\n   (inventory-holding i2 o14)\n   (object-of-type o14 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i1 o13)
+		(object-of-type o13 Wool)
+		(inventory-holding i2 o14)
+		(object-of-type o14 Wool))
+)"
+train_57,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_57,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_58,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_58,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_59,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_59,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_60,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Beetroot))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Beetroot)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)"
+train_60,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Beetroot))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Beetroot)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)"
+train_61,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i2 o1)\n   (object-of-type o1 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_61,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i2 o1)\n   (object-of-type o1 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i2 o1)
+		(object-of-type o1 Potato))
+)"
+train_62,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_62,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_63,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)"
+train_63,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)"
+train_64,Mine wood from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wood)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wood))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 WoodLog)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)"
+train_64,Mine wood from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wood)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wood))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 WoodLog)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 WoodLog))
+)"
+train_65,Mine cobblestone from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Cobblestone)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Cobblestone))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Cobblestone)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Cobblestone))
+)"
+train_65,Mine cobblestone from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Cobblestone)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Cobblestone))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Cobblestone)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Cobblestone))
+)"
+train_66,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_66,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)"
+train_67,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_67,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_68,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Diamond))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 IronOre)\n ))\n\n<END>']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Diamond))
+)"
+train_68,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Diamond))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 IronOre)\n ))\n\n<END>']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)"
+train_69,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_69,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_70,Mine sugar cane from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 SugarCane)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 SugarCane))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 SugarCane)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)"
+train_70,Mine sugar cane from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 SugarCane)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 SugarCane))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 SugarCane)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)"
+train_71,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_71,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_72,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_72,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_73,Mine wood from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wood)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wood))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wood)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)"
+train_73,Mine wood from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wood)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wood))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wood)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)"
+train_74,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_74,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_75,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_75,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_76,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Beetroot))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Beetroot)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)"
+train_76,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Beetroot))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Beetroot)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)"
+train_77,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_77,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_78,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_78,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_79,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_79,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_80,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_80,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_81,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 IronOre)\n\t\t(inventory-holding i2 o16)\n\t\t(object-of-type o16 IronIngot))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre)
+		(inventory-holding i2 o16)
+		(object-of-type o16 IronIngot))
+)"
+train_81,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 IronOre)\n\t\t(inventory-holding i2 o16)\n\t\t(object-of-type o16 IronIngot))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)"
+train_82,Mine wood from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wood)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wood))\n)', '\n\n;; PDDL Goal: \n(:goal (and \n   (inventory-holding i3 o17) \n   (object-of-type o17 Wood) \n ))\n\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)"
+train_82,Mine wood from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wood)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wood))\n)', '\n\n;; PDDL Goal: \n(:goal (and \n   (inventory-holding i3 o17) \n   (object-of-type o17 Wood) \n ))\n\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)"
+train_83,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 IronOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)"
+train_83,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 IronOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)"
+train_84,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_84,Mine coal from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Coal)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Coal))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Coal)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)"
+train_85,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i1 o2)\n\t\t(object-of-type o2 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i2 o16)\n   (object-of-type o16 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i1 o2)
+		(object-of-type o2 Wool))
+)"
+train_85,Mine wool from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wool)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i1 o2)\n\t\t(object-of-type o2 Wool))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i2 o16)\n   (object-of-type o16 Wool)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i2 o16)
+		(object-of-type o16 Wool))
+)"
+train_86,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 IronOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)"
+train_86,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 IronOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)"
+train_87,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_87,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_88,Mine wood from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wood)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wood))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wood)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)"
+train_88,Mine wood from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wood)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Wood))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wood)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)"
+train_89,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Beetroot))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Beetroot)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)"
+train_89,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Beetroot))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Beetroot)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)"
+train_90,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 IronOre))\n)', '\nPick up cobblestone from the map.\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o16)\n   (inventory-holding i3 o17)\n   (object-of-type o16 Cobblestone)\n   (object-of-type o17 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)"
+train_90,Mine iron ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 IronOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 IronOre))\n)', '\nPick up cobblestone from the map.\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o16)\n   (inventory-holding i3 o17)\n   (object-of-type o16 Cobblestone)\n   (object-of-type o17 IronOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o16)
+		(inventory-holding i3 o17)
+		(object-of-type o16 Cobblestone)
+		(object-of-type o17 IronOre))
+)"
+train_91,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_91,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_92,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Beets))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 BeetRoot)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beets))
+)"
+train_92,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Beets))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 BeetRoot)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 BeetRoot))
+)"
+train_93,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 BeetrootSeeds))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 BeetrootSeed)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 BeetrootSeeds))
+)"
+train_93,Mine beetroot from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Beetroot)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 BeetrootSeeds))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 BeetrootSeed)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 BeetrootSeed))
+)"
+train_94,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_94,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_95,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_95,Mine gold ore from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 GoldOre)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 GoldOre))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 GoldOre)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)"
+train_96,Mine sugar cane from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 SugarCane)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 SugarCane))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 SugarCane)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)"
+train_96,Mine sugar cane from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 SugarCane)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 SugarCane))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 SugarCane)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)"
+train_97,Mine wood from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wood)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o16)\n\t\t(object-of-type o16 Wood))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wood)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o16)
+		(object-of-type o16 Wood))
+)"
+train_97,Mine wood from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Wood)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o16)\n\t\t(object-of-type o16 Wood))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Wood)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)"
+train_98,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_98,Mine potato from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Potato)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Potato))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Potato)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)"
+train_99,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"
+train_99,Mine feather from the map.,"(:goal (and
+   (inventory-holding i3 o17)
+   (object-of-type o17 Feather)
+ ))","['(:goal\n\t(and \n\t\t(inventory-holding i3 o17)\n\t\t(object-of-type o17 Feather))\n)', '\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Feather)\n ))\n']","(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)"

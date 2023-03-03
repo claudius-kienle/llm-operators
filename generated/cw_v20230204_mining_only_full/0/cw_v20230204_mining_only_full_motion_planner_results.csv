@@ -1,0 +1,221 @@
+problem_id,goal,task_success,task_plan,task_plan_success_prefix
+train_3,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)",True,"pick-up, move-right, move-right, move-right, mine-potatoes","pick-up, move-right, move-right, move-right, mine-potatoes"
+train_7,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)",False,mine-wool1,
+train_12,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",False,"boat-go, pick-up, mine-feather1",
+train_14,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)",False,"move-right, boat-go, pick-up, mine-beetroot",move-right
+train_15,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)",False,"move-right, move-right, boat-go, pick-up, mine-gold-ore","move-right, move-right"
+train_21,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)",False,"boat-go, move-left, move-right, pick-up, mine-gold-ore",
+train_22,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)",False,"move-right, boat-go, pick-up, mine-wood",move-right
+train_23,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)",False,mine-wool1,
+train_24,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Cobblestone))
+)",False,"pick-up, mine-cobble",pick-up
+train_25,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",False,"move-right, move-right, move-right, boat-go, pick-up, mine-feather1","move-right, move-right, move-right"
+train_26,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",False,"boat-go, move-left, boat-go, pick-up, mine-feather1",
+train_27,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)",False,"boat-go, boat-go, move-left, pick-up, mine-coal1",
+train_28,"(:goal
+	(and 
+		(inventory-holding i3 o16)
+		(object-of-type o16 Feather))
+)",False,"move-right, move-right, boat-go, pick-up, mine-feather1","move-right, move-right"
+train_29,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)",False,"boat-go, boat-go, move-right, pick-up, mine-sugar-cane1",
+train_33,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)",False,mine-wool1,
+train_34,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)",False,"move-right, move-right, move-right, boat-go, pick-up, mine-potatoes","move-right, move-right, move-right"
+train_35,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)",False,"move-right, move-right, pick-up, move-right, boat-go, mine-iron-ore","move-right, move-right, pick-up, move-right"
+train_37,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)",False,mine-wool1,
+train_38,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",False,"boat-go, pick-up, mine-feather1",
+train_41,"(:goal
+	(and 
+		(inventory-holding i2 o16)
+		(object-of-type o16 Wool))
+)",False,mine-wool1,
+train_42,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)",True,"move-right, pick-up, move-left, mine-iron-ore","move-right, pick-up, move-left, mine-iron-ore"
+train_43,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)",True,"move-right, move-right, pick-up, mine-coal1","move-right, move-right, pick-up, mine-coal1"
+train_45,"(:goal
+	(and 
+		(inventory-holding i3 o16)
+		(object-of-type o16 Wool))
+)",False,mine-wool1,
+train_50,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)",False,mine-wool1,mine-wool1
+train_51,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",False,"move-right, move-right, pick-up, mine-feather1","move-right, move-right, pick-up"
+train_52,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)",False,mine-wool1,
+train_53,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)",True,"pick-up, move-right, move-right, move-right, mine-beetroot","pick-up, move-right, move-right, move-right, mine-beetroot"
+train_54,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)",False,mine-wool1,mine-wool1
+train_56,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)",False,mine-wool1,
+train_57,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",False,"move-right, move-right, pick-up, mine-feather1","move-right, move-right, pick-up"
+train_63,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)",False,mine-wool1,mine-wool1
+train_65,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Cobblestone))
+)",False,"move-right, move-right, move-right, pick-up, mine-cobble","move-right, move-right, move-right, pick-up"
+train_71,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",False,"boat-go, move-left, move-left, pick-up, mine-feather1",
+train_73,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)",False,"boat-go, move-left, move-left, pick-up, move-right, mine-wood",
+train_74,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",False,"boat-go, boat-go, pick-up, mine-feather1",
+train_75,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",False,"move-right, move-right, pick-up, mine-feather1","move-right, move-right, pick-up"
+train_77,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)",False,"move-right, move-right, move-right, boat-go, pick-up, mine-coal1","move-right, move-right, move-right"
+train_79,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)",False,"boat-go, move-right, move-right, pick-up, mine-gold-ore",
+train_82,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)",False,"move-right, move-right, boat-go, move-right, pick-up, mine-wood","move-right, move-right"
+train_85,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)",False,mine-wool1,
+train_88,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)",False,"move-right, boat-go, move-right, move-right, pick-up, mine-wood",move-right
+train_91,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",False,"boat-go, move-left, move-left, pick-up, mine-feather1",
+train_92,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)",False,"boat-go, pick-up, move-left, mine-beetroot",
+train_99,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",False,"move-right, pick-up, mine-feather1","move-right, pick-up"
