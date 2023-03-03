@@ -3,7 +3,7 @@ Learning planning domain models from natural language and grounding.
 See experiments_README.md for a log of development commands.
 
 ### ALFRED experiment quickstart. This sets up the repository to run experiments with the ALFRED dataset.
-1. *Download the ALFRED PDDL files*. We use a preprocessed set of Alfred files that is available [here](https://drive.google.com/drive/u/0/folders/1sE90a87rWNHPzwwm3HPg_XAxyi6HTOBc), and should be placed in `dataset/alfred_linearized_pddl`. This contains the PDDL paths referenced in `dataset/alfred-linearized-100-NLgoals-operators.json`.
+1. *Download the ALFRED PDDL files*. We use a preprocessed set of Alfred files that is available [here](https://drive.google.com/drive/u/0/folders/1sE90a87rWNHPzwwm3HPg_XAxyi6HTOBc), and should be placed in `data/dataset/alfred_linearized_pddl`. This contains the PDDL paths referenced in `dataset/alfred-linearized-100-NLgoals-operators.json`.
 
 To prepare this from scratch, use the dataset [here](https://drive.google.com/file/d/1sg8v1hf40Eu1K7hLGZ_LP5I-9N4zwLCU/view?usp=sharing), and is originally copied from the MIT internal version at `/data/vision/torralba/datasets/ALFRED/data/full_2.1.0/`. We extract this to `dataset/alfred_pddl`; you should see three internal folders (train, valid_seen, valid_unseen). This provides the PDDL paths referenced in `dataset/alfred-NLgoal-operators.json`.
    - Prepare the ALFRED PDDL files. We modify the ALFRED domain to support simple fast downward planning. Run `prepare_alfred_pddl.py` to do so, or, download our extracted and updated version at [TBD].
@@ -11,7 +11,7 @@ To prepare this from scratch, use the dataset [here](https://drive.google.com/fi
 
 2. *Install the submodules*. You can install these with
 There are two relevant submodules:
-- `pddlgym_planners`. This contains a fast-downward task planner.
+- `pddlgym_planners`. This contains the fast-downward task planner that we use in llm_operators/task_planner.py
 - `alfred`. This is a fork of the main ALFRED repository (https://github.com/jiahai-feng/alfred) that we have updated to support task and motion planning from PDDL with custom operators.
 
 3. *Add an OpenAI environment key.* You will need to edit your bash_profile or enviromment to include a line that contains `export OPENAI_API_KEY=<OPEN_AI_KEY>` and ask Cathy (zyzzyva@mit.edu) if you need one.
@@ -26,7 +26,7 @@ There are two relevant submodules:
 - The entrypoint to the full learning loop is currently at `main.py`.
 - This demo test command loads `dataset_fraction` fraction of the dataset and begins running a single full training iteration: 
 ```
-python main.py --dataset_name alfred_linearized_100 --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle --verbose --train_iterations 1 --dataset_pddl_directory dataset/alfred_linearized_pddl --output_directory generated/test_outputs --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals 
+python main.py --experiment_name alfred_linearized_100_supervision_pddl_pick_place_clean --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple pick_clean_then_place_in_recep --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle CleanObject --verbose --train_iterations 1 --dataset_pddl_directory data/dataset/alfred_linearized_pddl --output_directory generated`
 ```
 --------------------------------------------
 ##### Adding in new domains. 
