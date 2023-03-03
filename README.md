@@ -28,6 +28,7 @@ There are two relevant submodules:
 ```
 python main.py --experiment_name alfred_linearized_100_supervision_pddl_pick_place_clean --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple pick_clean_then_place_in_recep --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle CleanObject --verbose --train_iterations 1 --dataset_pddl_directory data/dataset/alfred_linearized_pddl --output_directory generated`
 ```
+==> Re-running this will write over the `experiment_name` directory. If you run this command locally, consider adding a timestamp (eg. --experiment_name alfred_linearized_100_supervision_pddl_pick_place_clean_3_3`.
 --------------------------------------------
 ##### Adding in new domains. 
 The following describes how we add in the ALFRED domain, which comprises a ground truth PDDL domain file, a set of individual PDDL tasks and NL annotations, and a motion planner.
