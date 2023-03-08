@@ -137,6 +137,11 @@ parser.add_argument(
     help="debug: mock out operator_proposal.",
 )
 parser.add_argument(
+    "--debug_skip_task_plans",
+    action="store_true",
+    help="debug: skip task plan grounded search and assume that all of the task plans succeeded.",
+)
+parser.add_argument(
     "--debug_mock_task_plans",
     action="store_true",
     help="debug: mock out task plan symbolic search.",
@@ -266,6 +271,7 @@ def main():
             verbose=args.verbose,
             command_args=args,
             output_directory=output_directory,
+            debug_skip=args.debug_skip_task_plans,
             use_mock=args.debug_mock_task_plans,
         )
         # Motion planner: evaluate costs using motion planner.
@@ -299,12 +305,7 @@ def main():
             output_directory=output_directory,
         )
 
-        # TODO: reset the proposed problem plans?
-        # TODO: evaluate current progress.
-        # Print some kind of output file showing 'how many problems were solved'.
-        # Print some kind of summary file with the current best cleaned operator set.
-
-    # Evaluate on heldout test sets.
+    # TODO: Evaluate on heldout test sets.
 
 
 if __name__ == "__main__":

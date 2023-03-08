@@ -13,7 +13,7 @@ CookObject,,"(:action CookObject
         )
     )
 ","(:action CookObject
-        :parameters (?o - object ?r - receptacle ?a - agent ?l - location)
+        :parameters (?o - object ?a - agent ?r - receptacle ?l - location)
 
         :precondition (and 
 		(atLocation ?a ?l)
@@ -48,7 +48,7 @@ CoolObject,"(:action CoolObject
         )
     )
 ","(:action CoolObject
-        :parameters (?l - location ?a - agent ?o - object)
+        :parameters (?o - object ?a - agent ?l - location)
 
         :precondition (and 
 		(atLocation ?a ?l)
@@ -73,7 +73,7 @@ slice,,"(:action slice
         )
     )
 ","(:action slice
-        :parameters (?slice - object ?table - object ?a - agent ?knife - agent ?l - location ?table - receptacle)
+        :parameters (?slice - object ?knife - agent ?table - receptacle ?table - object ?l - location ?a - agent)
 
         :precondition (and 
 		(holds ?a ?slice)
@@ -99,7 +99,7 @@ ChillObject,,"(:action ChillObject
         )
     )
 ","(:action ChillObject
-        :parameters (?o - object ?r - receptacle ?a - agent ?l - location)
+        :parameters (?o - object ?a - agent ?r - receptacle ?l - location)
 
         :precondition (and 
 		(atLocation ?a ?l)
@@ -123,7 +123,7 @@ HeatFood,,"(:action HeatFood
         )
     )
 ","(:action HeatFood
-        :parameters (?o - object ?r - receptacle ?l - location ?a - agent)
+        :parameters (?r - receptacle ?o - object ?a - agent ?l - location)
 
         :precondition (and 
 		(inReceptacle ?o ?r)
@@ -194,7 +194,7 @@ HeatObject,"(:action HeatObject
         )
     )
 ","(:action HeatObject
-        :parameters (?l - location ?a - agent ?o - object)
+        :parameters (?o - object ?a - agent ?l - location)
 
         :precondition (and 
 		(atLocation ?a ?l)
@@ -218,7 +218,7 @@ RemoveObject,,"(:action RemoveObject
         )
     )
 ","(:action RemoveObject
-        :parameters (?o - object ?r - receptacle ?a - agent ?l - location)
+        :parameters (?o - object ?a - agent ?r - receptacle ?l - location)
 
         :precondition (and 
 		(atLocation ?a ?l)
@@ -242,7 +242,7 @@ SwitchOff,,"(:action SwitchOff
         )
     )
 ","(:action SwitchOff
-        :parameters (?r - location ?o - object ?l - location ?a - agent)
+        :parameters (?l - location ?o - object ?a - agent ?r - location)
 
         :precondition (and 
 		(objectAtLocation ?o ?l)
@@ -267,7 +267,7 @@ SwitchOn,,"(:action SwitchOn
         )
     )
 ","(:action SwitchOn
-        :parameters (?o - receptacle ?o - object ?l - location ?a - agent)
+        :parameters (?o - receptacle ?o - object ?a - agent ?l - location)
 
         :precondition (and 
 		(isOn ?o)
@@ -309,7 +309,7 @@ OpenObject,"(:action OpenObject
         )
     )
 ","(:action OpenObject
-        :parameters (?r - receptacle ?a - agent ?l - location)
+        :parameters (?a - agent ?r - receptacle ?l - location)
 
         :precondition (and 
 		(receptacleAtLocation ?r ?l)
@@ -357,7 +357,7 @@ PlaceObject,,"(:action PlaceObject
         )
     )
 ","(:action PlaceObject
-        :parameters (?o - object ?r - receptacle ?a - agent ?l - location)
+        :parameters (?o - object ?a - agent ?r - receptacle ?l - location)
 
         :precondition (and 
 		(atLocation ?a ?l)
@@ -382,7 +382,7 @@ CutObject,,"(:action CutObject
         )
     )
 ","(:action CutObject
-        :parameters (?o - object ?r - receptacle ?a - agent ?l - location)
+        :parameters (?o - object ?a - agent ?r - receptacle ?l - location)
 
         :precondition (and 
 		(atLocation ?a ?l)
@@ -427,7 +427,7 @@ Close,,"(:action Close
         )
     )
 ","(:action Close
-        :parameters (?r - receptacle ?l - location ?a - agent)
+        :parameters (?r - receptacle ?a - agent ?l - location)
 
         :precondition (and 
 		(atLocation ?a ?l)
@@ -451,7 +451,7 @@ Get,,"(:action Get
         )
     )
 ","(:action Get
-        :parameters (?o - object ?r - receptacle ?a - agent ?l - location)
+        :parameters (?o - object ?a - agent ?r - receptacle ?l - location)
 
         :precondition (and 
 		(atLocation ?a ?l)
@@ -476,7 +476,7 @@ CutFoodbutterknife,,"(:action CutFoodbutterknife
         )
     )
 ","(:action CutFoodbutterknife
-        :parameters (?o2 - object ?a - agent ?o - object)
+        :parameters (?o - object ?o2 - object ?a - agent)
 
         :precondition (and 
 		(holds ?a ?o)
@@ -500,7 +500,7 @@ GotoObject,,"(:action GotoObject
         )
     )
 ","(:action GotoObject
-        :parameters (?a - agent ?oStart - object ?l - location ?oEnd - object)
+        :parameters (?oStart - object ?oEnd - object ?a - agent ?l - location)
 
         :precondition (and 
 		(holds ?a ?oStart)
@@ -548,7 +548,7 @@ TurnOnObject,,"(:action TurnOnObject
         )
     )
 ","(:action TurnOnObject
-        :parameters (?a - agent ?l - location ?o - object)
+        :parameters (?o - object ?a - agent ?l - location)
 
         :precondition (and 
 		(toggleable ?o)
@@ -643,7 +643,7 @@ GraspObject,,"(:action GraspObject
         )
     )
 ","(:action GraspObject
-        :parameters (?lStart - location ?a - agent ?o - object)
+        :parameters (?lStart - location ?o - object ?a - agent)
 
         :precondition (and 
 		(atLocation ?a ?lStart)
@@ -668,7 +668,7 @@ DropObject,,"(:action DropObject
         )
     )
 ","(:action DropObject
-        :parameters (?o - object ?l - location ?a - agent)
+        :parameters (?o - object ?a - agent ?l - location)
 
         :precondition (and 
 		(isReceptacleObject ?o)

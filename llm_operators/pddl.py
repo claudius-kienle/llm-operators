@@ -197,7 +197,9 @@ class Domain:
                 [self.requirements, self.types, self.predicates, self.functions]
             )
 
-    def domain_for_goal_prompting(self, pddl_problem, include_codex_types: bool = False):
+    def domain_for_goal_prompting(
+        self, pddl_problem, include_codex_types: bool = False
+    ):
         # pddl_problem is the problem string
         # this is to to return shorter version of to_string with only the requirements and types
         problem_types = (
@@ -303,6 +305,7 @@ def update_pddl_domain_from_planner_results(
     """Updates a pddl domain based on scores from evaluating a task and motion planner. Removes other proposed operators."""
 
     # Simplest possible objective function: assign EXECUTED + TASK_SUCCESS score for any operator on a motion plan that worked. Take the top n.
+    #  TODO: LCW - update this to a reasonable scoring function.
     EXECUTED_SCORE = 1
     TASK_SUCCESS_SCORE = 1
     operator_scores = defaultdict(float)
@@ -336,10 +339,17 @@ def update_pddl_domain_from_planner_results(
             f"Adding {len(top_operators)} operators to the domain with the following scores:"
         )
 
-    experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
+    experiment_tag = (
+        ""
+        if len(command_args.experiment_name) < 1
+        else f"{command_args.experiment_name}_"
+    )
     output_filepath = f"{experiment_tag}operator_scores.json"
     if output_directory:
-        print('Logging operator scores to', os.path.join(output_directory, output_filepath))
+        print(
+            "Logging operator scores to",
+            os.path.join(output_directory, output_filepath),
+        )
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(operator_scores, f)
 
@@ -355,27 +365,47 @@ def update_pddl_domain_from_planner_results(
 
 
 def log_motion_planner_results(problems, command_args, output_directory):
-    experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
+    experiment_tag = (
+        ""
+        if len(command_args.experiment_name) < 1
+        else f"{command_args.experiment_name}_"
+    )
     output_filepath = f"{experiment_tag}motion_planner_results.csv"
 
     if output_directory:
-        print('Logging motion planner results to', os.path.join(output_directory, output_filepath))
+        print(
+            "Logging motion planner results to",
+            os.path.join(output_directory, output_filepath),
+        )
 
-        with open(os.path.join(output_directory, output_filepath), 'w') as f:
-            fieldnames = ['problem_id', 'goal', 'task_success', 'task_plan', 'task_plan_success_prefix']
+        with open(os.path.join(output_directory, output_filepath), "w") as f:
+            fieldnames = [
+                "problem_id",
+                "goal",
+                "task_success",
+                "task_plan",
+                "task_plan_success_prefix",
+            ]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             for problem in problems.values():
                 for goal, r in problem.evaluated_motion_planner_results.items():
-                    task_plan = ', '.join([x['action'] for x in r.pddl_plan.plan])
-                    task_plan_success_prefix = ', '.join([x['action'] for x in r.pddl_plan.plan[:r.last_failed_operator]])
-                    writer.writerow({
-                        'problem_id': problem.problem_id,
-                        'goal': goal,
-                        'task_success': r.task_success,
-                        'task_plan': task_plan,
-                        'task_plan_success_prefix': task_plan_success_prefix,
-                    })
+                    task_plan = ", ".join([x["action"] for x in r.pddl_plan.plan])
+                    task_plan_success_prefix = ", ".join(
+                        [
+                            x["action"]
+                            for x in r.pddl_plan.plan[: r.last_failed_operator]
+                        ]
+                    )
+                    writer.writerow(
+                        {
+                            "problem_id": problem.problem_id,
+                            "goal": goal,
+                            "task_success": r.task_success,
+                            "task_plan": task_plan,
+                            "task_plan_success_prefix": task_plan_success_prefix,
+                        }
+                    )
 
 
 @contextmanager
@@ -644,7 +674,7 @@ class PDDLPlan:
         return ground_postcondition_predicates
 
     def __str__(self):
-        return 'PDDLPlan[{}]'.format(self.plan_string.replace("\n", " "))
+        return "PDDLPlan[{}]".format(self.plan_string.replace("\n", " "))
 
     def __repr__(self):
         return self.__str__()
@@ -695,7 +725,7 @@ class PDDLPredicate:
         return f'({self.name} {" ".join(self.argument_values)})'
 
     def __repr__(self):
-        return f'PDDLPredicate[{self.__str__()}]'
+        return f"PDDLPredicate[{self.__str__()}]"
 
 
 class PDDLProblem:
@@ -829,7 +859,9 @@ def preprocess_goals(
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
-    log_preprocessed_goals(problems, output_directory, command_args.experiment_name, verbose)
+    log_preprocessed_goals(
+        problems, output_directory, command_args.experiment_name, verbose
+    )
 
 
 def preprocess_goal(goal, pddl_domain, use_ground_truth_predicates=True):
@@ -970,24 +1002,34 @@ def preprocess_operators(
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
-    log_preprocessed_operators(pddl_domain, logs, output_directory, experiment_name=command_args.experiment_name, verbose=verbose)
+    log_preprocessed_operators(
+        pddl_domain,
+        logs,
+        output_directory,
+        experiment_name=command_args.experiment_name,
+        verbose=verbose,
+    )
 
 
-def log_preprocessed_operators(pddl_domain, logs, output_directory, experiment_name, verbose=False):
+def log_preprocessed_operators(
+    pddl_domain, logs, output_directory, experiment_name, verbose=False
+):
     # Human readable CSV.
     experiment_name = experiment_name
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
     output_filepath = f"{experiment_tag}preprocessed_operators.csv"
 
     if output_directory:
-        print(f"Logging preprocessed operators: {os.path.join(output_directory, output_filepath)}")
+        print(
+            f"Logging preprocessed operators: {os.path.join(output_directory, output_filepath)}"
+        )
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             fieldnames = [
                 "operator_name",
                 "gt_operator",
                 "codex_raw_operator",
                 "codex_preprocessed_operator",
-                ""
+                "",
             ]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
@@ -997,7 +1039,11 @@ def log_preprocessed_operators(pddl_domain, logs, output_directory, experiment_n
                     writer.writerow(
                         {
                             "operator_name": operator_name,
-                            "gt_operator": pddl_domain.ground_truth_operators[operator_name] if operator_name in pddl_domain.ground_truth_operators else "",
+                            "gt_operator": pddl_domain.ground_truth_operators[
+                                operator_name
+                            ]
+                            if operator_name in pddl_domain.ground_truth_operators
+                            else "",
                             "codex_raw_operator": raw_operator,
                             "codex_preprocessed_operator": preprocessed_operator,
                         }
@@ -1005,7 +1051,7 @@ def log_preprocessed_operators(pddl_domain, logs, output_directory, experiment_n
 
 
 def parse_operator_components(operator_body, pddl_domain):
-    allow_partial_ground_predicates = pddl_domain.constants != ''
+    allow_partial_ground_predicates = pddl_domain.constants != ""
     preprocessed_operator = PDDLParser._purge_comments(operator_body)
 
     matches = re.finditer(r"\(:action", preprocessed_operator)
@@ -1026,7 +1072,9 @@ def parse_operator_components(operator_body, pddl_domain):
             processed_preconds,
             precondition_predicates,
         ) = preprocess_conjunction_predicates(
-            preconds, pddl_domain.ground_truth_predicates, allow_partial_ground_predicates=allow_partial_ground_predicates
+            preconds,
+            pddl_domain.ground_truth_predicates,
+            allow_partial_ground_predicates=allow_partial_ground_predicates,
         )
         if not precond_parameters:
             return False, ""
@@ -1035,7 +1083,9 @@ def parse_operator_components(operator_body, pddl_domain):
             processed_effects,
             effect_predicates,
         ) = preprocess_conjunction_predicates(
-            effects, pddl_domain.ground_truth_predicates, allow_partial_ground_predicates=allow_partial_ground_predicates
+            effects,
+            pddl_domain.ground_truth_predicates,
+            allow_partial_ground_predicates=allow_partial_ground_predicates,
         )
         if not effect_parameters:
             return False, ""
@@ -1044,7 +1094,9 @@ def parse_operator_components(operator_body, pddl_domain):
         if allow_partial_ground_predicates:
             # NB(Jiayuan Mao @ 2021/02/04): drop the '?' for parameters, because when allow_partial_ground_predicates is True,
             #   the parameters will have a leading '?'.
-            parameters = {k[1:]: v for k, v in precond_parameters.items() if k.startswith("?")}
+            parameters = {
+                k[1:]: v for k, v in precond_parameters.items() if k.startswith("?")
+            }
         else:
             parameters = precond_parameters
 
@@ -1054,7 +1106,7 @@ def parse_operator_components(operator_body, pddl_domain):
 def preprocess_operator(
     operator_name, operator_body, pddl_domain, use_ground_truth_predicates=True
 ):
-    allow_partial_ground_predicates = pddl_domain.constants != ''
+    allow_partial_ground_predicates = pddl_domain.constants != ""
     # Purge comments.
     preprocessed_operator = PDDLParser._purge_comments(operator_body)
 
@@ -1079,12 +1131,16 @@ def preprocess_operator(
         op_name, params, preconds, effects = op_match.groups()
         op_name = op_name.strip()
         precond_parameters, processed_preconds, _ = preprocess_conjunction_predicates(
-            preconds, pddl_domain.ground_truth_predicates, allow_partial_ground_predicates=allow_partial_ground_predicates
+            preconds,
+            pddl_domain.ground_truth_predicates,
+            allow_partial_ground_predicates=allow_partial_ground_predicates,
         )
         if not precond_parameters:
             return False, ""
         effect_parameters, processed_effects, _ = preprocess_conjunction_predicates(
-            effects, pddl_domain.ground_truth_predicates, allow_partial_ground_predicates=allow_partial_ground_predicates
+            effects,
+            pddl_domain.ground_truth_predicates,
+            allow_partial_ground_predicates=allow_partial_ground_predicates,
         )
         if not effect_parameters:
             return False, ""
@@ -1093,17 +1149,14 @@ def preprocess_operator(
         if not allow_partial_ground_predicates:
             # NB(Jiayuan Mao @ 2023/02/04): if we don't allow partial ground predicates, the parameters do not contain '?'.
             params_string = " ".join(
-                [
-                    f"?{name} - {param_type}"
-                    for (name, param_type) in precond_parameters
-                ]
+                [f"?{name} - {param_type}" for (name, param_type) in precond_parameters]
             )
         else:
             params_string = " ".join(
                 [
                     f"{name} - {param_type}"
                     for (name, param_type) in precond_parameters
-                    if name.startswith('?')
+                    if name.startswith("?")
                 ]
             )
         precond_string = "\n\t\t".join(processed_preconds)
@@ -1131,7 +1184,7 @@ def preprocess_conjunction_predicates(
     allow_partial_ground_predicates=False,
     debug=False,
 ):
-    if conjunction_predicates.strip() == '()':
+    if conjunction_predicates.strip() == "()":
         return False, [], []
     patt = r"\(and(.*)\)"
     op_match = re.match(patt, conjunction_predicates.strip(), re.DOTALL)
@@ -1140,7 +1193,9 @@ def preprocess_conjunction_predicates(
         return False, None, None
 
     if len(op_match.groups()) != 1:
-        import pdb; pdb.set_trace()
+        import pdb
+
+        pdb.set_trace()
 
     parameters = set()
     conjunction_predicates = op_match.groups()[0].strip()

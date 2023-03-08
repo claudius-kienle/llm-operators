@@ -24,6 +24,7 @@ def evaluate_task_plans_and_costs_for_problems(
     verbose=False,
     output_directory=None,
     use_mock=False,
+    debug_skip=False,
     proposed_operators: Optional[Sequence[str]] = None,
 ):
     """
@@ -32,6 +33,9 @@ def evaluate_task_plans_and_costs_for_problems(
     For now, this just runs using the first operator definition.
     :ret: problems updated with PDDL plans.
     """
+    if debug_skip:
+        print(f"debug_skip_task_plans_and_costs_for_problems on {len(problems)}.")
+        return
     print(f"evaluate_task_plans_and_costs_for_problems on {len(problems)}.")
 
     output_json = []
@@ -192,13 +196,20 @@ def pdsketch_onthefly_plan_from_strings(domain_str, problem_str, timeout=10):
     domain = pds.load_domain_string(domain_str)
     problem = pds.load_problem_string(problem_str, domain, return_tensor_state=False)
 
-    from concepts.pdsketch.strips.strips_grounding_onthefly import OnTheFlyGStripsProblem
+    from concepts.pdsketch.strips.strips_grounding_onthefly import (
+        OnTheFlyGStripsProblem,
+    )
+
     gproblem = OnTheFlyGStripsProblem.from_domain_and_problem(domain, problem)
 
     from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_search
+
     plan = ogstrips_search(gproblem, timeout=timeout)
 
     if plan is None:
         return False, None
-    return True, '\n'.join([op.to_applier_pddl_str(arguments) for op, arguments in plan])
+    return (
+        True,
+        "\n".join([op.to_applier_pddl_str(arguments) for op, arguments in plan]),
+    )
 

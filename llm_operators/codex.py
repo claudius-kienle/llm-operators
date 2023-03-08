@@ -753,10 +753,14 @@ def propose_goals_for_problems(
         f"{experiment_tag}codex_goals_{'_'.join(initial_pddl_predicates)}.json"
     )
     if use_mock:
-        mock_propose_goals_for_problems(
-            output_filepath, unsolved_problems, output_directory, current_domain
-        )
-        return
+        try:
+            mock_propose_goals_for_problems(
+                output_filepath, unsolved_problems, output_directory, current_domain
+            )
+            return
+        except:
+            print("mock for propose_goals_for_problems not found, continuing.")
+            pass
 
     if verbose:
         print(
