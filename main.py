@@ -185,6 +185,12 @@ parser.add_argument(
     default=5,
     help="Threshold for maximum number of operators to keep at each iteration.",
 )
+parser.add_argument(
+    "--maximum_operator_arity",
+    type=int,
+    default=4,
+    help="Maximum arity for proposed operators.",
+)
 
 
 def main():
@@ -257,6 +263,7 @@ def main():
             # TODO (LCW) - this removes the partially grounded (receptacleType ?r FridgeType) rn.
             pddl.preprocess_operators(
                 pddl_domain,
+                maximum_operator_arity=args.maximum_operator_arity,
                 verbose=args.verbose,
                 output_directory=output_directory,
                 command_args=args,

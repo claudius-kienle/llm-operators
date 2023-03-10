@@ -29,6 +29,7 @@ class Problem:
         self.ground_truth_pddl_problem = (
             ground_truth_pddl_problem  # Ground truth PDDL problem object.
         )
+        self.constants_in_problem_file = False # Flag for only the ALFRED domain, which includes constants defined in the problem files not the 
 
         self.ground_truth_pddl_plan = None
         if ground_truth_pddl_plan is not None:

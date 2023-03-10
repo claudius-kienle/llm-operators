@@ -168,12 +168,13 @@ class Domain:
         current_operators=True,
         ground_truth_operators=False,
         proposed_operators=[],
+        show_constants=True,
     ):
         domain_str = f"""
     (define (domain {self.domain_name})
         {self.requirements}
         {self.types}
-        {self.constants}
+        {self.constants if show_constants else ''}
         {self.predicates}
         {self.functions}
         {self.operators_to_string(current_operators, ground_truth_operators, proposed_operators)}
@@ -554,6 +555,12 @@ class PDDLPlan:
     PDDL_OPERATOR_BODY = "operator_body"
     PDDL_GROUND_PREDICATES = "ground_predicates"
     PDDL_INFINITE_COST = 100000
+
+    def __hash__(self):
+        return hash(self.plan_string)
+
+    def __eq__(self, other):
+        return self.plan_string == other.plan_string
 
     def __init__(
         self,
@@ -961,7 +968,11 @@ def log_preprocessed_goals(problems, output_directory, experiment_name, verbose=
 
 
 def preprocess_operators(
-    pddl_domain, output_directory, command_args=None, verbose=False
+    pddl_domain,
+    output_directory,
+    maximum_operator_arity=4,
+    command_args=None,
+    verbose=False,
 ):
     # Preprocess operators, making the hard assumption that we want to operators to be conjunctions of existing predicates only.
     output_json = dict()
@@ -979,7 +990,11 @@ def preprocess_operators(
                 print("Trying to process...")
                 print(proposed_operator_body)
             success, preprocessed_operator = preprocess_operator(
-                o, proposed_operator_body, pddl_domain, use_ground_truth_predicates=True
+                o,
+                proposed_operator_body,
+                pddl_domain,
+                maximum_operator_arity=maximum_operator_arity,
+                use_ground_truth_predicates=True,
             )
             if success:
                 logs[o].append((proposed_operator_body, preprocessed_operator))
@@ -990,18 +1005,18 @@ def preprocess_operators(
         pddl_domain.codex_raw_operators[o] = pddl_domain.proposed_operators[o]
         if len(preprocessed_operators) > 0:
             pddl_domain.proposed_operators[o] = preprocessed_operators
+            output_json[o] = pddl_domain.proposed_operators[o]
         else:
             del pddl_domain.proposed_operators[o]
         if verbose:
             print(f"Preprocessed operator: {o}")
-            print(f"Processed forms {len( pddl_domain.proposed_operators[o])}: ")
-            for operator_body in pddl_domain.proposed_operators[o]:
-                print(operator_body)
+            print(f"Processed forms {len(preprocessed_operators)}: ")
+            if o in pddl_domain.proposed_operators:
+                for operator_body in pddl_domain.proposed_operators[o]:
+                    print(operator_body)
             print("====")
-        # TODO(Jiayuan Mao @ 2023/02/04): is this intentional? Only keep the last operator proposal?
-        output_json[o] = operator_body
-    # Write out to an output JSON.
 
+    # Write out to an output JSON.
     experiment_name = command_args.experiment_name
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
     output_filepath = f"{experiment_tag}preprocessed_operators.json"
@@ -1110,7 +1125,11 @@ def parse_operator_components(operator_body, pddl_domain):
 
 
 def preprocess_operator(
-    operator_name, operator_body, pddl_domain, use_ground_truth_predicates=True
+    operator_name,
+    operator_body,
+    pddl_domain,
+    maximum_operator_arity=4,
+    use_ground_truth_predicates=True,
 ):
     allow_partial_ground_predicates = pddl_domain.constants != ""
     # Purge comments.
@@ -1154,17 +1173,19 @@ def preprocess_operator(
 
         if not allow_partial_ground_predicates:
             # NB(Jiayuan Mao @ 2023/02/04): if we don't allow partial ground predicates, the parameters do not contain '?'.
-            params_string = " ".join(
-                [f"?{name} - {param_type}" for (name, param_type) in precond_parameters]
-            )
+            unground_parameters = [
+                f"?{name} - {param_type}" for (name, param_type) in precond_parameters
+            ]
         else:
-            params_string = " ".join(
-                [
-                    f"{name} - {param_type}"
-                    for (name, param_type) in precond_parameters
-                    if name.startswith("?")
-                ]
-            )
+            unground_parameters = [
+                f"{name} - {param_type}"
+                for (name, param_type) in precond_parameters
+                if name.startswith("?")
+            ]
+        if len(unground_parameters) > maximum_operator_arity:
+            return False, ""
+        params_string = " ".join(unground_parameters)
+
         precond_string = "\n\t\t".join(processed_preconds)
         precond_string = f"(and \n\t\t{precond_string}\n\t\t)"
         effect_string = "\n\t\t".join(processed_effects)

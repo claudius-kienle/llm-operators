@@ -9,9 +9,11 @@ Debugging goals:
 Test 1: Let's run with the mock operators.
 python main.py --experiment_name alfred_linearized_100_supervision_pddl_pick_place_clean_38354 --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple pick_clean_then_place_in_recep --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle CleanObject --verbose --train_iterations 1 --dataset_pddl_directory data/dataset/alfred_linearized_pddl --output_directory generated --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals
 
-- Why is the task planner not working?
+- Why are we not proposing any task plans for the goals?
 Test 1: let's try the proposed goals but with the ground truth operators.
 python main.py --experiment_name alfred_linearized_100_supervision_pddl_pick_place_clean_38354 --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple pick_clean_then_place_in_recep --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle CleanObject --verbose --train_iterations 1 --dataset_pddl_directory data/dataset/alfred_linearized_pddl --output_directory generated --debug_mock_propose_goals --debug_ground_truth_operators
+Test 2: let's try the ground truth goals but the proposed operators.
+python main.py --experiment_name alfred_linearized_100_supervision_pddl_pick_place_clean_38354 --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple pick_clean_then_place_in_recep --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle CleanObject --verbose --train_iterations 1 --dataset_pddl_directory data/dataset/alfred_linearized_pddl --output_directory generated --debug_mock_propose_plans --debug_mock_propose_operators --debug_ground_truth_goals
 
 
 ### Supervision PDDL, alfred_linearized_100, with CleanObject
