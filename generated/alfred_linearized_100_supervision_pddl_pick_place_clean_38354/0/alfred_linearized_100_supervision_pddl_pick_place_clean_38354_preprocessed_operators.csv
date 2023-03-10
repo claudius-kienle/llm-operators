@@ -12,9 +12,10 @@ CutObject,,"(:action CutObject
         )
     )
 ","(:action CutObject
-        :parameters (?l - location ?o - object ?a - agent ?r - receptacle)
+        :parameters (?l - location ?a - agent ?o - object ?r - receptacle)
 
         :precondition (and 
+		(receptacleType ?r CounterTopType)
 		(atLocation ?a ?l)
 		(receptacleAtLocation ?r ?l)
 		(holds ?a ?o)
@@ -48,9 +49,10 @@ CoolObject,"(:action CoolObject
         )
     )
 ","(:action CoolObject
-        :parameters (?l - location ?o - object ?a - agent ?r - receptacle)
+        :parameters (?l - location ?a - agent ?o - object ?r - receptacle)
 
         :precondition (and 
+		(receptacleType ?r FridgeType)
 		(atLocation ?a ?l)
 		(receptacleAtLocation ?r ?l)
 		(inReceptacle ?o ?r)
@@ -76,9 +78,10 @@ PullObject,,"(:action PullObject
         )
     )
 ","(:action PullObject
-        :parameters (?location1 - location ?location2 - location ?object - object ?a - agent ?r - receptacle)
+        :parameters (?object - object ?location2 - location ?a - agent ?location1 - location ?r - receptacle)
 
         :precondition (and 
+		(objectType ?object PaperTowelType)
 		(atLocation ?a ?location1)
 		(objectAtLocation ?object ?location2)
 		(inReceptacle ?object ?r)
@@ -172,9 +175,10 @@ CookObject,,"(:action CookObject
         )
     )
 ","(:action CookObject
-        :parameters (?l - location ?o - object ?a - agent ?r - receptacle)
+        :parameters (?l - location ?a - agent ?o - object ?r - receptacle)
 
         :precondition (and 
+		(receptacleType ?r StoveBurnerType)
 		(atLocation ?a ?l)
 		(receptacleAtLocation ?r ?l)
 		(holds ?a ?o)
@@ -196,9 +200,10 @@ ChillObject,,"(:action ChillObject
         )
     )
 ","(:action ChillObject
-        :parameters (?l - location ?o - object ?a - agent ?r - receptacle)
+        :parameters (?l - location ?a - agent ?o - object ?r - receptacle)
 
         :precondition (and 
+		(receptacleType ?r FridgeType)
 		(atLocation ?a ?l)
 		(receptacleAtLocation ?r ?l)
 		(holds ?a ?o)
@@ -227,7 +232,17 @@ ExamineObject,,"(:action ExamineObject
             (receptacleType ?o CartType)
         )
     )
-",FAILED,
+","(:action ExamineObject
+        :parameters (?lStart - location ?o - object ?a - agent ?o - receptacle)
+
+        :precondition (and 
+		(atLocation ?a ?lStart)
+		(objectAtLocation ?o ?lStart)
+		)
+        :effect (and 
+		(receptacleType ?o CartType)
+		)
+)",
 PlaceObject,,"(:action PlaceObject
         :parameters (?a - agent ?l - location ?o - object ?lOn - location ?oOn - object)
         :precondition (and
@@ -243,7 +258,7 @@ PlaceObject,,"(:action PlaceObject
         )
     )
 ","(:action PlaceObject
-        :parameters (?o - object ?lOn - location ?oOn - receptacle ?l - location ?a - agent)
+        :parameters (?l - location ?lOn - location ?a - agent ?oOn - receptacle ?o - object)
 
         :precondition (and 
 		(atLocation ?a ?l)
@@ -274,6 +289,7 @@ SwitchObjects,,"(:action SwitchObjects
         :precondition (and 
 		(atLocation ?a ?l)
 		(objectAtLocation ?o ?l)
+		(objectType ?o LightSwitchType)
 		)
         :effect (and 
 		(isOn ?o)
@@ -292,7 +308,7 @@ OpenContainer,,"(:action OpenContainer
         )
     )
 ","(:action OpenContainer
-        :parameters (?r - receptacle ?l - location ?a - agent ?r - object)
+        :parameters (?l - location ?r - object ?a - agent ?r - receptacle)
 
         :precondition (and 
 		(atLocation ?a ?l)
@@ -358,7 +374,7 @@ RemoveObject,,"(:action RemoveObject
         )
     )
 ","(:action RemoveObject
-        :parameters (?rStart - receptacle ?rEnd - receptacle ?o - object ?a - agent)
+        :parameters (?o - object ?rEnd - receptacle ?a - agent ?rStart - receptacle)
 
         :precondition (and 
 		(holds ?a ?o)
@@ -382,7 +398,7 @@ GET,,"(:action GET
         )
     )
 ","(:action GET
-        :parameters (?lEnd - location ?lStart - location ?o - object ?r - receptacle)
+        :parameters (?lStart - location ?o - object ?lEnd - location ?r - receptacle)
 
         :precondition (and 
 		(receptacleAtLocation ?r ?lStart)
@@ -405,7 +421,7 @@ PUT,,"(:action PUT
         )
     )
 ","(:action PUT
-        :parameters (?c - receptacle ?l - location ?o - object)
+        :parameters (?l - location ?c - receptacle ?o - object)
 
         :precondition (and 
 		(receptacleAtLocation ?c ?l)
@@ -436,12 +452,13 @@ PutContents,,"(:action PutContents
         )
     )
 ","(:action PutContents
-        :parameters (?targetObject - object ?targetObject - receptacle ?l - location ?o - object ?a - agent)
+        :parameters (?l - location ?targetObject - object ?a - agent ?o - object ?targetObject - receptacle ?o - receptacle)
 
         :precondition (and 
 		(atLocation ?a ?l)
 		(holds ?a ?o)
 		(isReceptacleObject ?targetObject)
+		(receptacleType ?o PlateType)
 		)
         :effect (and 
 		(inReceptacle ?o ?targetObject)
@@ -466,15 +483,18 @@ Cook,,"(:action Cook
         )
     )
 ","(:action Cook
-        :parameters (?ro - receptacle ?rn - receptacle ?l - location ?o - object ?a - agent)
+        :parameters (?ro - receptacle ?l - location ?rn - receptacle ?a - agent ?o - object)
 
         :precondition (and 
 		(atLocation ?a ?l)
+		(receptacleType ?rn StoveBurnerType)
 		(receptacleAtLocation ?rn ?l)
 		(inReceptacle ?o ?rn)
+		(objectType ?o EggType)
 		)
         :effect (and 
 		(inReceptacle ?o ?ro)
+		(receptacleType ?ro PanType)
 		(isHot ?o)
 		(toggleable ?o)
 		(isOn ?o)
@@ -503,12 +523,13 @@ pickup-food,,"(:action pickup-food
             (receptacleType ?r_basin SinkBasinType)
             (atLocation ?a_holdsome ?l_at_basin)
             (receptacleAtLocation ?r_basin ?l","(:action pickup-food
-        :parameters (?rEnd - receptacle ?o - object ?l - location ?rStart - receptacle ?a - agent)
+        :parameters (?l - location ?rEnd - receptacle ?a - agent ?rStart - receptacle ?o - object)
 
         :precondition (and 
 		(atLocation ?a ?l)
 		(receptacleAtLocation ?rStart ?l)
 		(inReceptacle ?o ?rStart)
+		(holds ?a none)
 		)
         :effect (and 
 		(inReceptacle ?o ?rEnd)
@@ -527,7 +548,7 @@ TurnOnObject,,"(:action TurnOnObject
         )
     )
 ","(:action TurnOnObject
-        :parameters (?l - location ?o - object ?a - agent)
+        :parameters (?o - object ?l - location ?a - agent)
 
         :precondition (and 
 		(atLocation ?a ?l)
@@ -556,11 +577,12 @@ GetObject1,,"(:action GetObject1
         )
     )
 ","(:action GetObject1
-        :parameters (?l - location ?o - object ?a - agent ?r - receptacle)
+        :parameters (?l - location ?a - agent ?o - object ?r - receptacle)
 
         :precondition (and 
 		(inReceptacle ?o ?r)
 		(openable ?r)
+		(objectType ?o TomatoType)
 		(receptacleAtLocation ?r ?l)
 		(holdsAny ?a)
 		(atLocation ?a ?l)

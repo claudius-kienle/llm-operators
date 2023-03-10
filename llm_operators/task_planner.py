@@ -59,7 +59,6 @@ def evaluate_task_plans_and_costs_for_problems(
 
     if proposed_operators is None:
         proposed_operators_set = pddl_domain.proposed_operators.keys()
-
     smallest_working_operator_set = set()
     total_solved_problems = 0
     for max_problems, problem_id in enumerate(problems):
@@ -68,19 +67,27 @@ def evaluate_task_plans_and_costs_for_problems(
                 f"Now on problem {max_problems} / {len(problems)}. Total solved problems so far: {total_solved_problems}"
             )
             print(problems[problem_id].language)
+            run_planner(
+                pddl_domain=pddl_domain,
+                problem=problems[problem_id],
+                planner_type=command_args.planner,
+                verbose=verbose,
+                debug_ground_truth_goals=False,
+                proposed_operators=proposed_operators_set,
+            )
 
-        any_success, problem_json = evaluate_problem_and_update_operator_set(
-            pddl_domain=pddl_domain,
-            problem=problems[problem_id],
-            planner_type=command_args.planner,
-            verbose=verbose,
-            debug_ground_truth_goals=command_args.debug_ground_truth_goals,
-            proposed_operators_set=proposed_operators_set,
-            working_operator_set=smallest_working_operator_set,
-        )
-        if any_success:
-            total_solved_problems += 1
-        output_json.append(problem_json)
+        # any_success, problem_json = evaluate_problem_and_update_operator_set(
+        #     pddl_domain=pddl_domain,
+        #     problem=problems[problem_id],
+        #     planner_type=command_args.planner,
+        #     verbose=verbose,
+        #     debug_ground_truth_goals=command_args.debug_ground_truth_goals,
+        #     proposed_operators_set=proposed_operators_set,
+        #     working_operator_set=smallest_working_operator_set,
+        # )
+        # if any_success:
+        #     total_solved_problems += 1
+        # output_json.append(problem_json)
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
