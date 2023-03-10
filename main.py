@@ -192,6 +192,7 @@ def main():
 
     args = parser.parse_args()
 
+    ###### Initialization. This initializes a set of goals (planning dataset), and a planning domain (a set of predicates + a partial set of initial operators.)
     # Load planning dataset.
     planning_problems = datasets.load_planning_problems_dataset(
         dataset_name=args.dataset_name,
@@ -202,7 +203,7 @@ def main():
         initial_plans_prefix=args.initial_plans_prefix,
         verbose=args.verbose,
     )
-    # Load the PDDL domain definition.
+
     pddl_domain = datasets.load_pddl_domain(
         args.pddl_domain_name, args.initial_pddl_operators, args.verbose
     )
@@ -218,8 +219,9 @@ def main():
             command_args=args,
             experiment_name_to_load=args.experiment_name,
         )
-
-        # Codex proposal.
+        ###################### Operator sampling.
+        # Given a domain and a set of goals, this uses Codex + preprocessing to sample
+        # a set of operator definitions for goals.
         if not args.debug_no_propose_plans_operators_goals:
             #### Goal proposal and preprocessing.
             codex.propose_goals_for_problems(
@@ -241,8 +243,6 @@ def main():
                 command_args=args,
                 verbose=args.verbose,
             )
-
-            #### Operator proposal and preprocessing.
             codex.propose_plans_operators_for_problems(
                 current_domain=pddl_domain,
                 problems=planning_problems["train"],
@@ -265,7 +265,9 @@ def main():
         if args.debug_stop_after_first_proposal:
             break
 
-        # Task planner: evaluates costs with PDDL solver.
+        ###################### Task plan sampling.
+        # Given a domain, a set of goals, and a set of operators, this samples 1 or more task plans
+        # that are highest likelihood for the goals (solve the goals under a task planner.)
         task_planner.evaluate_task_plans_and_costs_for_problems(
             pddl_domain=pddl_domain,
             problems=planning_problems["train"],
@@ -275,6 +277,9 @@ def main():
             debug_skip=args.debug_skip_task_plans,
             use_mock=args.debug_mock_task_plans,
         )
+        ############# Motion plan and plan optimality scoring.
+        # Given a domain, set of goals, operators, and task plans, this evalutes
+        # the optimality of the task plans under the goals.
         # Motion planner: evaluate costs using motion planner.
         motion_planner.evaluate_motion_plans_and_costs_for_problems(
             curr_iteration=curr_iteration,
@@ -288,7 +293,9 @@ def main():
             dataset_name=args.dataset_name,
         )
 
-        # Update the domain definition based on operators in solved problems.
+        ############ Belief propagation and domain updating.
+        # Score the proposed operators by marginalizing over the task plans in which they participate.
+        # P(used_in_task_plan | goal) * P(optimality | used_in_task_plan)
         pddl.update_pddl_domain_from_planner_results(
             pddl_domain=pddl_domain,
             problems=planning_problems["train"],
@@ -298,6 +305,9 @@ def main():
             output_directory=output_directory,
             dataset_name=args.dataset_name,
         )
+        # Re-score the task plans under the new set of operators.
+
+        # Output a final iteration summary.
         experiment_utils.output_iteration_summary(
             curr_iteration=curr_iteration,
             pddl_domain=pddl_domain,
@@ -305,8 +315,6 @@ def main():
             command_args=args,
             output_directory=output_directory,
         )
-
-    # TODO: Evaluate on heldout test sets.
 
 
 if __name__ == "__main__":
