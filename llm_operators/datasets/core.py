@@ -1,3 +1,4 @@
+from collections import defaultdict
 import random
 import json
 from typing import Sequence, Dict
@@ -29,7 +30,7 @@ class Problem:
         self.ground_truth_pddl_problem = (
             ground_truth_pddl_problem  # Ground truth PDDL problem object.
         )
-        self.constants_in_problem_file = False # Flag for only the ALFRED domain, which includes constants defined in the problem files not the 
+        self.constants_in_problem_file = False  # Flag for only the ALFRED domain, which includes constants defined in the problem files not the
 
         self.ground_truth_pddl_plan = None
         if ground_truth_pddl_plan is not None:
@@ -60,11 +61,16 @@ class Problem:
         self.proposed_pddl_plans = []
 
         # Evaluated PDDL plans that solve proposed_pddl_goals, created by a task planner.
-        # This is a dict from {goal : PDDLPlan}
-        self.evaluated_pddl_plans = {}
+        # This is a dict from {goal : set(PDDLPlan)}
+        self.evaluated_pddl_plans = defaultdict(set)
 
         # This is a dict from {goal : MotionPlanResult}
-        self.evaluated_motion_planner_results = {}
+        # TBD: this should be a dict from (goal, PDDLPlan) -> MotionPlanResult
+        self.evaluated_motion_planner_results = dict()
+
+    def update_evaluated_pddl_plans(self, new_evaluated_pddl_plans):
+        for g in new_evaluated_pddl_plans:
+            self.evaluated_pddl_plans[g].update(new_evaluated_pddl_plans[g])
 
     def get_highest_likelihood_evaluated_pddl_plan(self):
         """Returns the best evaluated PDDL plan, or None if no plans have been evaluated."""

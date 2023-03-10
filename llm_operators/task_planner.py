@@ -67,15 +67,12 @@ def evaluate_task_plans_and_costs_for_problems(
 
     total_solved_problems = 0
     for max_problems, problem_id in enumerate(problems):
-        ###### DEBUGGING CLEAN ########
-        if max_problems != 95:
-            continue
 
         if verbose:
             print(
                 f"\nNow on problem {max_problems} / {len(problems)}. Total solved problems so far: {total_solved_problems}"
             )
-        any_success, problem_json = sample_task_plans_for_problem(
+        any_success, new_evaluated_plans, problem_json = sample_task_plans_for_problem(
             pddl_domain=pddl_domain,
             problem=problems[problem_id],
             planner_type=command_args.planner,
@@ -84,6 +81,7 @@ def evaluate_task_plans_and_costs_for_problems(
             proposed_operators=proposed_operators,
             max_task_samples=max_task_samples,
         )
+        problems[problem_id].update_evaluated_pddl_plans(new_evaluated_plans)
         if any_success:
             total_solved_problems += 1
         output_json.append(problem_json)
@@ -111,6 +109,17 @@ def sample_task_plans_for_problem(
     proposed_operators: Optional[Sequence[str]] = None,
     max_task_samples=4,
 ):
+    """
+    Samples n=max_task_samples per goal based on PDDLDomain, problem, proposed_operators).
+    Uses a task_planner to propose samples, so we attempt planning using random subsets of 
+    proposed_operator set to get a diverse set of plans.
+
+    :ret: 
+    any_success - whether any of the task plans succeeded.
+    all_evaluated_plans: dict(goal : set(plans for this goal))
+    overall_problem_json: serializable JSON format.
+    """
+
     overall_problem_json = {"file_name": problem.problem_id, "plans": []}
     any_success = False
     all_evaluated_plans = defaultdict(set)
@@ -138,7 +147,7 @@ def sample_task_plans_for_problem(
         for pddl_plan in all_evaluated_plans[g]:
             overall_problem_json["plans"].append({"goal": g, "plan": pddl_plan.plan})
         print(f"Found a total of {len(all_evaluated_plans[g])} unique plans for goal.")
-    return any_success, overall_problem_json
+    return any_success, all_evaluated_plans, overall_problem_json
 
 
 def mock_evaluate_task_plans_and_costs_for_problems(
@@ -154,8 +163,8 @@ def mock_evaluate_task_plans_and_costs_for_problems(
             problem = problems[plan["file_name"]]
             for plan_json in plan["plans"]:
                 # This updates the evaluated PDDL task plans that succeeded.
-                problem.evaluated_pddl_plans[plan_json["goal"]] = PDDLPlan(
-                    plan=plan_json["plan"]
+                problem.evaluated_pddl_plans[plan_json["goal"]].add(
+                    PDDLPlan(plan=plan_json["plan"])
                 )
     print(
         f"After initialization, there are {len([p for p in problems if len(problems[p].evaluated_pddl_plans) > 0])} problems with plans."
