@@ -252,6 +252,7 @@ def main():
                 verbose=args.verbose,
                 output_directory=output_directory,
                 command_args=args,
+                use_gt=args.debug_ground_truth_operators,
             )
             # TODO (LCW) - this removes the partially grounded (receptacleType ?r FridgeType) rn.
             pddl.preprocess_operators(

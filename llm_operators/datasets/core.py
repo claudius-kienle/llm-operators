@@ -35,9 +35,13 @@ class Problem:
             if isinstance(ground_truth_pddl_plan, PDDLPlan):
                 self.ground_truth_pddl_plan = ground_truth_pddl_plan
             elif isinstance(ground_truth_pddl_plan, str):
-                self.ground_truth_pddl_plan = PDDLPlan(plan_string=ground_truth_pddl_plan)
+                self.ground_truth_pddl_plan = PDDLPlan(
+                    plan_string=ground_truth_pddl_plan
+                )
             else:
-                self.ground_truth_pddl_plan = PDDLPlan(plan=ground_truth_pddl_plan)  # A ground truth PDDLPlan object.
+                self.ground_truth_pddl_plan = PDDLPlan(
+                    plan=ground_truth_pddl_plan
+                )  # A ground truth PDDLPlan object.
 
         self.should_supervise_pddl = (
             should_supervise_pddl  # Whether to include the PDDL in initial supervision
@@ -61,11 +65,12 @@ class Problem:
         # This is a dict from {goal : MotionPlanResult}
         self.evaluated_motion_planner_results = {}
 
-    def get_best_evaluated_pddl_plan(self):
+    def get_highest_likelihood_evaluated_pddl_plan(self):
         """Returns the best evaluated PDDL plan, or None if no plans have been evaluated."""
-        import pdb
-
-        pdb.set_trace()
+        # TODO: right now we only propose one plan anyway, so just return it.
+        print("TODO: LCW - implement this for choosing plans.")
+        for goal in self.evaluated_pddl_plans:
+            return self.evaluated_pddl_plans[goal]
 
     def __repr__(self):
         return (
@@ -80,7 +85,9 @@ class Problem:
         )
 
 
-def load_pddl_supervision(supervision_name: str, verbose: bool = False) -> Dict[str, str]:
+def load_pddl_supervision(
+    supervision_name: str, verbose: bool = False
+) -> Dict[str, str]:
     """Supervision is a list of PDDL domains to teach Codex "basic grammar" of PDDL.
 
     Args:
@@ -135,7 +142,9 @@ def register_planning_pddl_domain(name):
     return wrapper
 
 
-def load_pddl_domain(pddl_domain_name: str, initial_pddl_operators: Sequence[str], verbose: bool = False) -> Domain:
+def load_pddl_domain(
+    pddl_domain_name: str, initial_pddl_operators: Sequence[str], verbose: bool = False
+) -> Domain:
     """Main entry for loading a PDDL domain.
 
     Args:

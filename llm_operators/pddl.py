@@ -141,6 +141,7 @@ class Domain:
         proposed_operators,
         proposed_operator_index=0,
         separator="\n",
+        verbose=True,
     ):
         if ground_truth_operators:
             return separator.join(
@@ -902,7 +903,12 @@ def preprocess_goal(goal, pddl_domain, use_ground_truth_predicates=True):
             f"Failure, could not find extract ground truth predicates from conjunction in {goal_conjunction}."
         )
         return False, ""
-    # Extract the unground parameters.
+    if not parameters:
+        print(
+            f"Failure, could not find extract ground truth predicates from conjunction in {goal_conjunction}."
+        )
+        return False, ""
+
     unground_parameters = sorted([p for p in parameters if p[0].startswith("?")])
 
     # Conjunction

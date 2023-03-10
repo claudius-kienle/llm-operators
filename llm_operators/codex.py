@@ -194,9 +194,10 @@ def propose_plans_operators_for_problems(
     verbose=False,
     output_directory=None,
     command_args=None,
+    use_gt=False,
 ):
     unsolved_problems, solved_problems = get_solved_unsolved_problems(problems)
-    if command_args.debug_ground_truth_operators:
+    if use_gt:
         use_ground_truth_operators(current_domain, verbose)
         return
 

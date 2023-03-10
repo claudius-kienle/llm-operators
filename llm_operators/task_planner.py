@@ -7,6 +7,7 @@ import os
 import json
 from tempfile import NamedTemporaryFile
 from typing import Optional, Sequence
+import copy
 
 from pddlgym_planners.fd import FD
 from pddlgym_planners.planner import PlanningFailure, PlanningTimeout
@@ -55,21 +56,85 @@ def evaluate_task_plans_and_costs_for_problems(
 
     if verbose:
         print(f"Use ground truth goals? {command_args.debug_ground_truth_goals}")
+
+    if proposed_operators is None:
+        proposed_operators_set = pddl_domain.proposed_operators.keys()
+
+    smallest_working_operator_set = set()
+    total_solved_problems = 0
     for max_problems, problem_id in enumerate(problems):
         if verbose:
+            print(
+                f"Now on problem {max_problems} / {len(problems)}. Total solved problems so far: {total_solved_problems}"
+            )
             print(problems[problem_id].language)
-        problem_json = run_planner(
+
+        any_success, problem_json = evaluate_problem_and_update_operator_set(
             pddl_domain=pddl_domain,
             problem=problems[problem_id],
             planner_type=command_args.planner,
             verbose=verbose,
             debug_ground_truth_goals=command_args.debug_ground_truth_goals,
-            proposed_operators=proposed_operators,
+            proposed_operators_set=proposed_operators_set,
+            working_operator_set=smallest_working_operator_set,
         )
+        if any_success:
+            total_solved_problems += 1
         output_json.append(problem_json)
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
+
+
+def evaluate_problem_and_update_operator_set(
+    pddl_domain,
+    problem,
+    planner_type=TASK_PLANNER_FD,
+    verbose=False,
+    debug_ground_truth_goals=False,
+    proposed_operators_set: Optional[Sequence[str]] = None,
+    working_operator_set=None,
+):
+    if verbose:
+        working_operators_names = "\t\n".join(sorted(list(working_operator_set)))
+        proposed_operators_names = "\t\n".join(sorted(list(proposed_operators_set)))
+        print(
+            f"Working operator set: {working_operators_names} : {len(working_operators_set)} / {len(proposed_operators_set)} full proposed operator set."
+        )
+        print(f"Proposed full operator set: {proposed_operators_names}")
+        pass
+    # First attempt to run the planner with the working operator set.
+    any_success, evaluated_plans, problem_json, = run_planner(
+        pddl_domain=pddl_domain,
+        problem=problem,
+        planner_type=planner_type,
+        verbose=verbose,
+        debug_ground_truth_goals=debug_ground_truth_goals,
+        proposed_operators=working_operator_set,
+    )
+    if not any_success:
+        print(
+            "...could not run with working operator set, trying to expand operator set."
+        )
+        any_success, evaluated_plans, problem_json, = run_planner(
+            pddl_domain=pddl_domain,
+            problem=problem,
+            planner_type=planner_type,
+            verbose=verbose,
+            debug_ground_truth_goals=debug_ground_truth_goals,
+            proposed_operators=proposed_operators_set,
+        )
+    problem.evaluated_pddl_plans = evaluated_plans
+    update_working_operator_set(working_operator_set, evaluated_plans)
+    return any_success, problem_json
+
+
+def update_working_operator_set(working_operator_set, evaluated_plans):
+    for goal in evaluated_plans:
+        working_operator_set.update(
+            [a[PDDLPlan.PDDL_ACTION] for a in evaluated_plans[goal].plan]
+        )
+    print(f"Updated working operator set, is now: {working_operator_set}")
 
 
 def mock_evaluate_task_plans_and_costs_for_problems(
@@ -84,6 +149,7 @@ def mock_evaluate_task_plans_and_costs_for_problems(
         if plan["file_name"] in problems:
             problem = problems[plan["file_name"]]
             for plan_json in plan["plans"]:
+                # This updates the evaluated PDDL task plans that succeeded.
                 problem.evaluated_pddl_plans[plan_json["goal"]] = PDDLPlan(
                     plan=plan_json["plan"]
                 )
@@ -113,21 +179,26 @@ def run_planner(
     """
     output_json = {"file_name": problem.problem_id, "plans": []}
 
-    if proposed_operators is None:
-        proposed_operators = pddl_domain.proposed_operators.keys()
+    # Get domain strings. Pick the first one that parses
 
-    # Get domain strings. Pick the first one that parses.
     current_domain_string = pddl_domain.to_string(
         ground_truth_operators=False,
         current_operators=True,
         proposed_operators=proposed_operators,
     )
+    if verbose:
+        print(
+            f"Running planner with existing operators + {len(proposed_operators)} proposed operators: "
+        )
+        print(proposed_operators)
 
     if debug_ground_truth_goals:
         goals = [problem.ground_truth_pddl_problem.ground_truth_goal]
     else:
         goals = problem.proposed_pddl_goals
 
+    any_success = False
+    evaluated_plans = dict()
     for goal in goals:
         current_problem_string = problem.ground_truth_pddl_problem.get_pddl_string_with_proposed_goal(
             proposed_goal=goal
@@ -150,15 +221,17 @@ def run_planner(
         # Convert the planner into a plan object.
         if success:
             pddl_plan = PDDLPlan(plan_string=plan_string, pddl_domain=pddl_domain)
-            problem.evaluated_pddl_plans[goal] = pddl_plan
+            evaluated_plans[goal] = pddl_plan
+            # problem.evaluated_pddl_plans[goal] = pddl_plan
             if verbose:
                 print(plan_string)
             output_json["plans"].append({"goal": goal, "plan": pddl_plan.plan})
+            any_success = True
     if verbose:
         print(
-            f"Found {len(problem.evaluated_pddl_plans)}/{len(problem.proposed_pddl_goals)} evaluated plans for proposed goals"
+            f"Found {len(evaluated_plans)}/{len(goals)} evaluated plans for proposed goals"
         )
-    return output_json
+    return any_success, evaluated_plans, output_json
 
 
 def fd_plan_from_strings(domain_str, problem_str, timeout=10):
