@@ -625,16 +625,9 @@ class PDDLPlan:
         """
         postcondition_predicates_json = []
         for action in self.plan:
-            try:
-                ground_postcondition_predicates = PDDLPlan.get_postcondition_predicates(
-                    action,
-                    pddl_domain,
-                    remove_alfred_object_ids=remove_alfred_object_ids,
-                )
-            except:
-                import pdb
-
-                pdb.set_trace()
+            ground_postcondition_predicates = PDDLPlan.get_postcondition_predicates(
+                action, pddl_domain, remove_alfred_object_ids=remove_alfred_object_ids,
+            )
             postcondition_predicates_json.append(
                 {
                     PDDLPlan.PDDL_ACTION: action[PDDLPlan.PDDL_ACTION],
@@ -656,7 +649,7 @@ class PDDLPlan:
         parameters, processed_preconds, processed_effects = parse_operator_components(
             operator_body, pddl_domain
         )
-        parameters_ordered = [p[0] for p in sorted(parameters)]
+        parameters_ordered = sorted(parameters.keys())
         ground_arguments_map = {
             argument: ground
             for (argument, ground) in zip(parameters_ordered, action["args"])
@@ -1115,9 +1108,11 @@ def parse_operator_components(operator_body, pddl_domain):
         if allow_partial_ground_predicates:
             # NB(Jiayuan Mao @ 2021/02/04): drop the '?' for parameters, because when allow_partial_ground_predicates is True,
             #   the parameters will have a leading '?'.
-            parameters = {
-                k[1:]: v for k, v in precond_parameters.items() if k.startswith("?")
-            }
+
+            # parameters = {k[1:]: v for k, v in precond_parameters if k.startswith("?")}
+
+            # NB(Lio W: remove the 'drop the leading?')
+            parameters = {k: v for k, v in precond_parameters if k.startswith("?")}
         else:
             parameters = precond_parameters
 
