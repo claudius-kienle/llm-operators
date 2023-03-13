@@ -357,7 +357,7 @@ def get_operator_uses(problems):
         if problem.should_supervise_pddl:
             plans.append(problem.ground_truth_pddl_plan)
         if len(problem.evaluated_pddl_plans) > 0:
-            plans.append(problem.get_best_evaluated_pddl_plan())
+            plans.append(problem.get_highest_likelihood_evaluated_pddl_plan())
         if len(problem.proposed_pddl_plans) > 0:
             plans += problem.proposed_pddl_plans
         for plan in plans:
