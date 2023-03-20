@@ -149,6 +149,7 @@
         (isToggled ?o - object) ; true if the object has been toggled
         (sliceable ?o - object) ; true if the object can be sliced
         (isSliced ?o - object) ; true if the object is sliced
+        (wasInReceptacle ?o - object ?r - receptacle)
     )
 
     ;; All actions are specified such that the final arguments are the ones used
