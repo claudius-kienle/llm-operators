@@ -123,6 +123,7 @@ def load_alfred_planning_domain_problems(
                 ground_truth_pddl_plan=ground_truth_pddl_plan,
                 ground_truth_pddl_problem=ground_truth_pddl_problem,
             )
+            new_problem.constants_in_problem_file = True
             dataset[dataset_split][problem_id] = new_problem
 
     if verbose:
@@ -187,6 +188,7 @@ def load_alfred_linearized_planning_domain_problems(
                 ground_truth_pddl_problem=ground_truth_pddl_problem,
                 goal_prefix=goal_prefix,
             )
+            new_problem.constants_in_problem_file = True
             dataset[dataset_split][problem_id] = new_problem
 
     if verbose:

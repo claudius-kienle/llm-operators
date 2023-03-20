@@ -17,7 +17,7 @@ class MotionPlanResult:
         pddl_plan,
         task_success,
         last_failed_operator=None,
-        last_failed_predicate=None
+        last_failed_predicate=None,
     ):
         """
         task_success: bool
@@ -111,8 +111,7 @@ def evaluate_alfred_motion_plans_and_costs_for_problems(
 
     for max_problems, problem_id in enumerate(problems):
         for pddl_goal in problems[problem_id].evaluated_pddl_plans:
-            pddl_plan = problems[problem_id].evaluated_pddl_plans[pddl_goal]
-            if pddl_plan is not None and pddl_plan != {} and pddl_plan.plan is not None:
+            for pddl_plan in problems[problem_id].evaluated_pddl_plans[pddl_goal]:
                 # run_motion_planner
                 # not implemented envname to task_id
                 # recording videos. quicktime player.
@@ -139,6 +138,7 @@ def evaluate_alfred_motion_plans_and_costs_for_problems(
                     print(
                         f"Successfully executed: {motion_plan_result.last_failed_operator} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan.\n\n\n"
                     )
+                assert False
 
 
 def evaluate_alfred_motion_plans_and_costs_for_goal_plan(
@@ -160,7 +160,9 @@ def evaluate_alfred_motion_plans_and_costs_for_goal_plan(
             pddl_plan=pddl_plan,
             task_success=True,
             last_failed_operator=None,
-            last_failed_predicate=postcondition_predicates_json[-1][PDDLPlan.PDDL_GROUND_PREDICATES][-1]
+            last_failed_predicate=postcondition_predicates_json[-1][
+                PDDLPlan.PDDL_GROUND_PREDICATES
+            ][-1],
         )
     else:
         # Run the motion planner.
@@ -225,31 +227,52 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_problems(
                 # run the motion planner
                 problem = problems[problem_id].ground_truth_pddl_problem
 
-                current_problem_string = problem.get_pddl_string_with_proposed_goal(proposed_goal=pddl_goal)
+                current_problem_string = problem.get_pddl_string_with_proposed_goal(
+                    proposed_goal=pddl_goal
+                )
 
                 motion_plan_result = evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
                     current_domain_string, current_problem_string, pddl_goal, pddl_plan
                 )
-                problems[problem_id].evaluated_motion_planner_results[pddl_goal] = motion_plan_result
+                problems[problem_id].evaluated_motion_planner_results[
+                    pddl_goal
+                ] = motion_plan_result
                 if motion_plan_result.task_success:
-                    problems[problem_id].best_evaluated_plan_at_iteration = curr_iteration
+                    problems[
+                        problem_id
+                    ].best_evaluated_plan_at_iteration = curr_iteration
                 if verbose:
-                    print(f"Motion plan result: task_success: {motion_plan_result.task_success}")
-                    print(f"Successfully executed: {motion_plan_result.last_failed_operator} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan.\n\n\n")
+                    print(
+                        f"Motion plan result: task_success: {motion_plan_result.task_success}"
+                    )
+                    print(
+                        f"Successfully executed: {motion_plan_result.last_failed_operator} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan.\n\n\n"
+                    )
 
 
 def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
-    current_domain_string, current_problem_string, pddl_goal, pddl_plan,
+    current_domain_string,
+    current_problem_string,
+    pddl_goal,
+    pddl_plan,
     verbose: bool = False,
 ):
     import concepts.pdsketch as pds
-    domain = pds.load_domain_string(current_domain_string)
-    problem = pds.load_problem_string(current_problem_string, domain, return_tensor_state=False)
 
-    from concepts.pdsketch.strips.strips_grounding_onthefly import OnTheFlyGStripsProblem, ogstrips_bind_arguments
+    domain = pds.load_domain_string(current_domain_string)
+    problem = pds.load_problem_string(
+        current_problem_string, domain, return_tensor_state=False
+    )
+
+    from concepts.pdsketch.strips.strips_grounding_onthefly import (
+        OnTheFlyGStripsProblem,
+        ogstrips_bind_arguments,
+    )
+
     gproblem = OnTheFlyGStripsProblem.from_domain_and_problem(domain, problem)
 
     from llm_operators.datasets.crafting_world import CraftingWorld20230204Simulator
+
     simulator = CraftingWorld20230204Simulator()
     simulator.reset_from_state(gproblem.objects, gproblem.initial_state)
 
@@ -258,48 +281,59 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
         action_name = action[PDDLPlan.PDDL_ACTION]
         action_args = action[PDDLPlan.PDDL_ARGUMENTS]
 
-        if action_name == 'move-right':
+        if action_name == "move-right":
             if verbose:
-                print('move-right')
+                print("move-right")
             simulator.move_right()
-        elif action_name == 'move-left':
+        elif action_name == "move-left":
             if verbose:
-                print('move-left')
+                print("move-left")
             simulator.move_left()
-        elif action_name == 'pick-up':
+        elif action_name == "pick-up":
             if verbose:
-                print('pick-up')
+                print("pick-up")
             simulator.pick_up(
-                int(_find_string_start_with(action_args, 'i', first=True)[1:]),
-                _find_string_start_with(action_args, 'o', first=True)
+                int(_find_string_start_with(action_args, "i", first=True)[1:]),
+                _find_string_start_with(action_args, "o", first=True),
             )
-        elif action_name == 'place-down':
+        elif action_name == "place-down":
             raise NotImplementedError()
         else:
             # Trying mining.
-            inventory_indices = [int(x[1:]) for x in  _find_string_start_with(action_args, 'i')]
-            object_indices = _find_string_start_with(action_args, 'o')
+            inventory_indices = [
+                int(x[1:]) for x in _find_string_start_with(action_args, "i")
+            ]
+            object_indices = _find_string_start_with(action_args, "o")
 
-            hypothetical_object = [x for x in object_indices if x in simulator.hypothetical]
+            hypothetical_object = [
+                x for x in object_indices if x in simulator.hypothetical
+            ]
             if len(hypothetical_object) != 1:
                 if verbose:
-                    print('Hypothetical object not found.', object_indices)
+                    print("Hypothetical object not found.", object_indices)
                 last_failed_operator = i
                 break
             hypothetical_object = hypothetical_object[0]
 
-            empty_inventory = [x for x in inventory_indices if simulator.inventory[x] is None]
+            empty_inventory = [
+                x for x in inventory_indices if simulator.inventory[x] is None
+            ]
             if len(empty_inventory) != 1:
                 if verbose:
-                    print('Empty inventory not found.', inventory_indices)
+                    print("Empty inventory not found.", inventory_indices)
                 last_failed_operator = i
                 break
             empty_inventory = empty_inventory[0]
 
-            target_object = [x for x in object_indices if x in simulator.objects and simulator.objects[x][1] == simulator.agent_pos]
+            target_object = [
+                x
+                for x in object_indices
+                if x in simulator.objects
+                and simulator.objects[x][1] == simulator.agent_pos
+            ]
             if len(target_object) != 1:
                 if verbose:
-                    print('Target object not found.', object_indices)
+                    print("Target object not found.", object_indices)
                 last_failed_operator = i
                 break
             target_object = target_object[0]
@@ -307,12 +341,18 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
             tool_inventory = list(set(inventory_indices) - set([empty_inventory]))
 
             if verbose:
-                print('Mining', empty_inventory, hypothetical_object, target_object, tool_inventory)
+                print(
+                    "Mining",
+                    empty_inventory,
+                    hypothetical_object,
+                    target_object,
+                    tool_inventory,
+                )
             simulator.mine(
                 target_object,
                 empty_inventory,
                 hypothetical_object,
-                tool_inventory=tool_inventory[0] if len(tool_inventory) > 0 else None
+                tool_inventory=tool_inventory[0] if len(tool_inventory) > 0 else None,
             )
 
     if last_failed_operator is not None:
@@ -320,10 +360,12 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
             pddl_plan=pddl_plan,
             task_success=False,
             last_failed_operator=last_failed_operator,
-            last_failed_predicate=None
+            last_failed_predicate=None,
         )
 
-    return MotionPlanResult(pddl_plan=pddl_plan, task_success=simulator.goal_satisfied(gproblem.goal))
+    return MotionPlanResult(
+        pddl_plan=pddl_plan, task_success=simulator.goal_satisfied(gproblem.goal)
+    )
 
 
 def _find_string_start_with(list_of_string, start, first=False):
