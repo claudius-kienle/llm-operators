@@ -174,10 +174,10 @@
             (atLocation ?a ?l)
             (receptacleAtLocation ?r ?l)
             (openable ?r)
-            (forall
-                (?re - receptacle)
-                (not (opened ?re))
-            )
+            ; (forall
+            ;     (?re - receptacle)
+            ;     (not (opened ?re))
+            ; )
         )
         :effect (and
             (opened ?r)
@@ -270,32 +270,32 @@
     )
 
     ;; agent puts down a receptacle object in a receptacle
-    (:action PutReceptacleObjectInReceptacle
-        :parameters (?a - agent ?l - location ?ot - otype ?outerO - object ?r - receptacle)
-        :precondition (and
-            (atLocation ?a ?l)
-            (receptacleAtLocation ?r ?l)
-            (objectType ?outerO ?ot)
-            (holds ?a ?outerO)
-            (holdsAnyReceptacleObject ?a)
-            (isReceptacleObject ?outerO)
-        )
-        :effect (and
-            (forall
-                (?obj - object)
-                (when
-                    (holds ?a ?obj)
-                    (and
-                        (not (holds ?a ?obj))
-                        (objectAtLocation ?obj ?l)
-                        (inReceptacle ?obj ?r)
-                    )
-                )
-            )
-            (not (holdsAny ?a))
-            (not (holdsAnyReceptacleObject ?a))
-        )
-    )
+    ; (:action PutReceptacleObjectInReceptacle
+    ;     :parameters (?a - agent ?l - location ?ot - otype ?outerO - object ?r - receptacle)
+    ;     :precondition (and
+    ;         (atLocation ?a ?l)
+    ;         (receptacleAtLocation ?r ?l)
+    ;         (objectType ?outerO ?ot)
+    ;         (holds ?a ?outerO)
+    ;         (holdsAnyReceptacleObject ?a)
+    ;         (isReceptacleObject ?outerO)
+    ;     )
+    ;     :effect (and
+    ;         (forall
+    ;             (?obj - object)
+    ;             (when
+    ;                 (holds ?a ?obj)
+    ;                 (and
+    ;                     (not (holds ?a ?obj))
+    ;                     (objectAtLocation ?obj ?l)
+    ;                     (inReceptacle ?obj ?r)
+    ;                 )
+    ;             )
+    ;         )
+    ;         (not (holdsAny ?a))
+    ;         (not (holdsAnyReceptacleObject ?a))
+    ;     )
+    ; )
 
     ;; agent cleans some object - currently requires it to be in a sink.
     (:action CleanObject
