@@ -92,13 +92,13 @@ def get_solved_unsolved_problems(problems):
     unsolved_problems = [
         problems[p]
         for p in problems
-        if not problems[p].best_evaluated_plan_at_iteration
+        if len(problems[p].solved_motion_plan_results) < 1
         and not problems[p].should_supervise_pddl
     ]
     solved_problems = [
         problems[p]
         for p in problems
-        if (problems[p].best_evaluated_plan_at_iteration)
+        if (len(problems[p].solved_motion_plan_results) > 0)
         or problems[p].should_supervise_pddl
     ]
     return unsolved_problems, solved_problems

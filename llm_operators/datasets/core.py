@@ -48,24 +48,45 @@ class Problem:
         self.should_supervise_pddl = (
             should_supervise_pddl  # Whether to include the PDDL in initial supervision
         )
-
-        # When the best plan was solved at.
-        self.best_evaluated_plan_at_iteration = (
-            None if not self.should_supervise_pddl else -1
-        )
-
         # One or more proposed PDDL goals.
         self.codex_raw_goals = []
         self.proposed_pddl_goals = []
         # One or more proposed plans. Array of PDDL {action, args} operator sequences.
         self.proposed_pddl_plans = []
 
-        # Evaluated PDDL plans that solve proposed_pddl_goals, created by a task planner.
+        # Evaluated PDDL plans that solve proposed_pddl_goals, created by a task planner. This is reset at each iteration.
         # This is a dict from {goal : set(PDDLPlan)}
         self.evaluated_pddl_plans = defaultdict(set)
 
         # This is a dict to all of the {(goal, PDDLPlan) : MotionPlanResult}, created by a motion planner. These may be successful or failed.
+        # This is reset at each iteration.
         self.evaluated_motion_planner_results = dict()
+
+        # This contains any solved motion plan results, which are stored completely with their goal, PDDL plan object, and motion plan.
+        self.solved_motion_plan_results = dict()
+
+    def get_evaluated_pddl_plan_json(self):
+        return {
+            "file_name": self.problem_id,
+            "plans": [
+                {"goal": g, "plan": pddl_plan.plan}
+                for g in self.evaluated_pddl_plans
+                for pddl_plan in self.evaluated_pddl_plans[g]
+            ],
+        }
+
+    def reset_evaluated_pddl_plans(self):
+        self.evaluated_pddl_plans = defaultdict(set)
+
+    def reset_evaluated_motion_planner_results(self):
+        self.evaluated_pddl_plans = dict()
+
+    def update_solved_motion_plan_results(self):
+        for k in self.evaluated_motion_planner_results:
+            if self.evaluated_motion_planner_results[k].task_success:
+                self.solved_motion_plan_results[
+                    k
+                ] = self.evaluated_motion_planner_results[k]
 
     def update_evaluated_pddl_plans(self, new_evaluated_pddl_plans):
         for g in new_evaluated_pddl_plans:

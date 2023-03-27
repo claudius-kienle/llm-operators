@@ -117,6 +117,25 @@
     (object-of-type ?target IronOre)
   )
  )
+(:action mine-potato
+        :parameters (?tool - object ?t - tile ?targetinv - inventory ?toolinv - inventory ?target - object ?x - object)
+
+        :precondition (and 
+		(agent-at ?t)
+		(object-at ?x ?t)
+		(object-of-type ?x PotatoPlant)
+		(inventory-holding ?toolinv ?tool)
+		(object-of-type ?tool Axe)
+		(inventory-empty ?targetinv)
+		(object-of-type ?target Hypothetical)
+		)
+        :effect (and 
+		(not (inventory-empty ?targetinv))
+		(inventory-holding ?targetinv ?target)
+		(not (object-of-type ?target Hypothetical))
+		(object-of-type ?target Potato)
+		)
+)
 
     )
                 

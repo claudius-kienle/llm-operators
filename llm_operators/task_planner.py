@@ -50,8 +50,21 @@ def attempt_task_plan_for_problem(
     if debug_skip:
         print("\t...debug_skip.")
 
+    output_json = []
+    experiment_tag = (
+        ""
+        if len(command_args.experiment_name) < 1
+        else f"{command_args.experiment_name}_"
+    )
+
+    output_filepath = f"{experiment_tag}task_plans.json"
+
     if use_mock:
-        assert False
+        mock_evaluate_task_plans_and_costs_for_problems(
+            output_filepath, output_directory, problems
+        )
+        return
+
     sample_operator_percent = 1.0 if plan_attempt_idx == 0 else 0.5
     # Don't get any proposed operators with negative scores.
     if proposed_operators is None:

@@ -199,12 +199,6 @@ parser.add_argument(
     help="Number of attempts to iterate over the task and motion planning loop. Starts by planning with all of the operators, from there downsamples.",
 )
 parser.add_argument(
-    "--top_n_operators",
-    type=int,
-    default=5,
-    help="Threshold for maximum number of operators to keep at each iteration.",
-)
-parser.add_argument(
     "--maximum_operator_arity",
     type=int,
     default=4,
@@ -293,6 +287,8 @@ def main():
 
         ###################### Refine operators.
         for problem_idx, problem_id in enumerate(planning_problems["train"]):
+            if problem_idx > 3:
+                break
             should_continue_attempts = True
             for plan_attempt_idx in range(args.n_attempts_to_plan):
                 if should_continue_attempts:
@@ -331,16 +327,29 @@ def main():
                         verbose=args.verbose,
                         command_args=args,
                     )
-        # Keep only operators with positive scores.
+        ###################### Finalize and checkpoint iteration.
+        pddl.checkpoint_and_reset_operators(
+            curr_iteration=curr_iteration,
+            pddl_domain=pddl_domain,
+            command_args=args,
+            output_directory=output_directory,
+        )
+        pddl.checkpoint_and_reset_plans(
+            curr_iteration=curr_iteration,
+            pddl_domain=pddl_domain,
+            problems=planning_problems["train"],
+            command_args=args,
+            output_directory=output_directory,
+        )
 
-        # # Output a final iteration summary.
-        # experiment_utils.output_iteration_summary(
-        #     curr_iteration=curr_iteration,
-        #     pddl_domain=pddl_domain,
-        #     problems=planning_problems["train"],
-        #     command_args=args,
-        #     output_directory=output_directory,
-        # )
+        # Output a final iteration summary.
+        experiment_utils.output_iteration_summary(
+            curr_iteration=curr_iteration,
+            pddl_domain=pddl_domain,
+            problems=planning_problems["train"],
+            command_args=args,
+            output_directory=output_directory,
+        )
 
 
 if __name__ == "__main__":
