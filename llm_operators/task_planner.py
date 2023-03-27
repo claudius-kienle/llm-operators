@@ -53,6 +53,14 @@ def attempt_task_plan_for_problem(
     if use_mock:
         assert False
     sample_operator_percent = 1.0 if plan_attempt_idx == 0 else 0.5
+    # Don't get any proposed operators with negative scores.
+    if proposed_operators is None:
+        proposed_operators = set()
+        for operator_name in pddl_domain.proposed_operators:
+            for operator_body in pddl_domain.proposed_operators[operator_name]:
+                if pddl_domain.operators_to_scores[(operator_name, operator_body)] >= 0:
+                    proposed_operators.add(operator_name)
+
     print(f"\tsample_operator_percent: {sample_operator_percent}")
     any_success, new_evaluated_plans, problem_json = sample_task_plans_for_problem(
         pddl_domain=pddl_domain,
@@ -107,10 +115,6 @@ def evaluate_task_plans_and_costs_for_problems(
 
     if verbose:
         print(f"Use ground truth goals? {command_args.debug_ground_truth_goals}")
-
-    # Set of proposed operators to work with when sampling task plans.
-    if proposed_operators is None:
-        proposed_operators = pddl_domain.proposed_operators.keys()
 
     total_solved_problems = 0
     for max_problems, problem_id in enumerate(problems):
@@ -180,7 +184,7 @@ def sample_task_plans_for_problem(
     any_success = False
     all_evaluated_plans = defaultdict(set)
 
-    # Sample a set of operators to try.
+    # Sample a set of operators to try. Don't sample any operators with negative scores.
     sampled_proposed_operators = generate_random_proposed_operator_sample(
         proposed_operators, sample_percent=sample_operator_percent
     )
