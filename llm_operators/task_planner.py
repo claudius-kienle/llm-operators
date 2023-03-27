@@ -23,7 +23,7 @@ TASK_PLANNER_PDSKETCH_ONTHEFLY = "task_planner_pdsketch_onthefly"
 def attempt_task_plan_for_problem(
     pddl_domain,
     problem_idx,
-    problem,
+    problem_id,
     problems,
     command_args,
     verbose=False,
@@ -56,13 +56,15 @@ def attempt_task_plan_for_problem(
     print(f"\tsample_operator_percent: {sample_operator_percent}")
     any_success, new_evaluated_plans, problem_json = sample_task_plans_for_problem(
         pddl_domain=pddl_domain,
-        problem=problem,
+        problem=problems[problem_id],
         planner_type=command_args.planner,
         verbose=verbose,
         debug_ground_truth_goals=command_args.debug_ground_truth_goals,
         proposed_operators=proposed_operators,
         sample_operator_percent=sample_operator_percent,
     )
+    if any_success:
+        problems[problem_id].update_evaluated_pddl_plans(new_evaluated_plans)
 
 
 def evaluate_task_plans_and_costs_for_problems(
@@ -337,7 +339,6 @@ def pdsketch_onthefly_plan_from_strings(domain_str, problem_str, timeout=10):
     )
 
     gproblem = OnTheFlyGStripsProblem.from_domain_and_problem(domain, problem)
-
     from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_search
 
     plan = ogstrips_search(gproblem, timeout=timeout)

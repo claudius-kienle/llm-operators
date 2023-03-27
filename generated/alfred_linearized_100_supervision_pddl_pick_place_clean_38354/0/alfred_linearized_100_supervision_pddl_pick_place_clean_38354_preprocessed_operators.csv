@@ -12,7 +12,7 @@ CutObject,,"(:action CutObject
         )
     )
 ","(:action CutObject
-        :parameters (?o - object ?r - receptacle ?a - agent ?l - location)
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
 
         :precondition (and 
 		(receptacleType ?r CounterTopType)
@@ -49,7 +49,7 @@ CoolObject,"(:action CoolObject
         )
     )
 ","(:action CoolObject
-        :parameters (?o - object ?r - receptacle ?a - agent ?l - location)
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
 
         :precondition (and 
 		(receptacleType ?r FridgeType)
@@ -137,7 +137,7 @@ DropObject,,"(:action DropObject
         )
     )
 ","(:action DropObject
-        :parameters (?a - agent ?l - location ?o - object)
+        :parameters (?l - location ?a - agent ?o - object)
 
         :precondition (and 
 		(atLocation ?a ?l)
@@ -161,7 +161,7 @@ CookObject,,"(:action CookObject
         )
     )
 ","(:action CookObject
-        :parameters (?o - object ?r - receptacle ?a - agent ?l - location)
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
 
         :precondition (and 
 		(receptacleType ?r StoveBurnerType)
@@ -186,7 +186,7 @@ ChillObject,,"(:action ChillObject
         )
     )
 ","(:action ChillObject
-        :parameters (?o - object ?r - receptacle ?a - agent ?l - location)
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
 
         :precondition (and 
 		(receptacleType ?r FridgeType)
@@ -219,7 +219,7 @@ ExamineObject,,"(:action ExamineObject
         )
     )
 ","(:action ExamineObject
-        :parameters (?a - agent ?o - object ?lStart - location ?o - receptacle)
+        :parameters (?a - agent ?o - receptacle ?o - object ?lStart - location)
 
         :precondition (and 
 		(atLocation ?a ?lStart)
@@ -257,7 +257,7 @@ SwitchObjects,,"(:action SwitchObjects
         )
     )
 ","(:action SwitchObjects
-        :parameters (?a - agent ?l - location ?o - object)
+        :parameters (?l - location ?a - agent ?o - object)
 
         :precondition (and 
 		(atLocation ?a ?l)
@@ -281,7 +281,7 @@ OpenContainer,,"(:action OpenContainer
         )
     )
 ","(:action OpenContainer
-        :parameters (?a - agent ?r - object ?l - location ?r - receptacle)
+        :parameters (?l - location ?a - agent ?r - receptacle ?r - object)
 
         :precondition (and 
 		(atLocation ?a ?l)
@@ -304,7 +304,7 @@ CloseContainer,,"(:action CloseContainer
         )
     )
 ","(:action CloseContainer
-        :parameters (?a - agent ?l - location ?o - object ?r - receptacle)
+        :parameters (?l - location ?a - agent ?r - receptacle ?o - object)
 
         :precondition (and 
 		(atLocation ?a ?l)
@@ -347,7 +347,7 @@ RemoveObject,,"(:action RemoveObject
         )
     )
 ","(:action RemoveObject
-        :parameters (?a - agent ?o - object ?rStart - receptacle ?rEnd - receptacle)
+        :parameters (?a - agent ?rEnd - receptacle ?rStart - receptacle ?o - object)
 
         :precondition (and 
 		(holds ?a ?o)
@@ -371,7 +371,7 @@ GET,,"(:action GET
         )
     )
 ","(:action GET
-        :parameters (?lEnd - location ?o - object ?lStart - location ?r - receptacle)
+        :parameters (?r - receptacle ?o - object ?lEnd - location ?lStart - location)
 
         :precondition (and 
 		(receptacleAtLocation ?r ?lStart)
@@ -394,7 +394,7 @@ PUT,,"(:action PUT
         )
     )
 ","(:action PUT
-        :parameters (?c - receptacle ?l - location ?o - object)
+        :parameters (?l - location ?o - object ?c - receptacle)
 
         :precondition (and 
 		(receptacleAtLocation ?c ?l)
@@ -477,7 +477,7 @@ TurnOnObject,,"(:action TurnOnObject
         )
     )
 ","(:action TurnOnObject
-        :parameters (?a - agent ?l - location ?o - object)
+        :parameters (?l - location ?a - agent ?o - object)
 
         :precondition (and 
 		(atLocation ?a ?l)
@@ -506,7 +506,7 @@ GetObject1,,"(:action GetObject1
         )
     )
 ","(:action GetObject1
-        :parameters (?o - object ?r - receptacle ?a - agent ?l - location)
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
 
         :precondition (and 
 		(inReceptacle ?o ?r)

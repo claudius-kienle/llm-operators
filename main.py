@@ -293,64 +293,45 @@ def main():
 
         ###################### Refine operators.
         for problem_idx, problem_id in enumerate(planning_problems["train"]):
+            should_continue_attempts = True
             for plan_attempt_idx in range(args.n_attempts_to_plan):
-                # Task plan. Attempts to generate a task plan for each problem.
-                task_planner.attempt_task_plan_for_problem(
-                    pddl_domain=pddl_domain,
-                    problem_idx=problem_idx,
-                    problem=planning_problems["train"][problem_id],
-                    problems=planning_problems["train"],
-                    verbose=args.verbose,
-                    command_args=args,
-                    output_directory=output_directory,
-                    debug_skip=args.debug_skip_task_plans,
-                    use_mock=args.debug_mock_task_plans,
-                    plan_attempt_idx=plan_attempt_idx,
-                )
-            if problem_idx > 3:
-                sys.exit(0)
-
-        # ###################### Task plan sampling.
-        # # Given a domain, a set of goals, and a set of operators, this samples 1 or more task plans
-        # # that are highest likelihood for the goals (solve the goals under a task planner.)
-        # task_planner.evaluate_task_plans_and_costs_for_problems(
-        #     pddl_domain=pddl_domain,
-        #     problems=planning_problems["train"],
-        #     verbose=args.verbose,
-        #     command_args=args,
-        #     output_directory=output_directory,
-        #     debug_skip=args.debug_skip_task_plans,
-        #     use_mock=args.debug_mock_task_plans,
-        # )
-        # ############# Motion plan and plan optimality scoring.
-        # # Given a domain, set of goals, operators, and task plans, this evalutes
-        # # the optimality of the task plans under the goals.
-        # # Motion planner: evaluate costs using motion planner.
-        # motion_planner.evaluate_motion_plans_and_costs_for_problems(
-        #     curr_iteration=curr_iteration,
-        #     pddl_domain=pddl_domain,
-        #     problems=planning_problems["train"],
-        #     verbose=args.verbose,
-        #     command_args=args,
-        #     output_directory=output_directory,
-        #     use_mock=args.debug_mock_motion_plans,
-        #     debug_skip=args.debug_skip_motion_plans,
-        #     dataset_name=args.dataset_name,
-        # )
-
-        # ############ Belief propagation and domain updating.
-        # # Score the proposed operators by marginalizing over the task plans in which they participate.
-        # # P(used_in_task_plan | goal) * P(optimality | used_in_task_plan)
-        # pddl.update_pddl_domain_from_planner_results(
-        #     pddl_domain=pddl_domain,
-        #     problems=planning_problems["train"],
-        #     top_n_operators=args.top_n_operators,
-        #     verbose=args.verbose,
-        #     command_args=args,
-        #     output_directory=output_directory,
-        #     dataset_name=args.dataset_name,
-        # )
-        # # Re-score the task plans under the new set of operators.
+                if should_continue_attempts:
+                    # Task plan. Attempts to generate a task plan for each problem.
+                    task_planner.attempt_task_plan_for_problem(
+                        pddl_domain=pddl_domain,
+                        problem_idx=problem_idx,
+                        problem_id=problem_id,
+                        problems=planning_problems["train"],
+                        verbose=args.verbose,
+                        command_args=args,
+                        output_directory=output_directory,
+                        debug_skip=args.debug_skip_task_plans,
+                        use_mock=args.debug_mock_task_plans,
+                        plan_attempt_idx=plan_attempt_idx,
+                    )
+                    # Motion plan. Attempts to generate a motion plan for a problem.
+                    motion_planner.attempt_motion_plan_for_problem(
+                        pddl_domain=pddl_domain,
+                        problem_idx=problem_idx,
+                        problem_id=problem_id,
+                        problems=planning_problems["train"],
+                        verbose=args.verbose,
+                        command_args=args,
+                        output_directory=output_directory,
+                        debug_skip=args.debug_skip_motion_plans,
+                        use_mock=args.debug_mock_motion_plans,
+                        plan_attempt_idx=plan_attempt_idx,
+                        dataset_name=args.dataset_name,
+                    )
+                    should_continue_attempts = pddl.update_pddl_domain_and_problem(
+                        pddl_domain=pddl_domain,
+                        problem_idx=problem_idx,
+                        problem_id=problem_id,
+                        problems=planning_problems["train"],
+                        verbose=args.verbose,
+                        command_args=args,
+                    )
+        # Keep only operators with positive scores.
 
         # # Output a final iteration summary.
         # experiment_utils.output_iteration_summary(

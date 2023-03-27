@@ -43,10 +43,12 @@ class Domain:
         # One or more proposed predicates.
         self.proposed_predicates = []
         self.codex_raw_predicates = []
-        # One or more proposed operators.
+        # One or more operators that have been proposed by Codex at the current iteration.
         self.proposed_operators = defaultdict(list)  # Operator name -> definitions
         self.codex_raw_operators = defaultdict(list)
-
+        self.operators_to_scores = defaultdict(
+            float
+        )  # (operator_name, body) -> scalar score.
         # Some operators have had standardized names.
         self.operator_canonicalization = {}
 
@@ -293,6 +295,61 @@ def save_learned_operators(curr_iteration, directory, dataset, train_domain, gt_
     with open(operators_filename, "w") as f:
         json.dump(output_operators, f)
     return operators_filename
+
+
+def update_pddl_domain_and_problem(
+    pddl_domain, problem_idx, problem_id, problems, verbose, command_args,
+):
+    """Updates the PDDL domain and PDDL problem based on the motion planner results."""
+    # Score if operator succeeds.
+    operator_success_score = 1
+    operator_failure_score = -20  # Penalize an operator heavily for failing
+    # Score if task succeeded.
+    task_success_score = 1
+    task_failure_score = -1
+
+    any_success = False
+    for (goal, plan) in problems[problem_id].evaluated_motion_planner_results:
+        motion_plan_result = problems[problem_id].evaluated_motion_planner_results[
+            (goal, plan)
+        ]
+        if motion_plan_result.task_success:
+            any_success = True
+
+        for operator_idx, o in enumerate(motion_plan_result.pddl_plan.plan):
+            # Score the operator for its own success.
+            if (
+                motion_plan_result.task_success
+                or operator_idx < motion_plan_result.last_failed_operator
+            ):
+
+                pddl_domain.operators_to_scores[
+                    (o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])
+                ] += operator_success_score
+            else:
+                pddl_domain.operators_to_scores[
+                    (o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])
+                ] += operator_failure_score
+            # Score the operator for the overall task success.
+            if motion_plan_result.task_success:
+                pddl_domain.operators_to_scores[
+                    (o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])
+                ] += task_success_score
+            else:
+                pddl_domain.operators_to_scores[
+                    (o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])
+                ] += task_failure_score
+    if verbose:
+        print("Top operators after success are:")
+        for (o_name, o_body) in sorted(
+            pddl_domain.operators_to_scores,
+            key=lambda k: pddl_domain.operators_to_scores[k],
+            reverse=True,
+        ):
+            print(o_name, pddl_domain.operators_to_scores[(o_name, o_body)])
+
+    should_continue_planner_attempts = not any_success
+    return should_continue_planner_attempts
 
 
 def update_pddl_domain_from_planner_results(

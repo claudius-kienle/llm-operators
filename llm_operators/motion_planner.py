@@ -29,12 +29,64 @@ class MotionPlanResult:
         self.last_failed_operator = last_failed_operator
         self.last_failed_predicate = last_failed_predicate
 
-        #     last_failed_predicate
-        #     if not debug_skip
-        #     else self.postcondition_predicates_json[-1][
-        #         PDDLPlan.PDDL_GROUND_PREDICATES
-        #     ][-1]
-        # )
+
+def attempt_motion_plan_for_problem(
+    pddl_domain,
+    problem_idx,
+    problem_id,
+    problems,
+    command_args,
+    verbose=False,
+    output_directory=None,
+    use_mock=False,
+    debug_skip=False,
+    plan_attempt_idx=0,
+    dataset_name="",
+):
+    """Attempts to motion plan for a single problem. This attempts the planner on any proposed goals, and any proposed task plans for those goals."""
+    if plan_attempt_idx == 0:
+        print(
+            f"motion_planner.attempt_motion_plan_for_problem: attempt {plan_attempt_idx} : {problem_idx} / {len(problems)}"
+        )
+    else:
+        print(
+            f"\tmotion_planner.attempt_motion_plan_for_problem: attempt {plan_attempt_idx}"
+        )
+    if use_mock:
+        assert False
+    for pddl_goal in problems[problem_id].evaluated_pddl_plans:
+        for pddl_plan in problems[problem_id].evaluated_pddl_plans[pddl_goal]:
+            if "alfred" in dataset_name:
+                motion_plan_result = evaluate_alfred_motion_plans_and_costs_for_goal_plan(
+                    problem_id,
+                    problems,
+                    pddl_goal,
+                    pddl_plan,
+                    pddl_domain,
+                    verbose,
+                    debug_skip=debug_skip,
+                )
+            elif dataset_name == "crafting_world_20230204_minining_only":
+                motion_plan_result = evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
+                    problem_id,
+                    problems,
+                    pddl_goal,
+                    pddl_plan,
+                    pddl_domain,
+                    verbose,
+                    debug_skip=debug_skip,
+                )
+            problems[problem_id].evaluated_motion_planner_results[
+                (pddl_goal, pddl_plan.plan_string)
+            ] = motion_plan_result
+
+            if verbose:
+                print(
+                    f"Motion plan result: task_success: {motion_plan_result.task_success}"
+                )
+                print(
+                    f"Failed at operator: {motion_plan_result.last_failed_operator} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan.\n\n\n"
+                )
 
 
 def evaluate_motion_plans_and_costs_for_problems(
@@ -138,7 +190,6 @@ def evaluate_alfred_motion_plans_and_costs_for_problems(
                     print(
                         f"Successfully executed: {motion_plan_result.last_failed_operator} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan.\n\n\n"
                     )
-                assert False
 
 
 def evaluate_alfred_motion_plans_and_costs_for_goal_plan(
@@ -215,24 +266,19 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_problems(
         # Not implemented
         assert False
 
-    current_domain_string = pddl_domain.to_string(
-        ground_truth_operators=False,
-        current_operators=True,
-        proposed_operators=pddl_domain.proposed_operators.keys(),
-    )
     for max_problems, problem_id in enumerate(problems):
         for pddl_goal in problems[problem_id].evaluated_pddl_plans:
             pddl_plan = problems[problem_id].evaluated_pddl_plans[pddl_goal]
             if pddl_plan is not None and pddl_plan != {} and pddl_plan.plan is not None:
-                # run the motion planner
-                problem = problems[problem_id].ground_truth_pddl_problem
-
-                current_problem_string = problem.get_pddl_string_with_proposed_goal(
-                    proposed_goal=pddl_goal
-                )
-
                 motion_plan_result = evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
-                    current_domain_string, current_problem_string, pddl_goal, pddl_plan
+                    # current_domain_string, current_problem_string, pddl_goal, pddl_plan
+                    problem_id,
+                    problems,
+                    pddl_goal,
+                    pddl_plan,
+                    pddl_domain,
+                    verbose,
+                    debug_skip=debug_skip,
                 )
                 problems[problem_id].evaluated_motion_planner_results[
                     pddl_goal
@@ -251,12 +297,18 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_problems(
 
 
 def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
-    current_domain_string,
-    current_problem_string,
-    pddl_goal,
-    pddl_plan,
-    verbose: bool = False,
+    problem_id, problems, pddl_goal, pddl_plan, pddl_domain, verbose, debug_skip=False,
 ):
+    problem = problems[problem_id].ground_truth_pddl_problem
+    current_problem_string = problem.get_pddl_string_with_proposed_goal(
+        proposed_goal=pddl_goal
+    )
+    current_domain_string = pddl_domain.to_string(
+        ground_truth_operators=False,
+        current_operators=True,
+        proposed_operators=pddl_domain.proposed_operators.keys(),
+    )
+
     import concepts.pdsketch as pds
 
     domain = pds.load_domain_string(current_domain_string)
@@ -364,7 +416,8 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
         )
 
     return MotionPlanResult(
-        pddl_plan=pddl_plan, task_success=simulator.goal_satisfied(gproblem.goal)
+        pddl_plan=pddl_plan,
+        task_success=simulator.goal_satisfied(gproblem.conjunctive_goal),
     )
 
 

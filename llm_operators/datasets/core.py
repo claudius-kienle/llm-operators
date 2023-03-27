@@ -64,8 +64,7 @@ class Problem:
         # This is a dict from {goal : set(PDDLPlan)}
         self.evaluated_pddl_plans = defaultdict(set)
 
-        # This is a dict from {goal : MotionPlanResult}
-        # TBD: this should be a dict from (goal, PDDLPlan) -> MotionPlanResult
+        # This is a dict to all of the {(goal, PDDLPlan) : MotionPlanResult}, created by a motion planner. These may be successful or failed.
         self.evaluated_motion_planner_results = dict()
 
     def update_evaluated_pddl_plans(self, new_evaluated_pddl_plans):
