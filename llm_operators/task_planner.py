@@ -50,7 +50,6 @@ def attempt_task_plan_for_problem(
     if debug_skip:
         print("\t...debug_skip.")
 
-    output_json = []
     experiment_tag = (
         ""
         if len(command_args.experiment_name) < 1
@@ -60,10 +59,16 @@ def attempt_task_plan_for_problem(
     output_filepath = f"{experiment_tag}task_plans.json"
 
     if use_mock:
-        mock_evaluate_task_plans_and_costs_for_problems(
-            output_filepath, output_directory, problems
-        )
-        return
+        try:
+            mock_evaluate_task_plans_and_costs_for_problems(
+                output_filepath, output_directory, problems
+            )
+            if len(problems[problem_id].evaluated_pddl_plans) > 0:
+                return
+            else:
+                print("Mock not found for task plan, continuing...")
+        except:
+            print("Mock not found for task plan, continuing...")
 
     sample_operator_percent = 1.0 if plan_attempt_idx == 0 else 0.5
     # Don't get any proposed operators with negative scores.

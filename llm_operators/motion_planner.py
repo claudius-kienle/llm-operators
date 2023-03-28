@@ -3,6 +3,7 @@ motion_planner.py
 Utilities for generating motion plans.
 """
 
+import json
 import os
 import alfred.alfredplanner as alfredplanner
 
@@ -29,6 +30,14 @@ class MotionPlanResult:
         self.last_failed_operator = last_failed_operator
         self.last_failed_predicate = last_failed_predicate
 
+    def from_json(cls, json):
+        return MotionPlanResult(
+            pddl_plan=PDDLPlan(plan_string=json["plan"]),
+            task_success=json["task_success"],
+            last_failed_operator=json["last_failed_operator"],
+            last_failed_predicate=json["last_failed_predicate"],
+        )
+
 
 def attempt_motion_plan_for_problem(
     pddl_domain,
@@ -52,8 +61,24 @@ def attempt_motion_plan_for_problem(
         print(
             f"\tmotion_planner.attempt_motion_plan_for_problem: attempt {plan_attempt_idx}"
         )
+    experiment_tag = (
+        ""
+        if len(command_args.experiment_name) < 1
+        else f"{command_args.experiment_name}_"
+    )
+
+    output_filepath = f"{experiment_tag}motion_plans.json"
     if use_mock:
-        assert False
+        try:
+            mock_evaluate_motion_plans_and_costs_for_problems(
+                output_filepath, output_directory, problems
+            )
+            if len(problems[problem_id].evaluated_motion_planner_results) > 0:
+                return
+            else:
+                print("Mock not found for task plan, continuing...")
+        except:
+            print("Mock not found for task plan, continuing...")
     for pddl_goal in problems[problem_id].evaluated_pddl_plans:
         for pddl_plan in problems[problem_id].evaluated_pddl_plans[pddl_goal]:
             if "alfred" in dataset_name:
@@ -77,7 +102,7 @@ def attempt_motion_plan_for_problem(
                     debug_skip=debug_skip,
                 )
             problems[problem_id].evaluated_motion_planner_results[
-                (pddl_goal, pddl_plan.plan_string)
+                (pddl_goal, motion_plan_result.pddl_plan.plan_string)
             ] = motion_plan_result
 
             if verbose:
@@ -130,10 +155,24 @@ def evaluate_motion_plans_and_costs_for_problems(
         assert False
 
 
-def mock_alfred_motion_plans_and_costs_for_problems(
+def mock_evaluate_motion_plans_and_costs_for_problems(
     output_filepath, output_directory, problems
 ):
-    assert False
+    with open(os.path.join(output_directory, output_filepath), "r") as f:
+        output_json = json.load(f)
+        print(
+            f"Now in: mock_evaluate_motion_plans_and_costs_for_problems: from {os.path.join(output_directory, output_filepath)}"
+        )
+    for plan in output_json:
+        if plan["file_name"] in problems:
+            problem = problems[plan["file_name"]]
+            for plan_json in plan["motion_plans"]:
+                # This updates the evaluated PDDL task plans that succeeded.
+                problem.evaluated_motion_planner_results[(plan_json["goal"], plan_json['plan'])] = MotionPlanResult.from_json(plan_json)
+                
+    print(
+        f"After initialization, there are {len([p for p in problems if len(problems[p].evaluated_pddl_plans) > 0])} problems with plans."
+    )
 
 
 def evaluate_alfred_motion_plans_and_costs_for_problems(
@@ -414,7 +453,6 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
             last_failed_operator=last_failed_operator,
             last_failed_predicate=None,
         )
-
     return MotionPlanResult(
         pddl_plan=pddl_plan,
         task_success=simulator.goal_satisfied(gproblem.conjunctive_goal),

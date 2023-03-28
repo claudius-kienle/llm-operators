@@ -75,6 +75,24 @@ class Problem:
             ],
         }
 
+    def get_evaluated_motion_plan_json(self):
+        return {
+            "file_name": self.problem_id,
+            "motion_plans": [
+                {
+                    "goal": g,
+                    "plan": pddl_plan_string,
+                    "task_success": result.task_success,
+                    "last_failed_operator": result.last_failed_operator,
+                    "last_failed_predicate": result.last_failed_predicate,
+                }
+                for (
+                    (g, pddl_plan_string),
+                    result,
+                ) in self.evaluated_motion_planner_results.items()
+            ],
+        }
+
     def reset_evaluated_pddl_plans(self):
         self.evaluated_pddl_plans = defaultdict(set)
 

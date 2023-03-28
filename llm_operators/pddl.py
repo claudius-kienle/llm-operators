@@ -325,6 +325,7 @@ def update_pddl_domain_and_problem(
             # Score the operator for its own success.
             if (
                 motion_plan_result.task_success
+                or motion_plan_result.last_failed_operator is None
                 or operator_idx < motion_plan_result.last_failed_operator
             ):
 
@@ -375,7 +376,14 @@ def checkpoint_and_reset_plans(
             json.dump(output_json, f)
 
     # Checkpoint all of the motion plans regardless of whether they succeeded.
-    # Log the human readable motion planner results.
+    output_json = [
+        problems[problem_id].get_evaluated_motion_plan_json() for problem_id in problems
+    ]
+    output_filepath = f"{experiment_tag}motion_plans.json"
+    if output_directory:
+        with open(os.path.join(output_directory, output_filepath), "w") as f:
+            json.dump(output_json, f)
+    # Log the human readable motion planner results to a CSV.
     log_motion_planner_results(problems, command_args, output_directory)
 
     # Reset the plans.
