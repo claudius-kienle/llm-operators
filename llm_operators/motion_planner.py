@@ -70,13 +70,17 @@ def attempt_motion_plan_for_problem(
     output_filepath = f"{experiment_tag}motion_plans.json"
     if use_mock:
         try:
-            mock_evaluate_motion_plans_and_costs_for_problems(
+            unsolved_problems = mock_evaluate_motion_plans_and_costs_for_problems(
                 output_filepath, output_directory, problems
             )
-            if len(problems[problem_id].evaluated_motion_planner_results) > 0:
+            if (
+                problem_id in unsolved_problems
+                or len(problems[problem_id].evaluated_motion_planner_results) > 0
+            ):
+                print("Mock found for motion plan, continuing...")
                 return
             else:
-                print("Mock not found for task plan, continuing...")
+                print("Mock not found for motion plan, continuing...")
         except:
             print("Mock not found for task plan, continuing...")
     for pddl_goal in problems[problem_id].evaluated_pddl_plans:
@@ -158,6 +162,7 @@ def evaluate_motion_plans_and_costs_for_problems(
 def mock_evaluate_motion_plans_and_costs_for_problems(
     output_filepath, output_directory, problems
 ):
+    unsolved_problems = set()
     with open(os.path.join(output_directory, output_filepath), "r") as f:
         output_json = json.load(f)
         print(
@@ -166,13 +171,19 @@ def mock_evaluate_motion_plans_and_costs_for_problems(
     for plan in output_json:
         if plan["file_name"] in problems:
             problem = problems[plan["file_name"]]
+            if len(plan["motion_plans"]) == 0:
+                unsolved_problems.add(plan["file_name"])
+
             for plan_json in plan["motion_plans"]:
                 # This updates the evaluated PDDL task plans that succeeded.
-                problem.evaluated_motion_planner_results[(plan_json["goal"], plan_json['plan'])] = MotionPlanResult.from_json(plan_json)
-                
+                problem.evaluated_motion_planner_results[
+                    (plan_json["goal"], plan_json["plan"])
+                ] = MotionPlanResult.from_json(plan_json)
+
     print(
         f"After initialization, there are {len([p for p in problems if len(problems[p].evaluated_pddl_plans) > 0])} problems with plans."
     )
+    return unsolved_problems
 
 
 def evaluate_alfred_motion_plans_and_costs_for_problems(
@@ -192,13 +203,6 @@ def evaluate_alfred_motion_plans_and_costs_for_problems(
         else f"{command_args.experiment_name}_"
     )
     output_filepath = f"{experiment_tag}motion_plans.json"
-
-    if use_mock:
-        mock_alfred_motion_plans_and_costs_for_problems(
-            output_filepath, output_directory, problems
-        )
-        # Not implemented
-        assert False
 
     for max_problems, problem_id in enumerate(problems):
         for pddl_goal in problems[problem_id].evaluated_pddl_plans:
@@ -368,6 +372,7 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
     simulator.reset_from_state(gproblem.objects, gproblem.initial_state)
 
     last_failed_operator = None
+
     for i, action in enumerate(pddl_plan.plan):
         action_name = action[PDDLPlan.PDDL_ACTION]
         action_args = action[PDDLPlan.PDDL_ARGUMENTS]
@@ -387,6 +392,7 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
                 int(_find_string_start_with(action_args, "i", first=True)[1:]),
                 _find_string_start_with(action_args, "o", first=True),
             )
+        # TODO (@JiayuanMao, LCW) - skip this but raise error.
         elif action_name == "place-down":
             raise NotImplementedError()
         else:
