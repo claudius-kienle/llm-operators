@@ -92,13 +92,13 @@ def get_solved_unsolved_problems(problems):
     unsolved_problems = [
         problems[p]
         for p in problems
-        if not problems[p].best_evaluated_plan_at_iteration
+        if len(problems[p].solved_motion_plan_results) < 1
         and not problems[p].should_supervise_pddl
     ]
     solved_problems = [
         problems[p]
         for p in problems
-        if (problems[p].best_evaluated_plan_at_iteration)
+        if (len(problems[p].solved_motion_plan_results) > 0)
         or problems[p].should_supervise_pddl
     ]
     return unsolved_problems, solved_problems
@@ -276,10 +276,14 @@ def propose_operators_for_problems(
 
     # Get valid operators, and use a standardized operator mapping.
     if use_mock:
-        mock_propose_operators_for_problems(
-            output_filepath, proposed_operators, output_directory, current_domain
-        )
-        return
+        try:
+            mock_propose_operators_for_problems(
+                output_filepath, proposed_operators, output_directory, current_domain
+            )
+            return
+        except:
+            print("mock for propose_operators_for_problems not found, continuing.")
+            pass
     for o in proposed_operators:
         codex_prompt, proposed_operator_definitions = propose_operator_definition(
             current_domain,
@@ -495,13 +499,17 @@ def propose_plans_for_problems(
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
     output_filepath = f"{experiment_tag}codex_plans.json"
     if use_mock:
-        mock_propose_plans_for_problems(
-            output_filepath,
-            unsolved_problems,
-            output_directory,
-            experiment_name=experiment_name,
-        )
-        return
+        try:
+            mock_propose_plans_for_problems(
+                output_filepath,
+                unsolved_problems,
+                output_directory,
+                experiment_name=experiment_name,
+            )
+            return
+        except:
+            print("mock for propose_plans_for_problems not found, continuing.")
+            pass
     # Codex prompt header.
     nl_header = (
         ";;;; Given natural language goals, predict a sequence of PDDL actions.\n"

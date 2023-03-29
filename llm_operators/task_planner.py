@@ -20,6 +20,83 @@ TASK_PLANNER_FD = "task_planner_fd"
 TASK_PLANNER_PDSKETCH_ONTHEFLY = "task_planner_pdsketch_onthefly"
 
 
+def attempt_task_plan_for_problem(
+    pddl_domain,
+    problem_idx,
+    problem_id,
+    problems,
+    command_args,
+    verbose=False,
+    output_directory=None,
+    use_mock=False,
+    debug_skip=False,
+    proposed_operators: Optional[Sequence[str]] = None,
+    task_plan_with_constants=False,
+    plan_attempt_idx=0,
+    max_task_samples=4,
+):
+    """
+    Evaluates planner to evaluate task plans for a single planning problems, given a PDDL domain.
+    :ret: problem updated with PDDL plans.
+    """
+    if plan_attempt_idx == 0:
+        print(
+            f"task_planner.attempt_task_plan_for_problem: attempt {plan_attempt_idx} : {problem_idx} / {len(problems)}"
+        )
+    else:
+        print(
+            f"\ttask_planner.attempt_task_plan_for_problem: attempt {plan_attempt_idx}"
+        )
+    if debug_skip:
+        print("\t...debug_skip.")
+
+    experiment_tag = (
+        ""
+        if len(command_args.experiment_name) < 1
+        else f"{command_args.experiment_name}_"
+    )
+
+    output_filepath = f"{experiment_tag}task_plans.json"
+
+    if use_mock:
+        try:
+            unsolved_problems = mock_evaluate_task_plans_and_costs_for_problems(
+                output_filepath, output_directory, problems
+            )
+            if (
+                problem_id in unsolved_problems
+                or len(problems[problem_id].evaluated_pddl_plans) > 0
+            ):
+                print("Mock found for task plan, continuing...")
+                return
+            else:
+                print("Mock not found for task plan, continuing...")
+        except:
+            print("Mock not found for task plan, continuing...")
+
+    sample_operator_percent = 1.0 if plan_attempt_idx == 0 else 0.5
+    # Don't get any proposed operators with negative scores.
+    if proposed_operators is None:
+        proposed_operators = set()
+        for operator_name in pddl_domain.proposed_operators:
+            for operator_body in pddl_domain.proposed_operators[operator_name]:
+                if pddl_domain.operators_to_scores[(operator_name, operator_body)] >= 0:
+                    proposed_operators.add(operator_name)
+
+    print(f"\tsample_operator_percent: {sample_operator_percent}")
+    any_success, new_evaluated_plans, problem_json = sample_task_plans_for_problem(
+        pddl_domain=pddl_domain,
+        problem=problems[problem_id],
+        planner_type=command_args.planner,
+        verbose=verbose,
+        debug_ground_truth_goals=command_args.debug_ground_truth_goals,
+        proposed_operators=proposed_operators,
+        sample_operator_percent=sample_operator_percent,
+    )
+    if any_success:
+        problems[problem_id].update_evaluated_pddl_plans(new_evaluated_plans)
+
+
 def evaluate_task_plans_and_costs_for_problems(
     pddl_domain,
     problems,
@@ -33,7 +110,7 @@ def evaluate_task_plans_and_costs_for_problems(
     max_task_samples=4,
 ):
     """
-    Runs task planner to evaluate task plans for a set of planning problems, given a PDDL domain.
+    Batch evaluates planner to evaluate task plans for a set of planning problems, given a PDDL domain.
 
     For now, this just runs using the first operator definition.
     :ret: problems updated with PDDL plans.
@@ -60,10 +137,6 @@ def evaluate_task_plans_and_costs_for_problems(
 
     if verbose:
         print(f"Use ground truth goals? {command_args.debug_ground_truth_goals}")
-
-    # Set of proposed operators to work with when sampling task plans.
-    if proposed_operators is None:
-        proposed_operators = pddl_domain.proposed_operators.keys()
 
     total_solved_problems = 0
     for max_problems, problem_id in enumerate(problems):
@@ -100,6 +173,14 @@ def generate_random_proposed_operator_samples(
     ]
 
 
+def generate_random_proposed_operator_sample(proposed_operators, sample_percent=0.5):
+    if sample_percent == 1.0:
+        return proposed_operators
+    # Sample some percentage of the operator
+    num_to_sample = int(sample_percent * len(proposed_operators))
+    return random.sample(proposed_operators, num_to_sample)
+
+
 def sample_task_plans_for_problem(
     pddl_domain,
     problem,
@@ -107,10 +188,9 @@ def sample_task_plans_for_problem(
     verbose=False,
     debug_ground_truth_goals=False,
     proposed_operators: Optional[Sequence[str]] = None,
-    max_task_samples=4,
+    sample_operator_percent=1.0,
 ):
     """
-    Samples n=max_task_samples per goal based on PDDLDomain, problem, proposed_operators).
     Uses a task_planner to propose samples, so we attempt planning using random subsets of 
     proposed_operator set to get a diverse set of plans.
 
@@ -119,29 +199,28 @@ def sample_task_plans_for_problem(
     all_evaluated_plans: dict(goal : set(plans for this goal))
     overall_problem_json: serializable JSON format.
     """
+    if proposed_operators is None:
+        proposed_operators = pddl_domain.proposed_operators.keys()
 
     overall_problem_json = {"file_name": problem.problem_id, "plans": []}
     any_success = False
     all_evaluated_plans = defaultdict(set)
-    for sampled_proposed_operators in generate_random_proposed_operator_samples(
-        proposed_operators, max_task_samples - 2
-    ) + [[], proposed_operators]:
-        # If we've already succeeded, do not run with all proposed operators.
-        if len(sampled_proposed_operators) == len(proposed_operators) and any_success:
-            continue
-        else:
-            # First attempt to run the planner with all of the operators.
-            success, evaluated_plans, _ = run_planner(
-                pddl_domain=pddl_domain,
-                problem=problem,
-                planner_type=planner_type,
-                verbose=verbose,
-                debug_ground_truth_goals=debug_ground_truth_goals,
-                proposed_operators=sampled_proposed_operators,
-            )
-            any_success = any_success or success
-            for g in evaluated_plans:
-                all_evaluated_plans[g].add(evaluated_plans[g])
+
+    # Sample a set of operators to try. Don't sample any operators with negative scores.
+    sampled_proposed_operators = generate_random_proposed_operator_sample(
+        proposed_operators, sample_percent=sample_operator_percent
+    )
+    success, evaluated_plans, _ = run_planner(
+        pddl_domain=pddl_domain,
+        problem=problem,
+        planner_type=planner_type,
+        verbose=verbose,
+        debug_ground_truth_goals=debug_ground_truth_goals,
+        proposed_operators=sampled_proposed_operators,
+    )
+    any_success = any_success or success
+    for g in evaluated_plans:
+        all_evaluated_plans[g].add(evaluated_plans[g])
 
     for g in all_evaluated_plans:
         for pddl_plan in all_evaluated_plans[g]:
@@ -153,6 +232,7 @@ def sample_task_plans_for_problem(
 def mock_evaluate_task_plans_and_costs_for_problems(
     output_filepath, output_directory, problems
 ):
+    unsolved_problems = set()
     with open(os.path.join(output_directory, output_filepath), "r") as f:
         output_json = json.load(f)
         print(
@@ -161,6 +241,8 @@ def mock_evaluate_task_plans_and_costs_for_problems(
     for plan in output_json:
         if plan["file_name"] in problems:
             problem = problems[plan["file_name"]]
+            if len(plan["plans"]) == 0:
+                unsolved_problems.add(plan["file_name"])
             for plan_json in plan["plans"]:
                 # This updates the evaluated PDDL task plans that succeeded.
                 problem.evaluated_pddl_plans[plan_json["goal"]].add(
@@ -169,6 +251,7 @@ def mock_evaluate_task_plans_and_costs_for_problems(
     print(
         f"After initialization, there are {len([p for p in problems if len(problems[p].evaluated_pddl_plans) > 0])} problems with plans."
     )
+    return unsolved_problems
 
 
 def run_planner(
@@ -197,28 +280,32 @@ def run_planner(
         proposed_operators=proposed_operators,
         show_constants=(not problem.constants_in_problem_file),
     )
-    if verbose:
-        print(
-            f"Running planner with existing operators + {len(proposed_operators)} proposed operators: "
-        )
-        print(proposed_operators)
 
     if debug_ground_truth_goals:
         goals = [problem.ground_truth_pddl_problem.ground_truth_goal]
     else:
         goals = problem.proposed_pddl_goals
+    if len(goals) < 1:
+        print("\t...no goals, skipping.")
 
     any_success = False
     evaluated_plans = dict()
+
     for goal in goals:
+        if verbose:
+            print(
+                f"\tRunning planner with existing operators + {len(proposed_operators)} proposed operators: "
+            )
+            print(f"\t {pddl_domain.operators.keys()}")
+            print(f"\t {proposed_operators}")
         current_problem_string = problem.ground_truth_pddl_problem.get_pddl_string_with_proposed_goal(
             proposed_goal=goal
         )
         if verbose:
-            print("Ground truth goal: ")
-            print(problem.ground_truth_pddl_problem.ground_truth_goal)
-            print("Proposed goal:")
-            print(goal)
+            print("\t Ground truth goal: ")
+            print("\t" + problem.ground_truth_pddl_problem.ground_truth_goal)
+            print("\t Proposed goal:")
+            print("\t" + goal)
         if planner_type == TASK_PLANNER_FD:
             success, plan_string = fd_plan_from_strings(
                 domain_str=current_domain_string,
@@ -232,17 +319,14 @@ def run_planner(
         else:
             raise ValueError(f"Unknown planner type: {planner_type}")
         # Convert the planner into a plan object.
+        if verbose:
+            print(f"\tPlan success: {success}")
+            print(f"\t Plan string: {plan_string}")
         if success:
             pddl_plan = PDDLPlan(plan_string=plan_string, pddl_domain=pddl_domain)
             evaluated_plans[goal] = pddl_plan
-            if verbose:
-                print(plan_string)
             output_json["plans"].append({"goal": goal, "plan": pddl_plan.plan})
             any_success = True
-    if verbose:
-        print(
-            f"Found {len(evaluated_plans)}/{len(goals)} evaluated plans for proposed goals"
-        )
     return any_success, evaluated_plans, output_json
 
 
@@ -285,7 +369,6 @@ def pdsketch_onthefly_plan_from_strings(domain_str, problem_str, timeout=10):
     )
 
     gproblem = OnTheFlyGStripsProblem.from_domain_and_problem(domain, problem)
-
     from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_search
 
     plan = ogstrips_search(gproblem, timeout=timeout)
