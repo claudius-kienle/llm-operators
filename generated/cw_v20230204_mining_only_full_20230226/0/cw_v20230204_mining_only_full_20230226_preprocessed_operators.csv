@@ -33,7 +33,7 @@ mine-wood,"(:action mine-wood
   )
  )
 ","(:action mine-wood
-        :parameters (?targetinv - inventory ?target - object ?toolinv - inventory ?woodtool - object ?t - tile)
+        :parameters (?t - tile ?target - object ?targetinv - inventory ?woodtool - object ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)
@@ -85,7 +85,7 @@ mine-wool1,"(:action mine-wool1
   )
  )
 ","(:action mine-wool1
-        :parameters (?x - object ?tool - object ?targetinv - inventory ?target - object ?toolinv - inventory ?t - tile)
+        :parameters (?x - object ?t - tile ?tool - object ?target - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)
@@ -148,7 +148,7 @@ mine-sugar-cane,"(:action mine-sugar-cane
   )
  )
 ","(:action mine-sugar-cane
-        :parameters (?x - object ?tool - object ?targetinv - inventory ?t - tile ?target - object ?toolinv - inventory)
+        :parameters (?x - object ?t - tile ?tool - object ?target - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)
@@ -202,7 +202,7 @@ mine-potato,"(:action mine-potato
   )
  )
 ","(:action mine-potato
-        :parameters (?x - object ?tool - object ?targetinv - inventory ?t - tile ?target - object ?toolinv - inventory)
+        :parameters (?x - object ?t - tile ?tool - object ?target - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)
@@ -280,7 +280,7 @@ mine-sugar1,,"(:action mine-sugar1
   )
  )
 ","(:action mine-sugar1
-        :parameters (?x - object ?tool - object ?targetinv - inventory ?t - tile ?toolinv - inventory)
+        :parameters (?x - object ?t - tile ?tool - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)
@@ -335,7 +335,7 @@ mine-gold-ore,"(:action mine-gold-ore
   )
  )
 ","(:action mine-gold-ore
-        :parameters (?x - object ?tool - object ?targetinv - inventory ?target - object ?toolinv - inventory ?t - tile)
+        :parameters (?x - object ?t - tile ?tool - object ?target - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)
@@ -387,7 +387,7 @@ mine-beetroot,"(:action mine-beetroot
   )
  )
 ","(:action mine-beetroot
-        :parameters (?x - object ?tool - object ?targetinv - inventory ?target - object ?toolinv - inventory ?t - tile)
+        :parameters (?x - object ?t - tile ?tool - object ?target - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)
@@ -453,7 +453,7 @@ craft-stick,"(:action craft-stick
   :effect (and (not (inventory-empty ?targetinv)) (inventory-holding ?targetinv ?target))
  )
 ","(:action craft-stick
-        :parameters (?tool - object ?targetinv - inventory ?target - object ?toolinv - inventory ?t - tile)
+        :parameters (?t - tile ?tool - object ?target - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)
@@ -560,7 +560,7 @@ mine-cobblestone,"(:action mine-cobblestone
   )
  )
 ","(:action mine-cobblestone
-        :parameters (?x - object ?tool - object ?targetinv - inventory ?target - object ?toolinv - inventory ?t - tile)
+        :parameters (?x - object ?t - tile ?tool - object ?target - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(object-at ?x ?t)
@@ -615,7 +615,7 @@ mine-feather,"(:action mine-feather
   )
  )
 ","(:action mine-feather
-        :parameters (?x - object ?tool - object ?targetinv - inventory ?target - object ?toolinv - inventory ?t - tile)
+        :parameters (?x - object ?t - tile ?tool - object ?target - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)
@@ -680,7 +680,7 @@ up,,"(:action up
   :effect (and (agent-at ?t2) (not (agent-at ?t1)))
  )
 ","(:action up
-        :parameters (?t2 - tile ?t1 - tile)
+        :parameters (?t1 - tile ?t2 - tile)
 
         :precondition (and 
 		(agent-at ?t1)
@@ -697,7 +697,7 @@ down,,"(:action down
   :effect (and (agent-at ?t2) (not (agent-at ?t1)))
  )
 ","(:action down
-        :parameters (?t2 - tile ?t1 - tile)
+        :parameters (?t1 - tile ?t2 - tile)
 
         :precondition (and 
 		(agent-at ?t1)
@@ -727,7 +727,7 @@ mine-gold,,"(:action mine-gold
   )
  )
 ","(:action mine-gold
-        :parameters (?x - object ?tool - object ?targetinv - inventory ?target - object ?toolinv - inventory ?t - tile)
+        :parameters (?x - object ?t - tile ?tool - object ?target - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)
@@ -764,7 +764,7 @@ mine-cane,,"(:action mine-cane
   )
  )
 ","(:action mine-cane
-        :parameters (?x - object ?tool - object ?targetinv - inventory ?t - tile ?target - object ?toolinv - inventory)
+        :parameters (?x - object ?t - tile ?tool - object ?target - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)
@@ -801,7 +801,7 @@ mine-iron,,"(:action mine-iron
   )
  )
 ","(:action mine-iron
-        :parameters (?x - object ?tool - object ?targetinv - inventory ?target - object ?toolinv - inventory ?t - tile)
+        :parameters (?x - object ?t - tile ?tool - object ?target - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)
@@ -854,7 +854,7 @@ harvest-sugar-cane,,"(:action harvest-sugar-cane
   )
  )
 ","(:action harvest-sugar-cane
-        :parameters (?tf - tile ?wt - tile ?tool - object ?targetinv - inventory ?w - object ?target - object ?toolinv - inventory)
+        :parameters (?tool - object ?target - object ?tf - tile ?w - object ?targetinv - inventory ?wt - tile ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?wt)
@@ -892,7 +892,7 @@ mine-wool,,"(:action mine-wool
   )
  )
 ","(:action mine-wool
-        :parameters (?x - object ?tool - object ?targetinv - inventory ?target - object ?toolinv - inventory ?t - tile)
+        :parameters (?x - object ?t - tile ?tool - object ?target - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)
@@ -916,7 +916,7 @@ drive,,"(:action drive
   :effect (and (agent-at ?t))
  )
 ","(:action drive
-        :parameters (?car - object ?i - inventory ?t - tile)
+        :parameters (?i - inventory ?t - tile ?car - object)
 
         :precondition (and 
 		(agent-at ?t)
@@ -970,7 +970,7 @@ mine-iron-ore(i2, i3, o2, o13, Hypothetical, t11)
 pick-up(i1, o1, t10)
 move-right(t18, t19)
 move-up(t19, t","(:action mine-potato1
-        :parameters (?x - object ?tool - object ?targetinv - inventory ?t - tile ?target - object ?toolinv - inventory)
+        :parameters (?x - object ?t - tile ?tool - object ?target - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)
@@ -1007,7 +1007,7 @@ harvest-beetroot,,"(:action harvest-beetroot
   )
  )
 ","(:action harvest-beetroot
-        :parameters (?x - object ?tool - object ?targetinv - inventory ?target - object ?toolinv - inventory ?t - tile)
+        :parameters (?x - object ?t - tile ?tool - object ?target - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)
@@ -1038,7 +1038,7 @@ crave-wood,,"(:action crave-wood
   )
  )
 ","(:action crave-wood
-        :parameters (?i5 - inventory ?i3 - inventory ?t5 - tile ?x4 - object)
+        :parameters (?t5 - tile ?x4 - object ?i5 - inventory ?i3 - inventory)
 
         :precondition (and 
 		(agent-at ?t5)
@@ -1069,7 +1069,7 @@ mine-potatoes,,"(:action mine-potatoes
   )
  )
 ","(:action mine-potatoes
-        :parameters (?x - object ?tool - object ?targetinv - inventory ?t - tile ?target - object ?toolinv - inventory)
+        :parameters (?x - object ?t - tile ?tool - object ?target - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)
@@ -1106,7 +1106,7 @@ mine-iron-ore2,,"(:action mine-iron-ore2
   )
  )
 ","(:action mine-iron-ore2
-        :parameters (?x - object ?tool - object ?targetinv - inventory ?target - object ?toolinv - inventory ?t - tile)
+        :parameters (?x - object ?t - tile ?tool - object ?target - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)
@@ -1188,7 +1188,7 @@ mine-gold-ore1,,"(:action mine-gold-ore1
   )
  )
 ","(:action mine-gold-ore1
-        :parameters (?x - object ?tool - object ?targetinv - inventory ?target - object ?toolinv - inventory ?t - tile)
+        :parameters (?x - object ?t - tile ?tool - object ?target - object ?targetinv - inventory ?toolinv - inventory)
 
         :precondition (and 
 		(agent-at ?t)

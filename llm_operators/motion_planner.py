@@ -82,7 +82,7 @@ def attempt_motion_plan_for_problem(
             else:
                 print("Mock not found for motion plan, continuing...")
         except:
-            print("Mock not found for task plan, continuing...")
+            print("Mock not found for motion plan, continuing...")
     for pddl_goal in problems[problem_id].evaluated_pddl_plans:
         for pddl_plan in problems[problem_id].evaluated_pddl_plans[pddl_goal]:
             if "alfred" in dataset_name:
