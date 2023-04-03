@@ -392,9 +392,12 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
                 int(_find_string_start_with(action_args, "i", first=True)[1:]),
                 _find_string_start_with(action_args, "o", first=True),
             )
-        # TODO (@JiayuanMao, LCW) - skip this but raise error.
         elif action_name == "place-down":
-            raise NotImplementedError()
+            if verbose:
+                print("place-down")
+            simulator.place_down(
+                int(_find_string_start_with(action_args, "i", first=True)[1:]),
+            )
         else:
             # Trying mining.
             inventory_indices = [

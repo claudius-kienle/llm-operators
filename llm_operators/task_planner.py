@@ -191,10 +191,10 @@ def sample_task_plans_for_problem(
     sample_operator_percent=1.0,
 ):
     """
-    Uses a task_planner to propose samples, so we attempt planning using random subsets of 
+    Uses a task_planner to propose samples, so we attempt planning using random subsets of
     proposed_operator set to get a diverse set of plans.
 
-    :ret: 
+    :ret:
     any_success - whether any of the task plans succeeded.
     all_evaluated_plans: dict(goal : set(plans for this goal))
     overall_problem_json: serializable JSON format.
