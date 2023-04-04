@@ -9,7 +9,6 @@ import json
 import random
 from tempfile import NamedTemporaryFile
 from typing import Optional, Sequence
-import copy
 
 from pddlgym_planners.fd import FD
 from pddlgym_planners.planner import PlanningFailure, PlanningTimeout
@@ -18,6 +17,8 @@ from llm_operators.pddl import PDDLPlan
 
 TASK_PLANNER_FD = "task_planner_fd"
 TASK_PLANNER_PDSKETCH_ONTHEFLY = "task_planner_pdsketch_onthefly"
+TASK_PLANNER_PDSKETCH_ONTHEFLY_HMAX = "task_planner_pdsketch_onthefly_hmax"
+TASK_PLANNER_PDSKETCH_ONTHEFLY_HFF = "task_planner_pdsketch_onthefly_hff"
 
 
 def attempt_task_plan_for_problem(
@@ -316,6 +317,18 @@ def run_planner(
             success, plan_string = pdsketch_onthefly_plan_from_strings(
                 domain_str=current_domain_string, problem_str=current_problem_string
             )
+        elif planner_type == TASK_PLANNER_PDSKETCH_ONTHEFLY_HMAX:
+            success, plan_string = pdsketch_onthefly_plan_from_strings(
+                domain_str=current_domain_string,
+                problem_str=current_problem_string,
+                heuristic="hmax",
+            )
+        elif planner_type == TASK_PLANNER_PDSKETCH_ONTHEFLY_HFF:
+            success, plan_string = pdsketch_onthefly_plan_from_strings(
+                domain_str=current_domain_string,
+                problem_str=current_problem_string,
+                heuristic="hff",
+            )
         else:
             raise ValueError(f"Unknown planner type: {planner_type}")
         # Convert the planner into a plan object.
@@ -358,7 +371,7 @@ def fd_plan_from_file(domain_fname, problem_fname, timeout=5):
     return True, plan_string
 
 
-def pdsketch_onthefly_plan_from_strings(domain_str, problem_str, timeout=10):
+def pdsketch_onthefly_plan_from_strings(domain_str, problem_str, timeout=10, heuristic=None):
     import concepts.pdsketch as pds
 
     domain = pds.load_domain_string(domain_str)
@@ -369,9 +382,27 @@ def pdsketch_onthefly_plan_from_strings(domain_str, problem_str, timeout=10):
     )
 
     gproblem = OnTheFlyGStripsProblem.from_domain_and_problem(domain, problem)
-    from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_search
+    # import ipdb; ipdb.set_trace()
 
-    plan = ogstrips_search(gproblem, timeout=timeout)
+    if heuristic is None:
+        from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_search
+        plan = ogstrips_search(gproblem, timeout=timeout)
+    elif heuristic == 'hmax':
+        from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_search_with_heuristics
+        # plan = ['move-right(t1, t2)', 'move-right(t2, t3)', 'move-right(t3, t4)', 'move-right(t4, t5)', 'move-right(t5, t6)', 'move-right(t6, t7)', 'move-right(t7, t8)', 'move-right(t8, t9)', 'pick-up(t9, o5, i2)', 'move-right(t9, t10)', 'harvest-sugar-cane(i3, t10, t0, o5, o10, i2, o17)']
+        # canonized_plan = list()
+        # for action in plan:
+        #     action_name = action.split('(')[0]
+        #     action_args = action.split('(')[1].split(')')[0].split(', ')
+        #     operator = gproblem.operators[action_name]
+        #     canonized_plan.append((operator, {arg.name: value for arg, value in zip(operator.arguments, action_args)}))
+        # plan = ogstrips_search_with_heuristics(gproblem, initial_actions=canonized_plan, timeout=timeout, hfunc_name='hmax', verbose=True, hfunc_verbose=True)
+        plan = ogstrips_search_with_heuristics(gproblem, timeout=timeout, hfunc_name='hmax', g_weight=0.5)
+    elif heuristic == 'hff':
+        from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_search_with_heuristics
+        plan = ogstrips_search_with_heuristics(gproblem, timeout=timeout, hfunc_name='hff', g_weight=0)
+    else:
+        raise ValueError(f"Unknown heuristic: {heuristic}")
 
     if plan is None:
         return False, None
@@ -379,4 +410,20 @@ def pdsketch_onthefly_plan_from_strings(domain_str, problem_str, timeout=10):
         True,
         "\n".join([op.to_applier_pddl_str(arguments) for op, arguments in plan]),
     )
+
+
+def pdsketch_onthefly_verify_plan_from_strings(domain_str, problem_str, plan):
+    import concepts.pdsketch as pds
+
+    domain = pds.load_domain_string(domain_str)
+    problem = pds.load_problem_string(problem_str, domain, return_tensor_state=False)
+
+    from concepts.pdsketch.strips.strips_grounding_onthefly import (
+        OnTheFlyGStripsProblem,
+    )
+
+    gproblem = OnTheFlyGStripsProblem.from_domain_and_problem(domain, problem)
+
+    from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_verify
+    ogstrips_verify(gproblem, [action.lower() for action in plan], from_fast_downward=True)
 
