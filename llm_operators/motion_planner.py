@@ -385,6 +385,10 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
             if verbose:
                 print("move-left")
             simulator.move_left()
+        elif action_name == 'move-to':
+            if verbose:
+                print("move-to")
+            simulator.move_to(int(action_args[1][1:]))
         elif action_name == "pick-up":
             if verbose:
                 print("pick-up")

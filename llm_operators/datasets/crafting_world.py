@@ -14,12 +14,26 @@ from llm_operators.datasets.crafting_world_gen.crafting_world_rules import MININ
 CRAFTING_WORLD_PDDL_DOMAIN_NAME = 'crafting_world'
 CRAFTING_WORLD_PDDL_DOMAIN_FILE = 'data/domains/crafting_world/domain.pddl'
 
+CRAFTING_WOLRD_TELEPORT_DOMAIN_NAME = 'crafting_world_teleport'
+CRAFTING_WOLRD_TELEPORT_DOMAIN_FILE = 'data/domains/crafting_world_teleport/domain.pddl'
+
 
 @register_planning_pddl_domain(CRAFTING_WORLD_PDDL_DOMAIN_NAME)
 def load_crafting_world_pddl_domain(verbose=False):
     domain = load_pddl_file_with_operators(
         domain_name=CRAFTING_WORLD_PDDL_DOMAIN_NAME,
         file_path=CRAFTING_WORLD_PDDL_DOMAIN_FILE,
+        verbose=verbose,
+    )
+    domain.codex_types = CRAFTING_WORLD_CODEX_TYPES
+    return domain
+
+
+@register_planning_pddl_domain(CRAFTING_WOLRD_TELEPORT_DOMAIN_NAME)
+def load_crafting_world_teleport_pddl_domain(verbose=False):
+    domain = load_pddl_file_with_operators(
+        domain_name=CRAFTING_WOLRD_TELEPORT_DOMAIN_NAME,
+        file_path=CRAFTING_WOLRD_TELEPORT_DOMAIN_FILE,
         verbose=verbose,
     )
     domain.codex_types = CRAFTING_WORLD_CODEX_TYPES
@@ -99,6 +113,9 @@ class CraftingWorld20230204Simulator(object):
         for obj_name, obj_type in state['object-of-type']:
             if obj_type == 'Hypothetical':
                 self.hypothetical.add(obj_name)
+
+    def move_to(self, pos):
+        self.agent_pos = max(1, min(self.nr_grids, pos))
 
     def move_left(self):
         self.agent_pos = max(1, self.agent_pos - 1)

@@ -1,5 +1,5 @@
 (define
- (domain crafting-world-v20230106)
+ (domain crafting-world-v20230404)
  (:requirements :strips)
  (:types
    tile
@@ -8,9 +8,9 @@
    object-type
  )
  (:predicates
-   (tile-up ?t1 - tile ?t2 - tile)  ;; t2 is up of t1
-   (tile-down ?t1 - tile ?t2 - tile)  ;; t2 is down of t1
-   (tile-left ?t1 - tile ?t2 - tile)  ;; t2 is left of t1
+   (tile-up ?t1 - tile ?t2 - tile)     ;; t2 is up of t1
+   (tile-down ?t1 - tile ?t2 - tile)   ;; t2 is down of t1
+   (tile-left ?t1 - tile ?t2 - tile)   ;; t2 is left of t1
    (tile-right ?t1 - tile ?t2 - tile)  ;; t2 is right of t1
 
    (agent-at ?t - tile)
@@ -68,24 +68,9 @@
   Hypothetical - object-type
   Trash - object-type
  )
- (:action move-up
+ (:action move-to
   :parameters (?t1 - tile ?t2 - tile)
-  :precondition (and (agent-at ?t1) (tile-up ?t1 ?t2))
-  :effect (and (agent-at ?t2) (not (agent-at ?t1)))
- )
- (:action move-down
-  :parameters (?t1 - tile ?t2 - tile)
-  :precondition (and (agent-at ?t1) (tile-down ?t1 ?t2))
-  :effect (and (agent-at ?t2) (not (agent-at ?t1)))
- )
- (:action move-left
-  :parameters (?t1 - tile ?t2 - tile)
-  :precondition (and (agent-at ?t1) (tile-left ?t1 ?t2))
-  :effect (and (agent-at ?t2) (not (agent-at ?t1)))
- )
- (:action move-right
-  :parameters (?t1 - tile ?t2 - tile)
-  :precondition (and (agent-at ?t1) (tile-right ?t1 ?t2))
+  :precondition (and (agent-at ?t1))
   :effect (and (agent-at ?t2) (not (agent-at ?t1)))
  )
  (:action pick-up
