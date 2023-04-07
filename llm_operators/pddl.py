@@ -892,6 +892,9 @@ class PDDLPredicate:
         self.argument_is_ground = argument_is_ground
         self.static = False
 
+    def mark_static(self, static = True):
+        self.static = static
+
     def to_json(self):
         return {
             PDDLPredicate.PDDL_PREDICATE_NAME: self.name,
@@ -1321,6 +1324,7 @@ def parse_operator_components(operator_body, pddl_domain):
             pddl_domain.ground_truth_predicates,
             pddl_domain.ground_truth_constants,
             allow_partial_ground_predicates=allow_partial_ground_predicates,
+            check_static=True
         )
         if not effect_parameters:
             return False, ""
@@ -1384,6 +1388,7 @@ def preprocess_operator(
             pddl_domain.ground_truth_predicates,
             pddl_domain.ground_truth_constants,
             allow_partial_ground_predicates=allow_partial_ground_predicates,
+            check_static=True
         )
         if not effect_parameters:
             return False, ""
@@ -1428,8 +1433,26 @@ def preprocess_conjunction_predicates(
     ground_truth_predicates,
     ground_truth_constants,
     allow_partial_ground_predicates=False,
+    check_static=False,
     debug=False,
 ):
+    """Parse a conjunction of predicates.
+
+    Args:
+        conjunction_predicates (str): The conjunction of predicates.
+        ground_truth_predicates (Dict[str, PDDLPredicate]): The ground truth predicates.
+        ground_truth_constants (Dict[str, str]): The ground truth constants, mapping from name to type.
+        allow_partial_ground_predicates (bool): Whether to allow constants.
+        check_static (bool): Whether to constraint that the predicates are not static (useful for effect predicates).
+        debug (bool): Whether to print debug information.
+
+    Returns:
+        Tuple[Dict[str, str], List[str], List[PDDLPredicate]]:
+            the parameters: mapping from parameter name to type,
+            the processed predicates: a list of strings, each string is a processed predicate,
+            the predicate names: a list of predicates, not used in the current implementation.
+    """
+
     if conjunction_predicates.strip() == "()":
         return False, [], []
     patt = r"\(and(.*)\)"
@@ -1475,9 +1498,10 @@ def preprocess_conjunction_predicates(
             != ground_truth_predicates[parsed_predicate.name].arguments
         ):
             continue
-        elif ground_truth_predicates[parsed_predicate.name].static:
-            continue
         else:
+            if check_static and ground_truth_predicates[parsed_predicate.name].static:
+                continue
+
             valid = True
             # NB(Jiayuan Mao @ 2023/04/07): if the new predicate is not valid, we restore the original parameters.
             parameters_backup = parameters.copy()

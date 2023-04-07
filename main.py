@@ -129,6 +129,7 @@ parser.add_argument(
     help="Location of the directory for writing outputs.",
 )
 parser.add_argument("--verbose", action="store_true", help="Run on verbose.")
+parser.add_argument('--debug_export_failed_pddl', type=str, default=None, help='Export failed PDDL problems to this directory.')
 parser.add_argument(
     "--debug_no_propose_plans_operators_goals",
     action="store_true",

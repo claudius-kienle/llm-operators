@@ -74,6 +74,9 @@ def load_alfred_linearized_pddl_domain(verbose=False):
     }
     domain.add_additional_constants(ALFRED_LINEARIZED_CODEX_TYPES)
     domain.codex_types = ALFRED_LINEARIZED_CODEX_TYPES
+
+    for predicate in ['receptacleType', 'objectType']:
+        domain.ground_truth_predicates[predicate].mark_static()
     return domain
 
 

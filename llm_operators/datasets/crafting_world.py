@@ -14,8 +14,12 @@ from llm_operators.datasets.crafting_world_gen.crafting_world_rules import MININ
 CRAFTING_WORLD_PDDL_DOMAIN_NAME = 'crafting_world'
 CRAFTING_WORLD_PDDL_DOMAIN_FILE = 'data/domains/crafting_world/domain.pddl'
 
-CRAFTING_WOLRD_TELEPORT_DOMAIN_NAME = 'crafting_world_teleport'
-CRAFTING_WOLRD_TELEPORT_DOMAIN_FILE = 'data/domains/crafting_world_teleport/domain.pddl'
+CRAFTING_WORLD_TELEPORT_DOMAIN_NAME = 'crafting_world_teleport'
+CRAFTING_WORLD_TELEPORT_DOMAIN_FILE = 'data/domains/crafting_world_teleport/domain.pddl'
+
+CRAFTING_WORLD_STATIC_PREDICATES = [
+    'tile-up', 'tile-down', 'tile-left', 'tile-right',
+]
 
 
 @register_planning_pddl_domain(CRAFTING_WORLD_PDDL_DOMAIN_NAME)
@@ -25,17 +29,21 @@ def load_crafting_world_pddl_domain(verbose=False):
         file_path=CRAFTING_WORLD_PDDL_DOMAIN_FILE,
         verbose=verbose,
     )
+    for predicate in CRAFTING_WORLD_STATIC_PREDICATES:
+        domain.ground_truth_predicates[predicate].mark_static()
     domain.codex_types = CRAFTING_WORLD_CODEX_TYPES
     return domain
 
 
-@register_planning_pddl_domain(CRAFTING_WOLRD_TELEPORT_DOMAIN_NAME)
+@register_planning_pddl_domain(CRAFTING_WORLD_TELEPORT_DOMAIN_NAME)
 def load_crafting_world_teleport_pddl_domain(verbose=False):
     domain = load_pddl_file_with_operators(
-        domain_name=CRAFTING_WOLRD_TELEPORT_DOMAIN_NAME,
-        file_path=CRAFTING_WOLRD_TELEPORT_DOMAIN_FILE,
+        domain_name=CRAFTING_WORLD_TELEPORT_DOMAIN_NAME,
+        file_path=CRAFTING_WORLD_TELEPORT_DOMAIN_FILE,
         verbose=verbose,
     )
+    for predicate in CRAFTING_WORLD_STATIC_PREDICATES:
+        domain.ground_truth_predicates[predicate].mark_static()
     domain.codex_types = CRAFTING_WORLD_CODEX_TYPES
     return domain
 
