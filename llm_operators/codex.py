@@ -45,7 +45,7 @@ def get_completions(
     n_samples: int = 1,
     temperature: float = 0.1,
     max_tokens: int = 256,  # Max tokens for completion only.
-    engine: str = "code-davinci-002",
+    engine: str = "code-davinci-002", # Add ChatGPT-3, GPT4, etc
     stop: str = STOP_TOKEN,
     top_p=1,
     logprobs=None,
@@ -62,19 +62,33 @@ def get_completions(
             time.sleep(rate_limit_seconds)
             rate_limit_seconds *= 2  # Exponential backoff
         try:
-            completion = openai.Completion.create(
-                engine=engine,
-                prompt=prompt,
-                temperature=temperature if top_p is None else 1.0,
-                top_p=top_p if temperature is None else 1.0,
-                n=n_samples,
-                stop=stop,
-                frequency_penalty=0,
-                presence_penalty=0,
-                max_tokens=max_tokens,
-                logprobs=logprobs,
-            )
-            return [c["text"] for c in completion["choices"]]
+            if engine == "code-davinci-002":
+                completion = openai.Completion.create(
+                    engine=engine,
+                    prompt=prompt,
+                    temperature=temperature if top_p is None else 1.0,
+                    top_p=top_p if temperature is None else 1.0,
+                    n=n_samples,
+                    stop=stop,
+                    frequency_penalty=0,
+                    presence_penalty=0,
+                    max_tokens=max_tokens,
+                    logprobs=logprobs,
+                )
+                return [c["text"] for c in completion["choices"]]
+            elif engine == "gpt-3.5-turbo":
+                completion = openai.ChatCompletion.create(
+                    model="gpt-3.5-turbo",
+                    messages=[{"role": "user", 
+                    "content": prompt}])
+                return [c["text"] for c in completion["choices"]]
+            elif engine == "gpt-4":
+                completion = openai.ChatCompletion.create(
+                    model="gpt-4",
+                    messages=[{"role": "user", 
+                    "content": prompt}])
+                return [c["text"] for c in completion["choices"]]
+                
         except InvalidRequestError as e:
             print(e)
             return e
