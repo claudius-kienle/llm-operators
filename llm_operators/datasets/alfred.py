@@ -72,6 +72,7 @@ def load_alfred_linearized_pddl_domain(verbose=False):
         "PutObjectInReceptacle": "PutObject",
         "PutReceptacleObjectInReceptacle": "PutObject",
     }
+    domain.add_additional_constants(ALFRED_LINEARIZED_CODEX_TYPES)
     domain.codex_types = ALFRED_LINEARIZED_CODEX_TYPES
     return domain
 

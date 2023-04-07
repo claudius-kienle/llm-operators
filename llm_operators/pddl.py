@@ -24,7 +24,6 @@ class Domain:
         predicates=None,
         operators=None,
         functions=None,
-        additional_constant_string: str = "",
     ):
         self.pddl_domain = self.init_pddl_domain(pddl_domain)
 
@@ -41,7 +40,6 @@ class Domain:
             self.pddl_domain
         )
         self.ground_truth_constants = PDDLParser._parse_constants(self.constants[len('(:constants'):-1])
-        self.ground_truth_constants.update(PDDLParser._parse_constants(additional_constant_string))
 
         # One or more proposed predicates.
         self.proposed_predicates = []
@@ -57,6 +55,9 @@ class Domain:
 
         # Additional object types necessary to prompt codex.
         self.codex_types = ""
+
+    def add_additional_constants(self, additional_constant_string):
+        self.ground_truth_constants.update(PDDLParser._parse_constants(additional_constant_string))
 
     def init_pddl_domain(self, pddl_domain):
         if pddl_domain is not None:
