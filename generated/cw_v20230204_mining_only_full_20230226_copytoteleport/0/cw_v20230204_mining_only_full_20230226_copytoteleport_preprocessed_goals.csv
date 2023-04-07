@@ -12,8 +12,7 @@ train_4,Mine sugar cane from the map.,"(:goal (and
    (object-of-type o17 SugarCane)
  ))",['\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 SugarCanes)\n ))\n'],"(:goal
 	(and 
-		(inventory-holding i3 o17)
-		(object-of-type o17 SugarCanes))
+		(inventory-holding i3 o17))
 )"
 train_5,Mine potato from the map.,"(:goal (and
    (inventory-holding i3 o17)
@@ -108,16 +107,14 @@ train_16,Mine iron ore from the map.,"(:goal (and
    (object-of-type o17 IronOre)
  ))",['\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Charcoal)\n ))\n'],"(:goal
 	(and 
-		(inventory-holding i3 o17)
-		(object-of-type o17 Charcoal))
+		(inventory-holding i3 o17))
 )"
 train_17,Mine iron ore from the map.,"(:goal (and
    (inventory-holding i3 o17)
    (object-of-type o17 IronOre)
  ))",['\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Charcoal)\n ))\n'],"(:goal
 	(and 
-		(inventory-holding i3 o17)
-		(object-of-type o17 Charcoal))
+		(inventory-holding i3 o17))
 )"
 train_18,Mine iron ore from the map.,"(:goal (and
    (inventory-holding i3 o17)
@@ -156,8 +153,7 @@ train_22,Mine wood from the map.,"(:goal (and
    (object-of-type o17 Wood)
  ))",['\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 WoodLog)\n ))\n'],"(:goal
 	(and 
-		(inventory-holding i3 o17)
-		(object-of-type o17 WoodLog))
+		(inventory-holding i3 o17))
 )"
 train_23,Mine wool from the map.,"(:goal (and
    (inventory-holding i3 o17)
@@ -244,8 +240,7 @@ train_33,Mine wool from the map.,"(:goal (and
    (object-of-type o17 Wool)
  ))",['\n\n;; PDDL Goal: \n(:goal\n        (and\n            (inventory-holding i3 o17)\n            (object-of-type o17 wool)\n        )\n    )\n'],"(:goal
 	(and 
-		(inventory-holding i3 o17)
-		(object-of-type o17 wool))
+		(inventory-holding i3 o17))
 )"
 train_34,Mine potato from the map.,"(:goal (and
    (inventory-holding i3 o17)
@@ -356,8 +351,7 @@ train_47,Mine coal from the map.,"(:goal (and
    (object-of-type o17 Coal)
  ))",['\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 CoalOre)\n ))\n'],"(:goal
 	(and 
-		(inventory-holding i3 o17)
-		(object-of-type o17 CoalOre))
+		(inventory-holding i3 o17))
 )"
 train_48,Mine potato from the map.,"(:goal (and
    (inventory-holding i3 o17)
@@ -404,8 +398,7 @@ train_53,Mine beetroot from the map.,"(:goal (and
    (object-of-type o17 Beetroot)
  ))",['\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 BeetrootSeeds)\n ))\n'],"(:goal
 	(and 
-		(inventory-holding i3 o17)
-		(object-of-type o17 BeetrootSeeds))
+		(inventory-holding i3 o17))
 )"
 train_54,Mine wool from the map.,"(:goal (and
    (inventory-holding i3 o17)
@@ -428,8 +421,7 @@ train_56,Mine wool from the map.,"(:goal (and
    (object-of-type o17 Wool)
  ))",['\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Grass)\n ))\n'],"(:goal
 	(and 
-		(inventory-holding i3 o17)
-		(object-of-type o17 Grass))
+		(inventory-holding i3 o17))
 )"
 train_57,Mine feather from the map.,"(:goal (and
    (inventory-holding i3 o17)
@@ -524,8 +516,7 @@ train_68,Mine iron ore from the map.,"(:goal (and
    (object-of-type o17 IronOre)
  ))",['\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Diamond)\n ))\n'],"(:goal
 	(and 
-		(inventory-holding i3 o17)
-		(object-of-type o17 Diamond))
+		(inventory-holding i3 o17))
 )"
 train_69,Mine potato from the map.,"(:goal (and
    (inventory-holding i3 o17)
@@ -718,16 +709,14 @@ train_92,Mine beetroot from the map.,"(:goal (and
    (object-of-type o17 Beetroot)
  ))",['\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 Beets)\n ))\n'],"(:goal
 	(and 
-		(inventory-holding i3 o17)
-		(object-of-type o17 Beets))
+		(inventory-holding i3 o17))
 )"
 train_93,Mine beetroot from the map.,"(:goal (and
    (inventory-holding i3 o17)
    (object-of-type o17 Beetroot)
  ))",['\n\n;; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o17)\n   (object-of-type o17 BeetrootSeeds)\n ))\n'],"(:goal
 	(and 
-		(inventory-holding i3 o17)
-		(object-of-type o17 BeetrootSeeds))
+		(inventory-holding i3 o17))
 )"
 train_94,Mine potato from the map.,"(:goal (and
    (inventory-holding i3 o17)
