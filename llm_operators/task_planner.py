@@ -3,10 +3,11 @@ task_planner.py
 Utilities for generating task level plans.
 """
 
-from collections import defaultdict
 import os
+import os.path as osp
 import json
 import random
+from collections import defaultdict
 from tempfile import NamedTemporaryFile
 from typing import Optional, Sequence
 
@@ -76,6 +77,7 @@ def attempt_task_plan_for_problem(
             print("Mock not found for task plan, continuing...")
 
     sample_operator_percent = 1.0 if plan_attempt_idx == 0 else 0.5
+
     # Don't get any proposed operators with negative scores.
     if proposed_operators is None:
         proposed_operators = set()
@@ -83,6 +85,15 @@ def attempt_task_plan_for_problem(
             for operator_body in pddl_domain.proposed_operators[operator_name]:
                 if pddl_domain.operators_to_scores[(operator_name, operator_body)] >= 0:
                     proposed_operators.add(operator_name)
+
+    if command_args.debug_export_failed_pddl:
+        # NB(Jiayuan Mao @ 2023/04/07): do a bit of hack here, because we don't have access to "current_iteration" here.
+        debug_export_dir = os.path.join(
+            command_args.debug_export_failed_pddl, osp.basename(output_directory),
+            f'problem_{problem_idx}_attempt_{plan_attempt_idx}'
+        )
+    else:
+        debug_export_dir = None
 
     print(f"\tsample_operator_percent: {sample_operator_percent}")
     any_success, new_evaluated_plans, problem_json = sample_task_plans_for_problem(
@@ -93,6 +104,7 @@ def attempt_task_plan_for_problem(
         debug_ground_truth_goals=command_args.debug_ground_truth_goals,
         proposed_operators=proposed_operators,
         sample_operator_percent=sample_operator_percent,
+        debug_export_dir=debug_export_dir,
     )
     if any_success:
         problems[problem_id].update_evaluated_pddl_plans(new_evaluated_plans)
@@ -190,6 +202,7 @@ def sample_task_plans_for_problem(
     debug_ground_truth_goals=False,
     proposed_operators: Optional[Sequence[str]] = None,
     sample_operator_percent=1.0,
+    debug_export_dir=None,
 ):
     """
     Uses a task_planner to propose samples, so we attempt planning using random subsets of
@@ -218,6 +231,7 @@ def sample_task_plans_for_problem(
         verbose=verbose,
         debug_ground_truth_goals=debug_ground_truth_goals,
         proposed_operators=sampled_proposed_operators,
+        debug_export_dir=debug_export_dir,
     )
     any_success = any_success or success
     for g in evaluated_plans:
@@ -262,6 +276,7 @@ def run_planner(
     verbose=False,
     debug_ground_truth_goals=False,
     proposed_operators: Optional[Sequence[str]] = None,
+    debug_export_dir=None,
 ):
     """
     pddl_domain: Domain object.
@@ -292,7 +307,7 @@ def run_planner(
     any_success = False
     evaluated_plans = dict()
 
-    for goal in goals:
+    for goal_index, goal in enumerate(goals):
         if verbose:
             print(
                 f"\tRunning planner with existing operators + {len(proposed_operators)} proposed operators: "
@@ -340,6 +355,15 @@ def run_planner(
             evaluated_plans[goal] = pddl_plan
             output_json["plans"].append({"goal": goal, "plan": pddl_plan.plan})
             any_success = True
+        else:
+            if debug_export_dir is not None:
+                os.makedirs(debug_export_dir, exist_ok=True)
+                with open(osp.join(debug_export_dir, f"goal_{goal_index}_domain.pddl"), "w") as f:
+                    f.write(current_domain_string)
+                with open(osp.join(debug_export_dir, f"goal_{goal_index}_problem.pddl"), "w") as f:
+                    f.write(current_problem_string)
+                print(f"Exported domain and problem to {debug_export_dir}")
+
     return any_success, evaluated_plans, output_json
 
 
@@ -386,16 +410,12 @@ def pdsketch_onthefly_plan_from_strings(domain_str, problem_str, timeout=10, heu
 
     if heuristic is None:
         from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_search
-        plan = ogstrips_search(gproblem, timeout=timeout)
+        plan = ogstrips_search(gproblem, timeout=timeout, initial_actions=[
+        ])
     elif heuristic == 'hmax':
         from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_search_with_heuristics
         # plan = ['move-right(t1, t2)', 'move-right(t2, t3)', 'move-right(t3, t4)', 'move-right(t4, t5)', 'move-right(t5, t6)', 'move-right(t6, t7)', 'move-right(t7, t8)', 'move-right(t8, t9)', 'pick-up(t9, o5, i2)', 'move-right(t9, t10)', 'harvest-sugar-cane(i3, t10, t0, o5, o10, i2, o17)']
-        # canonized_plan = list()
-        # for action in plan:
-        #     action_name = action.split('(')[0]
-        #     action_args = action.split('(')[1].split(')')[0].split(', ')
-        #     operator = gproblem.operators[action_name]
-        #     canonized_plan.append((operator, {arg.name: value for arg, value in zip(operator.arguments, action_args)}))
+        # canonized_plan = _pdsketch_get_canonized_plan(gproblem, plan)
         # plan = ogstrips_search_with_heuristics(gproblem, initial_actions=canonized_plan, timeout=timeout, hfunc_name='hmax', verbose=True, hfunc_verbose=True)
         plan = ogstrips_search_with_heuristics(gproblem, timeout=timeout, hfunc_name='hmax', g_weight=0.5)
     elif heuristic == 'hff':
@@ -426,4 +446,15 @@ def pdsketch_onthefly_verify_plan_from_strings(domain_str, problem_str, plan):
 
     from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_verify
     ogstrips_verify(gproblem, [action.lower() for action in plan], from_fast_downward=True)
+
+
+def _pdsketch_get_canonized_plan(gproblem, plan_strings):
+    canonized_plan = list()
+    for action in plan_strings:
+        action_name = action.split('(')[0]
+        action_args = action.split('(')[1].split(')')[0].split(', ')
+        operator = gproblem.operators[action_name]
+        canonized_plan.append((operator, {arg.name: value for arg, value in zip(operator.arguments, action_args)}))
+
+    return canonized_plan
 
