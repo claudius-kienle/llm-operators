@@ -10,6 +10,8 @@ Usage:
     # Append this flag if you want to mock out the task planner with previous plans.
     --debug_mock_task_plans
 """
+
+import os
 import os.path as osp
 import sys
 
@@ -285,6 +287,15 @@ def main():
 
         if args.debug_stop_after_first_proposal:
             break
+
+        if output_directory:
+            if not args.debug_skip_task_plans and not args.debug_mock_task_plans:
+                experiment_tag = ("" if len(args.experiment_name) < 1 else f"{args.experiment_name}_")
+                output_filepath = f"{experiment_tag}task_planner_results.csv"
+                output_filename = osp.join(output_directory, output_filepath)
+
+                if osp.exists(output_filename):
+                    os.remove(output_filename)
 
         ###################### Refine operators.
         for problem_idx, problem_id in enumerate(planning_problems["train"]):

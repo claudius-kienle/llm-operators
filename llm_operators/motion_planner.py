@@ -466,9 +466,13 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
             last_failed_operator=last_failed_operator,
             last_failed_predicate=None,
         )
+
+    gt_pddl_problem = problems[problem_id].ground_truth_pddl_problem
+    gt_goal = [x[1:-1] for x in gt_pddl_problem.ground_truth_goal_list]
+
     return MotionPlanResult(
         pddl_plan=pddl_plan,
-        task_success=simulator.goal_satisfied(gproblem.conjunctive_goal),
+        task_success=simulator.goal_satisfied(gt_goal),
     )
 
 

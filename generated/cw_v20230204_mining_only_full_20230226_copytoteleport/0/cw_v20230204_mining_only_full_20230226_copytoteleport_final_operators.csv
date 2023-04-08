@@ -133,15 +133,30 @@ mine-gold-ore,"(:action mine-gold-ore
 		(object-of-type ?target GoldOre)
 		)
 )",
-mine-gold,,"(:action mine-gold
+mine-beetroot,"(:action mine-beetroot
+  :parameters (?targetinv - inventory ?x - object ?target - object ?t - tile)
+  :precondition (and
+    (agent-at ?t)
+    (object-at ?x ?t)
+    (object-of-type ?x BeetrootCrop)
+    (inventory-empty ?targetinv)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and
+    (not (inventory-empty ?targetinv))
+    (inventory-holding ?targetinv ?target)
+    (not (object-of-type ?target Hypothetical))
+    (object-of-type ?target Beetroot)
+  )
+ )","(:action mine-beetroot
         :parameters (?t - tile ?x - object ?toolinv - inventory ?tool - object ?targetinv - inventory ?target - object)
 
         :precondition (and 
 		(agent-at ?t)
 		(object-at ?x ?t)
-		(object-of-type ?x GoldOreVein)
+		(object-of-type ?x BeetrootCrop)
 		(inventory-holding ?toolinv ?tool)
-		(object-of-type ?tool Pickaxe)
+		(object-of-type ?tool Shears)
 		(inventory-empty ?targetinv)
 		(object-of-type ?target Hypothetical)
 		)
@@ -149,7 +164,7 @@ mine-gold,,"(:action mine-gold
 		(not (inventory-empty ?targetinv))
 		(inventory-holding ?targetinv ?target)
 		(not (object-of-type ?target Hypothetical))
-		(object-of-type ?target GoldOre)
+		(object-of-type ?target Beetroot)
 		)
 )",
 harvest-sugar-cane,,"(:action harvest-sugar-cane
@@ -170,25 +185,6 @@ harvest-sugar-cane,,"(:action harvest-sugar-cane
 		(inventory-holding ?targetinv ?target)
 		(not (object-of-type ?target Hypothetical))
 		(object-of-type ?target SugarCane)
-		)
-)",
-harvest-beetroot,,"(:action harvest-beetroot
-        :parameters (?t - tile ?x - object ?toolinv - inventory ?tool - object ?targetinv - inventory ?target - object)
-
-        :precondition (and 
-		(agent-at ?t)
-		(object-at ?x ?t)
-		(object-of-type ?x BeetrootCrop)
-		(inventory-holding ?toolinv ?tool)
-		(object-of-type ?tool Shears)
-		(inventory-empty ?targetinv)
-		(object-of-type ?target Hypothetical)
-		)
-        :effect (and 
-		(not (inventory-empty ?targetinv))
-		(inventory-holding ?targetinv ?target)
-		(not (object-of-type ?target Hypothetical))
-		(object-of-type ?target Beetroot)
 		)
 )",
 mine-potatoes,,"(:action mine-potatoes

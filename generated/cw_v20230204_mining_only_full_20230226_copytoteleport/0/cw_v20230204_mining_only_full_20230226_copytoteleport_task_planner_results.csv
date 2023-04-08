@@ -1,0 +1,671 @@
+problem_id,attempt_id,sample_percent,goal,success,plan,sampled_operators
+train_3,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)",True,"(move-to t1 t4)
+(pick-up i1 o13 t4)
+(mine-potatoes t4 o7 i1 o13 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-gold-ore1', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-wood', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'drop', 'craft-stick', 'harvest-beetroot', 'mine-cane']"
+train_4,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17))
+)",True,"(pick-up i1 o11 t1)
+(craft-stick t1 i1 o11 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-gold-ore1', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-wood', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'drop', 'craft-stick', 'harvest-beetroot', 'mine-cane']"
+train_5,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)",True,"(pick-up i1 o4 t1)
+(move-to t1 t6)
+(mine-potatoes t6 o7 i1 o4 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-gold-ore1', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-wood', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'drop', 'harvest-beetroot', 'mine-cane']"
+train_6,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)",True,"(move-to t1 t10)
+(pick-up i1 o14 t10)
+(move-to t10 t12)
+(harvest-sugar-cane t12 t12 o10 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-gold-ore1', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-wood', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'drop', 'harvest-beetroot', 'mine-cane']"
+train_7,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)",True,"(move-to t1 t2)
+(pick-up i1 o14 t2)
+(move-to t2 t3)
+(mine-wool1 t3 o6 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-gold-ore1', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-wood', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'drop', 'harvest-beetroot', 'mine-cane']"
+train_8,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)",True,"(move-to t1 t12)
+(pick-up i1 o14 t12)
+(move-to t12 t4)
+(harvest-sugar-cane t4 t4 o10 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-gold-ore1', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-wood', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'drop', 'harvest-beetroot', 'mine-cane']"
+train_9,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)",True,"(pick-up i1 o3 t1)
+(move-to t1 t3)
+(mine-gold-ore1 t3 o9 i1 o3 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-gold-ore1', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-wood', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'drop', 'harvest-beetroot', 'mine-cane']"
+train_10,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)",True,"(move-to t1 t13)
+(pick-up i1 o14 t13)
+(move-to t13 t5)
+(mine-beetroot t5 o8 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-gold-ore1', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-wood', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'drop', 'harvest-beetroot', 'mine-cane']"
+train_11,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)",True,"(move-to t1 t2)
+(pick-up i1 o9 t2)
+(drop t2 i1 o9)
+(mine-gold-ore1 t2 o9 i1 o9 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-gold-ore1', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-wood', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'drop', 'harvest-beetroot', 'mine-cane']"
+train_12,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",True,"(move-to t1 t9)
+(pick-up i1 o14 t9)
+(move-to t9 t12)
+(mine-feather t12 o5 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-wood', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_13,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-wood', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_14,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)",True,"(move-to t1 t9)
+(pick-up i1 o14 t9)
+(mine-beetroot t9 o8 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-wood', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_15,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)",True,"(move-to t1 t10)
+(pick-up i1 o11 t10)
+(move-to t10 t3)
+(mine-gold-ore t3 o9 i1 o11 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-wood', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_16,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17))
+)",True,"(move-to t1 t11)
+(pick-up i1 o12 t11)
+(mine-wood t11 i1 o12 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-wood', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_17,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17))
+)",True,"(pick-up i1 o9 t1)
+(move-to t1 t5)
+(mine-potatoes t5 o7 i1 o9 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_18,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o3)
+		(object-of-type o3 IronOre))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_19,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)",True,"(move-to t1 t8)
+(pick-up i1 o11 t8)
+(move-to t8 t11)
+(mine-gold-ore t11 o9 i1 o11 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_20,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)",True,"(move-to t1 t11)
+(pick-up i1 o14 t11)
+(move-to t11 t4)
+(mine-beetroot t4 o8 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_21,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)",True,"(move-to t1 t7)
+(pick-up i1 o11 t7)
+(move-to t7 t2)
+(mine-gold-ore t2 o9 i1 o11 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_22,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17))
+)",True,"(move-to t1 t9)
+(pick-up i1 o12 t9)
+(mine-potatoes t9 o7 i1 o12 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_23,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)",True,"(move-to t1 t9)
+(pick-up i1 o14 t9)
+(move-to t9 t3)
+(mine-wool1 t3 o6 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_24,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Cobblestone))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_25,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",True,"(pick-up i1 o14 t1)
+(move-to t1 t15)
+(mine-feather t15 o5 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_26,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o16)
+		(object-of-type o17 Feather))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_27,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_28,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",True,"(move-to t1 t14)
+(pick-up i1 o14 t14)
+(move-to t14 t6)
+(mine-feather t6 o5 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_29,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)",True,"(move-to t1 t15)
+(pick-up i1 o14 t15)
+(move-to t15 t9)
+(harvest-sugar-cane t9 t9 o10 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_30,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_31,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_32,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_33,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17))
+)",True,"(move-to t1 t11)
+(pick-up i1 o14 t11)
+(mine-feather t11 o5 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_34,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)",True,"(move-to t1 t2)
+(pick-up i1 o3 t2)
+(move-to t2 t4)
+(mine-potatoes t4 o7 i1 o3 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_35,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)",True,"(move-to t1 t2)
+(pick-up i1 o10 t2)
+(move-to t2 t13)
+(mine-potatoes t13 o7 i1 o10 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_36,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)",True,"(move-to t1 t15)
+(pick-up i1 o11 t15)
+(move-to t15 t4)
+(mine-gold-ore t4 o9 i1 o11 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_37,0,1.0,"(:goal
+	(and 
+		(inventory-holding i1 o6)
+		(object-of-type o6 Wool))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_38,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",True,"(move-to t1 t4)
+(pick-up i1 o14 t4)
+(move-to t4 t2)
+(mine-feather t2 o5 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_39,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)",True,"(move-to t1 t5)
+(pick-up i1 o14 t5)
+(move-to t5 t6)
+(harvest-sugar-cane t6 t6 o10 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_40,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_41,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)",True,"(move-to t1 t12)
+(pick-up i1 o14 t12)
+(mine-wool1 t12 o6 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_42,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)",True,"(move-to t1 t2)
+(pick-up i1 o11 t2)
+(move-to t2 t1)
+(mine-iron-ore i1 i3 o1 o11 o17 t1)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_43,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_44,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)",True,"(move-to t1 t6)
+(pick-up i1 o11 t6)
+(move-to t6 t8)
+(mine-gold-ore t8 o9 i1 o11 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_45,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)",True,"(move-to t1 t12)
+(pick-up i1 o14 t12)
+(move-to t12 t2)
+(mine-wool1 t2 o6 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_46,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)",True,"(move-to t1 t8)
+(pick-up i1 o11 t8)
+(move-to t8 t4)
+(mine-iron-ore i1 i3 o1 o11 o17 t4)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_47,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17))
+)",True,"(move-to t1 t9)
+(pick-up i1 o11 t9)
+(mine-potatoes t9 o7 i1 o11 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_48,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)",True,"(pick-up i1 o13 t1)
+(move-to t1 t14)
+(mine-potatoes t14 o7 i1 o13 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_49,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)",True,"(move-to t1 t15)
+(pick-up i1 o14 t15)
+(move-to t15 t12)
+(harvest-sugar-cane t12 t12 o10 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_50,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o16)
+		(object-of-type o16 Wool))
+)",True,"(move-to t1 t7)
+(pick-up i1 o14 t7)
+(move-to t7 t1)
+(mine-wool1 t1 o6 i1 o14 i3 o16)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_51,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",True,"(move-to t1 t15)
+(pick-up i1 o14 t15)
+(move-to t15 t7)
+(mine-feather t7 o5 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_52,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)",True,"(move-to t1 t10)
+(pick-up i1 o14 t10)
+(move-to t10 t4)
+(mine-wool1 t4 o6 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_53,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17))
+)",True,"(pick-up i1 o14 t1)
+(move-to t1 t3)
+(mine-wool1 t3 o6 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_54,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)",True,"(move-to t1 t3)
+(pick-up i1 o14 t3)
+(move-to t3 t1)
+(mine-wool1 t1 o6 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_55,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)",True,"(move-to t1 t4)
+(pick-up i1 o11 t4)
+(move-to t4 t13)
+(mine-gold-ore t13 o9 i1 o11 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_56,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17))
+)",True,"(move-to t1 t2)
+(pick-up i1 o13 t2)
+(mine-potatoes t2 o7 i1 o13 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_57,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",True,"(move-to t1 t5)
+(pick-up i1 o14 t5)
+(move-to t5 t1)
+(mine-feather t1 o5 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_58,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)",True,"(pick-up i1 o9 t1)
+(move-to t1 t7)
+(mine-potatoes t7 o7 i1 o9 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_59,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)",True,"(pick-up i1 o4 t1)
+(move-to t1 t14)
+(mine-potatoes t14 o7 i1 o4 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_60,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)",True,"(move-to t1 t12)
+(pick-up i1 o14 t12)
+(move-to t12 t3)
+(mine-beetroot t3 o8 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_61,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)",True,"(pick-up i1 o2 t1)
+(move-to t1 t11)
+(mine-potatoes t11 o7 i1 o2 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_62,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_63,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wool))
+)",True,"(move-to t1 t5)
+(pick-up i1 o14 t5)
+(move-to t5 t1)
+(mine-wool1 t1 o6 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_64,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_65,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Cobblestone))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_66,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)",True,"(move-to t1 t14)
+(pick-up i1 o11 t14)
+(move-to t14 t11)
+(mine-gold-ore t11 o9 i1 o11 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_67,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_68,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17))
+)",True,"(pick-up i1 o12 t1)
+(move-to t1 t6)
+(mine-potatoes t6 o7 i1 o12 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_69,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)",True,"(move-to t1 t10)
+(pick-up i1 o13 t10)
+(mine-potatoes t10 o7 i1 o13 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_70,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)",True,"(move-to t1 t5)
+(pick-up i1 o14 t5)
+(move-to t5 t10)
+(harvest-sugar-cane t10 t10 o10 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_71,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",True,"(move-to t1 t8)
+(pick-up i1 o14 t8)
+(move-to t8 t14)
+(mine-feather t14 o5 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_72,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)",True,"(pick-up i1 o14 t1)
+(move-to t1 t14)
+(mine-potatoes t14 o7 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_73,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_74,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",True,"(move-to t1 t9)
+(pick-up i1 o14 t9)
+(move-to t9 t1)
+(mine-feather t1 o5 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_75,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",True,"(move-to t1 t5)
+(pick-up i1 o14 t5)
+(move-to t5 t3)
+(mine-feather t3 o5 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_76,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)",True,"(move-to t1 t13)
+(pick-up i1 o14 t13)
+(move-to t13 t11)
+(mine-beetroot t11 o8 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_77,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_78,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)",True,"(pick-up i1 o4 t1)
+(move-to t1 t3)
+(mine-potatoes t3 o7 i1 o4 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_79,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)",True,"(move-to t1 t8)
+(pick-up i1 o11 t8)
+(move-to t8 t3)
+(mine-gold-ore t3 o9 i1 o11 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_80,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)",True,"(pick-up i1 o4 t1)
+(move-to t1 t13)
+(mine-potatoes t13 o7 i1 o4 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_81,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre)
+		(inventory-holding i2 o16)
+		(object-of-type o16 IronIngot))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_82,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_83,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)",True,"(move-to t1 t8)
+(pick-up i1 o11 t8)
+(move-to t8 t6)
+(mine-iron-ore i1 i3 o1 o11 o17 t6)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_84,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Coal))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_85,0,1.0,"(:goal
+	(and 
+		(inventory-holding i1 o2)
+		(object-of-type o2 Wool))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_86,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)",True,"(move-to t1 t12)
+(pick-up i1 o11 t12)
+(move-to t12 t3)
+(mine-iron-ore i1 i3 o1 o11 o17 t3)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_87,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",True,"(move-to t1 t8)
+(pick-up i1 o14 t8)
+(move-to t8 t12)
+(mine-feather t12 o5 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_88,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Wood))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_89,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Beetroot))
+)",True,"(move-to t1 t10)
+(pick-up i1 o14 t10)
+(move-to t10 t14)
+(mine-beetroot t14 o8 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_90,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 IronOre))
+)",True,"(move-to t1 t11)
+(pick-up i1 o11 t11)
+(move-to t11 t7)
+(mine-iron-ore i1 i3 o1 o11 o17 t7)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_91,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",True,"(move-to t1 t14)
+(pick-up i1 o14 t14)
+(move-to t14 t9)
+(mine-feather t9 o5 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_92,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17))
+)",True,"(move-to t1 t8)
+(pick-up i1 o14 t8)
+(mine-feather t8 o5 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_93,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17))
+)",True,"(pick-up i1 o9 t1)
+(move-to t1 t14)
+(mine-potatoes t14 o7 i1 o9 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_94,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)",True,"(pick-up i1 o9 t1)
+(move-to t1 t2)
+(mine-potatoes t2 o7 i1 o9 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_95,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 GoldOre))
+)",True,"(move-to t1 t10)
+(pick-up i1 o11 t10)
+(move-to t10 t5)
+(mine-gold-ore t5 o9 i1 o11 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_96,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 SugarCane))
+)",True,"(move-to t1 t5)
+(pick-up i1 o14 t5)
+(move-to t5 t6)
+(harvest-sugar-cane t6 t6 o10 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_97,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o16)
+		(object-of-type o16 Wood))
+)",False,,"['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_98,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Potato))
+)",True,"(pick-up i1 o1 t1)
+(move-to t1 t5)
+(mine-potatoes t5 o7 i1 o1 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"
+train_99,0,1.0,"(:goal
+	(and 
+		(inventory-holding i3 o17)
+		(object-of-type o17 Feather))
+)",True,"(move-to t1 t10)
+(pick-up i1 o14 t10)
+(move-to t10 t15)
+(mine-feather t15 o5 i1 o14 i3 o17)","['mine-potatoes', 'mine-potato1', 'mine-cobblestone', 'mine-gold-ore', 'mine-sugar1', 'mine-iron', 'crave-wood', 'up', 'drive', 'mine-gold', 'mine-iron-ore2', 'drop-off', 'mine-wool1', 'harvest-sugar-cane', 'mine-sugar-cane', 'mine-feather', 'down', 'mine-beetroot', 'leave', 'mine-feather1', 'place-entity', 'mine-wool', 'mine-potato', 'harvest-beetroot', 'mine-cane']"

@@ -7,6 +7,7 @@ import os
 import os.path as osp
 import json
 import random
+import csv
 from collections import defaultdict
 from tempfile import NamedTemporaryFile
 from typing import Optional, Sequence
@@ -58,6 +59,7 @@ def attempt_task_plan_for_problem(
         else f"{command_args.experiment_name}_"
     )
 
+    # NB(Jiayuan Mao @ 2023/04/07): this file is solved via pddl.checkpoint_and_reset_plans function.
     output_filepath = f"{experiment_tag}task_plans.json"
 
     if use_mock:
@@ -100,11 +102,14 @@ def attempt_task_plan_for_problem(
         pddl_domain=pddl_domain,
         problem=problems[problem_id],
         planner_type=command_args.planner,
+        command_args=command_args,
         verbose=verbose,
+        output_directory=output_directory,
         debug_ground_truth_goals=command_args.debug_ground_truth_goals,
         proposed_operators=proposed_operators,
         sample_operator_percent=sample_operator_percent,
         debug_export_dir=debug_export_dir,
+        plan_attempt_idx=plan_attempt_idx,
     )
     if any_success:
         problems[problem_id].update_evaluated_pddl_plans(new_evaluated_plans)
@@ -162,7 +167,9 @@ def evaluate_task_plans_and_costs_for_problems(
             pddl_domain=pddl_domain,
             problem=problems[problem_id],
             planner_type=command_args.planner,
+            command_args=command_args,
             verbose=verbose,
+            output_directory=output_directory,
             debug_ground_truth_goals=command_args.debug_ground_truth_goals,
             proposed_operators=proposed_operators,
             max_task_samples=max_task_samples,
@@ -198,11 +205,14 @@ def sample_task_plans_for_problem(
     pddl_domain,
     problem,
     planner_type=TASK_PLANNER_FD,
+    command_args=None,
     verbose=False,
+    output_directory=None,
     debug_ground_truth_goals=False,
     proposed_operators: Optional[Sequence[str]] = None,
     sample_operator_percent=1.0,
     debug_export_dir=None,
+    plan_attempt_idx=0,
 ):
     """
     Uses a task_planner to propose samples, so we attempt planning using random subsets of
@@ -241,6 +251,30 @@ def sample_task_plans_for_problem(
         for pddl_plan in all_evaluated_plans[g]:
             overall_problem_json["plans"].append({"goal": g, "plan": pddl_plan.plan})
         print(f"Found a total of {len(all_evaluated_plans[g])} unique plans for goal.")
+
+    if output_directory:
+        experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
+        output_filepath = f"{experiment_tag}task_planner_results.csv"
+        output_filepath = osp.join(output_directory, output_filepath)
+
+        if not osp.exists(output_filepath):
+            with open(output_filepath, "w") as f:
+                csv.writer(f).writerow(['problem_id', 'attempt_id', 'sample_percent', 'goal', 'success', 'plan', 'sampled_operators'])
+        with open(output_filepath, "a") as f:
+            writer = csv.writer(f)
+            if debug_ground_truth_goals:
+                goals = [problem.ground_truth_pddl_problem.ground_truth_goal]
+            else:
+                goals = problem.proposed_pddl_goals
+            for goal in goals:
+                writer.writerow([
+                    problem.problem_id, plan_attempt_idx,
+                    sample_operator_percent,
+                    goal,
+                    goal in evaluated_plans, evaluated_plans[goal].plan_string if goal in evaluated_plans else None,
+                    str(list(sampled_proposed_operators)),
+                ])
+
     return any_success, all_evaluated_plans, overall_problem_json
 
 

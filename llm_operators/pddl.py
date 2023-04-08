@@ -921,7 +921,7 @@ class PDDLProblem:
         self.ground_truth_goal = self.parse_goal_pddl(
             self.ground_truth_pddl_problem_string
         )
-
+        self.ground_truth_goal_list = self.parse_goal_pddl_list(self.ground_truth_goal)
         self.ground_truth_objects_dict = self.parse_problem_objects_pddl(return_dict=True)
 
     def get_pddl_string_with_proposed_goal(self, proposed_goal):
@@ -934,6 +934,16 @@ class PDDLProblem:
     def parse_goal_pddl(self, pddl_problem):
         pddl_problem = PDDLParser._purge_comments(pddl_problem)
         return PDDLParser._find_labelled_expression(pddl_problem, ":goal")
+
+    def parse_goal_pddl_list(self, pddl_goal_string):
+        goal_conjunction = PDDLParser._find_labelled_expression(pddl_goal_string, "and")
+        _, preprocessed_predicates, _ = preprocess_conjunction_predicates(
+            goal_conjunction,
+            ground_truth_predicates=None,
+            ground_truth_constants=None,
+            allow_partial_ground_predicates=True,
+        )
+        return preprocessed_predicates
 
     def parse_goal_for_prompting(self):
         """
@@ -1461,7 +1471,7 @@ def preprocess_conjunction_predicates(
     if not op_match:
         return False, None, None
 
-    if len(op_match.groups()) != 1:
+    if len(op_match.groups()) != 1 and debug:
         import pdb
 
         pdb.set_trace()
@@ -1476,6 +1486,7 @@ def preprocess_conjunction_predicates(
     ]
     preprocessed_predicates = []
     structured_predicates = []
+    print("predicates_list", predicates_list)
     for pred_string in predicates_list:
         patt = r"\(not(.*)\)"
         not_match = re.match(patt, pred_string, re.DOTALL)
@@ -1492,35 +1503,35 @@ def preprocess_conjunction_predicates(
             neg=neg,
         )
 
-        if (
+        if ground_truth_predicates is not None and (
             (parsed_predicate.name not in ground_truth_predicates)
-            or parsed_predicate.arguments
-            != ground_truth_predicates[parsed_predicate.name].arguments
+            or parsed_predicate.arguments != ground_truth_predicates[parsed_predicate.name].arguments
         ):
             continue
         else:
-            if check_static and ground_truth_predicates[parsed_predicate.name].static:
-                continue
-
             valid = True
-            # NB(Jiayuan Mao @ 2023/04/07): if the new predicate is not valid, we restore the original parameters.
-            parameters_backup = parameters.copy()
-            # TODO(Jiayuan Mao @ 2023/04/07): handle constant checking
-            for argname, argtype in zip(
-                parsed_predicate.argument_values,
-                ground_truth_predicates[parsed_predicate.name].arg_types,
-            ):
-                if argname.startswith('?'):
-                    if argname not in parameters:
-                        parameters[argname] = argtype
+            if ground_truth_predicates is not None:
+                if check_static and ground_truth_predicates[parsed_predicate.name].static:
+                    continue
+
+                # NB(Jiayuan Mao @ 2023/04/07): if the new predicate is not valid, we restore the original parameters.
+                parameters_backup = parameters.copy()
+                for argname, argtype in zip(
+                    parsed_predicate.argument_values,
+                    ground_truth_predicates[parsed_predicate.name].arg_types,
+                ):
+                    if argname.startswith('?'):
+                        if argname not in parameters:
+                            parameters[argname] = argtype
+                        else:
+                            if parameters[argname] != argtype:
+                                valid = False
+                                break
                     else:
-                        if parameters[argname] != argtype:
-                            valid = False
-                            break
-                else:
-                    if argname not in ground_truth_constants or ground_truth_constants[argname] != argtype:
-                        valid = False
-                        break
+                        if ground_truth_constants is not None:
+                            if argname not in ground_truth_constants or ground_truth_constants[argname] != argtype:
+                                valid = False
+                                break
             if valid:
                 preprocessed_predicates.append(pred_string)
                 structured_predicates.append(parsed_predicate)
