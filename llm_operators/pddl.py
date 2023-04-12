@@ -1133,15 +1133,13 @@ def preprocess_goal(goal, pddl_domain, object_dict, use_ground_truth_predicates=
             f"Failure, could not find extract ground truth predicates from conjunction in {goal_conjunction}."
         )
         return False, ""
-    # if not parameters:
-    #     print(
-    #         f"Failure, could not find extract ground truth predicates from conjunction in {goal_conjunction}."
-    #     )
-    #     return False, ""
+    if parameters is None:
+        print(
+            f"Failure, could not find extract ground truth predicates from conjunction in {goal_conjunction}."
+        )
+        return False, ""
 
-    print(f"preprocessed_predicates: {preprocessed_predicates}")
-
-    unground_parameters = sorted([p for p in parameters if p[0].startswith("?")])
+    unground_parameters = sorted([p for p in parameters.items() if p[0].startswith("?")])
 
     # Conjunction
     predicate_string = "\n\t\t".join(preprocessed_predicates)
@@ -1347,7 +1345,7 @@ def parse_operator_components(operator_body, pddl_domain):
             # parameters = {k[1:]: v for k, v in precond_parameters if k.startswith("?")}
 
             # NB(Lio W: remove the 'drop the leading?')
-            parameters = {k: v for k, v in precond_parameters if k.startswith("?")}
+            parameters = {k: v for k, v in precond_parameters.items() if k.startswith("?")}
         else:
             parameters = precond_parameters
 
@@ -1469,7 +1467,7 @@ def preprocess_conjunction_predicates(
     op_match = re.match(patt, conjunction_predicates.strip(), re.DOTALL)
 
     if not op_match:
-        return False, None, None
+        return None, None, None
 
     if len(op_match.groups()) != 1 and debug:
         import pdb
@@ -1479,14 +1477,14 @@ def preprocess_conjunction_predicates(
     parameters = dict()
     conjunction_predicates = op_match.groups()[0].strip()
     if len(conjunction_predicates) <= 0:
-        return False, None, None
+        return None, None, None
     predicates_list = [
         p.strip()
         for p in PDDLParser._find_all_balanced_expressions(op_match.groups()[0].strip())
     ]
     preprocessed_predicates = []
     structured_predicates = []
-    print("predicates_list", predicates_list)
+    # print("predicates_list", predicates_list)
     for pred_string in predicates_list:
         patt = r"\(not(.*)\)"
         not_match = re.match(patt, pred_string, re.DOTALL)
