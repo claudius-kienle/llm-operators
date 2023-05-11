@@ -830,4 +830,3 @@ def propose_goals_for_problems(
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
-

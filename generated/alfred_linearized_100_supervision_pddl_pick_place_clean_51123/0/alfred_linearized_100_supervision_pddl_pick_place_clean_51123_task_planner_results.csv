@@ -1,0 +1,2609 @@
+problem_id,attempt_id,sample_percent,goal,success,plan,sampled_operators
+train/pick_and_place_simple-AppleSliced-None-Fridge-30/trial_T20190907_105723_672392,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_and_place_simple-AppleSliced-None-Fridge-30/trial_T20190907_105723_672392,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['CookObject', 'OnObject', 'Go', 'CoolObject', 'SwitchOn', 'put', 'LiftGlass']"
+train/pick_and_place_simple-AppleSliced-None-Fridge-30/trial_T20190907_105723_672392,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['GetObject', 'GoL', 'SwitchOn', 'CoolObject', 'pickup', 'Go', 'CookObject']"
+train/pick_and_place_simple-AppleSliced-None-Fridge-30/trial_T20190907_105723_672392,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['pickup', 'CoolObject', 'SwitchOn', 'Go', 'OffObject', 'returnBox', 'GetObject']"
+train/pick_and_place_simple-TomatoSliced-None-CounterTop-25/trial_T20190908_233907_188674,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_and_place_simple-TomatoSliced-None-CounterTop-25/trial_T20190908_233907_188674,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['returnBox', 'LiftGlass', 'CoolObject', 'GetObject', 'OnObject', 'SwitchOn', 'HeatObject']"
+train/pick_and_place_simple-TomatoSliced-None-CounterTop-25/trial_T20190908_233907_188674,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['GetObject', 'put', 'Go', 'LiftGlass', 'pickup', 'GoL', 'OffObject']"
+train/pick_and_place_simple-TomatoSliced-None-CounterTop-25/trial_T20190908_233907_188674,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['OffObject', 'SwitchOn', 'CookObject', 'GoL', 'put', 'returnBox', 'Approach']"
+train/pick_heat_then_place_in_recep-Egg-None-Fridge-17/trial_T20190909_130835_721326,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-Egg-None-Fridge-17/trial_T20190909_130835_721326,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['Chill', 'pickup', 'put', 'CoolObject', 'OffObject', 'GetObject', 'Go']"
+train/pick_heat_then_place_in_recep-Egg-None-Fridge-17/trial_T20190909_130835_721326,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['Go', 'HeatObject', 'CookObject', 'SwitchOn', 'GetObject', 'Approach', 'LiftGlass']"
+train/pick_heat_then_place_in_recep-Egg-None-Fridge-17/trial_T20190909_130835_721326,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['OnObject', 'pickup', 'LiftGlass', 'GetObject', 'put', 'SwitchOn', 'returnBox']"
+train/pick_heat_then_place_in_recep-TomatoSliced-None-DiningTable-11/trial_T20190918_205827_915892,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(isHot ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-TomatoSliced-None-DiningTable-11/trial_T20190918_205827_915892,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(isHot ?o))))
+)",False,,"['SwitchOn', 'returnBox', 'GetObject', 'OnObject', 'pickup', 'GoL', 'CookObject']"
+train/pick_heat_then_place_in_recep-TomatoSliced-None-DiningTable-11/trial_T20190918_205827_915892,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(isHot ?o))))
+)",False,,"['Approach', 'OnObject', 'LiftGlass', 'CookObject', 'Chill', 'HeatObject', 'pickup']"
+train/pick_heat_then_place_in_recep-TomatoSliced-None-DiningTable-11/trial_T20190918_205827_915892,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(isHot ?o))))
+)",False,,"['pickup', 'GetObject', 'LiftGlass', 'returnBox', 'GoL', 'SwitchOn', 'Approach']"
+train/pick_heat_then_place_in_recep-AppleSliced-None-Fridge-24/trial_T20190909_073807_553746,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-AppleSliced-None-Fridge-24/trial_T20190909_073807_553746,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['HeatObject', 'CoolObject', 'GoL', 'CookObject', 'OffObject', 'GetObject', 'LiftGlass']"
+train/pick_heat_then_place_in_recep-AppleSliced-None-Fridge-24/trial_T20190909_073807_553746,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['LiftGlass', 'Approach', 'Go', 'pickup', 'returnBox', 'SwitchOn', 'GetObject']"
+train/pick_heat_then_place_in_recep-AppleSliced-None-Fridge-24/trial_T20190909_073807_553746,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['pickup', 'LiftGlass', 'OffObject', 'CookObject', 'SwitchOn', 'GetObject', 'Go']"
+train/pick_and_place_simple-LettuceSliced-None-DiningTable-24/trial_T20190906_220204_504890,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_and_place_simple-LettuceSliced-None-DiningTable-24/trial_T20190906_220204_504890,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['pickup', 'Go', 'returnBox', 'put', 'GetObject', 'Approach', 'Chill']"
+train/pick_and_place_simple-LettuceSliced-None-DiningTable-24/trial_T20190906_220204_504890,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['Chill', 'OnObject', 'GoL', 'SwitchOn', 'LiftGlass', 'Go', 'Approach']"
+train/pick_and_place_simple-LettuceSliced-None-DiningTable-24/trial_T20190906_220204_504890,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['Approach', 'returnBox', 'GoL', 'Chill', 'HeatObject', 'LiftGlass', 'OffObject']"
+train/pick_cool_then_place_in_recep-WineBottle-None-Cabinet-16/trial_T20190907_084028_991219,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o GlassbottleType)
+		(receptacleType ?r CabinetType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-WineBottle-None-Cabinet-16/trial_T20190907_084028_991219,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o GlassbottleType)
+		(receptacleType ?r CabinetType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['SwitchOn', 'CookObject', 'Chill', 'pickup', 'put', 'Approach', 'LiftGlass']"
+train/pick_cool_then_place_in_recep-WineBottle-None-Cabinet-16/trial_T20190907_084028_991219,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o GlassbottleType)
+		(receptacleType ?r CabinetType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['pickup', 'LiftGlass', 'Chill', 'OffObject', 'HeatObject', 'Go', 'OnObject']"
+train/pick_cool_then_place_in_recep-WineBottle-None-Cabinet-16/trial_T20190907_084028_991219,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o GlassbottleType)
+		(receptacleType ?r CabinetType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['returnBox', 'put', 'CookObject', 'Approach', 'GoL', 'SwitchOn', 'Go']"
+train/pick_heat_then_place_in_recep-AppleSliced-None-SideTable-3/trial_T20190918_165030_719864,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(wasInReceptacle ?o ?r)
+		(isSliced ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-AppleSliced-None-SideTable-3/trial_T20190918_165030_719864,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(wasInReceptacle ?o ?r)
+		(isSliced ?o))))
+)",False,,"['put', 'OffObject', 'GetObject', 'GoL', 'pickup', 'SwitchOn', 'Chill']"
+train/pick_heat_then_place_in_recep-AppleSliced-None-SideTable-3/trial_T20190918_165030_719864,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(wasInReceptacle ?o ?r)
+		(isSliced ?o))))
+)",False,,"['returnBox', 'put', 'OnObject', 'LiftGlass', 'CoolObject', 'SwitchOn', 'Go']"
+train/pick_heat_then_place_in_recep-AppleSliced-None-SideTable-3/trial_T20190918_165030_719864,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(wasInReceptacle ?o ?r)
+		(isSliced ?o))))
+)",False,,"['LiftGlass', 'CoolObject', 'CookObject', 'GetObject', 'Chill', 'Approach', 'HeatObject']"
+train/pick_cool_then_place_in_recep-Apple-None-SideTable-21/trial_T20190907_180858_138819,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-Apple-None-SideTable-21/trial_T20190907_180858_138819,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['LiftGlass', 'pickup', 'Go', 'GetObject', 'HeatObject', 'GoL', 'CoolObject']"
+train/pick_cool_then_place_in_recep-Apple-None-SideTable-21/trial_T20190907_180858_138819,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['GoL', 'Go', 'LiftGlass', 'OnObject', 'pickup', 'CoolObject', 'put']"
+train/pick_cool_then_place_in_recep-Apple-None-SideTable-21/trial_T20190907_180858_138819,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['returnBox', 'LiftGlass', 'OffObject', 'OnObject', 'pickup', 'GetObject', 'Go']"
+train/pick_cool_then_place_in_recep-LettuceSliced-None-CounterTop-24/trial_T20190909_153425_218344,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?l - object)
+(and 
+		(objectType ?l LettuceType)
+		(receptacleType ?r DiningTableType)
+		(wasInReceptacle ?l ?r)
+		(cleanable ?l)
+		(isClean ?l)
+		(inReceptacle ?l ?r))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-LettuceSliced-None-CounterTop-24/trial_T20190909_153425_218344,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?l - object)
+(and 
+		(objectType ?l LettuceType)
+		(receptacleType ?r DiningTableType)
+		(wasInReceptacle ?l ?r)
+		(cleanable ?l)
+		(isClean ?l)
+		(inReceptacle ?l ?r))))
+)",False,,"['returnBox', 'Chill', 'GetObject', 'GoL', 'Go', 'Approach', 'SwitchOn']"
+train/pick_cool_then_place_in_recep-LettuceSliced-None-CounterTop-24/trial_T20190909_153425_218344,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?l - object)
+(and 
+		(objectType ?l LettuceType)
+		(receptacleType ?r DiningTableType)
+		(wasInReceptacle ?l ?r)
+		(cleanable ?l)
+		(isClean ?l)
+		(inReceptacle ?l ?r))))
+)",False,,"['GoL', 'LiftGlass', 'returnBox', 'Chill', 'Go', 'OffObject', 'put']"
+train/pick_cool_then_place_in_recep-LettuceSliced-None-CounterTop-24/trial_T20190909_153425_218344,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?l - object)
+(and 
+		(objectType ?l LettuceType)
+		(receptacleType ?r DiningTableType)
+		(wasInReceptacle ?l ?r)
+		(cleanable ?l)
+		(isClean ?l)
+		(inReceptacle ?l ?r))))
+)",False,,"['returnBox', 'GoL', 'CoolObject', 'pickup', 'OnObject', 'OffObject', 'LiftGlass']"
+train/pick_heat_then_place_in_recep-Potato-None-GarbageCan-14/trial_T20190909_114102_376957,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-Potato-None-GarbageCan-14/trial_T20190909_114102_376957,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['returnBox', 'Go', 'CookObject', 'GoL', 'CoolObject', 'HeatObject', 'Chill']"
+train/pick_heat_then_place_in_recep-Potato-None-GarbageCan-14/trial_T20190909_114102_376957,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['OffObject', 'pickup', 'put', 'HeatObject', 'Chill', 'Go', 'GetObject']"
+train/pick_heat_then_place_in_recep-Potato-None-GarbageCan-14/trial_T20190909_114102_376957,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['Chill', 'returnBox', 'Go', 'LiftGlass', 'HeatObject', 'CoolObject', 'GoL']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-DiningTable-7/trial_T20190908_032410_853210,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-DiningTable-7/trial_T20190908_032410_853210,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['HeatObject', 'GetObject', 'SwitchOn', 'OnObject', 'returnBox', 'put', 'GoL']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-DiningTable-7/trial_T20190908_032410_853210,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['Approach', 'CookObject', 'HeatObject', 'OnObject', 'Chill', 'GoL', 'SwitchOn']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-DiningTable-7/trial_T20190908_032410_853210,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['Chill', 'Approach', 'returnBox', 'SwitchOn', 'OffObject', 'CookObject', 'Go']"
+train/pick_cool_then_place_in_recep-Cup-None-Shelf-1/trial_T20190907_181520_113143,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o GlassbottleType)
+		(receptacleType ?r CabinetType)
+		(inReceptacle ?o ?r)
+		(isCool ?o)
+		(coolable ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-Cup-None-Shelf-1/trial_T20190907_181520_113143,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o GlassbottleType)
+		(receptacleType ?r CabinetType)
+		(inReceptacle ?o ?r)
+		(isCool ?o)
+		(coolable ?o))))
+)",False,,"['OnObject', 'LiftGlass', 'CoolObject', 'HeatObject', 'GoL', 'returnBox', 'put']"
+train/pick_cool_then_place_in_recep-Cup-None-Shelf-1/trial_T20190907_181520_113143,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o GlassbottleType)
+		(receptacleType ?r CabinetType)
+		(inReceptacle ?o ?r)
+		(isCool ?o)
+		(coolable ?o))))
+)",False,,"['CookObject', 'Go', 'GetObject', 'returnBox', 'Chill', 'put', 'pickup']"
+train/pick_cool_then_place_in_recep-Cup-None-Shelf-1/trial_T20190907_181520_113143,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o GlassbottleType)
+		(receptacleType ?r CabinetType)
+		(inReceptacle ?o ?r)
+		(isCool ?o)
+		(coolable ?o))))
+)",False,,"['SwitchOn', 'Go', 'Chill', 'LiftGlass', 'HeatObject', 'CoolObject', 'GetObject']"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-DiningTable-24/trial_T20190908_194409_961394,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-DiningTable-24/trial_T20190908_194409_961394,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['OnObject', 'put', 'HeatObject', 'GoL', 'GetObject', 'SwitchOn', 'returnBox']"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-DiningTable-24/trial_T20190908_194409_961394,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['SwitchOn', 'put', 'GoL', 'OffObject', 'Approach', 'LiftGlass', 'GetObject']"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-DiningTable-24/trial_T20190908_194409_961394,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['OffObject', 'returnBox', 'GoL', 'put', 'HeatObject', 'CookObject', 'CoolObject']"
+train/pick_heat_then_place_in_recep-Mug-None-SideTable-3/trial_T20190908_231853_151753,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o CupType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(isClean ?o)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-Mug-None-SideTable-3/trial_T20190908_231853_151753,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o CupType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(isClean ?o)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['OnObject', 'pickup', 'Approach', 'returnBox', 'SwitchOn', 'Go', 'Chill']"
+train/pick_heat_then_place_in_recep-Mug-None-SideTable-3/trial_T20190908_231853_151753,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o CupType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(isClean ?o)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['OffObject', 'CoolObject', 'Chill', 'Go', 'GoL', 'Approach', 'returnBox']"
+train/pick_heat_then_place_in_recep-Mug-None-SideTable-3/trial_T20190908_231853_151753,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o CupType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(isClean ?o)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['Approach', 'Chill', 'Go', 'OnObject', 'GetObject', 'returnBox', 'LiftGlass']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-DiningTable-27/trial_T20190908_101505_620069,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-DiningTable-27/trial_T20190908_101505_620069,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['put', 'OnObject', 'HeatObject', 'Approach', 'CoolObject', 'Chill', 'GoL']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-DiningTable-27/trial_T20190908_101505_620069,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['OnObject', 'Chill', 'Approach', 'GoL', 'put', 'CoolObject', 'Go']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-DiningTable-27/trial_T20190908_101505_620069,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['OffObject', 'GoL', 'LiftGlass', 'put', 'returnBox', 'GetObject', 'pickup']"
+train/pick_cool_then_place_in_recep-Cup-None-Cabinet-26/trial_T20190909_085908_816209,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o CupType)
+		(receptacleType ?r CabinetType)
+		(inReceptacle ?o ?r)
+		(isCool ?o)
+		(coolable ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-Cup-None-Cabinet-26/trial_T20190909_085908_816209,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o CupType)
+		(receptacleType ?r CabinetType)
+		(inReceptacle ?o ?r)
+		(isCool ?o)
+		(coolable ?o))))
+)",False,,"['GetObject', 'OffObject', 'GoL', 'HeatObject', 'CoolObject', 'returnBox', 'SwitchOn']"
+train/pick_cool_then_place_in_recep-Cup-None-Cabinet-26/trial_T20190909_085908_816209,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o CupType)
+		(receptacleType ?r CabinetType)
+		(inReceptacle ?o ?r)
+		(isCool ?o)
+		(coolable ?o))))
+)",False,,"['SwitchOn', 'OffObject', 'Go', 'OnObject', 'pickup', 'HeatObject', 'Chill']"
+train/pick_cool_then_place_in_recep-Cup-None-Cabinet-26/trial_T20190909_085908_816209,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o CupType)
+		(receptacleType ?r CabinetType)
+		(inReceptacle ?o ?r)
+		(isCool ?o)
+		(coolable ?o))))
+)",False,,"['CoolObject', 'GoL', 'OnObject', 'SwitchOn', 'Chill', 'Approach', 'HeatObject']"
+train/pick_cool_then_place_in_recep-LettuceSliced-None-SinkBasin-13/trial_T20190908_101527_364763,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o LettuceType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-LettuceSliced-None-SinkBasin-13/trial_T20190908_101527_364763,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o LettuceType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['Go', 'put', 'GoL', 'SwitchOn', 'HeatObject', 'Approach', 'pickup']"
+train/pick_cool_then_place_in_recep-LettuceSliced-None-SinkBasin-13/trial_T20190908_101527_364763,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o LettuceType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['OffObject', 'GoL', 'Go', 'SwitchOn', 'Chill', 'pickup', 'OnObject']"
+train/pick_cool_then_place_in_recep-LettuceSliced-None-SinkBasin-13/trial_T20190908_101527_364763,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o LettuceType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['returnBox', 'LiftGlass', 'put', 'GoL', 'pickup', 'Approach', 'OffObject']"
+train/pick_cool_then_place_in_recep-Egg-None-Microwave-18/trial_T20190909_113607_998821,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-Egg-None-Microwave-18/trial_T20190909_113607_998821,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['GetObject', 'HeatObject', 'OnObject', 'Go', 'Approach', 'LiftGlass', 'CookObject']"
+train/pick_cool_then_place_in_recep-Egg-None-Microwave-18/trial_T20190909_113607_998821,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['GetObject', 'GoL', 'put', 'CoolObject', 'OffObject', 'pickup', 'HeatObject']"
+train/pick_cool_then_place_in_recep-Egg-None-Microwave-18/trial_T20190909_113607_998821,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['HeatObject', 'OffObject', 'OnObject', 'returnBox', 'LiftGlass', 'CoolObject', 'GoL']"
+train/pick_heat_then_place_in_recep-BreadSliced-None-GarbageCan-17/trial_T20190906_210118_740854,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-BreadSliced-None-GarbageCan-17/trial_T20190906_210118_740854,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['Approach', 'put', 'Go', 'OffObject', 'Chill', 'LiftGlass', 'GetObject']"
+train/pick_heat_then_place_in_recep-BreadSliced-None-GarbageCan-17/trial_T20190906_210118_740854,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['Go', 'CoolObject', 'GoL', 'HeatObject', 'put', 'SwitchOn', 'Chill']"
+train/pick_heat_then_place_in_recep-BreadSliced-None-GarbageCan-17/trial_T20190906_210118_740854,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['GoL', 'CookObject', 'Approach', 'Go', 'LiftGlass', 'OffObject', 'CoolObject']"
+train/look_at_obj_in_light-Box-None-FloorLamp-205/trial_T20190906_211925_059562,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(receptacleType ?r DrawerType)
+		(inReceptacle ?o ?r))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/look_at_obj_in_light-Box-None-FloorLamp-205/trial_T20190906_211925_059562,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(receptacleType ?r DrawerType)
+		(inReceptacle ?o ?r))))
+)",False,,"['pickup', 'LiftGlass', 'CookObject', 'returnBox', 'SwitchOn', 'put', 'GoL']"
+train/look_at_obj_in_light-Box-None-FloorLamp-205/trial_T20190906_211925_059562,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(receptacleType ?r DrawerType)
+		(inReceptacle ?o ?r))))
+)",False,,"['Go', 'CoolObject', 'GoL', 'OffObject', 'HeatObject', 'Chill', 'GetObject']"
+train/look_at_obj_in_light-Box-None-FloorLamp-205/trial_T20190906_211925_059562,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(receptacleType ?r DrawerType)
+		(inReceptacle ?o ?r))))
+)",False,,"['HeatObject', 'returnBox', 'Chill', 'Approach', 'OnObject', 'OffObject', 'GetObject']"
+train/look_at_obj_in_light-Vase-None-FloorLamp-221/trial_T20190906_224945_676475,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r DeskType)
+		(inReceptacle ?o ?r))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/look_at_obj_in_light-Vase-None-FloorLamp-221/trial_T20190906_224945_676475,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r DeskType)
+		(inReceptacle ?o ?r))))
+)",False,,"['SwitchOn', 'GoL', 'Chill', 'OnObject', 'LiftGlass', 'put', 'CoolObject']"
+train/look_at_obj_in_light-Vase-None-FloorLamp-221/trial_T20190906_224945_676475,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r DeskType)
+		(inReceptacle ?o ?r))))
+)",False,,"['LiftGlass', 'CoolObject', 'SwitchOn', 'GoL', 'OnObject', 'HeatObject', 'Chill']"
+train/look_at_obj_in_light-Vase-None-FloorLamp-221/trial_T20190906_224945_676475,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r DeskType)
+		(inReceptacle ?o ?r))))
+)",False,,"['Go', 'OnObject', 'Approach', 'CookObject', 'LiftGlass', 'SwitchOn', 'Chill']"
+train/pick_and_place_simple-TomatoSliced-None-Fridge-6/trial_T20190907_233305_019895,0,1.0,"(:goal
+	(exists (?o - receptacle)
+(and 
+		(holds agent1 Pan)
+		(openable ?o)))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_and_place_simple-TomatoSliced-None-Fridge-6/trial_T20190907_233305_019895,1,0.5,"(:goal
+	(exists (?o - receptacle)
+(and 
+		(holds agent1 Pan)
+		(openable ?o)))
+)",False,,"['CoolObject', 'GetObject', 'pickup', 'OffObject', 'Go', 'LiftGlass', 'Approach']"
+train/pick_and_place_simple-TomatoSliced-None-Fridge-6/trial_T20190907_233305_019895,2,0.5,"(:goal
+	(exists (?o - receptacle)
+(and 
+		(holds agent1 Pan)
+		(openable ?o)))
+)",False,,"['SwitchOn', 'put', 'Chill', 'CoolObject', 'OffObject', 'OnObject', 'GoL']"
+train/pick_and_place_simple-TomatoSliced-None-Fridge-6/trial_T20190907_233305_019895,3,0.5,"(:goal
+	(exists (?o - receptacle)
+(and 
+		(holds agent1 Pan)
+		(openable ?o)))
+)",False,,"['returnBox', 'Approach', 'Chill', 'OffObject', 'SwitchOn', 'GoL', 'Go']"
+train/pick_cool_then_place_in_recep-Plate-None-Cabinet-22/trial_T20190907_200807_715947,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PlateType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-Plate-None-Cabinet-22/trial_T20190907_200807_715947,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PlateType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['CoolObject', 'CookObject', 'pickup', 'returnBox', 'put', 'Approach', 'OnObject']"
+train/pick_cool_then_place_in_recep-Plate-None-Cabinet-22/trial_T20190907_200807_715947,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PlateType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['OnObject', 'put', 'SwitchOn', 'Chill', 'Go', 'LiftGlass', 'CoolObject']"
+train/pick_cool_then_place_in_recep-Plate-None-Cabinet-22/trial_T20190907_200807_715947,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PlateType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['OnObject', 'SwitchOn', 'GoL', 'CoolObject', 'CookObject', 'LiftGlass', 'Go']"
+train/pick_heat_then_place_in_recep-Egg-None-DiningTable-11/trial_T20190907_125404_996063,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-Egg-None-DiningTable-11/trial_T20190907_125404_996063,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['GoL', 'CoolObject', 'OnObject', 'CookObject', 'LiftGlass', 'HeatObject', 'Go']"
+train/pick_heat_then_place_in_recep-Egg-None-DiningTable-11/trial_T20190907_125404_996063,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['Approach', 'put', 'Go', 'HeatObject', 'SwitchOn', 'OnObject', 'CookObject']"
+train/pick_heat_then_place_in_recep-Egg-None-DiningTable-11/trial_T20190907_125404_996063,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['Chill', 'Go', 'GoL', 'OffObject', 'LiftGlass', 'OnObject', 'CoolObject']"
+train/look_at_obj_in_light-AlarmClock-None-DeskLamp-304/trial_T20190907_170557_255365,0,1.0,"(:goal
+	(and 
+		)
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/look_at_obj_in_light-AlarmClock-None-DeskLamp-304/trial_T20190907_170557_255365,1,0.5,"(:goal
+	(and 
+		)
+)",False,,"['OffObject', 'Approach', 'pickup', 'GoL', 'HeatObject', 'LiftGlass', 'GetObject']"
+train/look_at_obj_in_light-AlarmClock-None-DeskLamp-304/trial_T20190907_170557_255365,2,0.5,"(:goal
+	(and 
+		)
+)",False,,"['OnObject', 'HeatObject', 'GoL', 'Approach', 'Chill', 'Go', 'CookObject']"
+train/look_at_obj_in_light-AlarmClock-None-DeskLamp-304/trial_T20190907_170557_255365,3,0.5,"(:goal
+	(and 
+		)
+)",False,,"['HeatObject', 'GoL', 'put', 'Go', 'Approach', 'returnBox', 'GetObject']"
+train/pick_and_place_simple-TomatoSliced-None-CounterTop-25/trial_T20190908_233941_496641,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_and_place_simple-TomatoSliced-None-CounterTop-25/trial_T20190908_233941_496641,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['returnBox', 'GetObject', 'Approach', 'put', 'HeatObject', 'Chill', 'GoL']"
+train/pick_and_place_simple-TomatoSliced-None-CounterTop-25/trial_T20190908_233941_496641,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['put', 'OnObject', 'GetObject', 'pickup', 'HeatObject', 'CookObject', 'Go']"
+train/pick_and_place_simple-TomatoSliced-None-CounterTop-25/trial_T20190908_233941_496641,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['CookObject', 'OffObject', 'GoL', 'Go', 'OnObject', 'Chill', 'HeatObject']"
+train/look_at_obj_in_light-Pillow-None-FloorLamp-221/trial_T20190907_103032_102765,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PillowType)
+		(openable ?r)
+		(isHot ?o)
+		(openable ?r)
+		(isHot ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/look_at_obj_in_light-Pillow-None-FloorLamp-221/trial_T20190907_103032_102765,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PillowType)
+		(openable ?r)
+		(isHot ?o)
+		(openable ?r)
+		(isHot ?o))))
+)",False,,"['Approach', 'LiftGlass', 'returnBox', 'GoL', 'Go', 'put', 'SwitchOn']"
+train/look_at_obj_in_light-Pillow-None-FloorLamp-221/trial_T20190907_103032_102765,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PillowType)
+		(openable ?r)
+		(isHot ?o)
+		(openable ?r)
+		(isHot ?o))))
+)",False,,"['LiftGlass', 'CoolObject', 'OffObject', 'put', 'OnObject', 'CookObject', 'GoL']"
+train/look_at_obj_in_light-Pillow-None-FloorLamp-221/trial_T20190907_103032_102765,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PillowType)
+		(openable ?r)
+		(isHot ?o)
+		(openable ?r)
+		(isHot ?o))))
+)",False,,"['SwitchOn', 'CoolObject', 'HeatObject', 'GetObject', 'GoL', 'OffObject', 'CookObject']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o RemoteControlType)
+		(inReceptacle ?o ?r)
+		(receptacleType ?r BedType))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o RemoteControlType)
+		(inReceptacle ?o ?r)
+		(receptacleType ?r BedType))))
+)",False,,"['OnObject', 'Chill', 'returnBox', 'OffObject', 'pickup', 'Approach', 'Go']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o RemoteControlType)
+		(inReceptacle ?o ?r)
+		(receptacleType ?r BedType))))
+)",False,,"['GoL', 'put', 'returnBox', 'OnObject', 'HeatObject', 'OffObject', 'pickup']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o RemoteControlType)
+		(inReceptacle ?o ?r)
+		(receptacleType ?r BedType))))
+)",False,,"['pickup', 'returnBox', 'GetObject', 'Go', 'Chill', 'OffObject', 'LiftGlass']"
+train/pick_and_place_simple-LettuceSliced-None-DiningTable-24/trial_T20190906_220147_111155,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_and_place_simple-LettuceSliced-None-DiningTable-24/trial_T20190906_220147_111155,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['pickup', 'Chill', 'HeatObject', 'put', 'Go', 'Approach', 'CoolObject']"
+train/pick_and_place_simple-LettuceSliced-None-DiningTable-24/trial_T20190906_220147_111155,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['HeatObject', 'Approach', 'OnObject', 'GoL', 'Chill', 'CoolObject', 'LiftGlass']"
+train/pick_and_place_simple-LettuceSliced-None-DiningTable-24/trial_T20190906_220147_111155,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['returnBox', 'HeatObject', 'LiftGlass', 'Chill', 'OnObject', 'GoL', 'Approach']"
+train/pick_heat_then_place_in_recep-Apple-None-Fridge-22/trial_T20190908_210352_288346,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-Apple-None-Fridge-22/trial_T20190908_210352_288346,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['CoolObject', 'Go', 'SwitchOn', 'GoL', 'LiftGlass', 'returnBox', 'CookObject']"
+train/pick_heat_then_place_in_recep-Apple-None-Fridge-22/trial_T20190908_210352_288346,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['Approach', 'OffObject', 'Chill', 'OnObject', 'returnBox', 'HeatObject', 'GoL']"
+train/pick_heat_then_place_in_recep-Apple-None-Fridge-22/trial_T20190908_210352_288346,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['HeatObject', 'OffObject', 'Approach', 'returnBox', 'Go', 'pickup', 'Chill']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-SinkBasin-19/trial_T20190913_161546_241277,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-SinkBasin-19/trial_T20190913_161546_241277,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['Go', 'SwitchOn', 'pickup', 'CoolObject', 'HeatObject', 'CookObject', 'Chill']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-SinkBasin-19/trial_T20190913_161546_241277,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['HeatObject', 'Approach', 'returnBox', 'Go', 'CookObject', 'OffObject', 'CoolObject']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-SinkBasin-19/trial_T20190913_161546_241277,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['pickup', 'put', 'HeatObject', 'OffObject', 'OnObject', 'LiftGlass', 'CoolObject']"
+train/look_at_obj_in_light-AlarmClock-None-DeskLamp-305/trial_T20190908_082723_323728,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AlarmClockType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/look_at_obj_in_light-AlarmClock-None-DeskLamp-305/trial_T20190908_082723_323728,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AlarmClockType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['OffObject', 'CoolObject', 'GoL', 'Chill', 'HeatObject', 'OnObject', 'returnBox']"
+train/look_at_obj_in_light-AlarmClock-None-DeskLamp-305/trial_T20190908_082723_323728,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AlarmClockType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['LiftGlass', 'CoolObject', 'HeatObject', 'OnObject', 'CookObject', 'put', 'Approach']"
+train/look_at_obj_in_light-AlarmClock-None-DeskLamp-305/trial_T20190908_082723_323728,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AlarmClockType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['Chill', 'OffObject', 'Go', 'put', 'HeatObject', 'CoolObject', 'GetObject']"
+train/pick_cool_then_place_in_recep-Bowl-None-DiningTable-4/trial_T20190908_031115_333928,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o ForkType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-Bowl-None-DiningTable-4/trial_T20190908_031115_333928,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o ForkType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r))))
+)",False,,"['OnObject', 'SwitchOn', 'CookObject', 'Go', 'LiftGlass', 'Chill', 'returnBox']"
+train/pick_cool_then_place_in_recep-Bowl-None-DiningTable-4/trial_T20190908_031115_333928,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o ForkType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r))))
+)",False,,"['OnObject', 'put', 'returnBox', 'SwitchOn', 'GoL', 'pickup', 'GetObject']"
+train/pick_cool_then_place_in_recep-Bowl-None-DiningTable-4/trial_T20190908_031115_333928,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o ForkType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r))))
+)",False,,"['Chill', 'LiftGlass', 'Approach', 'Go', 'GetObject', 'HeatObject', 'GoL']"
+train/look_at_obj_in_light-Book-None-DeskLamp-309/trial_T20190907_175916_775742,0,1.0,"(:goal
+	(and 
+		)
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/look_at_obj_in_light-Book-None-DeskLamp-309/trial_T20190907_175916_775742,1,0.5,"(:goal
+	(and 
+		)
+)",False,,"['GetObject', 'SwitchOn', 'HeatObject', 'GoL', 'returnBox', 'OnObject', 'OffObject']"
+train/look_at_obj_in_light-Book-None-DeskLamp-309/trial_T20190907_175916_775742,2,0.5,"(:goal
+	(and 
+		)
+)",False,,"['HeatObject', 'LiftGlass', 'pickup', 'Go', 'Chill', 'returnBox', 'CookObject']"
+train/look_at_obj_in_light-Book-None-DeskLamp-309/trial_T20190907_175916_775742,3,0.5,"(:goal
+	(and 
+		)
+)",False,,"['Approach', 'Go', 'Chill', 'GoL', 'HeatObject', 'OffObject', 'returnBox']"
+train/pick_heat_then_place_in_recep-Mug-None-CoffeeMachine-14/trial_T20190907_012116_449794,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o MugType)
+		(inReceptacle ?o ?r)
+		(toggleable ?o)
+		(isToggled ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-Mug-None-CoffeeMachine-14/trial_T20190907_012116_449794,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o MugType)
+		(inReceptacle ?o ?r)
+		(toggleable ?o)
+		(isToggled ?o))))
+)",False,,"['put', 'CookObject', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'HeatObject']"
+train/pick_heat_then_place_in_recep-Mug-None-CoffeeMachine-14/trial_T20190907_012116_449794,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o MugType)
+		(inReceptacle ?o ?r)
+		(toggleable ?o)
+		(isToggled ?o))))
+)",False,,"['SwitchOn', 'LiftGlass', 'OffObject', 'Chill', 'CoolObject', 'returnBox', 'pickup']"
+train/pick_heat_then_place_in_recep-Mug-None-CoffeeMachine-14/trial_T20190907_012116_449794,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o MugType)
+		(inReceptacle ?o ?r)
+		(toggleable ?o)
+		(isToggled ?o))))
+)",False,,"['Chill', 'pickup', 'GoL', 'SwitchOn', 'OffObject', 'put', 'Go']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-SinkBasin-14/trial_T20190908_123539_426345,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-SinkBasin-14/trial_T20190908_123539_426345,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['OffObject', 'Approach', 'LiftGlass', 'GetObject', 'Go', 'CookObject', 'HeatObject']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-SinkBasin-14/trial_T20190908_123539_426345,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['OnObject', 'CoolObject', 'GetObject', 'Chill', 'Go', 'SwitchOn', 'returnBox']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-SinkBasin-14/trial_T20190908_123539_426345,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['SwitchOn', 'LiftGlass', 'Chill', 'HeatObject', 'OffObject', 'GetObject', 'pickup']"
+train/pick_and_place_simple-TomatoSliced-None-SideTable-28/trial_T20190908_213552_035696,0,1.0,"(:goal
+	(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(sliceable ?o)
+		(isSliced ?o)))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_and_place_simple-TomatoSliced-None-SideTable-28/trial_T20190908_213552_035696,1,0.5,"(:goal
+	(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(sliceable ?o)
+		(isSliced ?o)))
+)",False,,"['OffObject', 'HeatObject', 'Go', 'CoolObject', 'put', 'SwitchOn', 'GetObject']"
+train/pick_and_place_simple-TomatoSliced-None-SideTable-28/trial_T20190908_213552_035696,2,0.5,"(:goal
+	(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(sliceable ?o)
+		(isSliced ?o)))
+)",False,,"['HeatObject', 'OffObject', 'CookObject', 'returnBox', 'Chill', 'LiftGlass', 'GoL']"
+train/pick_and_place_simple-TomatoSliced-None-SideTable-28/trial_T20190908_213552_035696,3,0.5,"(:goal
+	(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(sliceable ?o)
+		(isSliced ?o)))
+)",False,,"['Approach', 'OffObject', 'returnBox', 'LiftGlass', 'SwitchOn', 'CookObject', 'pickup']"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-CounterTop-22/trial_T20190909_040642_077525,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r FridgeType)
+		(openable ?r)
+		(opened ?r)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-CounterTop-22/trial_T20190909_040642_077525,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r FridgeType)
+		(openable ?r)
+		(opened ?r)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['Approach', 'returnBox', 'OffObject', 'SwitchOn', 'CookObject', 'GetObject', 'Chill']"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-CounterTop-22/trial_T20190909_040642_077525,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r FridgeType)
+		(openable ?r)
+		(opened ?r)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['HeatObject', 'CookObject', 'OnObject', 'GoL', 'LiftGlass', 'CoolObject', 'Go']"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-CounterTop-22/trial_T20190909_040642_077525,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r FridgeType)
+		(openable ?r)
+		(opened ?r)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['CoolObject', 'LiftGlass', 'put', 'Go', 'CookObject', 'OnObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-CounterTop-8/trial_T20190910_080205_480727,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r StoveBurnerType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-CounterTop-8/trial_T20190910_080205_480727,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r StoveBurnerType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['Approach', 'LiftGlass', 'GetObject', 'returnBox', 'put', 'pickup', 'Chill']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-CounterTop-8/trial_T20190910_080205_480727,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r StoveBurnerType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['SwitchOn', 'OffObject', 'CookObject', 'CoolObject', 'Chill', 'GoL', 'returnBox']"
+train/pick_heat_then_place_in_recep-PotatoSliced-None-CounterTop-8/trial_T20190910_080205_480727,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r StoveBurnerType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['OffObject', 'SwitchOn', 'HeatObject', 'Approach', 'returnBox', 'pickup', 'put']"
+train/pick_and_place_simple-TomatoSliced-None-SideTable-3/trial_T20190908_091658_623792,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_and_place_simple-TomatoSliced-None-SideTable-3/trial_T20190908_091658_623792,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['LiftGlass', 'returnBox', 'HeatObject', 'GetObject', 'GoL', 'Approach', 'Chill']"
+train/pick_and_place_simple-TomatoSliced-None-SideTable-3/trial_T20190908_091658_623792,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['OffObject', 'HeatObject', 'Chill', 'put', 'Approach', 'GoL', 'CoolObject']"
+train/pick_and_place_simple-TomatoSliced-None-SideTable-3/trial_T20190908_091658_623792,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['OffObject', 'OnObject', 'CookObject', 'returnBox', 'Approach', 'HeatObject', 'Go']"
+train/pick_cool_then_place_in_recep-TomatoSliced-None-CounterTop-14/trial_T20190911_165306_552824,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r CounterTopType)
+		(isCool ?o)
+		(heatable ?o)
+		(inReceptacle ?o ?r))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-TomatoSliced-None-CounterTop-14/trial_T20190911_165306_552824,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r CounterTopType)
+		(isCool ?o)
+		(heatable ?o)
+		(inReceptacle ?o ?r))))
+)",False,,"['pickup', 'SwitchOn', 'put', 'GoL', 'OnObject', 'Approach', 'CookObject']"
+train/pick_cool_then_place_in_recep-TomatoSliced-None-CounterTop-14/trial_T20190911_165306_552824,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r CounterTopType)
+		(isCool ?o)
+		(heatable ?o)
+		(inReceptacle ?o ?r))))
+)",False,,"['GetObject', 'CoolObject', 'SwitchOn', 'put', 'OnObject', 'HeatObject', 'LiftGlass']"
+train/pick_cool_then_place_in_recep-TomatoSliced-None-CounterTop-14/trial_T20190911_165306_552824,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r CounterTopType)
+		(isCool ?o)
+		(heatable ?o)
+		(inReceptacle ?o ?r))))
+)",False,,"['GetObject', 'Chill', 'pickup', 'SwitchOn', 'Go', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-Cup-None-Shelf-1/trial_T20190906_230209_175441,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o GlassbottleType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-Cup-None-Shelf-1/trial_T20190906_230209_175441,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o GlassbottleType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['CoolObject', 'Approach', 'Chill', 'put', 'CookObject', 'returnBox', 'LiftGlass']"
+train/pick_heat_then_place_in_recep-Cup-None-Shelf-1/trial_T20190906_230209_175441,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o GlassbottleType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['HeatObject', 'Approach', 'OffObject', 'SwitchOn', 'CookObject', 'GetObject', 'put']"
+train/pick_heat_then_place_in_recep-Cup-None-Shelf-1/trial_T20190906_230209_175441,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o GlassbottleType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['pickup', 'CoolObject', 'CookObject', 'GetObject', 'Chill', 'Go', 'OnObject']"
+train/pick_cool_then_place_in_recep-BreadSliced-None-GarbageCan-19/trial_T20190908_174425_766449,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(receptacleType ?r GarbageCanType)
+		(inReceptacle ?o ?r)
+		(isCool ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-BreadSliced-None-GarbageCan-19/trial_T20190908_174425_766449,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(receptacleType ?r GarbageCanType)
+		(inReceptacle ?o ?r)
+		(isCool ?o))))
+)",False,,"['SwitchOn', 'returnBox', 'GoL', 'CookObject', 'put', 'Go', 'HeatObject']"
+train/pick_cool_then_place_in_recep-BreadSliced-None-GarbageCan-19/trial_T20190908_174425_766449,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(receptacleType ?r GarbageCanType)
+		(inReceptacle ?o ?r)
+		(isCool ?o))))
+)",False,,"['OffObject', 'pickup', 'HeatObject', 'GoL', 'Approach', 'LiftGlass', 'OnObject']"
+train/pick_cool_then_place_in_recep-BreadSliced-None-GarbageCan-19/trial_T20190908_174425_766449,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(receptacleType ?r GarbageCanType)
+		(inReceptacle ?o ?r)
+		(isCool ?o))))
+)",False,,"['CookObject', 'GetObject', 'pickup', 'LiftGlass', 'Go', 'Chill', 'OffObject']"
+train/pick_cool_then_place_in_recep-Bread-None-CounterTop-7/trial_T20190909_012427_332210,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-Bread-None-CounterTop-7/trial_T20190909_012427_332210,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['CookObject', 'SwitchOn', 'Chill', 'pickup', 'LiftGlass', 'HeatObject', 'Approach']"
+train/pick_cool_then_place_in_recep-Bread-None-CounterTop-7/trial_T20190909_012427_332210,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['put', 'OnObject', 'GoL', 'HeatObject', 'pickup', 'LiftGlass', 'CoolObject']"
+train/pick_cool_then_place_in_recep-Bread-None-CounterTop-7/trial_T20190909_012427_332210,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['Approach', 'GetObject', 'GoL', 'OffObject', 'Go', 'returnBox', 'LiftGlass']"
+train/pick_cool_then_place_in_recep-BreadSliced-None-SideTable-21/trial_T20190907_101038_416790,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isCool ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-BreadSliced-None-SideTable-21/trial_T20190907_101038_416790,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isCool ?o))))
+)",False,,"['returnBox', 'put', 'OffObject', 'Chill', 'Approach', 'SwitchOn', 'CookObject']"
+train/pick_cool_then_place_in_recep-BreadSliced-None-SideTable-21/trial_T20190907_101038_416790,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isCool ?o))))
+)",False,,"['GetObject', 'CookObject', 'LiftGlass', 'CoolObject', 'OffObject', 'GoL', 'Chill']"
+train/pick_cool_then_place_in_recep-BreadSliced-None-SideTable-21/trial_T20190907_101038_416790,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isCool ?o))))
+)",False,,"['Approach', 'OnObject', 'returnBox', 'Chill', 'HeatObject', 'pickup', 'Go']"
+train/pick_heat_then_place_in_recep-Egg-None-DiningTable-18/trial_T20190908_051307_917970,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-Egg-None-DiningTable-18/trial_T20190908_051307_917970,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['pickup', 'HeatObject', 'SwitchOn', 'OnObject', 'CookObject', 'LiftGlass', 'returnBox']"
+train/pick_heat_then_place_in_recep-Egg-None-DiningTable-18/trial_T20190908_051307_917970,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['LiftGlass', 'put', 'CookObject', 'SwitchOn', 'CoolObject', 'returnBox', 'Chill']"
+train/pick_heat_then_place_in_recep-Egg-None-DiningTable-18/trial_T20190908_051307_917970,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['put', 'SwitchOn', 'Go', 'Chill', 'HeatObject', 'GetObject', 'returnBox']"
+train/pick_heat_then_place_in_recep-Tomato-None-Fridge-12/trial_T20190906_190441_327141,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r)
+		(isHot ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-Tomato-None-Fridge-12/trial_T20190906_190441_327141,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r)
+		(isHot ?o))))
+)",False,,"['CookObject', 'Approach', 'SwitchOn', 'Go', 'pickup', 'put', 'returnBox']"
+train/pick_heat_then_place_in_recep-Tomato-None-Fridge-12/trial_T20190906_190441_327141,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r)
+		(isHot ?o))))
+)",False,,"['Go', 'put', 'OnObject', 'HeatObject', 'GoL', 'CoolObject', 'returnBox']"
+train/pick_heat_then_place_in_recep-Tomato-None-Fridge-12/trial_T20190906_190441_327141,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r FridgeType)
+		(inReceptacle ?o ?r)
+		(isHot ?o))))
+)",False,,"['SwitchOn', 'HeatObject', 'OnObject', 'put', 'pickup', 'CoolObject', 'returnBox']"
+train/pick_cool_then_place_in_recep-AppleSliced-None-GarbageCan-25/trial_T20190908_193803_869487,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-AppleSliced-None-GarbageCan-25/trial_T20190908_193803_869487,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['GetObject', 'put', 'CoolObject', 'Chill', 'pickup', 'OnObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-AppleSliced-None-GarbageCan-25/trial_T20190908_193803_869487,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['Go', 'returnBox', 'put', 'Approach', 'Chill', 'SwitchOn', 'CookObject']"
+train/pick_cool_then_place_in_recep-AppleSliced-None-GarbageCan-25/trial_T20190908_193803_869487,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['pickup', 'GetObject', 'SwitchOn', 'returnBox', 'LiftGlass', 'CookObject', 'GoL']"
+train/look_at_obj_in_light-CD-None-DeskLamp-328/trial_T20190908_004539_969224,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o CDType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r)
+		(toggleable ?o)
+		(isOn ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/look_at_obj_in_light-CD-None-DeskLamp-328/trial_T20190908_004539_969224,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o CDType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r)
+		(toggleable ?o)
+		(isOn ?o))))
+)",False,,"['Chill', 'Go', 'GoL', 'CoolObject', 'Approach', 'OffObject', 'put']"
+train/look_at_obj_in_light-CD-None-DeskLamp-328/trial_T20190908_004539_969224,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o CDType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r)
+		(toggleable ?o)
+		(isOn ?o))))
+)",False,,"['HeatObject', 'returnBox', 'pickup', 'OffObject', 'put', 'OnObject', 'Chill']"
+train/look_at_obj_in_light-CD-None-DeskLamp-328/trial_T20190908_004539_969224,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o CDType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r)
+		(toggleable ?o)
+		(isOn ?o))))
+)",False,,"['HeatObject', 'GoL', 'OnObject', 'Go', 'returnBox', 'SwitchOn', 'pickup']"
+train/pick_cool_then_place_in_recep-Bread-None-CounterTop-16/trial_T20190907_221816_384897,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-Bread-None-CounterTop-16/trial_T20190907_221816_384897,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['LiftGlass', 'Go', 'Chill', 'SwitchOn', 'OffObject', 'Approach', 'HeatObject']"
+train/pick_cool_then_place_in_recep-Bread-None-CounterTop-16/trial_T20190907_221816_384897,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['Chill', 'returnBox', 'LiftGlass', 'Approach', 'put', 'OnObject', 'pickup']"
+train/pick_cool_then_place_in_recep-Bread-None-CounterTop-16/trial_T20190907_221816_384897,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['Approach', 'put', 'GoL', 'pickup', 'CoolObject', 'OffObject', 'Go']"
+train/pick_cool_then_place_in_recep-BreadSliced-None-DiningTable-27/trial_T20190908_080050_227088,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-BreadSliced-None-DiningTable-27/trial_T20190908_080050_227088,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['SwitchOn', 'LiftGlass', 'pickup', 'GoL', 'CoolObject', 'returnBox', 'Chill']"
+train/pick_cool_then_place_in_recep-BreadSliced-None-DiningTable-27/trial_T20190908_080050_227088,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['pickup', 'put', 'returnBox', 'Approach', 'OffObject', 'CookObject', 'SwitchOn']"
+train/pick_cool_then_place_in_recep-BreadSliced-None-DiningTable-27/trial_T20190908_080050_227088,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['HeatObject', 'returnBox', 'CoolObject', 'GetObject', 'OnObject', 'Go', 'put']"
+train/look_at_obj_in_light-Pillow-None-DeskLamp-319/trial_T20190907_224200_196003,0,1.0,"(:goal
+	(and 
+		(isToggled DeskLamp))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/look_at_obj_in_light-Pillow-None-DeskLamp-319/trial_T20190907_224200_196003,1,0.5,"(:goal
+	(and 
+		(isToggled DeskLamp))
+)",False,,"['returnBox', 'pickup', 'Chill', 'Go', 'SwitchOn', 'LiftGlass', 'put']"
+train/look_at_obj_in_light-Pillow-None-DeskLamp-319/trial_T20190907_224200_196003,2,0.5,"(:goal
+	(and 
+		(isToggled DeskLamp))
+)",False,,"['HeatObject', 'put', 'returnBox', 'Go', 'CoolObject', 'CookObject', 'Chill']"
+train/look_at_obj_in_light-Pillow-None-DeskLamp-319/trial_T20190907_224200_196003,3,0.5,"(:goal
+	(and 
+		(isToggled DeskLamp))
+)",False,,"['pickup', 'OnObject', 'CookObject', 'Chill', 'HeatObject', 'put', 'SwitchOn']"
+train/pick_cool_then_place_in_recep-Potato-None-Microwave-13/trial_T20190907_200955_697787,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r DrawerType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-Potato-None-Microwave-13/trial_T20190907_200955_697787,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r DrawerType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['pickup', 'Go', 'LiftGlass', 'GoL', 'OnObject', 'HeatObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-Potato-None-Microwave-13/trial_T20190907_200955_697787,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r DrawerType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['CookObject', 'CoolObject', 'HeatObject', 'Approach', 'LiftGlass', 'OnObject', 'SwitchOn']"
+train/pick_cool_then_place_in_recep-Potato-None-Microwave-13/trial_T20190907_200955_697787,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r DrawerType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['pickup', 'returnBox', 'GoL', 'CoolObject', 'Chill', 'SwitchOn', 'put']"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-GarbageCan-18/trial_T20190909_070614_702720,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SinkBasinType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-GarbageCan-18/trial_T20190909_070614_702720,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SinkBasinType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['GetObject', 'HeatObject', 'SwitchOn', 'OnObject', 'CookObject', 'returnBox', 'put']"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-GarbageCan-18/trial_T20190909_070614_702720,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SinkBasinType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['OnObject', 'GoL', 'pickup', 'HeatObject', 'Approach', 'Go', 'GetObject']"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-GarbageCan-18/trial_T20190909_070614_702720,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SinkBasinType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['CookObject', 'LiftGlass', 'GoL', 'pickup', 'Approach', 'OnObject', 'SwitchOn']"
+train/pick_heat_then_place_in_recep-Egg-None-SideTable-28/trial_T20190908_115607_419115,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r SideTableType))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-Egg-None-SideTable-28/trial_T20190908_115607_419115,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r SideTableType))))
+)",False,,"['Go', 'Chill', 'put', 'GetObject', 'CookObject', 'Approach', 'OnObject']"
+train/pick_heat_then_place_in_recep-Egg-None-SideTable-28/trial_T20190908_115607_419115,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r SideTableType))))
+)",False,,"['GetObject', 'CoolObject', 'pickup', 'HeatObject', 'LiftGlass', 'SwitchOn', 'Go']"
+train/pick_heat_then_place_in_recep-Egg-None-SideTable-28/trial_T20190908_115607_419115,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r SideTableType))))
+)",False,,"['pickup', 'CoolObject', 'Approach', 'GetObject', 'CookObject', 'GoL', 'Chill']"
+train/pick_heat_then_place_in_recep-Apple-None-GarbageCan-12/trial_T20190908_172429_549227,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-Apple-None-GarbageCan-12/trial_T20190908_172429_549227,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['pickup', 'GoL', 'returnBox', 'GetObject', 'LiftGlass', 'HeatObject', 'CookObject']"
+train/pick_heat_then_place_in_recep-Apple-None-GarbageCan-12/trial_T20190908_172429_549227,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['Go', 'GetObject', 'OffObject', 'Approach', 'returnBox', 'pickup', 'SwitchOn']"
+train/pick_heat_then_place_in_recep-Apple-None-GarbageCan-12/trial_T20190908_172429_549227,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['SwitchOn', 'GoL', 'Go', 'OffObject', 'LiftGlass', 'CoolObject', 'Chill']"
+train/pick_and_place_simple-PotatoSliced-None-SinkBasin-25/trial_T20190907_062036_745419,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(sliceable ?o)
+		(inReceptacle ?o ?r)
+		(isSliced ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_and_place_simple-PotatoSliced-None-SinkBasin-25/trial_T20190907_062036_745419,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(sliceable ?o)
+		(inReceptacle ?o ?r)
+		(isSliced ?o))))
+)",False,,"['OffObject', 'put', 'GoL', 'returnBox', 'GetObject', 'Go', 'Chill']"
+train/pick_and_place_simple-PotatoSliced-None-SinkBasin-25/trial_T20190907_062036_745419,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(sliceable ?o)
+		(inReceptacle ?o ?r)
+		(isSliced ?o))))
+)",False,,"['Go', 'CookObject', 'Approach', 'SwitchOn', 'HeatObject', 'CoolObject', 'GetObject']"
+train/pick_and_place_simple-PotatoSliced-None-SinkBasin-25/trial_T20190907_062036_745419,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(sliceable ?o)
+		(inReceptacle ?o ?r)
+		(isSliced ?o))))
+)",False,,"['Approach', 'CookObject', 'SwitchOn', 'CoolObject', 'OffObject', 'Chill', 'put']"
+train/pick_heat_then_place_in_recep-Tomato-None-SideTable-3/trial_T20190907_140946_092791,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-Tomato-None-SideTable-3/trial_T20190907_140946_092791,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['GetObject', 'LiftGlass', 'Go', 'SwitchOn', 'pickup', 'returnBox', 'put']"
+train/pick_heat_then_place_in_recep-Tomato-None-SideTable-3/trial_T20190907_140946_092791,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['CoolObject', 'Go', 'Chill', 'GetObject', 'SwitchOn', 'GoL', 'CookObject']"
+train/pick_heat_then_place_in_recep-Tomato-None-SideTable-3/trial_T20190907_140946_092791,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",False,,"['returnBox', 'CoolObject', 'Go', 'GetObject', 'OnObject', 'GoL', 'CookObject']"
+train/pick_heat_then_place_in_recep-BreadSliced-None-SideTable-28/trial_T20190907_180304_503402,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-BreadSliced-None-SideTable-28/trial_T20190907_180304_503402,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['Chill', 'GetObject', 'Approach', 'GoL', 'HeatObject', 'returnBox', 'CoolObject']"
+train/pick_heat_then_place_in_recep-BreadSliced-None-SideTable-28/trial_T20190907_180304_503402,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['Approach', 'pickup', 'GetObject', 'Go', 'SwitchOn', 'put', 'OffObject']"
+train/pick_heat_then_place_in_recep-BreadSliced-None-SideTable-28/trial_T20190907_180304_503402,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BreadType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['LiftGlass', 'CookObject', 'HeatObject', 'Go', 'Chill', 'SwitchOn', 'GoL']"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-CounterTop-22/trial_T20190909_040822_239216,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-CounterTop-22/trial_T20190909_040822_239216,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['pickup', 'LiftGlass', 'OnObject', 'put', 'HeatObject', 'GoL', 'OffObject']"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-CounterTop-22/trial_T20190909_040822_239216,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['CookObject', 'GetObject', 'OffObject', 'Chill', 'LiftGlass', 'put', 'GoL']"
+train/pick_cool_then_place_in_recep-PotatoSliced-None-CounterTop-22/trial_T20190909_040822_239216,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotatoType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['OffObject', 'OnObject', 'Go', 'SwitchOn', 'HeatObject', 'CookObject', 'LiftGlass']"
+train/look_at_obj_in_light-Newspaper-None-FloorLamp-212/trial_T20190908_112042_584512,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o NewspaperType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/look_at_obj_in_light-Newspaper-None-FloorLamp-212/trial_T20190908_112042_584512,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o NewspaperType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['pickup', 'put', 'GetObject', 'OnObject', 'HeatObject', 'returnBox', 'CoolObject']"
+train/look_at_obj_in_light-Newspaper-None-FloorLamp-212/trial_T20190908_112042_584512,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o NewspaperType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['LiftGlass', 'GoL', 'Chill', 'OffObject', 'SwitchOn', 'Go', 'pickup']"
+train/look_at_obj_in_light-Newspaper-None-FloorLamp-212/trial_T20190908_112042_584512,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o NewspaperType)
+		(receptacleType ?r CounterTopType)
+		(inReceptacle ?o ?r)
+		(cleanable ?o)
+		(isClean ?o))))
+)",False,,"['pickup', 'Chill', 'OffObject', 'GetObject', 'CoolObject', 'returnBox', 'SwitchOn']"
+train/pick_cool_then_place_in_recep-Pot-None-DiningTable-24/trial_T20190908_111415_336140,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-Pot-None-DiningTable-24/trial_T20190908_111415_336140,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['GetObject', 'SwitchOn', 'GoL', 'Chill', 'pickup', 'HeatObject', 'LiftGlass']"
+train/pick_cool_then_place_in_recep-Pot-None-DiningTable-24/trial_T20190908_111415_336140,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['pickup', 'OnObject', 'SwitchOn', 'Chill', 'Approach', 'LiftGlass', 'OffObject']"
+train/pick_cool_then_place_in_recep-Pot-None-DiningTable-24/trial_T20190908_111415_336140,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o PotType)
+		(receptacleType ?r SideTableType)
+		(inReceptacle ?o ?r)
+		(coolable ?o)
+		(isCool ?o))))
+)",False,,"['SwitchOn', 'OnObject', 'GetObject', 'LiftGlass', 'GoL', 'put', 'pickup']"
+train/pick_cool_then_place_in_recep-AppleSliced-None-Microwave-25/trial_T20190908_055159_132487,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(exists (?a - agent)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r CounterTopType)
+		(holds ?a ?o)
+		(cleanable ?o)
+		(isClean ?o)))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-AppleSliced-None-Microwave-25/trial_T20190908_055159_132487,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(exists (?a - agent)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r CounterTopType)
+		(holds ?a ?o)
+		(cleanable ?o)
+		(isClean ?o)))))
+)",False,,"['returnBox', 'GetObject', 'HeatObject', 'Go', 'OffObject', 'OnObject', 'CoolObject']"
+train/pick_cool_then_place_in_recep-AppleSliced-None-Microwave-25/trial_T20190908_055159_132487,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(exists (?a - agent)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r CounterTopType)
+		(holds ?a ?o)
+		(cleanable ?o)
+		(isClean ?o)))))
+)",False,,"['LiftGlass', 'CookObject', 'OnObject', 'Chill', 'Approach', 'pickup', 'returnBox']"
+train/pick_cool_then_place_in_recep-AppleSliced-None-Microwave-25/trial_T20190908_055159_132487,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(exists (?a - agent)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r CounterTopType)
+		(holds ?a ?o)
+		(cleanable ?o)
+		(isClean ?o)))))
+)",False,,"['CoolObject', 'GoL', 'OnObject', 'OffObject', 'SwitchOn', 'CookObject', 'put']"
+train/pick_cool_then_place_in_recep-Egg-None-SinkBasin-25/trial_T20190909_105100_154263,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_cool_then_place_in_recep-Egg-None-SinkBasin-25/trial_T20190909_105100_154263,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r))))
+)",False,,"['pickup', 'put', 'LiftGlass', 'returnBox', 'Chill', 'Approach', 'SwitchOn']"
+train/pick_cool_then_place_in_recep-Egg-None-SinkBasin-25/trial_T20190909_105100_154263,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r))))
+)",False,,"['GetObject', 'GoL', 'Approach', 'Chill', 'Go', 'returnBox', 'OnObject']"
+train/pick_cool_then_place_in_recep-Egg-None-SinkBasin-25/trial_T20190909_105100_154263,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o EggType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r))))
+)",False,,"['CoolObject', 'GetObject', 'SwitchOn', 'returnBox', 'OffObject', 'Chill', 'GoL']"
+train/pick_and_place_simple-AppleSliced-None-Microwave-14/trial_T20190908_171220_804585,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_and_place_simple-AppleSliced-None-Microwave-14/trial_T20190908_171220_804585,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['put', 'OnObject', 'LiftGlass', 'pickup', 'Approach', 'HeatObject', 'Go']"
+train/pick_and_place_simple-AppleSliced-None-Microwave-14/trial_T20190908_171220_804585,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['put', 'GetObject', 'OffObject', 'Chill', 'OnObject', 'CoolObject', 'Go']"
+train/pick_and_place_simple-AppleSliced-None-Microwave-14/trial_T20190908_171220_804585,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o KnifeType)
+		(receptacleType ?r MicrowaveType)
+		(inReceptacle ?o ?r)
+		(sliceable ?o)
+		(isSliced ?o))))
+)",False,,"['Go', 'CoolObject', 'returnBox', 'Approach', 'HeatObject', 'OnObject', 'LiftGlass']"
+train/pick_heat_then_place_in_recep-TomatoSliced-None-GarbageCan-23/trial_T20190909_034745_393039,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r GarbageCanType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(sliceable ?o)
+		(isSliced ?o)
+		(isHot ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_heat_then_place_in_recep-TomatoSliced-None-GarbageCan-23/trial_T20190909_034745_393039,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r GarbageCanType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(sliceable ?o)
+		(isSliced ?o)
+		(isHot ?o))))
+)",False,,"['LiftGlass', 'SwitchOn', 'GetObject', 'returnBox', 'Approach', 'pickup', 'OffObject']"
+train/pick_heat_then_place_in_recep-TomatoSliced-None-GarbageCan-23/trial_T20190909_034745_393039,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r GarbageCanType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(sliceable ?o)
+		(isSliced ?o)
+		(isHot ?o))))
+)",False,,"['HeatObject', 'pickup', 'GetObject', 'SwitchOn', 'Chill', 'LiftGlass', 'returnBox']"
+train/pick_heat_then_place_in_recep-TomatoSliced-None-GarbageCan-23/trial_T20190909_034745_393039,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o TomatoType)
+		(receptacleType ?r GarbageCanType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(sliceable ?o)
+		(isSliced ?o)
+		(isHot ?o))))
+)",False,,"['OnObject', 'Approach', 'SwitchOn', 'OffObject', 'LiftGlass', 'put', 'Go']"
+train/pick_and_place_simple-BreadSliced-None-SideTable-3/trial_T20190906_235928_630179,0,1.0,"(:goal
+	(and 
+		)
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_and_place_simple-BreadSliced-None-SideTable-3/trial_T20190906_235928_630179,1,0.5,"(:goal
+	(and 
+		)
+)",False,,"['Approach', 'Chill', 'returnBox', 'Go', 'OffObject', 'GetObject', 'GoL']"
+train/pick_and_place_simple-BreadSliced-None-SideTable-3/trial_T20190906_235928_630179,2,0.5,"(:goal
+	(and 
+		)
+)",False,,"['returnBox', 'OffObject', 'GoL', 'OnObject', 'Approach', 'Chill', 'GetObject']"
+train/pick_and_place_simple-BreadSliced-None-SideTable-3/trial_T20190906_235928_630179,3,0.5,"(:goal
+	(and 
+		)
+)",False,,"['CoolObject', 'pickup', 'HeatObject', 'put', 'Go', 'returnBox', 'CookObject']"
+train/look_at_obj_in_light-WateringCan-None-DeskLamp-224/trial_T20190907_122624_148095,0,1.0,"(:goal
+	(and 
+		)
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/look_at_obj_in_light-WateringCan-None-DeskLamp-224/trial_T20190907_122624_148095,1,0.5,"(:goal
+	(and 
+		)
+)",False,,"['Approach', 'HeatObject', 'OnObject', 'CookObject', 'GoL', 'Chill', 'returnBox']"
+train/look_at_obj_in_light-WateringCan-None-DeskLamp-224/trial_T20190907_122624_148095,2,0.5,"(:goal
+	(and 
+		)
+)",False,,"['Approach', 'SwitchOn', 'GetObject', 'Go', 'pickup', 'HeatObject', 'returnBox']"
+train/look_at_obj_in_light-WateringCan-None-DeskLamp-224/trial_T20190907_122624_148095,3,0.5,"(:goal
+	(and 
+		)
+)",False,,"['Go', 'Chill', 'OnObject', 'CoolObject', 'put', 'LiftGlass', 'SwitchOn']"
+train/look_at_obj_in_light-CD-None-DeskLamp-305/trial_T20190909_132447_100635,0,1.0,"(:goal
+	(exists (?o - object)
+(exists (?a - agent)
+(and 
+		(objectType ?o CDType)
+		(holds ?a ?o))))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/look_at_obj_in_light-CD-None-DeskLamp-305/trial_T20190909_132447_100635,1,0.5,"(:goal
+	(exists (?o - object)
+(exists (?a - agent)
+(and 
+		(objectType ?o CDType)
+		(holds ?a ?o))))
+)",False,,"['HeatObject', 'Approach', 'returnBox', 'pickup', 'GoL', 'OnObject', 'OffObject']"
+train/look_at_obj_in_light-CD-None-DeskLamp-305/trial_T20190909_132447_100635,2,0.5,"(:goal
+	(exists (?o - object)
+(exists (?a - agent)
+(and 
+		(objectType ?o CDType)
+		(holds ?a ?o))))
+)",False,,"['OffObject', 'Approach', 'GoL', 'returnBox', 'LiftGlass', 'Chill', 'SwitchOn']"
+train/look_at_obj_in_light-CD-None-DeskLamp-305/trial_T20190909_132447_100635,3,0.5,"(:goal
+	(exists (?o - object)
+(exists (?a - agent)
+(and 
+		(objectType ?o CDType)
+		(holds ?a ?o))))
+)",False,,"['CookObject', 'HeatObject', 'GetObject', 'Go', 'returnBox', 'Approach', 'pickup']"
+train/pick_and_place_simple-AppleSliced-None-Microwave-14/trial_T20190908_171329_509999,0,1.0,"(:goal
+	(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(sliceable ?o)
+		(isSliced ?o)))
+)",False,,"['GoL', 'CookObject', 'Chill', 'pickup', 'GetObject', 'Go', 'HeatObject', 'put', 'SwitchOn', 'Approach', 'returnBox', 'LiftGlass', 'OnObject', 'CoolObject', 'OffObject']"
+train/pick_and_place_simple-AppleSliced-None-Microwave-14/trial_T20190908_171329_509999,1,0.5,"(:goal
+	(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(sliceable ?o)
+		(isSliced ?o)))
+)",False,,"['GetObject', 'OffObject', 'OnObject', 'CookObject', 'returnBox', 'Go', 'SwitchOn']"
+train/pick_and_place_simple-AppleSliced-None-Microwave-14/trial_T20190908_171329_509999,2,0.5,"(:goal
+	(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(sliceable ?o)
+		(isSliced ?o)))
+)",False,,"['CoolObject', 'SwitchOn', 'OnObject', 'CookObject', 'GoL', 'returnBox', 'Approach']"
+train/pick_and_place_simple-AppleSliced-None-Microwave-14/trial_T20190908_171329_509999,3,0.5,"(:goal
+	(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(sliceable ?o)
+		(isSliced ?o)))
+)",False,,"['OnObject', 'Chill', 'CookObject', 'HeatObject', 'LiftGlass', 'put', 'GoL']"

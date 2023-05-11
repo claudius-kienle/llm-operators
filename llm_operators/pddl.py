@@ -1184,8 +1184,8 @@ def log_preprocessed_goals(problems, output_directory, experiment_name, verbose=
                             "problem": problem.problem_id,
                             "nl_goal": problem.language,
                             "gt_pddl_goal": problem.ground_truth_pddl_problem.ground_truth_goal,
-                            "codex_raw_goals": problem.codex_raw_goals,
                             "codex_preprocessed_goal": goal,
+                            "codex_raw_goals": problem.codex_raw_goals,
                         }
                     )
 
