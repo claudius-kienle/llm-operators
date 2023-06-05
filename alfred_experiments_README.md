@@ -1,4 +1,7 @@
 #### Experiments log.
+# ALFRED checkpoint - 6-1-2023. Debugging the full loop in ALFRED with the ground truth.
+python main.py --experiment_name alfred_linearized_100_ground_truth_652023 --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple pick_clean_then_place_in_recep --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle CleanObject --verbose --train_iterations 1 --dataset_pddl_directory data/dataset/alfred_linearized_pddl --output_directory generated --debug_ground_truth_operators --debug_ground_truth_goals
+
 # ALFRED checkpoint: 5-11-2023. Comparing everything to ground truth to evaluate progress.
 python main.py --experiment_name alfred_linearized_100_supervision_pddl_pick_place_clean_51123 --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple pick_clean_then_place_in_recep --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle CleanObject --verbose --train_iterations 1 --dataset_pddl_directory data/dataset/alfred_linearized_pddl --output_directory generated --debug_mock_propose_goals
 

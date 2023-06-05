@@ -1,0 +1,20 @@
+problem_id,attempt_id,sample_percent,goal,success,plan,sampled_operators
+train/pick_and_place_simple-AppleSliced-None-Fridge-30/trial_T20190907_105723_672392,0,1.0,"(:goal
+        (exists (?r - receptacle)
+        (exists (?o - object)
+            (and 
+                (objectType ?o AppleType) 
+                (receptacleType ?r FridgeType)
+                (inReceptacle ?o ?r) 
+                (sliceable ?o)
+                (isSliced ?o) 
+            )
+    )))",True,"(gotolocation agent1 loc_bar_1_bar__minus_2_bar_2_bar_30 loc_bar_0_bar_2_bar_1_bar_60)
+(gotolocation agent1 loc_bar_0_bar_2_bar_1_bar_60 loc_bar__minus_1_bar_5_bar_3_bar_30)
+(pickupobjectinreceptacle agent1 loc_bar__minus_1_bar_5_bar_3_bar_30 apple__minus_4_dot_20862772_comma__minus_4_dot_20862772_comma_5_dot_24733972_comma_5_dot_24733972_comma_4_dot_28595684_comma_4_dot_28595684 microwave__minus_4_dot_136_comma__minus_4_dot_136_comma_5_dot_716_comma_5_dot_716_comma_3_dot_5567708_comma_3_dot_5567708)
+(gotolocation agent1 loc_bar__minus_1_bar_5_bar_3_bar_30 loc_bar_4_bar__minus_3_bar_2_bar_60)
+(putobjectinreceptacle agent1 loc_bar_4_bar__minus_3_bar_2_bar_60 appletype apple__minus_4_dot_20862772_comma__minus_4_dot_20862772_comma_5_dot_24733972_comma_5_dot_24733972_comma_4_dot_28595684_comma_4_dot_28595684 fridge_4_dot_032_comma_4_dot_032_comma__minus_5_dot_8716_comma__minus_5_dot_8716_comma_0_dot_1178706288_comma_0_dot_1178706288)
+(gotolocation agent1 loc_bar_4_bar__minus_3_bar_2_bar_60 loc_bar_0_bar_2_bar_1_bar_60)
+(pickupobjectinreceptacle agent1 loc_bar_0_bar_2_bar_1_bar_60 knife_2_dot_1344_comma_2_dot_1344_comma_2_dot_1080524_comma_2_dot_1080524_comma_3_dot_7463136_comma_3_dot_7463136 countertop_4_dot_844_comma_4_dot_844_comma_1_dot_856_comma_1_dot_856_comma_3_dot_7488_comma_3_dot_7488)
+(gotolocation agent1 loc_bar_0_bar_2_bar_1_bar_60 loc_bar_4_bar__minus_3_bar_2_bar_60)
+(sliceobject agent1 loc_bar_4_bar__minus_3_bar_2_bar_60 apple__minus_4_dot_20862772_comma__minus_4_dot_20862772_comma_5_dot_24733972_comma_5_dot_24733972_comma_4_dot_28595684_comma_4_dot_28595684 knife_2_dot_1344_comma_2_dot_1344_comma_2_dot_1080524_comma_2_dot_1080524_comma_3_dot_7463136_comma_3_dot_7463136)","['OpenObject', 'SliceObject', 'CloseObject', 'ToggleObject', 'CoolObject', 'HeatObject']"

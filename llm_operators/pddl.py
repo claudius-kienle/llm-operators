@@ -39,7 +39,9 @@ class Domain:
         self.ground_truth_predicates = PDDLParser._parse_domain_predicates(
             self.pddl_domain
         )
-        self.ground_truth_constants = PDDLParser._parse_constants(self.constants[len('(:constants'):-1])
+        self.ground_truth_constants = PDDLParser._parse_constants(
+            self.constants[len("(:constants") : -1]
+        )
 
         # One or more proposed predicates.
         self.proposed_predicates = []
@@ -57,7 +59,9 @@ class Domain:
         self.codex_types = ""
 
     def add_additional_constants(self, additional_constant_string):
-        self.ground_truth_constants.update(PDDLParser._parse_constants(additional_constant_string))
+        self.ground_truth_constants.update(
+            PDDLParser._parse_constants(additional_constant_string)
+        )
 
     def init_pddl_domain(self, pddl_domain):
         if pddl_domain is not None:
@@ -233,7 +237,8 @@ class Domain:
 
 class OtherDomain:
     def __init__(
-        self, pddl_domain=None,
+        self,
+        pddl_domain=None,
     ):
         self.pddl_domain = self.init_pddl_domain(pddl_domain)
         self.types = self.init_simple_pddl("types")
@@ -307,7 +312,12 @@ def save_learned_operators(curr_iteration, directory, dataset, train_domain, gt_
 
 
 def update_pddl_domain_and_problem(
-    pddl_domain, problem_idx, problem_id, problems, verbose, command_args,
+    pddl_domain,
+    problem_idx,
+    problem_id,
+    problems,
+    verbose,
+    command_args,
 ):
     """Updates the PDDL domain and PDDL problem based on the motion planner results."""
     # Score if operator succeeds.
@@ -318,7 +328,7 @@ def update_pddl_domain_and_problem(
     task_failure_score = -1
 
     any_success = False
-    for (goal, plan) in problems[problem_id].evaluated_motion_planner_results:
+    for goal, plan in problems[problem_id].evaluated_motion_planner_results:
         motion_plan_result = problems[problem_id].evaluated_motion_planner_results[
             (goal, plan)
         ]
@@ -332,7 +342,6 @@ def update_pddl_domain_and_problem(
                 or motion_plan_result.last_failed_operator is None
                 or operator_idx < motion_plan_result.last_failed_operator
             ):
-
                 pddl_domain.operators_to_scores[
                     (o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])
                 ] += operator_success_score
@@ -351,7 +360,7 @@ def update_pddl_domain_and_problem(
                 ] += task_failure_score
     if verbose:
         print("Top operators after success are:")
-        for (o_name, o_body) in sorted(
+        for o_name, o_body in sorted(
             pddl_domain.operators_to_scores,
             key=lambda k: pddl_domain.operators_to_scores[k],
             reverse=True,
@@ -402,7 +411,7 @@ def checkpoint_and_reset_operators(
 ):
     # Set operators with final scores.
     OPERATOR_SCORE_THRESHOLD = 0
-    for (o_name, o_body) in pddl_domain.operators_to_scores:
+    for o_name, o_body in pddl_domain.operators_to_scores:
         if pddl_domain.operators_to_scores[(o_name, o_body)] > OPERATOR_SCORE_THRESHOLD:
             pddl_domain.add_operator(operator_name=o_name, operator_pddl=o_body)
     # Clear out the proposed operators.
@@ -648,7 +657,7 @@ class PDDLParser:
 
     @classmethod
     def _parse_constants(cls, strings):
-        strings = strings.split('\n')
+        strings = strings.split("\n")
         arg_types = []
         arg_values = []
 
@@ -656,7 +665,7 @@ class PDDLParser:
             arg = string.strip()
             if string == "":
                 continue
-            if '(' in arg or ')' in arg:
+            if "(" in arg or ")" in arg:
                 continue
 
             if " - " in arg:
@@ -680,8 +689,7 @@ class PDDLParser:
 
     @staticmethod
     def _find_balanced_expression(string, index):
-        """Find balanced expression in string starting from given index.
-        """
+        """Find balanced expression in string starting from given index."""
         assert string[index] == "("
         start_index = index
         balance = 1
@@ -792,7 +800,13 @@ class PDDLPlan:
                     action[PDDLPlan.PDDL_OPERATOR_BODY] = operator_body
         return actions
 
-    def to_postcondition_predicates_json(self, pddl_domain, remove_alfred_object_ids):
+    def to_postcondition_predicates_json(
+        self,
+        pddl_domain,
+        remove_alfred_object_ids,
+        remove_alfred_agent,
+        ignore_predicates=["atLocation", "objectAtLocation", "holdsAny"]
+    ):
         """
         :ret: [
             {
@@ -808,39 +822,63 @@ class PDDLPlan:
         postcondition_predicates_json = []
         for action in self.plan:
             ground_postcondition_predicates = PDDLPlan.get_postcondition_predicates(
-                action, pddl_domain, remove_alfred_object_ids=remove_alfred_object_ids,
+                action,
+                pddl_domain,
+                remove_alfred_object_ids=remove_alfred_object_ids,
+                remove_alfred_agent=remove_alfred_agent,
+                ignore_predicates=ignore_predicates,
             )
-            postcondition_predicates_json.append(
-                {
-                    PDDLPlan.PDDL_ACTION: action[PDDLPlan.PDDL_ACTION],
-                    PDDLPlan.PDDL_GROUND_PREDICATES: [
-                        ground_predicate.to_json()
-                        for ground_predicate in ground_postcondition_predicates
-                    ],
-                }
-            )
+            # If we wound up removing all of them, then don't include this action.
+            if len(ground_postcondition_predicates) == 0:
+                continue
+            else:
+                postcondition_predicates_json.append(
+                    {
+                        PDDLPlan.PDDL_ACTION: action[PDDLPlan.PDDL_ACTION],
+                        PDDLPlan.PDDL_GROUND_PREDICATES: [
+                            ground_predicate.to_json()
+                            for ground_predicate in ground_postcondition_predicates
+                        ],
+                    }
+                )
         return postcondition_predicates_json
 
     @classmethod
     def get_postcondition_predicates(
-        cls, action, pddl_domain, remove_alfred_object_ids=True
+        cls,
+        action,
+        pddl_domain,
+        remove_alfred_object_ids=True,
+        remove_alfred_agent=True,
+        ignore_predicates = ["atLocation", "objectAtLocation", "holdsAny"]
     ):
+        ALFRED_AGENT = "agent"
         operator_body = pddl_domain.get_operator_body(action[PDDLPlan.PDDL_ACTION])
         # There's a chance that this is a predefined operator, in which case we need to get it directly.
 
-        parameters, processed_preconds, processed_effects = parse_operator_components(
-            operator_body, pddl_domain
-        )
-        parameters_ordered = sorted(parameters.keys())
+        (
+            parameters,
+            processed_preconds,
+            processed_effects,
+            ordered_parameter_keys,
+        ) = parse_operator_components(operator_body, pddl_domain, return_order=True)
+
         ground_arguments_map = {
             argument: ground
-            for (argument, ground) in zip(parameters_ordered, action["args"])
+            for (argument, ground) in zip(ordered_parameter_keys, action["args"])
         }
         ground_postcondition_predicates = []
         for lifted_predicate in processed_effects:
+            if lifted_predicate.name in ignore_predicates:
+                    continue
             ground_arguments = [
                 ground_arguments_map[arg] for arg in lifted_predicate.argument_values
             ]
+            if remove_alfred_agent:
+                ground_arguments = [
+                    g for g in ground_arguments if ALFRED_AGENT not in g
+                ]
+            # ALFRED specific. Strips away the 'agent' argument which the motion planner does not accept.
             if remove_alfred_object_ids:
                 ground_arguments = [
                     PDDLPredicate.remove_alfred_object_ids(a) for a in ground_arguments
@@ -892,7 +930,7 @@ class PDDLPredicate:
         self.argument_is_ground = argument_is_ground
         self.static = False
 
-    def mark_static(self, static = True):
+    def mark_static(self, static=True):
         self.static = static
 
     def to_json(self):
@@ -922,7 +960,9 @@ class PDDLProblem:
             self.ground_truth_pddl_problem_string
         )
         self.ground_truth_goal_list = self.parse_goal_pddl_list(self.ground_truth_goal)
-        self.ground_truth_objects_dict = self.parse_problem_objects_pddl(return_dict=True)
+        self.ground_truth_objects_dict = self.parse_problem_objects_pddl(
+            return_dict=True
+        )
 
     def get_pddl_string_with_proposed_goal(self, proposed_goal):
         # Replaces the ground truth goal with a proposed goal.
@@ -1063,7 +1103,10 @@ def preprocess_goals(
                 print("Trying to process...")
                 print(proposed_goal)
             success, preprocessed_goal = preprocess_goal(
-                proposed_goal, pddl_domain, problem.ground_truth_pddl_problem.ground_truth_objects_dict, use_ground_truth_predicates=True
+                proposed_goal,
+                pddl_domain,
+                problem.ground_truth_pddl_problem.ground_truth_objects_dict,
+                use_ground_truth_predicates=True,
             )
             if not success:
                 print("Failed to preprocess goal.")
@@ -1091,15 +1134,15 @@ def preprocess_goals(
 
 def preprocess_goal(goal, pddl_domain, object_dict, use_ground_truth_predicates=True):
     """
-    Preprocesses a goal. Assumes it must be in the following form, with an exists and a set of conjunctions.
-    (:goal
-        (exists (?o - object)
-        (and
-            (objectType ?o TomatoType)
-            (isSliced ?o)
+        Preprocesses a goal. Assumes it must be in the following form, with an exists and a set of conjunctions.
+        (:goal
+            (exists (?o - object)
+            (and
+                (objectType ?o TomatoType)
+                (isSliced ?o)
+            )
         )
     )
-)
     """
     # Purge comments.
     preprocessed_goal = PDDLParser._purge_comments(goal)
@@ -1139,14 +1182,16 @@ def preprocess_goal(goal, pddl_domain, object_dict, use_ground_truth_predicates=
         )
         return False, ""
 
-    unground_parameters = sorted([p for p in parameters.items() if p[0].startswith("?")])
+    unground_parameters = sorted(
+        [p for p in parameters.items() if p[0].startswith("?")]
+    )
 
     # Conjunction
     predicate_string = "\n\t\t".join(preprocessed_predicates)
     preprocessed_goal = f"(and \n\t\t{predicate_string})"
 
     # Add exists.
-    for (variable_name, variable_type) in unground_parameters:
+    for variable_name, variable_type in unground_parameters:
         preprocessed_goal = (
             f"(exists ({variable_name} - {variable_type})\n{preprocessed_goal})"
         )
@@ -1279,7 +1324,7 @@ def log_preprocessed_operators(
             writer.writeheader()
 
             for operator_name, operator in logs.items():
-                for (raw_operator, preprocessed_operator) in operator:
+                for raw_operator, preprocessed_operator in operator:
                     writer.writerow(
                         {
                             "operator_name": operator_name,
@@ -1293,8 +1338,14 @@ def log_preprocessed_operators(
                         }
                     )
 
+def parse_parameter_keys(parameter_string):
+    # Returns an ordered list of the arguments to an operator.
+    parameter_string = parameter_string.strip()
+    parameter_string = parameter_string.replace("(", "").replace(")", "")
+    parameters = [p for p in parameter_string.split() if "?" in p]
+    return parameters
 
-def parse_operator_components(operator_body, pddl_domain):
+def parse_operator_components(operator_body, pddl_domain, return_order=False):
     allow_partial_ground_predicates = pddl_domain.constants != ""
     preprocessed_operator = PDDLParser._purge_comments(operator_body)
 
@@ -1310,6 +1361,7 @@ def parse_operator_components(operator_body, pddl_domain):
         if op_match is None:
             return False, ""
         op_name, params, preconds, effects = op_match.groups()
+        original_ordered_parameters_keys = parse_parameter_keys(params)
         op_name = op_name.strip()
         (
             precond_parameters,
@@ -1332,7 +1384,7 @@ def parse_operator_components(operator_body, pddl_domain):
             pddl_domain.ground_truth_predicates,
             pddl_domain.ground_truth_constants,
             allow_partial_ground_predicates=allow_partial_ground_predicates,
-            check_static=True
+            check_static=True,
         )
         if not effect_parameters:
             return False, ""
@@ -1345,11 +1397,20 @@ def parse_operator_components(operator_body, pddl_domain):
             # parameters = {k[1:]: v for k, v in precond_parameters if k.startswith("?")}
 
             # NB(Lio W: remove the 'drop the leading?')
-            parameters = {k: v for k, v in precond_parameters.items() if k.startswith("?")}
+            parameters = {
+                k: v for k, v in precond_parameters.items() if k.startswith("?")
+            }
         else:
             parameters = precond_parameters
-
-        return parameters, precondition_predicates, effect_predicates
+        if not return_order:
+            return parameters, precondition_predicates, effect_predicates
+        else:
+            return (
+                parameters,
+                precondition_predicates,
+                effect_predicates,
+                original_ordered_parameters_keys,
+            )                
 
 
 def preprocess_operator(
@@ -1396,7 +1457,7 @@ def preprocess_operator(
             pddl_domain.ground_truth_predicates,
             pddl_domain.ground_truth_constants,
             allow_partial_ground_predicates=allow_partial_ground_predicates,
-            check_static=True
+            check_static=True,
         )
         if not effect_parameters:
             return False, ""
@@ -1405,7 +1466,8 @@ def preprocess_operator(
         if not allow_partial_ground_predicates:
             # NB(Jiayuan Mao @ 2023/02/04): if we don't allow partial ground predicates, the parameters do not contain '?'.
             unground_parameters = [
-                f"?{name} - {param_type}" for (name, param_type) in precond_parameters.items()
+                f"?{name} - {param_type}"
+                for (name, param_type) in precond_parameters.items()
             ]
         else:
             unground_parameters = [
@@ -1503,13 +1565,17 @@ def preprocess_conjunction_predicates(
 
         if ground_truth_predicates is not None and (
             (parsed_predicate.name not in ground_truth_predicates)
-            or parsed_predicate.arguments != ground_truth_predicates[parsed_predicate.name].arguments
+            or parsed_predicate.arguments
+            != ground_truth_predicates[parsed_predicate.name].arguments
         ):
             continue
         else:
             valid = True
             if ground_truth_predicates is not None:
-                if check_static and ground_truth_predicates[parsed_predicate.name].static:
+                if (
+                    check_static
+                    and ground_truth_predicates[parsed_predicate.name].static
+                ):
                     continue
 
                 # NB(Jiayuan Mao @ 2023/04/07): if the new predicate is not valid, we restore the original parameters.
@@ -1518,7 +1584,7 @@ def preprocess_conjunction_predicates(
                     parsed_predicate.argument_values,
                     ground_truth_predicates[parsed_predicate.name].arg_types,
                 ):
-                    if argname.startswith('?'):
+                    if argname.startswith("?"):
                         if argname not in parameters:
                             parameters[argname] = argtype
                         else:
@@ -1527,7 +1593,10 @@ def preprocess_conjunction_predicates(
                                 break
                     else:
                         if ground_truth_constants is not None:
-                            if argname not in ground_truth_constants or ground_truth_constants[argname] != argtype:
+                            if (
+                                argname not in ground_truth_constants
+                                or ground_truth_constants[argname] != argtype
+                            ):
                                 valid = False
                                 break
             if valid:
@@ -1537,4 +1606,3 @@ def preprocess_conjunction_predicates(
                 parameters = parameters_backup
 
     return parameters, preprocessed_predicates, structured_predicates
-
