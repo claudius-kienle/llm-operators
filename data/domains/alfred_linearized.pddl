@@ -209,6 +209,7 @@
         )
         :effect (and
             (not (objectAtLocation ?o ?l))
+            (not (inReceptacle ?o ?r))
             (holds ?a ?o)
             (holdsAny ?a)
         )
