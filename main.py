@@ -174,6 +174,13 @@ parser.add_argument(
 )
 
 parser.add_argument(
+    "--debug_start_problem_idx",
+    type=int,
+    default=0,
+    help="debug: start at this problem index.",
+)
+
+parser.add_argument(
     "--debug_ground_truth_operators",
     action="store_true",
     help="debug: use ground_truth_operators.",
@@ -299,6 +306,7 @@ def main():
 
         ###################### Refine operators.
         for problem_idx, problem_id in enumerate(planning_problems["train"]):
+            if problem_idx < args.debug_start_problem_idx: continue
             should_continue_attempts = True
             for plan_attempt_idx in range(args.n_attempts_to_plan):
                 if should_continue_attempts:
