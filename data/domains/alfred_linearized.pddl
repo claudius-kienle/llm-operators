@@ -222,6 +222,10 @@
             (atLocation ?a ?l)
             (objectAtLocation ?o ?l)
             (not (holdsAny ?a))
+            (forall
+                (?re - receptacle)
+                (not (inReceptacle ?o ?re))
+            )
         )
         :effect (and
             (not (objectAtLocation ?o ?l))
@@ -317,12 +321,19 @@
         :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
         :precondition (and
             (receptacleType ?r MicrowaveType)
+            (forall (?ob - object)
+                (not (inReceptacle ?ob ?r))
+            )
             (atLocation ?a ?l)
             (receptacleAtLocation ?r ?l)
             (holds ?a ?o)
         )
         :effect (and
             (isHot ?o)
+            (inReceptacle ?o ?r)
+            (not (holds ?a ?o))
+            (not (holdsAny ?a))
+            (objectAtLocation ?o ?l)
         )
     )
 
@@ -337,6 +348,10 @@
         )
         :effect (and
             (isCool ?o)
+            (inReceptacle ?o ?r)
+            (not (holds ?a ?o))
+            (not (holdsAny ?a))
+            (objectAtLocation ?o ?l)
         )
     )
 
@@ -365,6 +380,10 @@
             (objectAtLocation ?co ?l)
             (sliceable ?co)
             (holds ?a ?ko)
+            (forall (?re - receptacle)
+                when (receptacleType ?re MicrowaveType)
+                    (not (inReceptacle ?co ?re))
+            )
         )
         :effect (and
             (isSliced ?co)
