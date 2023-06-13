@@ -315,7 +315,7 @@ def run_planner(
     """
     pddl_domain: Domain object.
     problem: Problem object.
-    planner_type: string indicating which planenr to use.
+    planner_type: string indicating which planner to use.
 
     :ret: Attempts to run planner on each goal in problem.proposed_pddl_goals.
     any_success: whether any of the goals succeeded.
