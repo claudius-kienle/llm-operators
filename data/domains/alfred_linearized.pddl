@@ -327,7 +327,6 @@
         )
         :effect (and
             (isHot ?o)
-            (inReceptacle ?o ?r) ; TEMPORARY HACK TO INTERACT WITH MICROWAVE
         )
     )
 
