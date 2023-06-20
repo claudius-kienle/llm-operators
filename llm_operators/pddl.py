@@ -4,6 +4,7 @@ pddl_parser.py | Utilities related to PDDL.
 
 import copy
 import csv
+import pprint
 import re
 import os
 import json
@@ -743,7 +744,8 @@ class PDDLPlan:
     PDDL_ACTION = "action"
     PDDL_ARGUMENTS = "args"
     PDDL_OPERATOR_BODY = "operator_body"
-    PDDL_GROUND_PREDICATES = "ground_predicates"
+    PDDL_POSTCOND_GROUND_PREDICATES = "postcondition_ground_predicates"
+    PDDL_PRECOND_GROUND_PREDICATES = "precondition_ground_predicates"
     PDDL_INFINITE_COST = 100000
 
     def __hash__(self):
@@ -800,7 +802,7 @@ class PDDLPlan:
                     action[PDDLPlan.PDDL_OPERATOR_BODY] = operator_body
         return actions
 
-    def to_postcondition_predicates_json(
+    def to_task_plan_json(
         self,
         pddl_domain,
         remove_alfred_object_ids,
@@ -808,18 +810,31 @@ class PDDLPlan:
         ignore_predicates=["atLocation", "objectAtLocation", "holdsAny"]
     ):
         """
-        :ret: [
-            {
-                "action": OPERATOR_NAME,
-                "ground_postcondition_predicates": [
-                    "predicate_name": "isHeated",
-                    "arguments": "apple",
-                    "isNeg": False
-                ]
-            }
-        ]
+        :ret:
+        {
+            "operator_sequence": [
+                {
+                    "action": OPERATOR_NAME,
+                    "postcondition_ground_predicates": [{
+                        "predicate_name": "isHeated",
+                        "arguments": "apple",
+                        "isNeg": False
+                    }]
+                    "precondition_ground_predicates": [{
+                        "predicate_name": "isSliced",
+                        "arguments": "apple",
+                        "isNeg": True
+                    }]
+                }
+            ],
+            "goal_ground_predicates": [{
+                "predicate_name": "isHeated",
+                "arguments": "apple",
+                "isNeg": False
+            }]
+        }
         """
-        postcondition_predicates_json = []
+        operator_sequence = []
         for action in self.plan:
             ground_postcondition_predicates = PDDLPlan.get_postcondition_predicates(
                 action,
@@ -828,20 +843,84 @@ class PDDLPlan:
                 remove_alfred_agent=remove_alfred_agent,
                 ignore_predicates=ignore_predicates,
             )
+            ground_precondition_predicates = PDDLPlan.get_precondition_predicates(
+                action,
+                pddl_domain,
+                remove_alfred_object_ids=remove_alfred_object_ids,
+                remove_alfred_agent=remove_alfred_agent,
+                ignore_predicates=ignore_predicates,
+            )
             # If we wound up removing all of them, then don't include this action.
-            if len(ground_postcondition_predicates) == 0:
+            if len(ground_postcondition_predicates) == 0 and len(ground_precondition_predicates) == 0:
                 continue
             else:
-                postcondition_predicates_json.append(
+                operator_sequence.append(
                     {
                         PDDLPlan.PDDL_ACTION: action[PDDLPlan.PDDL_ACTION],
-                        PDDLPlan.PDDL_GROUND_PREDICATES: [
+                        PDDLPlan.PDDL_POSTCOND_GROUND_PREDICATES: [
                             ground_predicate.to_json()
                             for ground_predicate in ground_postcondition_predicates
                         ],
+                        PDDLPlan.PDDL_PRECOND_GROUND_PREDICATES: [
+                            ground_predicate.to_json()
+                            for ground_predicate in ground_precondition_predicates
+                        ]
                     }
                 )
-        return postcondition_predicates_json
+
+        goal_ground_predicates = PDDLPlan.get_goal_ground_predicates(pddl_domain)
+
+        task_plan_json = {
+            "operator_sequence": operator_sequence,
+            "goal_ground_predicates": goal_ground_predicates
+        }
+
+        return task_plan_json
+
+    @classmethod
+    def get_goal_ground_predicates(cls, pddl_domain):
+        """
+        TODO: Lio to implement this function.
+
+        Returns a list of ground predicates that represents the goal of the overall motion plan. 
+        The goal ground predicates should be in the same form as the predicates returned by the function
+        get_postcondition_predicates() and get_precondition_predicates.
+        """
+        return None
+
+    @classmethod
+    def get_precondition_predicates(
+        cls,
+        action,
+        pddl_domain,
+        remove_alfred_object_ids=True,
+        remove_alfred_agent=True,
+        ignore_predicates = ["atLocation", "objectAtLocation", "holdsAny"]
+    ):
+        """
+        TODO: Lio to implement this function.
+        
+        Temporarily, we return a hard-coded set of precondition predicates corresponding to the
+        PDDL definition of the operator.
+
+        The precondition predicates should be in the same form as the predicates returned by the function
+        get_postcondition_predicates().
+        """
+        action_name = action[PDDLPlan.PDDL_ACTION]
+        ground_precondition_predicates = []
+        
+        if action_name == "HeatObject":
+            ground_precondition_predicates.append(
+                PDDLPredicate(
+                    name='receptacleAtLocation',
+                    arguments=2,
+                    arg_types=['?r', '?l'],
+                    neg=False,
+                    argument_values=['microwave', 'loc']
+                )
+            )
+
+        return ground_precondition_predicates
 
     @classmethod
     def get_postcondition_predicates(

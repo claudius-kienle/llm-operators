@@ -246,16 +246,16 @@ def evaluate_alfred_motion_plans_and_costs_for_goal_plan(
         print(problems[problem_id].ground_truth_pddl_problem.ground_truth_goal)
 
     # Convert plan to sequential plan predicates.
-    postcondition_predicates_json = pddl_plan.to_postcondition_predicates_json(
+    task_plan_json = pddl_plan.to_task_plan_json(
         pddl_domain, remove_alfred_object_ids=True, remove_alfred_agent=True, ignore_predicates=["atLocation", "objectAtLocation", "holdsAny"]
-    )
+    )["operator_sequence"]
     if debug_skip:
         return MotionPlanResult(
             pddl_plan=pddl_plan,
             task_success=True,
             last_failed_operator=None,
-            max_satisfied_predicates=postcondition_predicates_json[-1][
-                PDDLPlan.PDDL_GROUND_PREDICATES
+            max_satisfied_predicates=task_plan_json[-1][
+                PDDLPlan.PDDL_POSTCOND_GROUND_PREDICATES
             ][-1],
         )
     else:
@@ -264,7 +264,7 @@ def evaluate_alfred_motion_plans_and_costs_for_goal_plan(
         task_name = os.path.join(*os.path.split(problem_id)[1:])
         if verbose:
             print("Attempting to execute the following motion plan:")
-            for pred in postcondition_predicates_json:
+            for pred in task_plan_json:
                 print(f"{pred}\n")
 
             print("Ground truth PDDL plan is: ")
@@ -275,7 +275,7 @@ def evaluate_alfred_motion_plans_and_costs_for_goal_plan(
         }
         raw_motion_plan_result = alfredplanner.run_motion_planner(
             task=alfred_motion_task,
-            operator_sequence=postcondition_predicates_json,
+            operator_sequence=task_plan_json,
             robot_init=RANDOM_SEED,
             dataset_split=dataset_split,
         )
