@@ -222,10 +222,10 @@
             (atLocation ?a ?l)
             (objectAtLocation ?o ?l)
             (not (holdsAny ?a))
-            ;(forall
-            ;    (?re - receptacle)
-            ;    (not (inReceptacle ?o ?re))
-            ;)
+            (forall
+                (?re - receptacle)
+                (not (inReceptacle ?o ?re))
+            )
         )
         :effect (and
             (not (objectAtLocation ?o ?l))
@@ -327,6 +327,7 @@
         )
         :effect (and
             (isHot ?o)
+            (inReceptacle ?o ?r) ; TEMPORARY HACK TO INTERACT WITH MICROWAVE
         )
     )
 
@@ -341,7 +342,6 @@
         )
         :effect (and
             (isCool ?o)
-            (inReceptacle ?o ?r)
         )
     )
 
