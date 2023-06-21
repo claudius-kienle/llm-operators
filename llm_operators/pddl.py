@@ -882,9 +882,21 @@ class PDDLPlan:
         """
         TODO: Lio to implement this function.
 
-        Returns a list of ground predicates that represents the goal of the overall motion plan. 
+        Returns a list of PDDLPredicates() that represents the goal of the overall motion plan. 
         The goal ground predicates should be in the same form as the predicates returned by the function
         get_postcondition_predicates() and get_precondition_predicates.
+
+        Example Return Value:
+        [{
+            "predicate_name": "isHeated",
+            "arguments": "apple",
+            "isNeg": False
+        },
+        {
+            "predicate_name": "isSliced",
+            "arguments": "apple",
+            "isNeg": False
+        }]
         """
         return None
 
