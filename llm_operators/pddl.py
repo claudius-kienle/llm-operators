@@ -941,6 +941,16 @@ class PDDLPlan:
                     argument_values=['fridge', 'loc']
                 )
             )
+        elif action_name == "CleanObject":
+            ground_precondition_predicates.append(
+                PDDLPredicate(
+                    name='receptacleAtLocation',
+                    arguments=2,
+                    arg_types=['?r', '?l'],
+                    neg=False,
+                    argument_values=['sinkbasin', 'loc']
+                )
+            )
 
         return ground_precondition_predicates
 
