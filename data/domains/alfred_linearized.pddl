@@ -209,6 +209,7 @@
         )
         :effect (and
             (not (objectAtLocation ?o ?l))
+            (not (inReceptacle ?o ?r))
             (holds ?a ?o)
             (holdsAny ?a)
         )
@@ -221,6 +222,10 @@
             (atLocation ?a ?l)
             (objectAtLocation ?o ?l)
             (not (holdsAny ?a))
+            (forall
+                (?re - receptacle)
+                (not (inReceptacle ?o ?re))
+            )
         )
         :effect (and
             (not (objectAtLocation ?o ?l))
@@ -364,6 +369,10 @@
             (objectAtLocation ?co ?l)
             (sliceable ?co)
             (holds ?a ?ko)
+            (forall (?re - receptacle)
+                when (receptacleType ?re MicrowaveType)
+                    (not (inReceptacle ?co ?re))
+            )
         )
         :effect (and
             (isSliced ?co)

@@ -3,6 +3,8 @@ alfred_gen
 data/dataset/alfred_pddl
 data/dataset/alfred_linearized_pddl
 
+generated
+
 __pycache__
 .idea
 .DS_Store
