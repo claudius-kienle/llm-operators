@@ -138,7 +138,7 @@
         (holdsAny ?a - agent) ; agent ?a holds an object
         (holdsAnyReceptacleObject ?a - agent) ; agent ?a holds a receptacle object
         ;(full ?r - receptacle)                                    ; true if the receptacle has no remaining space
-        (isClean ?o - object) ; true if the object has been clean in sink
+        (isClean ?o - object) ; true if the object has been cleaned in sink
         (cleanable ?o - object) ; true if the object can be placed in a sink
         (isHot ?o - object) ; true if the object has been heated up
         (heatable ?o - object) ; true if the object can be heated up in a microwave
@@ -209,6 +209,7 @@
         )
         :effect (and
             (not (objectAtLocation ?o ?l))
+            (not (inReceptacle ?o ?r))
             (holds ?a ?o)
             (holdsAny ?a)
         )
@@ -221,6 +222,10 @@
             (atLocation ?a ?l)
             (objectAtLocation ?o ?l)
             (not (holdsAny ?a))
+            (forall
+                (?re - receptacle)
+                (not (inReceptacle ?o ?re))
+            )
         )
         :effect (and
             (not (objectAtLocation ?o ?l))
@@ -356,14 +361,20 @@
     (:action SliceObject
         :parameters (?a - agent ?l - location ?co - object ?ko - object)
         :precondition (and
-            (or
-                (objectType ?ko KnifeType)
-                (objectType ?ko ButterKnifeType)
-            )
+            ; OR operators seem to be always evaluating true (ZS - 6/23/23)
+            ;(or
+            ;    (objectType ?ko KnifeType)
+            ;    (objectType ?ko ButterKnifeType)
+            ;)
+            (objectType ?ko KnifeType)
             (atLocation ?a ?l)
             (objectAtLocation ?co ?l)
             (sliceable ?co)
             (holds ?a ?ko)
+            (forall (?re - receptacle)
+                when (receptacleType ?re MicrowaveType)
+                    (not (inReceptacle ?co ?re))
+            )
         )
         :effect (and
             (isSliced ?co)
