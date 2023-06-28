@@ -94,6 +94,7 @@ def attempt_motion_plan_for_problem(
                     pddl_domain,
                     verbose,
                     debug_skip=debug_skip,
+                    motionplan_search_type=command_args.motionplan_search_type,
                 )
             elif dataset_name == "crafting_world_20230204_minining_only":
                 motion_plan_result = evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
@@ -236,7 +237,7 @@ def evaluate_alfred_motion_plans_and_costs_for_problems(
 
 
 def evaluate_alfred_motion_plans_and_costs_for_goal_plan(
-    problem_id, problems, pddl_goal, pddl_plan, pddl_domain, verbose, debug_skip=False,
+    problem_id, problems, pddl_goal, pddl_plan, pddl_domain, verbose, debug_skip=False, motionplan_search_type="bfs",
 ):
     if verbose:
         print(f"Motion planning for: {problem_id}")
@@ -283,6 +284,7 @@ def evaluate_alfred_motion_plans_and_costs_for_goal_plan(
             robot_init=RANDOM_SEED,
             dataset_split=dataset_split,
             verbose=verbose,
+            motionplan_search_type=motionplan_search_type,
         )
 
         return MotionPlanResult(
