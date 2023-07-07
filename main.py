@@ -172,12 +172,17 @@ parser.add_argument(
     action="store_true",
     help="debug: skip motion plan grounded search and assume that all of the task plans succeeded.",
 )
-
 parser.add_argument(
     "--debug_start_problem_idx",
     type=int,
     default=0,
     help="debug: start at this problem index.",
+)
+parser.add_argument(
+    "--debug_skip_problems",
+    type=int,
+    nargs = '+',
+    help="debug: skip these problems.",
 )
 
 parser.add_argument(
@@ -215,6 +220,12 @@ parser.add_argument(
     help="Maximum arity for proposed operators.",
 )
 
+parser.add_argument(
+    "--motionplan_search_type",
+    type=str,
+    default="bfs",
+    help="Which search type to use for motion planning: supports bfs or counter",
+)
 
 def main():
     random.seed(0)
@@ -306,7 +317,7 @@ def main():
 
         ###################### Refine operators.
         for problem_idx, problem_id in enumerate(planning_problems["train"]):
-            if problem_idx < args.debug_start_problem_idx: continue
+            if problem_idx < args.debug_start_problem_idx or problem_idx in args.debug_skip_problems: continue
             should_continue_attempts = True
             for plan_attempt_idx in range(args.n_attempts_to_plan):
                 if should_continue_attempts:
