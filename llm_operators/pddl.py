@@ -804,10 +804,11 @@ class PDDLPlan:
 
     def to_task_plan_json(
         self,
+        problem,
         pddl_domain,
         remove_alfred_object_ids,
         remove_alfred_agent,
-        ignore_predicates=["atLocation", "objectAtLocation", "holdsAny"]
+        ignore_predicates=["atLocation", "objectAtLocation", "holdsAny", 'objectType', 'receptacleType', 'holdsAnyReceptacleObject'],
     ):
         """
         :ret:
@@ -827,7 +828,7 @@ class PDDLPlan:
                     }]
                 }
             ],
-            "goal_ground_predicates": [{
+            "goal_ground_truth_predicates": [{
                 "predicate_name": "isHeated",
                 "arguments": "apple",
                 "isNeg": False
@@ -851,7 +852,10 @@ class PDDLPlan:
                 ignore_predicates=ignore_predicates,
             )
             # If we wound up removing all of them, then don't include this action.
-            if len(ground_postcondition_predicates) == 0 and len(ground_precondition_predicates) == 0:
+            if (
+                len(ground_postcondition_predicates) == 0
+                and len(ground_precondition_predicates) == 0
+            ):
                 continue
             else:
                 operator_sequence.append(
@@ -864,25 +868,78 @@ class PDDLPlan:
                         PDDLPlan.PDDL_PRECOND_GROUND_PREDICATES: [
                             ground_predicate.to_json()
                             for ground_predicate in ground_precondition_predicates
-                        ]
+                        ],
                     }
                 )
 
-        goal_ground_predicates = PDDLPlan.get_goal_ground_predicates(pddl_domain)
+        goal_ground_truth_predicates = PDDLPlan.get_goal_ground_truth_predicates(problem, pddl_domain, ignore_predicates=ignore_predicates)
+        goal_ground_truth_predicates_json = [ground_predicate.to_json() for ground_predicate in goal_ground_truth_predicates]
 
         task_plan_json = {
             "operator_sequence": operator_sequence,
-            "goal_ground_predicates": goal_ground_predicates
+            "goal_ground_truth_predicates": goal_ground_truth_predicates_json,
         }
 
         return task_plan_json
-
+    
     @classmethod
-    def get_goal_ground_predicates(cls, pddl_domain):
+    def get_ground_predicates(
+        cls,
+        pddl_action,
+        ordered_parameter_keys,
+        lifted_predicates_list,
+        ignore_predicates=["atLocation", "objectAtLocation", "holdsAny", 'objectType', 'receptacleType', 'holdsAnyReceptacleObject'],
+        remove_alfred_agent=True, 
+        remove_alfred_object_ids=True,
+        ground_arguments_map=None,
+    ):
         """
-        TODO: Lio to implement this function.
+        pddl_action: an Action object in a PDDL.Plan
+        ordered_parameter_keys: list of variables eg. ['?a', '?lStart', '?lEnd'] in the order that they were passed into the original operator.
+        lifted_predicates_list: a list of the lifted predicates that are conjoined. These might be the preconditions or the postconditions.
+        remove_alfred_agent: remove the AGENT argument from the set of parameters.
+        remove_alfred_object_ids: remove the location-based IDs from the ALFRED PDDL. TODO: this yields and existential quantifier over the objects. @zyzzyva should replace this with `apple_0` predicates to allow tasks like "pick up two apples".
+        """
+        ALFRED_AGENT = "agent"
+        if not ground_arguments_map:
+            ground_arguments_map = {
+                argument: ground
+                for (argument, ground) in zip(ordered_parameter_keys, pddl_action["args"])
+            }
+        ground_predicates_list = []
+        for lifted_predicate in lifted_predicates_list:
+            if lifted_predicate.name in ignore_predicates:
+                continue
+            ground_arguments = [
+                # Get the ground argument from the map; if its not in the map, its already a ground predicate.
+                ground_arguments_map.get(arg, arg) for arg in lifted_predicate.argument_values
+            ]
+            # ALFRED specific. Strips away the 'agent' argument which the motion planner does not accept.
+            if remove_alfred_agent:
+                ground_arguments = [
+                    g for g in ground_arguments if ALFRED_AGENT not in g
+                ]
+            if remove_alfred_object_ids:
+                ground_arguments = [
+                    PDDLPredicate.remove_alfred_object_ids(a) for a in ground_arguments
+                ]
+            ground_predicates_list.append(
+                PDDLPredicate(
+                    name=lifted_predicate.name,
+                    arguments=lifted_predicate.arguments,
+                    arg_types=lifted_predicate.argument_values,
+                    neg=lifted_predicate.neg,
+                    argument_values=ground_arguments,
+                )
+            )
+        return ground_predicates_list
+    
+    @classmethod
+    def get_goal_ground_truth_predicates(cls, problem, pddl_domain, ignore_predicates=["atLocation", "objectAtLocation", "holdsAny", 'objectType', 'receptacleType', 'holdsAnyReceptacleObject']):
+        """
+        Extracts the ground truth goal from the original problem.
 
-        Returns a list of PDDLPredicates() that represents the goal of the overall motion plan. 
+        Returns a list of PDDLPredicates() that represents the goal of the overall motion plan.
         The goal ground predicates should be in the same form as the predicates returned by the function
         get_postcondition_predicates() and get_precondition_predicates.
 
@@ -898,8 +955,24 @@ class PDDLPlan:
             "isNeg": False
         }]
         """
-        return None
+        # Build ground arguments map from the object types. These must be specified in a ground truth ALFRED goal.
+        ground_truth_goal_predicates_strings = problem.ground_truth_pddl_problem.ground_truth_goal_list
+        # PDDLPredicate list rather than list of strings.
+        ground_truth_goal_predicates = goal_predicates_string_to_predicates_list(ground_truth_goal_predicates_strings)
+        # Extract the ground truth goal map
+        ground_arguments_map = get_goal_ground_arguments_map(ground_truth_goal_predicates, type_predicates=['objectType', 'receptacleType'])
+        ground_goal_predicates = PDDLPlan.get_ground_predicates(
+            pddl_action=None,
+            ordered_parameter_keys=None,
+            lifted_predicates_list=ground_truth_goal_predicates,
+            ignore_predicates=ignore_predicates,
+            remove_alfred_agent=True, 
+            remove_alfred_object_ids=False,
+            ground_arguments_map=ground_arguments_map
+        )
+        return ground_goal_predicates
 
+    
     @classmethod
     def get_precondition_predicates(
         cls,
@@ -907,63 +980,8 @@ class PDDLPlan:
         pddl_domain,
         remove_alfred_object_ids=True,
         remove_alfred_agent=True,
-        ignore_predicates = ["atLocation", "objectAtLocation", "holdsAny"]
+        ignore_predicates=["atLocation", "objectAtLocation", "holdsAny", 'objectType', 'receptacleType', 'holdsAnyReceptacleObject'],
     ):
-        """
-        TODO: Lio to implement this function.
-        
-        Temporarily, we return a hard-coded set of precondition predicates corresponding to the
-        PDDL definition of the operator.
-
-        The precondition predicates should be in the same form as the predicates returned by the function
-        get_postcondition_predicates().
-        """
-        action_name = action[PDDLPlan.PDDL_ACTION]
-        ground_precondition_predicates = []
-        
-        if action_name == "HeatObject":
-            ground_precondition_predicates.append(
-                PDDLPredicate(
-                    name='receptacleAtLocation',
-                    arguments=2,
-                    arg_types=['?r', '?l'],
-                    neg=False,
-                    argument_values=['microwave', 'loc']
-                )
-            )
-        elif action_name == "CoolObject":
-            ground_precondition_predicates.append(
-                PDDLPredicate(
-                    name='receptacleAtLocation',
-                    arguments=2,
-                    arg_types=['?r', '?l'],
-                    neg=False,
-                    argument_values=['fridge', 'loc']
-                )
-            )
-        elif action_name == "CleanObject":
-            ground_precondition_predicates.append(
-                PDDLPredicate(
-                    name='receptacleAtLocation',
-                    arguments=2,
-                    arg_types=['?r', '?l'],
-                    neg=False,
-                    argument_values=['sinkbasin', 'loc']
-                )
-            )
-
-        return ground_precondition_predicates
-
-    @classmethod
-    def get_postcondition_predicates(
-        cls,
-        action,
-        pddl_domain,
-        remove_alfred_object_ids=True,
-        remove_alfred_agent=True,
-        ignore_predicates = ["atLocation", "objectAtLocation", "holdsAny"]
-    ):
-        ALFRED_AGENT = "agent"
         operator_body = pddl_domain.get_operator_body(action[PDDLPlan.PDDL_ACTION])
         # There's a chance that this is a predefined operator, in which case we need to get it directly.
 
@@ -974,36 +992,44 @@ class PDDLPlan:
             ordered_parameter_keys,
         ) = parse_operator_components(operator_body, pddl_domain, return_order=True)
 
-        ground_arguments_map = {
-            argument: ground
-            for (argument, ground) in zip(ordered_parameter_keys, action["args"])
-        }
-        ground_postcondition_predicates = []
-        for lifted_predicate in processed_effects:
-            if lifted_predicate.name in ignore_predicates:
-                    continue
-            ground_arguments = [
-                ground_arguments_map[arg] for arg in lifted_predicate.argument_values
-            ]
-            if remove_alfred_agent:
-                ground_arguments = [
-                    g for g in ground_arguments if ALFRED_AGENT not in g
-                ]
-            # ALFRED specific. Strips away the 'agent' argument which the motion planner does not accept.
-            if remove_alfred_object_ids:
-                ground_arguments = [
-                    PDDLPredicate.remove_alfred_object_ids(a) for a in ground_arguments
-                ]
-            ground_postcondition_predicates.append(
-                PDDLPredicate(
-                    name=lifted_predicate.name,
-                    arguments=lifted_predicate.arguments,
-                    arg_types=lifted_predicate.argument_values,
-                    neg=lifted_predicate.neg,
-                    argument_values=ground_arguments,
-                )
-            )
-        return ground_postcondition_predicates
+        ground_precondition_predicates = PDDLPlan.get_ground_predicates(
+            action,
+            ordered_parameter_keys,
+            processed_preconds,
+            ignore_predicates=ignore_predicates,
+            remove_alfred_agent=remove_alfred_agent, 
+            remove_alfred_object_ids=remove_alfred_object_ids,
+        )
+        return ground_precondition_predicates
+
+    @classmethod
+    def get_postcondition_predicates(
+        cls,
+        action,
+        pddl_domain,
+        remove_alfred_object_ids=True,
+        remove_alfred_agent=True,
+        ignore_predicates=["atLocation", "objectAtLocation", "holdsAny"],
+    ):
+        operator_body = pddl_domain.get_operator_body(action[PDDLPlan.PDDL_ACTION])
+        # There's a chance that this is a predefined operator, in which case we need to get it directly.
+        (
+            parameters,
+            processed_preconds,
+            processed_effects,
+            ordered_parameter_keys,
+        ) = parse_operator_components(operator_body, pddl_domain, return_order=True)
+
+        ground_precondition_predicates = PDDLPlan.get_ground_predicates(
+            action,
+            ordered_parameter_keys,
+            processed_effects,
+            ignore_predicates=ignore_predicates,
+            remove_alfred_agent=remove_alfred_agent, 
+            remove_alfred_object_ids=remove_alfred_object_ids,
+        )
+        return ground_precondition_predicates
+    
 
     def __str__(self):
         return "PDDLPlan[{}]".format(self.plan_string.replace("\n", " "))
@@ -1054,6 +1080,10 @@ class PDDLPredicate:
     @classmethod
     def remove_alfred_object_ids(cls, argument_value):
         return argument_value.split("_")[0]
+    
+    @classmethod
+    def get_alfred_object_type(cls, argument_value):
+        return argument_value.split("Type")[0].lower()
 
     def __str__(self):
         if self.neg:
@@ -1449,12 +1479,14 @@ def log_preprocessed_operators(
                         }
                     )
 
+
 def parse_parameter_keys(parameter_string):
     # Returns an ordered list of the arguments to an operator.
     parameter_string = parameter_string.strip()
     parameter_string = parameter_string.replace("(", "").replace(")", "")
     parameters = [p for p in parameter_string.split() if "?" in p]
     return parameters
+
 
 def parse_operator_components(operator_body, pddl_domain, return_order=False):
     allow_partial_ground_predicates = pddl_domain.constants != ""
@@ -1521,7 +1553,7 @@ def parse_operator_components(operator_body, pddl_domain, return_order=False):
                 precondition_predicates,
                 effect_predicates,
                 original_ordered_parameters_keys,
-            )                
+            )
 
 
 def preprocess_operator(
@@ -1717,3 +1749,32 @@ def preprocess_conjunction_predicates(
                 parameters = parameters_backup
 
     return parameters, preprocessed_predicates, structured_predicates
+
+def goal_predicates_string_to_predicates_list(goal_predicates_list, allow_partial_ground_predicates=True):
+    predicates = []
+    for pred_string in goal_predicates_list:
+        patt = r"\(not(.*)\)"
+        not_match = re.match(patt, pred_string, re.DOTALL)
+        if not_match is not None:
+            neg = True
+            inner_predicate = not_match.groups()[0].strip()
+        else:
+            neg = False
+            inner_predicate = pred_string
+
+        parsed_predicate = PDDLParser._parse_predicate(
+            inner_predicate,
+            allow_partial_ground_predicates=allow_partial_ground_predicates,
+            neg=neg,
+        )
+        predicates.append(parsed_predicate)
+    return predicates
+
+def get_goal_ground_arguments_map(goal_predicates_list, type_predicates=['objectType', 'receptacleType']):
+    ground_arguments_map = {}
+    for predicate in goal_predicates_list:
+        if predicate.name in type_predicates:
+           ground_argument_var = predicate.argument_values[0]
+           ground_argument_type = PDDLPredicate.get_alfred_object_type(predicate.argument_values[1])
+           ground_arguments_map[ground_argument_var] = ground_argument_type
+    return ground_arguments_map
