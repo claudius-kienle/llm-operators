@@ -19,6 +19,7 @@ class MotionPlanResult:
         task_success,
         last_failed_operator=None,
         max_satisfied_predicates=None,
+        total_trajs_sampled=0,
     ):
         """
         task_success: bool
@@ -29,6 +30,7 @@ class MotionPlanResult:
         self.task_success = task_success
         self.last_failed_operator = last_failed_operator
         self.max_satisfied_predicates = max_satisfied_predicates
+        self.total_trajs_sampled = total_trajs_sampled
 
     def from_json(cls, json):
         return MotionPlanResult(
@@ -36,6 +38,7 @@ class MotionPlanResult:
             task_success=json["task_success"],
             last_failed_operator=json["last_failed_operator"],
             max_satisfied_predicates=json["max_satisfied_predicates"],
+            total_trajs_sampled=json["total_trajs_sampled"],
         )
 
 
@@ -110,13 +113,19 @@ def attempt_motion_plan_for_problem(
                 (pddl_goal, motion_plan_result.pddl_plan.plan_string)
             ] = motion_plan_result
 
-            if verbose:
-                print(
-                    f"Motion plan result: task_success: {motion_plan_result.task_success}"
-                )
-                print(
-                    f"Failed at operator: {motion_plan_result.last_failed_operator} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan.\n\n\n"
-                )
+            print("=============================================")
+            print(f"Problem Number: {problem_idx}")
+            print(f"Problem ID: {problem_id}")
+            print(
+                f"Motion plan result: task_success: {motion_plan_result.task_success}"
+            )
+            print(
+                f"Total Actions Taken: {motion_plan_result.total_trajs_sampled}"
+            )
+            print(
+                f"Failed at operator: {motion_plan_result.last_failed_operator} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan."
+            )
+            print("=============================================")
 
 
 def evaluate_motion_plans_and_costs_for_problems(
@@ -292,6 +301,7 @@ def evaluate_alfred_motion_plans_and_costs_for_goal_plan(
             task_success=raw_motion_plan_result["task_success"],
             last_failed_operator=raw_motion_plan_result["last_failed_operator"],
             max_satisfied_predicates=raw_motion_plan_result["max_satisfied_predicates"],
+            total_trajs_sampled=raw_motion_plan_result["total_trajs_sampled"],
         )
 
 
