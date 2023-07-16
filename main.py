@@ -317,7 +317,7 @@ def main():
 
         ###################### Refine operators.
         for problem_idx, problem_id in enumerate(planning_problems["train"]):
-            if problem_idx < args.debug_start_problem_idx or problem_idx in args.debug_skip_problems: continue
+            if problem_idx < args.debug_start_problem_idx or (args.debug_skip_problems is not None and problem_idx in args.debug_skip_problems): continue
             should_continue_attempts = True
             for plan_attempt_idx in range(args.n_attempts_to_plan):
                 if should_continue_attempts:
