@@ -7,8 +7,8 @@ import argparse
 import json
 import os
 import sys
-from pddl import PDDLProblem
-import task_planner
+from llm_operators.pddl import PDDLProblem
+import llm_operators.task_planner
 from pathlib import Path
 
 import random
@@ -371,7 +371,7 @@ def main():
         json.dump(not_sucessfully_parsed, f)
 
     # Take a subset of the problems for a shorter debug set.
-    MAX_SET = 100
+    MAX_SET = 250
     dataset_name = f"dataset/alfred-linearized-{MAX_SET}-NLgoals-operators.json"
     dataset_subset = {}
     for split in alfred_nl_goals:
