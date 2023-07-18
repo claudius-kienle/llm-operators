@@ -8,7 +8,7 @@ import json
 import os
 import sys
 from llm_operators.pddl import PDDLProblem
-import llm_operators.task_planner
+import llm_operators.task_planner as task_planner
 from pathlib import Path
 
 import random
@@ -372,7 +372,7 @@ def main():
 
     # Take a subset of the problems for a shorter debug set.
     MAX_SET = 250
-    dataset_name = f"dataset/alfred-linearized-{MAX_SET}-NLgoals-operators.json"
+    dataset_name = f"data/dataset/alfred-linearized-{MAX_SET}-NLgoals-operators.json"
     dataset_subset = {}
     for split in alfred_nl_goals:
         dataset_subset[split] = []
