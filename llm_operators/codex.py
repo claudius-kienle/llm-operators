@@ -45,7 +45,7 @@ def get_completions(
     n_samples: int = 1,
     temperature: float = 0.1,
     max_tokens: int = 256,  # Max tokens for completion only.
-    engine: str = "code-davinci-003", # Add ChatGPT-3, GPT4, etc
+    engine: str = "code-davinci-002", # Add ChatGPT-3, GPT4, etc
     stop: str = STOP_TOKEN,
     top_p=1,
     logprobs=None,
