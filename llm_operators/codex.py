@@ -29,6 +29,7 @@ OPERATOR_START_TOKEN = "(:action "
 CODEX_PROMPT = "codex_prompt"
 CODEX_OUTPUT = "codex_output"
 NLgoals_PDDLplans_prompt = "\n;; Natural language goals and PDDL plans\n\n"
+REMINDER = ";; Reminder: use only predicates and functions available in the PDDL domain. All problems are solvable. \n\n"
 
 DEFAULT_GOAL_TEMPERATURE = 0.0
 
@@ -716,7 +717,7 @@ def get_unsolved_goal_prompt(domain, problem, include_codex_types=False):
         problem.ground_truth_pddl_problem.ground_truth_pddl_problem_string,
         include_codex_types=include_codex_types,
     )
-    NL_goal = NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language
+    NL_goal = REMINDER + "\n" + NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language + "\n\n" + PDDL_GOAL_START
     return "\n\n".join([domain_string, NL_goal])
 
 
@@ -736,6 +737,21 @@ def mock_propose_goals_for_problems(
     )
     return
 
+def get_custom_codex_prompt(solved_problems):
+    """
+    Hand selects solved problems to use as prompts for Codex.
+    Proof-of-concept until we implement a better heuristic for choosing codex prompts.
+    Works on alfred-solvable-200 dataset.
+    """
+    for i, problem in enumerate(solved_problems):
+        print(f"[{i}/{len(solved_problems)}]")
+        print(problem.language)
+        print(problem.ground_truth_pddl_problem.ground_truth_goal)
+        print()
+
+    problem_idxs = [0, 4, 7, 9, 12, 18, 22]
+
+    return [p for i, p in enumerate(solved_problems) if i in problem_idxs]
 
 def propose_goals_for_problems(
     problems,
@@ -793,8 +809,10 @@ def propose_goals_for_problems(
     # Add supervision from external prompts.
     if supervision_pddl:
         prompt += get_supervision_goal_prompt(supervision_pddl)
-    # random.seed(None)
-    solved_to_prompt = random.sample(solved_problems, max_goal_examples)
+
+    # solved_to_prompt = random.sample(solved_problems, max_goal_examples)
+    solved_to_prompt = get_custom_codex_prompt(solved_problems)
+
     for solved_problem in solved_to_prompt:  # constructing the input prompt
         prompt += get_solved_goal_prompt(current_domain, solved_problem)
     
