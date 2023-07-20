@@ -45,7 +45,7 @@ def get_completions(
     n_samples: int = 1,
     temperature: float = 0.1,
     max_tokens: int = 256,  # Max tokens for completion only.
-    engine: str = "code-davinci-002", # Add ChatGPT-3, GPT4, etc
+    engine: str = "gpt-3.5-turbo-16k", # Add ChatGPT-3, GPT4, etc
     stop: str = STOP_TOKEN,
     top_p=1,
     logprobs=None,
@@ -76,18 +76,15 @@ def get_completions(
                     logprobs=logprobs,
                 )
                 return [c["text"] for c in completion["choices"]]
-            elif engine == "gpt-3.5-turbo":
+            elif engine == "gpt-3.5-turbo" or engine == "gpt-3.5-turbo-16k" or engine == "gpt-4-32k":
                 completion = openai.ChatCompletion.create(
-                    model="gpt-3.5-turbo",
+                    model=engine,
                     messages=[{"role": "user", 
-                    "content": prompt}])
-                return [c["text"] for c in completion["choices"]]
-            elif engine == "gpt-4":
-                completion = openai.ChatCompletion.create(
-                    model="gpt-4",
-                    messages=[{"role": "user", 
-                    "content": prompt}])
-                return [c["text"] for c in completion["choices"]]
+                    "content": prompt}],
+                    temperature=temperature if top_p is None else 1.0,
+                    top_p=top_p if temperature is None else 1.0,
+                    n=n_samples,)
+                return [c["message"]["content"] for c in completion["choices"]]
                 
         except InvalidRequestError as e:
             print(e)
@@ -746,15 +743,15 @@ def propose_goals_for_problems(
     initial_pddl_predicates,
     supervision_pddl,
     experiment_name,
-    temperature=0.0,
+    temperature=1.0,
     include_codex_types=False,
     use_mock=False,
-    max_goal_examples=2,
-    n_samples=1,
+    max_goal_examples=7,
+    n_samples=3,
     verbose=False,
     output_directory=None,
     use_gt=False,
-    print_every=2,
+    print_every=1,
 ):
     """
     unsolved_problems:
@@ -796,9 +793,14 @@ def propose_goals_for_problems(
     # Add supervision from external prompts.
     if supervision_pddl:
         prompt += get_supervision_goal_prompt(supervision_pddl)
+    # random.seed(None)
     solved_to_prompt = random.sample(solved_problems, max_goal_examples)
     for solved_problem in solved_to_prompt:  # constructing the input prompt
         prompt += get_solved_goal_prompt(current_domain, solved_problem)
+    
+    print("CODEX PROMPT:")
+    print(prompt)
+
     for idx, problem in enumerate(unsolved_problems):
         if verbose and idx % print_every == 0:
             print(
@@ -820,9 +822,10 @@ def propose_goals_for_problems(
                 CODEX_OUTPUT: goal_strings,
             }
             if verbose:
-                print(
-                    f'propose_goals_for_problems:: proposed goals for "{problem.language}":: {goal_strings[0]}'
-                )
+                print(f'propose_goals_for_problems:: proposed goals for "{problem.language}"::')
+                for i, goal_string in enumerate(goal_strings):
+                    print(f"[Goal {i+1}/{len(goal_strings)}]")
+                    print(goal_string)
             problem.proposed_pddl_goals.extend(goal_strings)  # editing the problem
         except Exception as e:
             print(e)
