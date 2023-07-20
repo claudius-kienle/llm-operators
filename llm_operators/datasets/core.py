@@ -33,6 +33,7 @@ class Problem:
         self.constants_in_problem_file = False  # Flag for only the ALFRED domain, which includes constants defined in the problem files not the
 
         self.ground_truth_pddl_plan = None
+        self.correct_pddl_goal = False # True if at least one of the proposed PDDL goals is correct.
         if ground_truth_pddl_plan is not None:
             if isinstance(ground_truth_pddl_plan, PDDLPlan):
                 self.ground_truth_pddl_plan = ground_truth_pddl_plan
