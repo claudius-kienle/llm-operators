@@ -3,7 +3,7 @@ main.py
 
 Usage:
     # Load a debug fraction of the ALFRED dataset.
-    python main.py --experiment_name alfred_linearized_100_ground_truth_652023 --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple pick_clean_then_place_in_recep --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle CleanObject --train_iterations 1 --dataset_pddl_directory data/dataset/alfred_linearized_pddl --output_directory generated --debug_ground_truth_operators --debug_ground_truth_goals --n_attempts_to_plan 1 --motionplan_search_type counter
+    python main.py --experiment_name alfred_linearized_100_ground_truth_652023 --dataset_name alfred_linearized_100 --supervision_name supervision --pddl_domain_name alfred_linearized --dataset_fraction 1.0 --training_plans_fraction 1.0 --initial_plans_prefix pick_and_place_simple pick_clean_then_place_in_recep --initial_pddl_operators GotoLocation PickupObjectInReceptacle PickupObjectNotInReceptacle PutObjectInReceptacle PutReceptacleObjectInReceptacle CleanObject --train_iterations 1 --dataset_pddl_directory data/dataset/alfred_linearized_pddl --output_directory generated --debug_ground_truth_operators --debug_ground_truth_goals --n_attempts_to_plan 4 --motionplan_search_type counter
 
     # Append these flags if you want to mock out the Codex proposals with previous checkpoints.
     --debug_mock_propose_plans --debug_mock_propose_operators --debug_mock_propose_goals
@@ -87,7 +87,7 @@ parser.add_argument(
 parser.add_argument(
     "--supervision_name",
     type=str,
-    default="supervision",
+    default="None",
     help="Tag for the supervision dataset to load.",
 )
 
@@ -249,9 +249,12 @@ def main():
     )
 
     # Load any external supervision on PDDL domains.
-    supervision_pddl = datasets.load_pddl_supervision(
-        supervision_name=args.supervision_name, verbose=args.verbose,
-    )
+    if args.supervision_name != "None":
+        supervision_pddl = datasets.load_pddl_supervision(
+            supervision_name=args.supervision_name, verbose=args.verbose,
+        )
+    else:
+        supervision_pddl = None
 
     for curr_iteration in range(args.train_iterations):
         output_directory = experiment_utils.get_output_directory(
