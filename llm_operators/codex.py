@@ -432,7 +432,7 @@ def propose_operator_definition(
             + "\n\n"
         )
         translation_header = (
-            ";;;; Only use predicates and functions available in the PDDL domain.\n\n"
+            ";;;; Only use predicates and functions available in the PDDL domain. Propose ONLY ONE operator. \n\n"
         )
 
         codex_prompt += pddl_domain + translation_header
@@ -566,10 +566,10 @@ def propose_plans_for_problems(
                 codex_prompt, temperature=temperature, stop=STOP_TOKEN
             )
             for plan_string in plan_strings:
+                plan_string_split = plan_string.split("<END>")[0]
                 unsolved_problem.proposed_pddl_plans.append(
-                    PDDLPlan(plan_string=plan_string)
+                    PDDLPlan(plan_string=plan_string_split)
                 )  # editing the problem
-
             output_json[unsolved_problem.problem_id] = {
                 CODEX_PROMPT: codex_prompt,
                 CODEX_OUTPUT: plan_strings,
@@ -668,7 +668,7 @@ def get_plan_string_from_solved_problem(problem):
     return plan.plan_to_string(plan.plan)
 
 
-def get_solved_goal_prompt(domain, problem):
+def get_domain_string(domain, problem):
     """
     problem:
         PDDL.Problem object
@@ -676,9 +676,17 @@ def get_solved_goal_prompt(domain, problem):
         prompt
     """
     domain_string = domain.domain_for_goal_prompting(
-        problem.ground_truth_pddl_problem.ground_truth_pddl_problem_string,
-        include_codex_types=False,  # For solved problems, do not include codex types.
-    )
+        problem.ground_truth_pddl_problem.ground_truth_pddl_problem_string
+    ) + "\n"
+    return domain_string
+
+def get_solved_goal_prompt(domain, problem):
+    """
+    problem:
+        PDDL.Problem object
+    returns:
+        prompt
+    """
     NL_goal = NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language
     pddl_goal = (
         PDDL_GOAL_START
@@ -687,7 +695,7 @@ def get_solved_goal_prompt(domain, problem):
         + "\n"
         + STOP_TOKEN
     )
-    return "\n\n".join([domain_string, NL_goal, pddl_goal])
+    return "\n\n".join([NL_goal, pddl_goal])
 
 
 def get_supervision_goal_prompt(supervision_pddl):
@@ -762,7 +770,7 @@ def propose_goals_for_problems(
     temperature=1.0,
     include_codex_types=False,
     use_mock=False,
-    max_goal_examples=7,
+    max_goal_examples=30,
     n_samples=3,
     verbose=False,
     output_directory=None,
@@ -810,9 +818,11 @@ def propose_goals_for_problems(
     if supervision_pddl:
         prompt += get_supervision_goal_prompt(supervision_pddl)
 
-    # solved_to_prompt = random.sample(solved_problems, max_goal_examples)
-    solved_to_prompt = get_custom_codex_prompt(solved_problems)
+    max_goal_examples = min(max_goal_examples, len(solved_problems))
+    solved_to_prompt = random.sample(solved_problems, max_goal_examples)
 
+    # domains for all alfred problems should be the same.
+    prompt += get_domain_string(current_domain, solved_to_prompt[0])
     for solved_problem in solved_to_prompt:  # constructing the input prompt
         prompt += get_solved_goal_prompt(current_domain, solved_problem)
     
