@@ -29,7 +29,7 @@ OPERATOR_START_TOKEN = "(:action "
 CODEX_PROMPT = "codex_prompt"
 CODEX_OUTPUT = "codex_output"
 NLgoals_PDDLplans_prompt = "\n;; Natural language goals and PDDL plans\n\n"
-REMINDER = ";; Reminder: use only predicates and functions available in the PDDL domain. All problems are solvable. \n\n"
+REMINDER = ";; Reminder: use ONLY predicates and object types listed in the above PDDL domain. All problems are solvable. Propose just ONE goal. If the English goal is ambiguous, propose the simplest PDDL goal that matches.\n\n"
 
 DEFAULT_GOAL_TEMPERATURE = 0.0
 
@@ -720,11 +720,14 @@ def get_supervision_goal_prompt(supervision_pddl):
     return prompt
 
 
-def get_unsolved_goal_prompt(domain, problem, include_codex_types=False):
-    domain_string = domain.domain_for_goal_prompting(
-        problem.ground_truth_pddl_problem.ground_truth_pddl_problem_string,
-        include_codex_types=include_codex_types,
-    )
+def get_unsolved_goal_prompt(domain, problem, include_codex_types=False, include_domain_string=True):
+    if include_domain_string:
+        domain_string = domain.domain_for_goal_prompting(
+            problem.ground_truth_pddl_problem.ground_truth_pddl_problem_string,
+            include_codex_types=include_codex_types,
+        )
+    else:
+        domain_string = ""
     NL_goal = REMINDER + "\n" + NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language + "\n\n" + PDDL_GOAL_START
     return "\n\n".join([domain_string, NL_goal])
 
@@ -767,16 +770,36 @@ def propose_goals_for_problems(
     initial_pddl_predicates,
     supervision_pddl,
     experiment_name,
-    temperature=1.0,
+    temperature=2.0,
     include_codex_types=False,
     use_mock=False,
-    max_goal_examples=30,
-    n_samples=3,
+    max_goal_examples=20,
+    n_samples=4,
     verbose=False,
     output_directory=None,
     use_gt=False,
     print_every=1,
 ):
+    def get_prompt(max_goal_examples=max_goal_examples):
+        # Generate unique prompt for each sample
+        prompt = nl_header
+        if supervision_pddl: # Add supervision from external prompts.
+            prompt += get_supervision_goal_prompt(supervision_pddl)
+
+        max_goal_examples = min(max_goal_examples, len(solved_problems))
+        random.seed(None)
+        solved_to_prompt = random.sample(solved_problems, max_goal_examples)
+
+        # domains for all alfred problems should be the same.
+        prompt += get_domain_string(current_domain, solved_to_prompt[0])
+        for solved_problem in solved_to_prompt:  # constructing the input prompt
+            prompt += get_solved_goal_prompt(current_domain, solved_problem)
+
+        prompt += get_unsolved_goal_prompt(
+            current_domain, problem, include_codex_types=include_codex_types, include_domain_string=True,
+        )
+        
+        return prompt
     """
     unsolved_problems:
         list of Problem objects to be solved
@@ -812,41 +835,24 @@ def propose_goals_for_problems(
         )
 
     nl_header = "\n;; Natural language goals and PDDL goals\n\n"
-    prompt = nl_header
-
-    # Add supervision from external prompts.
-    if supervision_pddl:
-        prompt += get_supervision_goal_prompt(supervision_pddl)
-
-    max_goal_examples = min(max_goal_examples, len(solved_problems))
-    solved_to_prompt = random.sample(solved_problems, max_goal_examples)
-
-    # domains for all alfred problems should be the same.
-    prompt += get_domain_string(current_domain, solved_to_prompt[0])
-    for solved_problem in solved_to_prompt:  # constructing the input prompt
-        prompt += get_solved_goal_prompt(current_domain, solved_problem)
-    
-    print("CODEX PROMPT:")
-    print(prompt)
 
     for idx, problem in enumerate(unsolved_problems):
         if verbose and idx % print_every == 0:
             print(
                 f"propose_goals_for_problems:: now on {idx} / {len(unsolved_problems)}"
             )
-
-        temp_prompt = prompt + get_unsolved_goal_prompt(
-            current_domain, problem, include_codex_types=include_codex_types
-        )
         try:
-            goal_strings = get_completions(
-                temp_prompt,
-                temperature=temperature,
-                stop=STOP_TOKEN,
-                n_samples=n_samples,
-            )
+            goal_strings = []
+            for i in range(n_samples):
+                prompt = get_prompt()
+                goal_strings.append(get_completions(
+                    prompt,
+                    temperature=temperature,
+                    stop=STOP_TOKEN,
+                    n_samples=1,
+                )[0])
             output_json[problem.problem_id] = {
-                CODEX_PROMPT: temp_prompt,
+                CODEX_PROMPT: prompt,
                 CODEX_OUTPUT: goal_strings,
             }
             if verbose:
