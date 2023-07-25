@@ -234,7 +234,9 @@ def load_alfred_linearized_planning_domain_problems(
         dataset[dataset_split] = dict()
         # Get some fraction of the dataset to load.
         num_to_take = int(np.ceil(dataset_fraction * len(alfred_json[dataset_split])))
-        fraction_split = random.sample(list(alfred_json[dataset_split]), num_to_take)
+        # For deterministic testing, take the first num_to_take problems.
+        # fraction_split = random.sample(list(alfred_json[dataset_split]), num_to_take)
+        fraction_split = list(alfred_json[dataset_split])[:num_to_take]
         for problem_json in fraction_split:
             problem_id = problem_json["file_name"]
             goal_language = problem_json["goal"]
@@ -301,9 +303,6 @@ def load_alfred_solvable_planning_domain_problems(
         # For deterministic testing, take the first num_to_take problems.
         # fraction_split = random.sample(list(alfred_json[dataset_split]), num_to_take)
         fraction_split = list(alfred_json[dataset_split])[:num_to_take]
-        print("PROBLEM LIST:")
-        for problem in fraction_split:
-            print(problem["file_name"])
         for problem_json in fraction_split:
             problem_id = problem_json["file_name"]
             goal_language = problem_json["goal"]
@@ -331,6 +330,72 @@ def load_alfred_solvable_planning_domain_problems(
     if verbose:
         print(
             f"\nload_alfred_solvable_planning_domain_problems: loaded {ALFRED_DATASET_NAME} from {ALFRED_SOLVABLE_200_DATASET_PATH}"
+        )
+        for dataset_split in dataset:
+            print(
+                f"{dataset_split} : {len(dataset[dataset_split])} / original {len(alfred_json[dataset_split])} problems"
+            )
+    return dataset
+
+# Development subset of 250 learning problems solvable with synthetically generated English goal descriptions
+ALFRED_SYNTHETIC_250_DATASET_NAME = "alfred_synthetic_250"
+ALFRED_SYNTHETIC_250_DATASET_PATH = (
+    "data/dataset/alfred-synthetic-250-NLgoals-operators.json"
+)
+
+
+@register_planning_domain_problems(ALFRED_SYNTHETIC_250_DATASET_NAME)
+def load_alfred_synthetic_planning_domain_problems(
+    dataset_pddl_directory=ALFRED_DEFAULT_PDDL_DIRECTORY,
+    dataset_fraction=1.0,
+    verbose=False,
+):
+    """
+    splits are: train, valid_seen, valid_unseen
+    :ret: {
+        split: {problem_id : Problem}
+        }
+    for the ALFRED dataset.
+    """
+    # Location of the local alfred-NLgoals-operators JSON.
+    with open(ALFRED_SYNTHETIC_250_DATASET_PATH) as f:
+        alfred_json = json.load(f)
+
+    dataset = dict()
+    for dataset_split in alfred_json:
+        dataset[dataset_split] = dict()
+        # Get some fraction of the dataset to load.
+        num_to_take = int(np.ceil(dataset_fraction * len(alfred_json[dataset_split])))
+        # For deterministic testing, take the first num_to_take problems.
+        fraction_split = random.sample(list(alfred_json[dataset_split]), num_to_take)
+        # fraction_split = list(alfred_json[dataset_split])[:num_to_take]
+        for problem_json in fraction_split:
+            problem_id = problem_json["file_name"]
+            goal_language = problem_json["goal"]
+            ground_truth_pddl_plan = problem_json["operator_sequence"]
+            goal_prefix = (
+                problem_json["goal_prefix"] if "goal_prefix" in problem_json else ""
+            )
+
+            ground_truth_pddl_problem = PDDLProblem(
+                ground_truth_pddl_problem_string=load_alfred_pddl_file(
+                    dataset_pddl_directory, problem_json["file_name"]
+                )
+            )
+            new_problem = Problem(
+                problem_id=problem_id,
+                dataset_split=dataset_split,
+                language=goal_language,
+                ground_truth_pddl_plan=ground_truth_pddl_plan,
+                ground_truth_pddl_problem=ground_truth_pddl_problem,
+                goal_prefix=goal_prefix,
+            )
+            new_problem.constants_in_problem_file = True
+            dataset[dataset_split][problem_id] = new_problem
+
+    if verbose:
+        print(
+            f"\nload_alfred_synthetic_planning_domain_problems: loaded {ALFRED_DATASET_NAME} from {ALFRED_SYNTHETIC_250_DATASET_PATH}"
         )
         for dataset_split in dataset:
             print(
