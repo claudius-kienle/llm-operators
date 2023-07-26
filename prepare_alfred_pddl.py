@@ -376,19 +376,23 @@ def generate_cot(goal_file):
     problem_type = problem_name.split("-")[0]
     problem_args = problem_name.split("-")[1:]
 
+    thought = "The two relevant objects are 1) " + problem_args[0] + " and 2) " + problem_args[2] + ". "
+
     if "Sliced" in problem_args[0]:
-        problem_args[0] = problem_args[0].replace("Sliced", ", slice it")
+        problem_args[0] = problem_args[0].replace("Sliced", " and SLICE it")
 
     if problem_type == "pick_and_place_simple":
-        return "Pick up the " + problem_args[0] + " and place it in the " + problem_args[2] + "."
+        thought += "PICKUP " + problem_args[0] + " and PLACE in " + problem_args[2] + "."
     elif problem_type == "pick_clean_then_place_in_recep":
-        return "Pick up the " + problem_args[0] + " and clean it. Then place it in the " + problem_args[2] + "."
+        thought += "PICKUP and CLEAN " + problem_args[0] + ". Then PLACE in " + problem_args[2] + "."
     elif problem_type == "pick_heat_then_place_in_recep":
-        return "Pick up the " + problem_args[0] + " and heat it. Then place it in the " + problem_args[2] + "."
+        thought += "PICKUP and HEAT " + problem_args[0] + ". Then PLACE in " + problem_args[2] + "."
     elif problem_type == "pick_cool_then_place_in_recep":
-        return "Pick up the " + problem_args[0] + " and cool it. Then place it in the " + problem_args[2] + "."
+        thought += "PICKUP and COOL " + problem_args[0] + ". Then PLACE in " + problem_args[2] + "."
     elif problem_type == "look_at_obj_in_light":
-        return "Look at the " + problem_args[0] + " in the light of the " + problem_args[2] + "."
+        thought += "PICKUP " + problem_args[0] + " and TOGGLE the light of " + problem_args[2] + "."
+
+    return thought
 
 def main():
     args = parser.parse_args()
