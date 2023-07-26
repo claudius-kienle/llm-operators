@@ -47,7 +47,7 @@ def get_completions(
     n_samples: int = 1,
     temperature: float = 0.1,
     max_tokens: int = 256,  # Max tokens for completion only.
-    engine: str = "gpt-3.5-turbo-16k", # Add ChatGPT-3, GPT4, etc
+    engine: str = "gpt-4", # Add gpt-3.5-turbo-16k, gpt-4-32k, etc
     stop: str = STOP_TOKEN,
     top_p=1,
     logprobs=None,
@@ -78,7 +78,7 @@ def get_completions(
                     logprobs=logprobs,
                 )
                 return [c["text"] for c in completion["choices"]]
-            elif engine == "gpt-3.5-turbo" or engine == "gpt-3.5-turbo-16k" or engine == "gpt-4-32k":
+            elif engine == "gpt-3.5-turbo" or engine == "gpt-3.5-turbo-16k" or engine == "gpt-4-32k" or engine == "gpt-4":
                 completion = openai.ChatCompletion.create(
                     model=engine,
                     messages=[{"role": "user", 
@@ -87,6 +87,8 @@ def get_completions(
                     top_p=top_p if temperature is None else 1.0,
                     n=n_samples,)
                 return [c["message"]["content"] for c in completion["choices"]]
+            else:
+                raise ValueError(f"Engine {engine} not supported.")
                 
         except InvalidRequestError as e:
             print(e)
