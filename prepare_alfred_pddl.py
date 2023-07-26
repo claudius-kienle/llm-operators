@@ -376,10 +376,16 @@ def generate_cot(goal_file):
     problem_type = problem_name.split("-")[0]
     problem_args = problem_name.split("-")[1:]
 
-    thought = "The two relevant objects are 1) " + problem_args[0] + " and 2) " + problem_args[2] + ". "
+    thought = problem_name.rsplit("-", 1)[0]
 
+    """thought = ";; Two Relevant Objects: 1) " + problem_args[0] + " and 2) " + problem_args[2] + ". "
+    thought += ";; Problem Type: " + problem_type + "."
+    thought += ";; Simplified Goal: "
+
+    sliced = (True if "Sliced" in problem_args[0] else False)
     if "Sliced" in problem_args[0]:
-        problem_args[0] = problem_args[0].replace("Sliced", " and SLICE it")
+        problem_args[0] = problem_args[0].replace("Sliced", "")
+        problem_args[0] = "AND SLICE " + problem_args[0]
 
     if problem_type == "pick_and_place_simple":
         thought += "PICKUP " + problem_args[0] + " and PLACE in " + problem_args[2] + "."
@@ -390,7 +396,7 @@ def generate_cot(goal_file):
     elif problem_type == "pick_cool_then_place_in_recep":
         thought += "PICKUP and COOL " + problem_args[0] + ". Then PLACE in " + problem_args[2] + "."
     elif problem_type == "look_at_obj_in_light":
-        thought += "PICKUP " + problem_args[0] + " and TOGGLE the light of " + problem_args[2] + "."
+        thought += "PICKUP " + problem_args[0] + " and TOGGLE the light of " + problem_args[2] + "."""
 
     return thought
 
