@@ -254,7 +254,7 @@ def get_problem_ids_with_initial_plans_prefix(
     problem_ids = []
     for problem_id in planning_dataset[split]:
         problem = planning_dataset[split][problem_id]
-        if problem.goal_prefix in initial_plans_prefix:
+        if problem.goal_prefix.split("_slice")[0] in initial_plans_prefix:
             problem_ids.append(problem_id)
     return problem_ids
 
@@ -293,6 +293,10 @@ def load_planning_problems_dataset(
     )
     problems_to_supervise = random.sample(candidate_training_plans, num_to_supervise,)
     if verbose:
+        print("Planning Dataset:", dataset_name)
+        print(planning_dataset)
+        print("Candidate training plans:" + str(len(candidate_training_plans)))
+        print(candidate_training_plans)
         print("Supervising on these problems: ")
         print(problems_to_supervise)
     for problem_id in problems_to_supervise:
