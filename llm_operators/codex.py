@@ -23,6 +23,7 @@ STOP_TOKEN = "\n<END>\n"
 OPERATOR_START = ";; Operator: "
 EXAMPLE_START = ";; Example: "
 NATURAL_LANGUAGE_GOAL_START = ";; Goal: "
+COT_START = ";; Simplified Goal: "
 PDDL_GOAL_START = ";; PDDL Goal: "
 PDDL_PLAN_START = ";; PDDL Plan: "
 OPERATOR_START_TOKEN = "(:action "
@@ -687,7 +688,8 @@ def get_solved_goal_prompt(domain, problem):
     returns:
         prompt
     """
-    NL_goal = NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language
+    NL_goal = NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language + "\n"
+    COT = (COT_START + "\n" + problem.chain_of_thought + "\n" if problem.chain_of_thought else "")
     pddl_goal = (
         PDDL_GOAL_START
         + "\n"
@@ -695,7 +697,7 @@ def get_solved_goal_prompt(domain, problem):
         + "\n"
         + STOP_TOKEN
     )
-    return "\n\n".join([NL_goal, pddl_goal])
+    return "\n\n".join([NL_goal, COT, pddl_goal])
 
 
 def get_supervision_goal_prompt(supervision_pddl):
@@ -728,7 +730,7 @@ def get_unsolved_goal_prompt(domain, problem, include_codex_types=False, include
         )
     else:
         domain_string = ""
-    NL_goal = REMINDER + "\n" + NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language + "\n\n" + PDDL_GOAL_START
+    NL_goal = REMINDER + "\n" + NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language + "\n"
     return "\n\n".join([domain_string, NL_goal])
 
 
@@ -798,7 +800,6 @@ def propose_goals_for_problems(
         prompt += get_unsolved_goal_prompt(
             current_domain, problem, include_codex_types=include_codex_types, include_domain_string=True,
         )
-        
         return prompt
     """
     unsolved_problems:

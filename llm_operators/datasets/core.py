@@ -21,10 +21,12 @@ class Problem:
         ground_truth_pddl_problem=None,
         should_supervise_pddl=False,
         goal_prefix=None,
+        chain_of_thought=None,
     ):
         self.problem_id = problem_id
         self.dataset_split = dataset_split
         self.goal_prefix = goal_prefix
+        self.chain_of_thought = chain_of_thought
 
         self.language = language  # An NL string describing the planning problem.
         self.ground_truth_pddl_problem = (
@@ -293,10 +295,6 @@ def load_planning_problems_dataset(
     )
     problems_to_supervise = random.sample(candidate_training_plans, num_to_supervise,)
     if verbose:
-        print("Planning Dataset:", dataset_name)
-        print(planning_dataset)
-        print("Candidate training plans:" + str(len(candidate_training_plans)))
-        print(candidate_training_plans)
         print("Supervising on these problems: ")
         print(problems_to_supervise)
     for problem_id in problems_to_supervise:
