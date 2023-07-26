@@ -30,7 +30,7 @@ OPERATOR_START_TOKEN = "(:action "
 CODEX_PROMPT = "codex_prompt"
 CODEX_OUTPUT = "codex_output"
 NLgoals_PDDLplans_prompt = "\n;; Natural language goals and PDDL plans\n\n"
-REMINDER = ";; Reminder: use ONLY predicates and object types listed in the above PDDL domain. All problems are solvable. Propose just ONE goal. If the English goal is ambiguous, propose the simplest PDDL goal that matches.\n\n"
+REMINDER = ";; Reminder: use ONLY predicates and object types listed in the above PDDL domain. If an English goal contains an object not in the domain, use the most similar available object. All problems are solvable. Propose just ONE goal.\n\n"
 
 DEFAULT_GOAL_TEMPERATURE = 0.0
 
@@ -676,10 +676,10 @@ def get_domain_string(domain, problem):
     returns:
         prompt
     """
-    domain_string = domain.domain_for_goal_prompting(
+    domain_string = "<START DOMAIN>\n" + domain.domain_for_goal_prompting(
         problem.ground_truth_pddl_problem.ground_truth_pddl_problem_string
-    ) + "\n"
-    return domain_string
+    ) + "\n<END DOMAIN>\n\n"
+    return "\n".join([REMINDER, domain_string])
 
 def get_solved_goal_prompt(domain, problem):
     """
@@ -730,7 +730,7 @@ def get_unsolved_goal_prompt(domain, problem, include_codex_types=False, include
         )
     else:
         domain_string = ""
-    NL_goal = REMINDER + "\n" + NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language + "\n"
+    NL_goal = "\n" + NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language + "\n"
     return "\n\n".join([domain_string, NL_goal])
 
 
@@ -798,8 +798,10 @@ def propose_goals_for_problems(
             prompt += get_solved_goal_prompt(current_domain, solved_problem)
 
         prompt += get_unsolved_goal_prompt(
-            current_domain, problem, include_codex_types=include_codex_types, include_domain_string=True,
+            current_domain, problem, include_codex_types=include_codex_types, include_domain_string=False,
         )
+        # print("CODEX PROMPT:")
+        # print(prompt)
         return prompt
     """
     unsolved_problems:
