@@ -1233,50 +1233,6 @@
             "goal_prefix": "pick_heat_then_place_in_recep"
         },
         {
-            "goal": "put a microwaved apple in the fridge.",
-            "operator_sequence": [
-                {
-                    "action": "GotoLocation",
-                    "args": [
-                        "countertop"
-                    ]
-                },
-                {
-                    "action": "PickupObject",
-                    "args": [
-                        "apple"
-                    ]
-                },
-                {
-                    "action": "GotoLocation",
-                    "args": [
-                        "microwave"
-                    ]
-                },
-                {
-                    "action": "HeatObject",
-                    "args": [
-                        "apple"
-                    ]
-                },
-                {
-                    "action": "GotoLocation",
-                    "args": [
-                        "fridge"
-                    ]
-                },
-                {
-                    "action": "PutObject",
-                    "args": [
-                        "apple",
-                        "fridge"
-                    ]
-                }
-            ],
-            "file_name": "train/pick_heat_then_place_in_recep-Apple-None-Fridge-22/trial_T20190908_210352_288346",
-            "goal_prefix": "pick_heat_then_place_in_recep"
-        },
-        {
             "goal": "put a chilled glass on the second to the lowest shelf in the corner of the kitchen.",
             "operator_sequence": [
                 {
@@ -1321,94 +1277,6 @@
             "goal_prefix": "pick_cool_then_place_in_recep"
         },
         {
-            "goal": "put the cold bottle in the cabinet.",
-            "operator_sequence": [
-                {
-                    "action": "GotoLocation",
-                    "args": [
-                        "countertop"
-                    ]
-                },
-                {
-                    "action": "PickupObject",
-                    "args": [
-                        "winebottle"
-                    ]
-                },
-                {
-                    "action": "GotoLocation",
-                    "args": [
-                        "fridge"
-                    ]
-                },
-                {
-                    "action": "CoolObject",
-                    "args": [
-                        "winebottle"
-                    ]
-                },
-                {
-                    "action": "GotoLocation",
-                    "args": [
-                        "cabinet"
-                    ]
-                },
-                {
-                    "action": "PutObject",
-                    "args": [
-                        "winebottle",
-                        "cabinet"
-                    ]
-                }
-            ],
-            "file_name": "train/pick_cool_then_place_in_recep-WineBottle-None-Cabinet-16/trial_T20190907_084028_991219",
-            "goal_prefix": "pick_cool_then_place_in_recep"
-        },
-        {
-            "goal": "put a plate on bottom shelf in a cabinet.",
-            "operator_sequence": [
-                {
-                    "action": "GotoLocation",
-                    "args": [
-                        "sinkbasin"
-                    ]
-                },
-                {
-                    "action": "PickupObject",
-                    "args": [
-                        "plate"
-                    ]
-                },
-                {
-                    "action": "GotoLocation",
-                    "args": [
-                        "fridge"
-                    ]
-                },
-                {
-                    "action": "CoolObject",
-                    "args": [
-                        "plate"
-                    ]
-                },
-                {
-                    "action": "GotoLocation",
-                    "args": [
-                        "cabinet"
-                    ]
-                },
-                {
-                    "action": "PutObject",
-                    "args": [
-                        "plate",
-                        "cabinet"
-                    ]
-                }
-            ],
-            "file_name": "train/pick_cool_then_place_in_recep-Plate-None-Cabinet-22/trial_T20190907_200807_715947",
-            "goal_prefix": "pick_cool_then_place_in_recep"
-        },
-        {
             "goal": "put an egg in the fridge then the sink.",
             "operator_sequence": [
                 {
@@ -1450,50 +1318,6 @@
                 }
             ],
             "file_name": "train/pick_cool_then_place_in_recep-Egg-None-SinkBasin-25/trial_T20190909_105100_154263",
-            "goal_prefix": "pick_cool_then_place_in_recep"
-        },
-        {
-            "goal": "put chilled egg inside microwave.",
-            "operator_sequence": [
-                {
-                    "action": "GotoLocation",
-                    "args": [
-                        "diningtable"
-                    ]
-                },
-                {
-                    "action": "PickupObject",
-                    "args": [
-                        "egg"
-                    ]
-                },
-                {
-                    "action": "GotoLocation",
-                    "args": [
-                        "fridge"
-                    ]
-                },
-                {
-                    "action": "CoolObject",
-                    "args": [
-                        "egg"
-                    ]
-                },
-                {
-                    "action": "GotoLocation",
-                    "args": [
-                        "microwave"
-                    ]
-                },
-                {
-                    "action": "PutObject",
-                    "args": [
-                        "egg",
-                        "microwave"
-                    ]
-                }
-            ],
-            "file_name": "train/pick_cool_then_place_in_recep-Egg-None-Microwave-18/trial_T20190909_113607_998821",
             "goal_prefix": "pick_cool_then_place_in_recep"
         },
         {
