@@ -47,7 +47,7 @@ def get_completions(
     n_samples: int = 1,
     temperature: float = 0.1,
     max_tokens: int = 256,  # Max tokens for completion only.
-    engine: str = "gpt-4", # Add gpt-3.5-turbo-16k, gpt-4-32k, etc
+    engine: str = "gpt-3.5-turbo-16k", # Add gpt-3.5-turbo-16k, gpt-4-32k, etc
     stop: str = STOP_TOKEN,
     top_p=1,
     logprobs=None,
@@ -802,8 +802,6 @@ def propose_goals_for_problems(
         prompt += get_unsolved_goal_prompt(
             current_domain, problem, include_codex_types=include_codex_types, include_domain_string=False,
         )
-        # print("CODEX PROMPT:")
-        # print(prompt)
         return prompt
     """
     unsolved_problems:
