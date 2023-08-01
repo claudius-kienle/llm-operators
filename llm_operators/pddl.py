@@ -1428,38 +1428,35 @@ def preprocess_operators(
         print(
             f"preprocess_operators: preprocessing {len(pddl_domain.proposed_operators)} operators."
         )
+        print(list(pddl_domain.proposed_operators.keys()))
     for o in list(pddl_domain.proposed_operators.keys()):
-        logs[o] = list()
-        preprocessed_operators = []
-        for proposed_operator_body in pddl_domain.proposed_operators[o]:
+        logs[0] = list()
+        pddl_domain.codex_raw_operators[o] = pddl_domain.proposed_operators[o]
+        for i, proposed_operator_body in enumerate(pddl_domain.proposed_operators[o]):
+            preprocessed_operator_name = f"{o}_{i}"
             if verbose:
                 print("Trying to process...")
                 print(proposed_operator_body)
             success, preprocessed_operator = preprocess_operator(
-                o,
+                preprocessed_operator_name,
                 proposed_operator_body,
                 pddl_domain,
                 maximum_operator_arity=maximum_operator_arity,
                 use_ground_truth_predicates=True,
+                proposed_operator_name=o,
             )
             if success:
-                logs[o].append((proposed_operator_body, preprocessed_operator))
-                preprocessed_operators.append(preprocessed_operator)
+                logs[0].append((proposed_operator_body, preprocessed_operator))
+                pddl_domain.proposed_operators[preprocessed_operator_name] = [preprocessed_operator]
+                output_json[preprocessed_operator_name] = preprocessed_operator
             else:
-                logs[o].append((proposed_operator_body, "FAILED"))
-
-        pddl_domain.codex_raw_operators[o] = pddl_domain.proposed_operators[o]
-        if len(preprocessed_operators) > 0:
-            pddl_domain.proposed_operators[o] = preprocessed_operators
-            output_json[o] = pddl_domain.proposed_operators[o]
-        else:
-            del pddl_domain.proposed_operators[o]
+                logs[0].append((proposed_operator_body, "FAILED"))
+            
+            if verbose:
+                print(f"Preprocessed operator: {preprocessed_operator_name}")
+                print(f"Processed form: {preprocessed_operator}")
+        del pddl_domain.proposed_operators[o]
         if verbose:
-            print(f"Preprocessed operator: {o}")
-            print(f"Processed forms {len(preprocessed_operators)}: ")
-            if o in pddl_domain.proposed_operators:
-                for operator_body in pddl_domain.proposed_operators[o]:
-                    print(operator_body)
             print("====")
 
     # Write out to an output JSON.
@@ -1594,15 +1591,19 @@ def parse_operator_components(operator_body, pddl_domain, return_order=False):
 
 
 def preprocess_operator(
-    operator_name,
+    preprocessed_operator_name,
     operator_body,
     pddl_domain,
     maximum_operator_arity=4,
     use_ground_truth_predicates=True,
+    proposed_operator_name=None,
 ):
     allow_partial_ground_predicates = pddl_domain.constants != ""
     # Purge comments.
     preprocessed_operator = PDDLParser._purge_comments(operator_body)
+
+    # Replace proposed name with preprocessed name
+    preprocessed_operator = preprocessed_operator.replace(proposed_operator_name, preprocessed_operator_name)
 
     matches = re.finditer(r"\(:action", preprocessed_operator)
 

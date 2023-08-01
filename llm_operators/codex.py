@@ -23,7 +23,7 @@ STOP_TOKEN = "\n<END>\n"
 OPERATOR_START = ";; Operator: "
 EXAMPLE_START = ";; Example: "
 NATURAL_LANGUAGE_GOAL_START = ";; Goal: "
-COT_START = ";; Simplified Goal: "
+COT_GOAL_START = ";; Simplified Goal: "
 PDDL_GOAL_START = ";; PDDL Goal: "
 PDDL_PLAN_START = ";; PDDL Plan: "
 OPERATOR_START_TOKEN = "(:action "
@@ -34,6 +34,15 @@ REMINDER = ";; Reminder: use ONLY predicates and object types listed in the abov
 
 DEFAULT_GOAL_TEMPERATURE = 0.0
 
+COT_OP_START = ";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator."
+COT_DICT = {
+    # "GotoLocation": "The parameters are the agent, the starting location, and the ending location.",
+    # "PickupObjectInReceptacle": "To pickup an object in a receptacle, we interact with the object to be picked up and the receptacle it is in, so both must be parameters.",
+    # "PickupObjectNotInReceptacle": "To pickup an object not in a receptacle, we only interact with the object, which must be a parameter.",
+    # "PutObjectInReceptacle": "To put an object in a receptacle, we interact with the object and the receptacle that the object will be placed in. So both must be parameters to the operator.",
+    "CleanObject": "To clean an object, we interact with the object to be cleaned AND the receptacle that will clean the object (e.g. a sink). So both must be parameters to the operator.",
+}
+
 
 if not os.getenv("OPENAI_API_KEY"):
     raise ValueError(
@@ -43,7 +52,7 @@ openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
 def get_completions(
-    prompt: str,
+    prompt,
     n_samples: int = 1,
     temperature: float = 0.1,
     max_tokens: int = 256,  # Max tokens for completion only.
@@ -79,10 +88,11 @@ def get_completions(
                 )
                 return [c["text"] for c in completion["choices"]]
             elif engine == "gpt-3.5-turbo" or engine == "gpt-3.5-turbo-16k" or engine == "gpt-4-32k" or engine == "gpt-4":
+                if type(prompt) != list:
+                    prompt = [{"role": "user", "content": prompt}]
                 completion = openai.ChatCompletion.create(
                     model=engine,
-                    messages=[{"role": "user", 
-                    "content": prompt}],
+                    messages=prompt,
                     temperature=temperature if top_p is None else 1.0,
                     top_p=top_p if temperature is None else 1.0,
                     n=n_samples,)
@@ -205,7 +215,7 @@ def propose_plans_operators_for_problems(
     supervision_pddl=[],
     n_samples=1,  # How many samples to take from codex.
     minimum_usage=2,  # Minimum time the operator was used.
-    temperature=0.0,
+    temperature=1.0,
     verbose=False,
     output_directory=None,
     command_args=None,
@@ -288,6 +298,7 @@ def propose_operators_for_problems(
         print(
             f"propose_operators_for_problems:: proposing for {len(proposed_operators)} operators."
         )
+        print(proposed_operators)
 
     # Get valid operators, and use a standardized operator mapping.
     if use_mock:
@@ -321,7 +332,7 @@ def propose_operators_for_problems(
     if verbose:
         num_proposed = [
             o
-            for o in current_domain.proposed_operators[o]
+            for o in proposed_operators
             if len(current_domain.proposed_operators[o]) > 1
         ]
         print(
@@ -425,8 +436,9 @@ def propose_operator_definition(
             f"propose_operator_definition:: operator_name_to_define - {operator_name_to_define}"
         )
     # Codex prompt header.
+    codex_prompt = []
     nl_header = ";;;; Define PDDL planning operators.\n\n"
-    codex_prompt = nl_header
+    codex_prompt.append({"role": "user", "content": nl_header})
 
     if len(initial_pddl_predicates) <= 0:
         pddl_domain = (
@@ -435,10 +447,10 @@ def propose_operator_definition(
             + "\n\n"
         )
         translation_header = (
-            ";;;; Only use predicates and functions available in the PDDL domain. Propose ONLY ONE operator. \n\n"
+            ";;;; Only use predicates and functions available in the PDDL domain.\n\n"
         )
 
-        codex_prompt += pddl_domain + translation_header
+        codex_prompt.append({"role": "user", "content": pddl_domain + translation_header})
 
     # Codex prompt exampler operators.
     operator_examples = random.sample(
@@ -446,24 +458,29 @@ def propose_operator_definition(
         min(len(current_domain.operators), max_operator_examples),
     )
     for o in operator_examples:
-        if o in operator_uses:
-            codex_prompt += f"{OPERATOR_START}{o}\n"
+        # if o in operator_uses: (ZS 7/28/23 - Remove to allow for more examples)
+        operator_str = f"{OPERATOR_START}{o}\n"
 
-            usage_examples = random.sample(
-                list(operator_uses[o]), min(len(operator_uses[o]), max_usage_examples),
-            )
-            for use_example in usage_examples:
-                codex_prompt += f"{EXAMPLE_START}{use_example}\n"
-            codex_prompt += f"{current_domain.operators[o]}\n"
-            codex_prompt += f"{STOP_TOKEN}\n"
+        usage_examples = random.sample(
+            list(operator_uses[o]), min(len(operator_uses[o]), max_usage_examples),
+        )
+        for use_example in usage_examples:
+            operator_str += f"{EXAMPLE_START}{use_example}\n"
+        codex_prompt.append({"role": "user", "content": operator_str})
+
+        operator_str = f"{COT_OP_START}\n"
+        if o in COT_DICT:
+            operator_str += f";;{COT_DICT[o]}\n"
+        operator_str += f"{current_domain.operators[o]}\n{STOP_TOKEN}\n"
+        codex_prompt.append({"role": "assistant", "content": operator_str})
 
     # Codex prompt for operator definition.
-    codex_prompt += f"{OPERATOR_START}{operator_name_to_define}\n"
+    operator_str = f"{OPERATOR_START}{operator_name_to_define}\n"
     if operator_name_to_define in operator_uses:
         for use_example in operator_uses[operator_name_to_define]:
-            codex_prompt += f"{EXAMPLE_START}{use_example}\n"
-    operator_prefix = f"{OPERATOR_START_TOKEN}{operator_name_to_define}"
-    codex_prompt += operator_prefix
+            operator_str += f"{EXAMPLE_START}{use_example}\n"
+    codex_prompt.append({"role": "user", "content": operator_str})
+
     try:
         completions = get_completions(
             codex_prompt, temperature=temperature, stop=STOP_TOKEN, n_samples=n_samples,
@@ -472,9 +489,10 @@ def propose_operator_definition(
             print(
                 f"propose_operator_definition:: completion for {operator_name_to_define}"
             )
-            for c in completions:
-                print(operator_prefix + c)
-        return codex_prompt, [operator_prefix + o for o in completions]
+            for i in range(len(completions)):
+                print(f"[{i+1}/{len(completions)}]")
+                print(completions[i])
+        return codex_prompt, [o for o in completions]
     except Exception as e:
         print(e)
         return codex_prompt, []
@@ -486,7 +504,7 @@ def propose_plans_for_problems(
     current_domain,
     supervision_pddl,
     max_supervision_examples=3,
-    max_plan_examples=2,
+    max_plan_examples=5,
     temperature=0.0,
     n_samples=1,
     verbose=False,
@@ -570,6 +588,9 @@ def propose_plans_for_problems(
             )
             for plan_string in plan_strings:
                 plan_string_split = plan_string.split("<END>")[0]
+                if verbose: 
+                    print(unsolved_problem.language + "\n")
+                    print(plan_string_split)
                 unsolved_problem.proposed_pddl_plans.append(
                     PDDLPlan(plan_string=plan_string_split)
                 )  # editing the problem
@@ -691,7 +712,7 @@ def get_solved_goal_prompt(domain, problem):
         prompt
     """
     NL_goal = NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language + "\n"
-    COT = (COT_START + "\n" + problem.chain_of_thought + "\n" if problem.chain_of_thought else "")
+    COT = (COT_GOAL_START + "\n" + problem.chain_of_thought + "\n" if problem.chain_of_thought else "")
     pddl_goal = (
         PDDL_GOAL_START
         + "\n"

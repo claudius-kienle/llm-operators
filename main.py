@@ -87,7 +87,7 @@ parser.add_argument(
 parser.add_argument(
     "--supervision_name",
     type=str,
-    default="None",
+    default="supervision",
     help="Tag for the supervision dataset to load.",
 )
 
@@ -271,7 +271,7 @@ def main():
                 problems=planning_problems["train"],
                 current_domain=pddl_domain,
                 output_directory=output_directory,
-                supervision_pddl=supervision_pddl,
+                supervision_pddl=None, # (ZS 7/27/23) skip supervising on external datasets for now.
                 verbose=args.verbose,
                 temperature=args.codex_goal_temperature,
                 initial_pddl_predicates=args.initial_pddl_predicates,
@@ -290,7 +290,7 @@ def main():
                 current_domain=pddl_domain,
                 problems=planning_problems["train"],
                 supervision_pddl=supervision_pddl,
-                n_samples=1,
+                n_samples=5,
                 minimum_usage=args.operator_propose_minimum_usage,
                 verbose=args.verbose,
                 output_directory=output_directory,

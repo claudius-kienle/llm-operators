@@ -346,8 +346,8 @@ def run_planner(
             print(
                 f"\tRunning planner with existing operators + {len(proposed_operators)} proposed operators: "
             )
-            print(f"\t {pddl_domain.operators.keys()}")
-            print(f"\t {proposed_operators}")
+            print(f"\t Initial Operators: {pddl_domain.operators.keys()}")
+            print(f"\t Proposed Operators: {proposed_operators}")
         current_problem_string = problem.ground_truth_pddl_problem.get_pddl_string_with_proposed_goal(
             proposed_goal=goal
         )
