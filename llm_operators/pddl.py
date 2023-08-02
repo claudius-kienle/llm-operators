@@ -1067,6 +1067,15 @@ class PDDLPredicate:
         self.argument_is_ground = argument_is_ground
         self.static = False
 
+    def __eq__(self, other):
+        return (
+            self.name == other.name
+            and self.arguments == other.arguments
+            and self.arg_types == other.arg_types
+            and self.argument_values == other.argument_values
+            and self.neg == other.neg
+        )
+
     def mark_static(self, static=True):
         self.static = static
 
@@ -1255,6 +1264,8 @@ def preprocess_goals(
 
             if success:
                 preprocessed_goals.append(preprocessed_goal)
+                if proposed_goal_match(preprocessed_goal, problem.ground_truth_pddl_problem.ground_truth_goal):
+                    problem.correct_pddl_goal = True
             if verbose:
                 print(f"Preprocessed goal: {preprocessed_goal}")
                 print("====")
@@ -1271,6 +1282,30 @@ def preprocess_goals(
     log_preprocessed_goals(
         problems, output_directory, command_args.experiment_name, verbose
     )
+
+def proposed_goal_match(codex_goal_str, gt_goal_str):
+    def parse_goal_pddl_list(pddl_goal_string):
+        goal_conjunction = PDDLParser._find_labelled_expression(pddl_goal_string, "and")
+        _, preprocessed_predicates, _ = preprocess_conjunction_predicates(
+            goal_conjunction,
+            ground_truth_predicates=None,
+            ground_truth_constants=None,
+            allow_partial_ground_predicates=True,
+        )
+        return preprocessed_predicates
+
+    if parse_goal_pddl_list(codex_goal_str) is None: return False
+    codex_goal = goal_predicates_string_to_predicates_list(parse_goal_pddl_list(codex_goal_str))
+    gt_goal = goal_predicates_string_to_predicates_list(parse_goal_pddl_list(gt_goal_str))
+    
+    if len(codex_goal) != len(gt_goal): return False
+    for x in codex_goal:
+        if x not in gt_goal:
+            return False
+    for x in gt_goal:
+        if x not in codex_goal:
+            return False
+    return True
 
 
 def preprocess_goal(goal, pddl_domain, object_dict, use_ground_truth_predicates=True):
@@ -1358,6 +1393,7 @@ def log_preprocessed_goals(problems, output_directory, experiment_name, verbose=
                 "gt_pddl_goal",
                 "codex_raw_goals",
                 "codex_preprocessed_goal",
+                "correct_pddl_goal",
             ]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
 
@@ -1372,6 +1408,7 @@ def log_preprocessed_goals(problems, output_directory, experiment_name, verbose=
                             "gt_pddl_goal": problem.ground_truth_pddl_problem.ground_truth_goal,
                             "codex_preprocessed_goal": goal,
                             "codex_raw_goals": problem.codex_raw_goals,
+                            "correct_pddl_goal": problem.correct_pddl_goal,
                         }
                     )
 
@@ -1391,38 +1428,35 @@ def preprocess_operators(
         print(
             f"preprocess_operators: preprocessing {len(pddl_domain.proposed_operators)} operators."
         )
+        print(list(pddl_domain.proposed_operators.keys()))
     for o in list(pddl_domain.proposed_operators.keys()):
-        logs[o] = list()
-        preprocessed_operators = []
-        for proposed_operator_body in pddl_domain.proposed_operators[o]:
+        logs[0] = list()
+        pddl_domain.codex_raw_operators[o] = pddl_domain.proposed_operators[o]
+        for i, proposed_operator_body in enumerate(pddl_domain.proposed_operators[o]):
+            preprocessed_operator_name = f"{o}_{i}"
             if verbose:
                 print("Trying to process...")
                 print(proposed_operator_body)
             success, preprocessed_operator = preprocess_operator(
-                o,
+                preprocessed_operator_name,
                 proposed_operator_body,
                 pddl_domain,
                 maximum_operator_arity=maximum_operator_arity,
                 use_ground_truth_predicates=True,
+                proposed_operator_name=o,
             )
             if success:
-                logs[o].append((proposed_operator_body, preprocessed_operator))
-                preprocessed_operators.append(preprocessed_operator)
+                logs[0].append((proposed_operator_body, preprocessed_operator))
+                pddl_domain.proposed_operators[preprocessed_operator_name] = [preprocessed_operator]
+                output_json[preprocessed_operator_name] = preprocessed_operator
             else:
-                logs[o].append((proposed_operator_body, "FAILED"))
-
-        pddl_domain.codex_raw_operators[o] = pddl_domain.proposed_operators[o]
-        if len(preprocessed_operators) > 0:
-            pddl_domain.proposed_operators[o] = preprocessed_operators
-            output_json[o] = pddl_domain.proposed_operators[o]
-        else:
-            del pddl_domain.proposed_operators[o]
+                logs[0].append((proposed_operator_body, "FAILED"))
+            
+            if verbose:
+                print(f"Preprocessed operator: {preprocessed_operator_name}")
+                print(f"Processed form: {preprocessed_operator}")
+        del pddl_domain.proposed_operators[o]
         if verbose:
-            print(f"Preprocessed operator: {o}")
-            print(f"Processed forms {len(preprocessed_operators)}: ")
-            if o in pddl_domain.proposed_operators:
-                for operator_body in pddl_domain.proposed_operators[o]:
-                    print(operator_body)
             print("====")
 
     # Write out to an output JSON.
@@ -1557,15 +1591,19 @@ def parse_operator_components(operator_body, pddl_domain, return_order=False):
 
 
 def preprocess_operator(
-    operator_name,
+    preprocessed_operator_name,
     operator_body,
     pddl_domain,
     maximum_operator_arity=4,
     use_ground_truth_predicates=True,
+    proposed_operator_name=None,
 ):
     allow_partial_ground_predicates = pddl_domain.constants != ""
     # Purge comments.
     preprocessed_operator = PDDLParser._purge_comments(operator_body)
+
+    # Replace proposed name with preprocessed name
+    preprocessed_operator = preprocessed_operator.replace(proposed_operator_name, preprocessed_operator_name)
 
     matches = re.finditer(r"\(:action", preprocessed_operator)
 

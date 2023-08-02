@@ -346,12 +346,14 @@ def run_planner(
             print(
                 f"\tRunning planner with existing operators + {len(proposed_operators)} proposed operators: "
             )
-            print(f"\t {pddl_domain.operators.keys()}")
-            print(f"\t {proposed_operators}")
+            print(f"\t Initial Operators: {pddl_domain.operators.keys()}")
+            print(f"\t Proposed Operators: {proposed_operators}")
         current_problem_string = problem.ground_truth_pddl_problem.get_pddl_string_with_proposed_goal(
             proposed_goal=goal
         )
         if verbose:
+            print("\t Language:")
+            print("\t" + problem.language)
             print("\t Ground truth goal: ")
             print("\t" + problem.ground_truth_pddl_problem.ground_truth_goal)
             print("\t Proposed goal:")
@@ -385,10 +387,13 @@ def run_planner(
             print(f"\tPlan success: {success}")
             print(f"\t Plan string: {plan_string}")
         if success:
-            pddl_plan = PDDLPlan(plan_string=plan_string, pddl_domain=pddl_domain)
-            evaluated_plans[goal] = pddl_plan
-            output_json["plans"].append({"goal": goal, "plan": pddl_plan.plan})
-            any_success = True
+            try:
+                pddl_plan = PDDLPlan(plan_string=plan_string, pddl_domain=pddl_domain)
+                evaluated_plans[goal] = pddl_plan
+                output_json["plans"].append({"goal": goal, "plan": pddl_plan.plan})
+                any_success = True
+            except:
+                print(f"\t\tFailed to parse plan string: {plan_string}")
         else:
             if debug_export_dir is not None:
                 os.makedirs(debug_export_dir, exist_ok=True)

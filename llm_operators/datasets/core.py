@@ -21,10 +21,12 @@ class Problem:
         ground_truth_pddl_problem=None,
         should_supervise_pddl=False,
         goal_prefix=None,
+        chain_of_thought=None,
     ):
         self.problem_id = problem_id
         self.dataset_split = dataset_split
         self.goal_prefix = goal_prefix
+        self.chain_of_thought = chain_of_thought
 
         self.language = language  # An NL string describing the planning problem.
         self.ground_truth_pddl_problem = (
@@ -33,6 +35,7 @@ class Problem:
         self.constants_in_problem_file = False  # Flag for only the ALFRED domain, which includes constants defined in the problem files not the
 
         self.ground_truth_pddl_plan = None
+        self.correct_pddl_goal = False # True if at least one of the proposed PDDL goals is correct.
         if ground_truth_pddl_plan is not None:
             if isinstance(ground_truth_pddl_plan, PDDLPlan):
                 self.ground_truth_pddl_plan = ground_truth_pddl_plan
@@ -253,7 +256,7 @@ def get_problem_ids_with_initial_plans_prefix(
     problem_ids = []
     for problem_id in planning_dataset[split]:
         problem = planning_dataset[split][problem_id]
-        if problem.goal_prefix in initial_plans_prefix:
+        if problem.goal_prefix.split("_slice")[0] in initial_plans_prefix:
             problem_ids.append(problem_id)
     return problem_ids
 

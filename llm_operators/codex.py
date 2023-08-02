@@ -23,14 +23,25 @@ STOP_TOKEN = "\n<END>\n"
 OPERATOR_START = ";; Operator: "
 EXAMPLE_START = ";; Example: "
 NATURAL_LANGUAGE_GOAL_START = ";; Goal: "
+COT_GOAL_START = ";; Simplified Goal: "
 PDDL_GOAL_START = ";; PDDL Goal: "
 PDDL_PLAN_START = ";; PDDL Plan: "
 OPERATOR_START_TOKEN = "(:action "
 CODEX_PROMPT = "codex_prompt"
 CODEX_OUTPUT = "codex_output"
 NLgoals_PDDLplans_prompt = "\n;; Natural language goals and PDDL plans\n\n"
+REMINDER = ";; Reminder: use ONLY predicates and object types listed in the above PDDL domain. If an English goal contains an object not in the domain, use the most similar available object. All problems are solvable. Propose just ONE goal.\n\n"
 
 DEFAULT_GOAL_TEMPERATURE = 0.0
+
+COT_OP_START = ";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator."
+COT_DICT = {
+    # "GotoLocation": "The parameters are the agent, the starting location, and the ending location.",
+    # "PickupObjectInReceptacle": "To pickup an object in a receptacle, we interact with the object to be picked up and the receptacle it is in, so both must be parameters.",
+    # "PickupObjectNotInReceptacle": "To pickup an object not in a receptacle, we only interact with the object, which must be a parameter.",
+    # "PutObjectInReceptacle": "To put an object in a receptacle, we interact with the object and the receptacle that the object will be placed in. So both must be parameters to the operator.",
+    "CleanObject": "To clean an object, we interact with the object to be cleaned AND the receptacle that will clean the object (e.g. a sink). So both must be parameters to the operator.",
+}
 
 
 if not os.getenv("OPENAI_API_KEY"):
@@ -41,11 +52,11 @@ openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
 def get_completions(
-    prompt: str,
+    prompt,
     n_samples: int = 1,
     temperature: float = 0.1,
     max_tokens: int = 256,  # Max tokens for completion only.
-    engine: str = "code-davinci-003", # Add ChatGPT-3, GPT4, etc
+    engine: str = "gpt-3.5-turbo-16k", # Add gpt-3.5-turbo-16k, gpt-4-32k, etc
     stop: str = STOP_TOKEN,
     top_p=1,
     logprobs=None,
@@ -76,18 +87,18 @@ def get_completions(
                     logprobs=logprobs,
                 )
                 return [c["text"] for c in completion["choices"]]
-            elif engine == "gpt-3.5-turbo":
+            elif engine == "gpt-3.5-turbo" or engine == "gpt-3.5-turbo-16k" or engine == "gpt-4-32k" or engine == "gpt-4":
+                if type(prompt) != list:
+                    prompt = [{"role": "user", "content": prompt}]
                 completion = openai.ChatCompletion.create(
-                    model="gpt-3.5-turbo",
-                    messages=[{"role": "user", 
-                    "content": prompt}])
-                return [c["text"] for c in completion["choices"]]
-            elif engine == "gpt-4":
-                completion = openai.ChatCompletion.create(
-                    model="gpt-4",
-                    messages=[{"role": "user", 
-                    "content": prompt}])
-                return [c["text"] for c in completion["choices"]]
+                    model=engine,
+                    messages=prompt,
+                    temperature=temperature if top_p is None else 1.0,
+                    top_p=top_p if temperature is None else 1.0,
+                    n=n_samples,)
+                return [c["message"]["content"] for c in completion["choices"]]
+            else:
+                raise ValueError(f"Engine {engine} not supported.")
                 
         except InvalidRequestError as e:
             print(e)
@@ -204,7 +215,7 @@ def propose_plans_operators_for_problems(
     supervision_pddl=[],
     n_samples=1,  # How many samples to take from codex.
     minimum_usage=2,  # Minimum time the operator was used.
-    temperature=0.0,
+    temperature=1.0,
     verbose=False,
     output_directory=None,
     command_args=None,
@@ -287,6 +298,7 @@ def propose_operators_for_problems(
         print(
             f"propose_operators_for_problems:: proposing for {len(proposed_operators)} operators."
         )
+        print(proposed_operators)
 
     # Get valid operators, and use a standardized operator mapping.
     if use_mock:
@@ -320,7 +332,7 @@ def propose_operators_for_problems(
     if verbose:
         num_proposed = [
             o
-            for o in current_domain.proposed_operators[o]
+            for o in proposed_operators
             if len(current_domain.proposed_operators[o]) > 1
         ]
         print(
@@ -424,8 +436,9 @@ def propose_operator_definition(
             f"propose_operator_definition:: operator_name_to_define - {operator_name_to_define}"
         )
     # Codex prompt header.
+    codex_prompt = []
     nl_header = ";;;; Define PDDL planning operators.\n\n"
-    codex_prompt = nl_header
+    codex_prompt.append({"role": "user", "content": nl_header})
 
     if len(initial_pddl_predicates) <= 0:
         pddl_domain = (
@@ -437,7 +450,7 @@ def propose_operator_definition(
             ";;;; Only use predicates and functions available in the PDDL domain.\n\n"
         )
 
-        codex_prompt += pddl_domain + translation_header
+        codex_prompt.append({"role": "user", "content": pddl_domain + translation_header})
 
     # Codex prompt exampler operators.
     operator_examples = random.sample(
@@ -445,24 +458,29 @@ def propose_operator_definition(
         min(len(current_domain.operators), max_operator_examples),
     )
     for o in operator_examples:
-        if o in operator_uses:
-            codex_prompt += f"{OPERATOR_START}{o}\n"
+        # if o in operator_uses: (ZS 7/28/23 - Remove to allow for more examples)
+        operator_str = f"{OPERATOR_START}{o}\n"
 
-            usage_examples = random.sample(
-                list(operator_uses[o]), min(len(operator_uses[o]), max_usage_examples),
-            )
-            for use_example in usage_examples:
-                codex_prompt += f"{EXAMPLE_START}{use_example}\n"
-            codex_prompt += f"{current_domain.operators[o]}\n"
-            codex_prompt += f"{STOP_TOKEN}\n"
+        usage_examples = random.sample(
+            list(operator_uses[o]), min(len(operator_uses[o]), max_usage_examples),
+        )
+        for use_example in usage_examples:
+            operator_str += f"{EXAMPLE_START}{use_example}\n"
+        codex_prompt.append({"role": "user", "content": operator_str})
+
+        operator_str = f"{COT_OP_START}\n"
+        if o in COT_DICT:
+            operator_str += f";;{COT_DICT[o]}\n"
+        operator_str += f"{current_domain.operators[o]}\n{STOP_TOKEN}\n"
+        codex_prompt.append({"role": "assistant", "content": operator_str})
 
     # Codex prompt for operator definition.
-    codex_prompt += f"{OPERATOR_START}{operator_name_to_define}\n"
+    operator_str = f"{OPERATOR_START}{operator_name_to_define}\n"
     if operator_name_to_define in operator_uses:
         for use_example in operator_uses[operator_name_to_define]:
-            codex_prompt += f"{EXAMPLE_START}{use_example}\n"
-    operator_prefix = f"{OPERATOR_START_TOKEN}{operator_name_to_define}"
-    codex_prompt += operator_prefix
+            operator_str += f"{EXAMPLE_START}{use_example}\n"
+    codex_prompt.append({"role": "user", "content": operator_str})
+
     try:
         completions = get_completions(
             codex_prompt, temperature=temperature, stop=STOP_TOKEN, n_samples=n_samples,
@@ -471,9 +489,10 @@ def propose_operator_definition(
             print(
                 f"propose_operator_definition:: completion for {operator_name_to_define}"
             )
-            for c in completions:
-                print(operator_prefix + c)
-        return codex_prompt, [operator_prefix + o for o in completions]
+            for i in range(len(completions)):
+                print(f"[{i+1}/{len(completions)}]")
+                print(completions[i])
+        return codex_prompt, [o for o in completions]
     except Exception as e:
         print(e)
         return codex_prompt, []
@@ -485,7 +504,7 @@ def propose_plans_for_problems(
     current_domain,
     supervision_pddl,
     max_supervision_examples=3,
-    max_plan_examples=2,
+    max_plan_examples=5,
     temperature=0.0,
     n_samples=1,
     verbose=False,
@@ -568,10 +587,13 @@ def propose_plans_for_problems(
                 codex_prompt, temperature=temperature, stop=STOP_TOKEN
             )
             for plan_string in plan_strings:
+                plan_string_split = plan_string.split("<END>")[0]
+                if verbose: 
+                    print(unsolved_problem.language + "\n")
+                    print(plan_string_split)
                 unsolved_problem.proposed_pddl_plans.append(
-                    PDDLPlan(plan_string=plan_string)
+                    PDDLPlan(plan_string=plan_string_split)
                 )  # editing the problem
-
             output_json[unsolved_problem.problem_id] = {
                 CODEX_PROMPT: codex_prompt,
                 CODEX_OUTPUT: plan_strings,
@@ -670,6 +692,18 @@ def get_plan_string_from_solved_problem(problem):
     return plan.plan_to_string(plan.plan)
 
 
+def get_domain_string(domain, problem):
+    """
+    problem:
+        PDDL.Problem object
+    returns:
+        prompt
+    """
+    domain_string = "<START DOMAIN>\n" + domain.domain_for_goal_prompting(
+        problem.ground_truth_pddl_problem.ground_truth_pddl_problem_string
+    ) + "\n<END DOMAIN>\n\n"
+    return "\n".join([REMINDER, domain_string])
+
 def get_solved_goal_prompt(domain, problem):
     """
     problem:
@@ -677,11 +711,8 @@ def get_solved_goal_prompt(domain, problem):
     returns:
         prompt
     """
-    domain_string = domain.domain_for_goal_prompting(
-        problem.ground_truth_pddl_problem.ground_truth_pddl_problem_string,
-        include_codex_types=False,  # For solved problems, do not include codex types.
-    )
-    NL_goal = NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language
+    NL_goal = NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language + "\n"
+    COT = (COT_GOAL_START + "\n" + problem.chain_of_thought + "\n" if problem.chain_of_thought else "")
     pddl_goal = (
         PDDL_GOAL_START
         + "\n"
@@ -689,7 +720,7 @@ def get_solved_goal_prompt(domain, problem):
         + "\n"
         + STOP_TOKEN
     )
-    return "\n\n".join([domain_string, NL_goal, pddl_goal])
+    return "\n\n".join([NL_goal, COT, pddl_goal])
 
 
 def get_supervision_goal_prompt(supervision_pddl):
@@ -714,12 +745,15 @@ def get_supervision_goal_prompt(supervision_pddl):
     return prompt
 
 
-def get_unsolved_goal_prompt(domain, problem, include_codex_types=False):
-    domain_string = domain.domain_for_goal_prompting(
-        problem.ground_truth_pddl_problem.ground_truth_pddl_problem_string,
-        include_codex_types=include_codex_types,
-    )
-    NL_goal = NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language
+def get_unsolved_goal_prompt(domain, problem, include_codex_types=False, include_domain_string=True):
+    if include_domain_string:
+        domain_string = domain.domain_for_goal_prompting(
+            problem.ground_truth_pddl_problem.ground_truth_pddl_problem_string,
+            include_codex_types=include_codex_types,
+        )
+    else:
+        domain_string = ""
+    NL_goal = "\n" + NATURAL_LANGUAGE_GOAL_START + "\n" + problem.language + "\n"
     return "\n\n".join([domain_string, NL_goal])
 
 
@@ -739,6 +773,21 @@ def mock_propose_goals_for_problems(
     )
     return
 
+def get_custom_codex_prompt(solved_problems):
+    """
+    Hand selects solved problems to use as prompts for Codex.
+    Proof-of-concept until we implement a better heuristic for choosing codex prompts.
+    Works on alfred-solvable-200 dataset.
+    """
+    for i, problem in enumerate(solved_problems):
+        print(f"[{i}/{len(solved_problems)}]")
+        print(problem.language)
+        print(problem.ground_truth_pddl_problem.ground_truth_goal)
+        print()
+
+    problem_idxs = [0, 4, 7, 9, 12, 18, 22]
+
+    return [p for i, p in enumerate(solved_problems) if i in problem_idxs]
 
 def propose_goals_for_problems(
     problems,
@@ -746,16 +795,35 @@ def propose_goals_for_problems(
     initial_pddl_predicates,
     supervision_pddl,
     experiment_name,
-    temperature=0.0,
+    temperature=2.0,
     include_codex_types=False,
     use_mock=False,
-    max_goal_examples=2,
-    n_samples=1,
+    max_goal_examples=20,
+    n_samples=4,
     verbose=False,
     output_directory=None,
     use_gt=False,
-    print_every=2,
+    print_every=1,
 ):
+    def get_prompt(max_goal_examples=max_goal_examples):
+        # Generate unique prompt for each sample
+        prompt = nl_header
+        if supervision_pddl: # Add supervision from external prompts.
+            prompt += get_supervision_goal_prompt(supervision_pddl)
+
+        max_goal_examples = min(max_goal_examples, len(solved_problems))
+        random.seed(None)
+        solved_to_prompt = random.sample(solved_problems, max_goal_examples)
+
+        # domains for all alfred problems should be the same.
+        prompt += get_domain_string(current_domain, solved_to_prompt[0])
+        for solved_problem in solved_to_prompt:  # constructing the input prompt
+            prompt += get_solved_goal_prompt(current_domain, solved_problem)
+
+        prompt += get_unsolved_goal_prompt(
+            current_domain, problem, include_codex_types=include_codex_types, include_domain_string=False,
+        )
+        return prompt
     """
     unsolved_problems:
         list of Problem objects to be solved
@@ -791,38 +859,31 @@ def propose_goals_for_problems(
         )
 
     nl_header = "\n;; Natural language goals and PDDL goals\n\n"
-    prompt = nl_header
 
-    # Add supervision from external prompts.
-    if supervision_pddl:
-        prompt += get_supervision_goal_prompt(supervision_pddl)
-    solved_to_prompt = random.sample(solved_problems, max_goal_examples)
-    for solved_problem in solved_to_prompt:  # constructing the input prompt
-        prompt += get_solved_goal_prompt(current_domain, solved_problem)
     for idx, problem in enumerate(unsolved_problems):
         if verbose and idx % print_every == 0:
             print(
                 f"propose_goals_for_problems:: now on {idx} / {len(unsolved_problems)}"
             )
-
-        temp_prompt = prompt + get_unsolved_goal_prompt(
-            current_domain, problem, include_codex_types=include_codex_types
-        )
         try:
-            goal_strings = get_completions(
-                temp_prompt,
-                temperature=temperature,
-                stop=STOP_TOKEN,
-                n_samples=n_samples,
-            )
+            goal_strings = []
+            for i in range(n_samples):
+                prompt = get_prompt()
+                goal_strings.append(get_completions(
+                    prompt,
+                    temperature=temperature,
+                    stop=STOP_TOKEN,
+                    n_samples=1,
+                )[0])
             output_json[problem.problem_id] = {
-                CODEX_PROMPT: temp_prompt,
+                CODEX_PROMPT: prompt,
                 CODEX_OUTPUT: goal_strings,
             }
             if verbose:
-                print(
-                    f'propose_goals_for_problems:: proposed goals for "{problem.language}":: {goal_strings[0]}'
-                )
+                print(f'propose_goals_for_problems:: proposed goals for "{problem.language}"::')
+                for i, goal_string in enumerate(goal_strings):
+                    print(f"[Goal {i+1}/{len(goal_strings)}]")
+                    print(goal_string)
             problem.proposed_pddl_goals.extend(goal_strings)  # editing the problem
         except Exception as e:
             print(e)
