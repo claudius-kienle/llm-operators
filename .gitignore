@@ -12,7 +12,5 @@ __pycache__
 alfred
 pddlgym_planners
 
-counter_tree.pickle
-
 /.vim*
 
