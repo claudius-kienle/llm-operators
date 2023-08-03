@@ -1,0 +1,137 @@
+operator_name,gt_operator,codex_raw_operator,codex_preprocessed_operator,
+0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
+;;To wash an object, we interact with the object to be washed AND the receptacle that will hold the water (e.g. a sink). So both must be parameters to the operator.
+(:action WashObject
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
+        :precondition (and
+            (receptacleType ?r SinkBasinType)
+            (atLocation ?a ?l)
+            (receptacleAtLocation ?r ?l)
+            (objectAtLocation ?o ?l)
+            (not (isClean ?o))
+        )
+        :effect (and
+            (isClean ?o)
+        )
+    )
+
+<END>","(:action WashObject_0
+        :parameters (?r - receptacle ?a - agent ?l - location ?o - object)
+
+        :precondition (and 
+		(receptacleType ?r SinkBasinType)
+		(atLocation ?a ?l)
+		(receptacleAtLocation ?r ?l)
+		(objectAtLocation ?o ?l)
+		(not (isClean ?o))
+		)
+        :effect (and 
+		(isClean ?o)
+		)
+)",
+0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
+;;To wash an object, we interact with the object to be washed AND the receptacle that will hold the water (e.g. a sink). So both must be parameters to the operator.
+(:action WashObject
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
+        :precondition (and
+            (receptacleType ?r SinkBasinType)
+            (atLocation ?a ?l)
+            (receptacleAtLocation ?r ?l)
+            (objectAtLocation ?o ?l)
+            (not (isClean ?o))
+        )
+        :effect (and
+            (isClean ?o)
+        )
+    )
+
+<END>","(:action WashObject_1
+        :parameters (?r - receptacle ?a - agent ?l - location ?o - object)
+
+        :precondition (and 
+		(receptacleType ?r SinkBasinType)
+		(atLocation ?a ?l)
+		(receptacleAtLocation ?r ?l)
+		(objectAtLocation ?o ?l)
+		(not (isClean ?o))
+		)
+        :effect (and 
+		(isClean ?o)
+		)
+)",
+0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
+;;To wash an object, we need the agent, the object, and the receptacle where the object will be washed (e.g. a sink). So these three must be parameters to the operator.
+(:action WashObject
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
+        :precondition (and
+            (receptacleType ?r SinkBasinType)
+            (atLocation ?a ?l)
+            (receptacleAtLocation ?r ?l)
+            (objectAtLocation ?o ?l)
+        )
+        :effect (and
+            (isClean ?o)
+        )
+    )
+
+<END>","(:action WashObject_2
+        :parameters (?r - receptacle ?a - agent ?l - location ?o - object)
+
+        :precondition (and 
+		(receptacleType ?r SinkBasinType)
+		(atLocation ?a ?l)
+		(receptacleAtLocation ?r ?l)
+		(objectAtLocation ?o ?l)
+		)
+        :effect (and 
+		(isClean ?o)
+		)
+)",
+0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
+;;To wash an object, we interact with the object to be washed AND the receptacle that will hold the water for washing (e.g. a sink). So both must be parameters to the operator.
+(:action WashObject
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
+        :precondition (and
+            (receptacleType ?r SinkBasinType)
+            (atLocation ?a ?l)
+            (receptacleAtLocation ?r ?l)
+            (objectType ?o ?ot)
+            (holds ?a ?o)
+            (cleanable ?o)
+        )
+        :effect (and
+            (isClean ?o)
+        )
+    )
+
+<END>",FAILED,
+0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
+;;To wash an object, we interact with the object to be washed AND the receptacle that will hold the water (e.g. a sink). So both must be parameters to the operator.
+(:action WashObject
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
+        :precondition (and
+            (receptacleType ?r SinkBasinType)
+            (atLocation ?a ?l)
+            (receptacleAtLocation ?r ?l)
+            (holds ?a ?o)
+            (cleanable ?o)
+        )
+        :effect (and
+            (isClean ?o)
+        )
+    )
+
+<END>","(:action WashObject_4
+        :parameters (?r - receptacle ?a - agent ?l - location ?o - object)
+
+        :precondition (and 
+		(receptacleType ?r SinkBasinType)
+		(atLocation ?a ?l)
+		(receptacleAtLocation ?r ?l)
+		(holds ?a ?o)
+		(cleanable ?o)
+		)
+        :effect (and 
+		(isClean ?o)
+		)
+)",

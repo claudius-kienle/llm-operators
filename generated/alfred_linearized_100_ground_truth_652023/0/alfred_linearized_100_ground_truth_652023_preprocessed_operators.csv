@@ -220,14 +220,20 @@ ToggleObject,"(:action ToggleObject
 SliceObject,"(:action SliceObject
         :parameters (?a - agent ?l - location ?co - object ?ko - object)
         :precondition (and
-            (or
-                (objectType ?ko KnifeType)
-                (objectType ?ko ButterKnifeType)
-            )
+            
+            
+            
+            
+            
+            (objectType ?ko KnifeType)
             (atLocation ?a ?l)
             (objectAtLocation ?co ?l)
             (sliceable ?co)
             (holds ?a ?ko)
+            (forall (?re - receptacle)
+                when (receptacleType ?re MicrowaveType)
+                    (not (inReceptacle ?co ?re))
+            )
         )
         :effect (and
             (isSliced ?co)
@@ -235,22 +241,29 @@ SliceObject,"(:action SliceObject
     )","(:action SliceObject
         :parameters (?a - agent ?l - location ?co - object ?ko - object)
         :precondition (and
-            (or
-                (objectType ?ko KnifeType)
-                (objectType ?ko ButterKnifeType)
-            )
+            
+            
+            
+            
+            
+            (objectType ?ko KnifeType)
             (atLocation ?a ?l)
             (objectAtLocation ?co ?l)
             (sliceable ?co)
             (holds ?a ?ko)
+            (forall (?re - receptacle)
+                when (receptacleType ?re MicrowaveType)
+                    (not (inReceptacle ?co ?re))
+            )
         )
         :effect (and
             (isSliced ?co)
         )
     )","(:action SliceObject
-        :parameters (?a - agent ?l - location ?co - object ?ko - object)
+        :parameters (?ko - object ?a - agent ?l - location ?co - object)
 
         :precondition (and 
+		(objectType ?ko KnifeType)
 		(atLocation ?a ?l)
 		(objectAtLocation ?co ?l)
 		(sliceable ?co)

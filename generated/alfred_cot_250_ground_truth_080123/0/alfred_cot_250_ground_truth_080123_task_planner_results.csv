@@ -1,0 +1,42 @@
+problem_id,attempt_id,sample_percent,goal,success,plan,sampled_operators
+train/look_at_obj_in_light-Statue-None-FloorLamp-205/trial_T20190908_103342_172151,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o StatueType))))))
+)",False,,"['TurnOnObject_0', 'SliceObject_4', 'CoolObject_0', 'CutObject_3', 'ToggleObject_0', 'HeatObject_3', 'CoolObject_2', 'ToggleObject_1', 'HeatObject_1', 'CookObject_3', 'GoToLocation_1', 'WashObject_4', 'SliceObject_1', 'CutObject_2', 'CoolObject_1', 'WashObject_0', 'ToggleObject_3', 'ToggleObject_2', 'GoToLocation_4', 'WashObject_1', 'TurnOnObject_4', 'WashObject_2', 'GoToLocation_0', 'SliceObject_0', 'HeatObject_4', 'ToggleObject_4', 'SliceObject_2', 'HeatObject_0', 'CookObject_4', 'GoToLocation_2', 'TurnOnObject_1', 'CoolObject_3', 'SliceObject_3', 'GoToLocation_3', 'TurnOnObject_3', 'CoolObject_4', 'HeatObject_2', 'TurnOnObject_2']"
+train/look_at_obj_in_light-Statue-None-FloorLamp-205/trial_T20190908_103342_172151,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o StatueType)
+		(holds ?a ?o))))))
+)",False,,"['TurnOnObject_0', 'SliceObject_4', 'CoolObject_0', 'CutObject_3', 'ToggleObject_0', 'HeatObject_3', 'CoolObject_2', 'ToggleObject_1', 'HeatObject_1', 'CookObject_3', 'GoToLocation_1', 'WashObject_4', 'SliceObject_1', 'CutObject_2', 'CoolObject_1', 'WashObject_0', 'ToggleObject_3', 'ToggleObject_2', 'GoToLocation_4', 'WashObject_1', 'TurnOnObject_4', 'WashObject_2', 'GoToLocation_0', 'SliceObject_0', 'HeatObject_4', 'ToggleObject_4', 'SliceObject_2', 'HeatObject_0', 'CookObject_4', 'GoToLocation_2', 'TurnOnObject_1', 'CoolObject_3', 'SliceObject_3', 'GoToLocation_3', 'TurnOnObject_3', 'CoolObject_4', 'HeatObject_2', 'TurnOnObject_2']"
+train/look_at_obj_in_light-Statue-None-FloorLamp-205/trial_T20190908_103342_172151,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o StatueType))))))
+)",True,"(gotolocation agent1 loc_bar__minus_13_bar_8_bar_0_bar_30 loc_bar__minus_19_bar_12_bar_0_bar_0)
+(turnonobject_3 floorlamp__minus_18_dot_884_comma__minus_18_dot_884_comma_14_dot_748_comma_14_dot_748_comma_0_dot_000504732132_comma_0_dot_000504732132 agent1 loc_bar__minus_19_bar_12_bar_0_bar_0)","['TurnOnObject_0', 'SliceObject_4', 'CoolObject_0', 'CutObject_3', 'ToggleObject_0', 'HeatObject_3', 'CoolObject_2', 'ToggleObject_1', 'HeatObject_1', 'CookObject_3', 'GoToLocation_1', 'WashObject_4', 'SliceObject_1', 'CutObject_2', 'CoolObject_1', 'WashObject_0', 'ToggleObject_3', 'ToggleObject_2', 'GoToLocation_4', 'WashObject_1', 'TurnOnObject_4', 'WashObject_2', 'GoToLocation_0', 'SliceObject_0', 'HeatObject_4', 'ToggleObject_4', 'SliceObject_2', 'HeatObject_0', 'CookObject_4', 'GoToLocation_2', 'TurnOnObject_1', 'CoolObject_3', 'SliceObject_3', 'GoToLocation_3', 'TurnOnObject_3', 'CoolObject_4', 'HeatObject_2', 'TurnOnObject_2']"
