@@ -157,7 +157,7 @@ parser.add_argument(
 parser.add_argument(
     "--debug_mock_propose_goals",
     action="store_true",
-    help="debug: mock out goal_proposal.",
+    help="debug: mock out goal_proposal. If not, starts over.",
 )
 parser.add_argument(
     "--debug_mock_propose_plans",
@@ -303,6 +303,7 @@ def main():
                 experiment_name=args.experiment_name,
                 use_mock=args.debug_mock_propose_goals,
                 use_gt=args.debug_ground_truth_goals,
+                args=args,
             )
             pddl.preprocess_goals(
                 problems=planning_problems["train"],

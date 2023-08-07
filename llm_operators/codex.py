@@ -118,13 +118,13 @@ def get_solved_unsolved_problems(problems):
         problems[p]
         for p in problems
         if len(problems[p].solved_motion_plan_results) < 1
-        and not problems[p].should_supervise_pddl
+        and not problems[p].supervise_goal
     ]
     solved_problems = [
         problems[p]
         for p in problems
         if (len(problems[p].solved_motion_plan_results) > 0)
-        or problems[p].should_supervise_pddl
+        or problems[p].supervise_goal
     ]
     return unsolved_problems, solved_problems
 
@@ -804,7 +804,9 @@ def propose_goals_for_problems(
     output_directory=None,
     use_gt=False,
     print_every=1,
+    args=None,
 ):
+    random.seed(args.random_seed)
     def get_prompt(max_goal_examples=max_goal_examples):
         # Generate unique prompt for each sample
         prompt = nl_header
@@ -812,7 +814,6 @@ def propose_goals_for_problems(
             prompt += get_supervision_goal_prompt(supervision_pddl)
 
         max_goal_examples = min(max_goal_examples, len(solved_problems))
-        random.seed(None)
         solved_to_prompt = random.sample(solved_problems, max_goal_examples)
 
         # domains for all alfred problems should be the same.
