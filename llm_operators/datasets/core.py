@@ -22,6 +22,7 @@ class Problem:
         should_supervise_pddl=False,
         goal_prefix=None,
         chain_of_thought=None,
+        supervise_goal=False,
     ):
         self.problem_id = problem_id
         self.dataset_split = dataset_split
@@ -47,6 +48,8 @@ class Problem:
                 self.ground_truth_pddl_plan = PDDLPlan(
                     plan=ground_truth_pddl_plan
                 )  # A ground truth PDDLPlan object.
+
+        self.supervise_goal = supervise_goal # Whether to supervise specifically on ground truth information about the goal.
 
         self.should_supervise_pddl = (
             should_supervise_pddl  # Whether to include the PDDL in initial supervision
@@ -256,15 +259,43 @@ def get_problem_ids_with_initial_plans_prefix(
     problem_ids = []
     for problem_id in planning_dataset[split]:
         problem = planning_dataset[split][problem_id]
+        # This was an outdated method to ensure that we kept in slicing problems.
         if problem.goal_prefix.split("_slice")[0] in initial_plans_prefix:
             problem_ids.append(problem_id)
     return problem_ids
+
+def build_problem_prefix_to_problem_ids(planning_dataset, initial_goal_supervision_prefix, split="train"):
+    """
+    :ret: list of problem IDs grouped by their operator type.
+    """
+    problem_prefix_to_problem_ids = defaultdict(list)
+    for problem_id in planning_dataset[split]:
+        problem = planning_dataset[split][problem_id]
+        problem_prefix_to_problem_ids[problem.goal_prefix].append(problem_id)
+    return problem_prefix_to_problem_ids
+
+def mark_goal_supervision_problems(planning_dataset, initial_goal_supervision_prefix, goal_supervision_fraction):
+    problem_prefix_to_problem_ids = build_problem_prefix_to_problem_ids(planning_dataset, initial_goal_supervision_prefix, split="train")
+    if initial_goal_supervision_prefix == ["ALL"]:
+        initial_goal_supervision_prefix = list(problem_prefix_to_problem_ids.keys())
+
+    print("Sampling problems for goal supervision: ")
+    total_goal_supervision = 0
+    for goal_supervision_type in initial_goal_supervision_prefix:
+        num_problems_to_supervise = max(1, int(goal_supervision_fraction * len(problem_prefix_to_problem_ids[goal_supervision_type])))
+        problems_to_supervise = random.sample(problem_prefix_to_problem_ids[goal_supervision_type], num_problems_to_supervise)
+        for problem_id in problems_to_supervise:
+            planning_dataset["train"][problem_id].supervise_goal = True
+        print(f"\t {goal_supervision_type} : {num_problems_to_supervise}")
+        total_goal_supervision += num_problems_to_supervise
+    print(f"Total goal supervision problems: {total_goal_supervision}")
 
 
 def load_planning_problems_dataset(
     dataset_name,
     dataset_fraction,
-    training_plans_fraction,
+    goal_supervision_fraction,
+    initial_goal_supervision_prefix,
     dataset_pddl_directory,
     initial_pddl_operators,
     initial_plans_prefix=None,
@@ -278,30 +309,10 @@ def load_planning_problems_dataset(
         dataset_fraction=dataset_fraction,
         verbose=verbose,
     )
+    print(f"Loaded initial dataset: {dataset_name}")
+    print(f"Initial train problems: {len(planning_dataset['train'])}")
 
-    if initial_plans_prefix:
-        candidate_training_plans = get_problem_ids_with_initial_plans_prefix(
-            initial_plans_prefix, planning_dataset, split="train"
-        )
-    else:
-        # Get candidate problems to supervise on.
-        candidate_training_plans = get_problem_ids_with_ground_truth_operators(
-            initial_pddl_operators, planning_dataset, split="train"
-        )
-    # Supervise on a maximum of the training plans fraction.
-    num_to_supervise = min(
-        int(np.ceil(training_plans_fraction * len(planning_dataset["train"]))),
-        len(candidate_training_plans),
-    )
-    problems_to_supervise = random.sample(candidate_training_plans, num_to_supervise,)
-    if verbose:
-        print("Supervising on these problems: ")
-        print(problems_to_supervise)
-    for problem_id in problems_to_supervise:
-        planning_dataset["train"][problem_id].should_supervise_pddl = True
+    mark_goal_supervision_problems(planning_dataset, initial_goal_supervision_prefix, goal_supervision_fraction)
 
-    if verbose:
-        print(f"training_plans_fraction: {training_plans_fraction}")
-        print(f"supervising on: {num_to_supervise} problems.")
     return planning_dataset
 

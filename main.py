@@ -15,6 +15,7 @@ import os
 import os.path as osp
 import sys
 
+ALL = "ALL"
 
 ALFRED_PATH = osp.join(osp.dirname(osp.abspath(__file__)), "alfred")
 print("Adding ALFRED path: {}".format(ALFRED_PATH))
@@ -64,13 +65,7 @@ parser.add_argument(
     "--dataset_fraction",
     default=1.0,
     type=float,
-    help="Fraction of the overall dataset to work with. Lower than 1.0 for debugging purposes",
-)
-parser.add_argument(
-    "--training_plans_fraction",
-    default=1.0,
-    type=float,
-    help="Fraction of the training problems to initialize with plans. Used to seed the Codex proposals.",
+    help="Fraction of the overall dataset to work with. Lower than 1.0 for debugging purposes only.",
 )
 parser.add_argument(
     "--dataset_pddl_directory",
@@ -92,10 +87,32 @@ parser.add_argument(
 )
 
 parser.add_argument(
+    "--goal_supervision_fraction",
+    default=0.1,
+    type=float,
+    help="Randomly selected fraction of the dataset to supervise with ground truth PDDL goals.",
+)
+
+parser.add_argument(
+    "--initial_goal_supervision_prefix",
+    type=str,
+    nargs="+",
+    default=[ALL],
+    help="Which initial goal types to supervise on, or ALL if we want to sample ALL of the goal types. This will be sampled in accordance to the underlying distribution of problems of that problem type.",
+)
+
+parser.add_argument(
+    "--plan_supervision_fraction",
+    default=0.1,
+    type=float,
+    help="Randomly selected fraction of the dataset to supervise with ground truth PDDL goals.",
+)
+
+parser.add_argument(
     "--initial_plans_prefix",
     type=str,
     nargs="+",
-    help="Which initial plan types to supervise on. Used to seed the Codex proposals",
+    help="Which initial plan types to supervise on. Used to seed the Codex proposals, or ALL if we want some subset of the initial",
 )
 
 parser.add_argument(
@@ -227,17 +244,25 @@ parser.add_argument(
     help="Which search type to use for motion planning: supports bfs or counter",
 )
 
-def main():
-    random.seed(0)
+parser.add_argument(
+    "--random_seed",
+    type=int,
+    default=0,
+    help="Random seed for replication.",
+)
 
+
+def main():
     args = parser.parse_args()
+    random.seed(args.random_seed)
 
     ###### Initialization. This initializes a set of goals (planning dataset), and a planning domain (a set of predicates + a partial set of initial operators.)
     # Load planning dataset.
     planning_problems = datasets.load_planning_problems_dataset(
         dataset_name=args.dataset_name,
         dataset_fraction=args.dataset_fraction,
-        training_plans_fraction=args.training_plans_fraction,
+        goal_supervision_fraction=args.goal_supervision_fraction,
+        initial_goal_supervision_prefix=args.initial_goal_supervision_prefix,
         dataset_pddl_directory=args.dataset_pddl_directory,
         initial_pddl_operators=args.initial_pddl_operators,
         initial_plans_prefix=args.initial_plans_prefix,
