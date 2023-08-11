@@ -1,0 +1,1192 @@
+problem_id,attempt_id,sample_percent,goal,success,plan,sampled_operators
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'TurnOffObject_1', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'TurnOnLamp_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'TurnOffObject_1', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'TurnOnLamp_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'TurnOffObject_1', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'TurnOnLamp_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'TurnOffObject_1', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'TurnOnLamp_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,1,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['InvestigateObject_3', 'TurnOnObject_3', 'WarmObject_2', 'ThrowAwayObject_3', 'BakeObject_4', 'GoToLocation_3', 'MicrowaveObject_1', 'CoolObject_2', 'ToastObject_4', 'TurnOffObject_3', 'TakeObject_1', 'CloseObject_3', 'TurnOffObject_4', 'OpenObject_1', 'ThrowObject_3', 'ChillObject_1', 'WarmObject_0', 'TakeObject_3', 'RinseObject_2', 'CloseObject_2', 'WashObject_4', 'SliceObject_2', 'InspectObject_3', 'LookAtObject_2', 'FillObject_0', 'OpenObject_4', 'LookAtObject_0', 'TakeObject_2', 'RestartObject_2', 'BakeObject_2', 'InspectObject_2', 'TurnOnLamp_2', 'TakeObject_0', 'TurnOnLight_1', 'GoToLocation_4', 'CoolObject_3', 'TurnOnLight_3', 'HeatObject_0', 'TurnOffObject_2', 'TurnOnLamp_1', 'ExamineObject_2', 'RestartObject_3', 'HeatObject_3', 'LookAtObject_1', 'ThrowAwayObject_4', 'ThrowAwayObject_1', 'OpenObject_0', 'BakeObject_1', 'InspectObject_0', 'CoolObject_4', 'CoolObject_0', 'DropObject_3', 'WarmObject_3', 'TurnOnLamp_0', 'MicrowaveObject_0', 'RestartObject_4', 'UseObject_4', 'SliceObject_0']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,1,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['InvestigateObject_3', 'TurnOnObject_3', 'WarmObject_2', 'ThrowAwayObject_3', 'BakeObject_4', 'GoToLocation_3', 'MicrowaveObject_1', 'CoolObject_2', 'ToastObject_4', 'TurnOffObject_3', 'TakeObject_1', 'CloseObject_3', 'TurnOffObject_4', 'OpenObject_1', 'ThrowObject_3', 'ChillObject_1', 'WarmObject_0', 'TakeObject_3', 'RinseObject_2', 'CloseObject_2', 'WashObject_4', 'SliceObject_2', 'InspectObject_3', 'LookAtObject_2', 'FillObject_0', 'OpenObject_4', 'LookAtObject_0', 'TakeObject_2', 'RestartObject_2', 'BakeObject_2', 'InspectObject_2', 'TurnOnLamp_2', 'TakeObject_0', 'TurnOnLight_1', 'GoToLocation_4', 'CoolObject_3', 'TurnOnLight_3', 'HeatObject_0', 'TurnOffObject_2', 'TurnOnLamp_1', 'ExamineObject_2', 'RestartObject_3', 'HeatObject_3', 'LookAtObject_1', 'ThrowAwayObject_4', 'ThrowAwayObject_1', 'OpenObject_0', 'BakeObject_1', 'InspectObject_0', 'CoolObject_4', 'CoolObject_0', 'DropObject_3', 'WarmObject_3', 'TurnOnLamp_0', 'MicrowaveObject_0', 'RestartObject_4', 'UseObject_4', 'SliceObject_0']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,1,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['InvestigateObject_3', 'TurnOnObject_3', 'WarmObject_2', 'ThrowAwayObject_3', 'BakeObject_4', 'GoToLocation_3', 'MicrowaveObject_1', 'CoolObject_2', 'ToastObject_4', 'TurnOffObject_3', 'TakeObject_1', 'CloseObject_3', 'TurnOffObject_4', 'OpenObject_1', 'ThrowObject_3', 'ChillObject_1', 'WarmObject_0', 'TakeObject_3', 'RinseObject_2', 'CloseObject_2', 'WashObject_4', 'SliceObject_2', 'InspectObject_3', 'LookAtObject_2', 'FillObject_0', 'OpenObject_4', 'LookAtObject_0', 'TakeObject_2', 'RestartObject_2', 'BakeObject_2', 'InspectObject_2', 'TurnOnLamp_2', 'TakeObject_0', 'TurnOnLight_1', 'GoToLocation_4', 'CoolObject_3', 'TurnOnLight_3', 'HeatObject_0', 'TurnOffObject_2', 'TurnOnLamp_1', 'ExamineObject_2', 'RestartObject_3', 'HeatObject_3', 'LookAtObject_1', 'ThrowAwayObject_4', 'ThrowAwayObject_1', 'OpenObject_0', 'BakeObject_1', 'InspectObject_0', 'CoolObject_4', 'CoolObject_0', 'DropObject_3', 'WarmObject_3', 'TurnOnLamp_0', 'MicrowaveObject_0', 'RestartObject_4', 'UseObject_4', 'SliceObject_0']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,1,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['InvestigateObject_3', 'TurnOnObject_3', 'WarmObject_2', 'ThrowAwayObject_3', 'BakeObject_4', 'GoToLocation_3', 'MicrowaveObject_1', 'CoolObject_2', 'ToastObject_4', 'TurnOffObject_3', 'TakeObject_1', 'CloseObject_3', 'TurnOffObject_4', 'OpenObject_1', 'ThrowObject_3', 'ChillObject_1', 'WarmObject_0', 'TakeObject_3', 'RinseObject_2', 'CloseObject_2', 'WashObject_4', 'SliceObject_2', 'InspectObject_3', 'LookAtObject_2', 'FillObject_0', 'OpenObject_4', 'LookAtObject_0', 'TakeObject_2', 'RestartObject_2', 'BakeObject_2', 'InspectObject_2', 'TurnOnLamp_2', 'TakeObject_0', 'TurnOnLight_1', 'GoToLocation_4', 'CoolObject_3', 'TurnOnLight_3', 'HeatObject_0', 'TurnOffObject_2', 'TurnOnLamp_1', 'ExamineObject_2', 'RestartObject_3', 'HeatObject_3', 'LookAtObject_1', 'ThrowAwayObject_4', 'ThrowAwayObject_1', 'OpenObject_0', 'BakeObject_1', 'InspectObject_0', 'CoolObject_4', 'CoolObject_0', 'DropObject_3', 'WarmObject_3', 'TurnOnLamp_0', 'MicrowaveObject_0', 'RestartObject_4', 'UseObject_4', 'SliceObject_0']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,2,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",True,"(gotolocation agent1 loc_bar__minus_10_bar_6_bar_2_bar_30 loc_bar_4_bar_4_bar_2_bar_60)
+(pickupobjectinreceptacle agent1 loc_bar_4_bar_4_bar_2_bar_60 remotecontrol_3_dot_520442248_comma_3_dot_520442248_comma_2_dot_1829792_comma_2_dot_1829792_comma_0_dot_965454_comma_0_dot_965454 sidetable_2_dot_508_comma_2_dot_508_comma_1_dot_36_comma_1_dot_36_comma_0_dot_008_comma_0_dot_008)
+(gotolocation agent1 loc_bar_4_bar_4_bar_2_bar_60 loc_bar__minus_15_bar_14_bar_0_bar_0)
+(turnonlamp_2 agent1 loc_bar__minus_15_bar_14_bar_0_bar_0 floorlamp__minus_14_dot_748_comma__minus_14_dot_748_comma_16_dot_056_comma_16_dot_056_comma_0_dot_0001871585844_comma_0_dot_0001871585844)
+(turnoffobject_1 agent1 loc_bar__minus_15_bar_14_bar_0_bar_0 floorlamp__minus_14_dot_748_comma__minus_14_dot_748_comma_16_dot_056_comma_16_dot_056_comma_0_dot_0001871585844_comma_0_dot_0001871585844)","['TurnOffObject_2', 'CloseObject_4', 'MicrowaveObject_4', 'MicrowaveObject_0', 'OpenObject_4', 'BakeObject_1', 'SliceObject_0', 'CoolObject_1', 'TurnOnObject_2', 'TurnOnObject_4', 'TurnOffObject_0', 'InspectObject_1', 'UseObject_3', 'GoToLocation_4', 'InvestigateObject_3', 'OpenObject_3', 'WarmObject_3', 'ToastObject_0', 'CookObject_0', 'DropObject_2', 'RestartObject_4', 'RinseObject_2', 'GoToLocation_3', 'FillObject_0', 'WarmObject_0', 'WashObject_3', 'ThrowAwayObject_2', 'LookAtObject_1', 'OpenObject_1', 'TurnOnObject_1', 'ThrowAwayObject_1', 'CoolObject_4', 'TurnOffObject_4', 'BakeObject_4', 'SliceObject_1', 'ThrowAwayObject_3', 'RestartObject_1', 'DropObject_4', 'WarmObject_2', 'TurnOnObject_3', 'WashObject_1', 'TakeObject_0', 'RinseObject_0', 'InvestigateObject_1', 'ExamineObject_2', 'RestartObject_0', 'TakeObject_3', 'HeatObject_0', 'TurnOffObject_1', 'LookAtObject_3', 'TurnOnLight_1', 'WashObject_0', 'ThrowObject_0', 'RestartObject_3', 'TurnOnLamp_2', 'ThrowAwayObject_0', 'TurnOnLamp_1', 'InspectObject_4']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,2,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",True,"(gotolocation agent1 loc_bar__minus_10_bar_6_bar_2_bar_30 loc_bar_4_bar_4_bar_2_bar_60)
+(pickupobjectinreceptacle agent1 loc_bar_4_bar_4_bar_2_bar_60 remotecontrol_3_dot_520442248_comma_3_dot_520442248_comma_2_dot_1829792_comma_2_dot_1829792_comma_0_dot_965454_comma_0_dot_965454 sidetable_2_dot_508_comma_2_dot_508_comma_1_dot_36_comma_1_dot_36_comma_0_dot_008_comma_0_dot_008)
+(gotolocation agent1 loc_bar_4_bar_4_bar_2_bar_60 loc_bar__minus_15_bar_14_bar_0_bar_0)
+(turnonlamp_2 agent1 loc_bar__minus_15_bar_14_bar_0_bar_0 floorlamp__minus_14_dot_748_comma__minus_14_dot_748_comma_16_dot_056_comma_16_dot_056_comma_0_dot_0001871585844_comma_0_dot_0001871585844)
+(turnoffobject_1 agent1 loc_bar__minus_15_bar_14_bar_0_bar_0 floorlamp__minus_14_dot_748_comma__minus_14_dot_748_comma_16_dot_056_comma_16_dot_056_comma_0_dot_0001871585844_comma_0_dot_0001871585844)","['TurnOffObject_2', 'CloseObject_4', 'MicrowaveObject_4', 'MicrowaveObject_0', 'OpenObject_4', 'BakeObject_1', 'SliceObject_0', 'CoolObject_1', 'TurnOnObject_2', 'TurnOnObject_4', 'TurnOffObject_0', 'InspectObject_1', 'UseObject_3', 'GoToLocation_4', 'InvestigateObject_3', 'OpenObject_3', 'WarmObject_3', 'ToastObject_0', 'CookObject_0', 'DropObject_2', 'RestartObject_4', 'RinseObject_2', 'GoToLocation_3', 'FillObject_0', 'WarmObject_0', 'WashObject_3', 'ThrowAwayObject_2', 'LookAtObject_1', 'OpenObject_1', 'TurnOnObject_1', 'ThrowAwayObject_1', 'CoolObject_4', 'TurnOffObject_4', 'BakeObject_4', 'SliceObject_1', 'ThrowAwayObject_3', 'RestartObject_1', 'DropObject_4', 'WarmObject_2', 'TurnOnObject_3', 'WashObject_1', 'TakeObject_0', 'RinseObject_0', 'InvestigateObject_1', 'ExamineObject_2', 'RestartObject_0', 'TakeObject_3', 'HeatObject_0', 'TurnOffObject_1', 'LookAtObject_3', 'TurnOnLight_1', 'WashObject_0', 'ThrowObject_0', 'RestartObject_3', 'TurnOnLamp_2', 'ThrowAwayObject_0', 'TurnOnLamp_1', 'InspectObject_4']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,2,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",True,"(gotolocation agent1 loc_bar__minus_10_bar_6_bar_2_bar_30 loc_bar_4_bar_4_bar_2_bar_60)
+(pickupobjectinreceptacle agent1 loc_bar_4_bar_4_bar_2_bar_60 remotecontrol_3_dot_520442248_comma_3_dot_520442248_comma_2_dot_1829792_comma_2_dot_1829792_comma_0_dot_965454_comma_0_dot_965454 sidetable_2_dot_508_comma_2_dot_508_comma_1_dot_36_comma_1_dot_36_comma_0_dot_008_comma_0_dot_008)
+(gotolocation agent1 loc_bar_4_bar_4_bar_2_bar_60 loc_bar__minus_15_bar_14_bar_0_bar_0)
+(turnonlamp_2 agent1 loc_bar__minus_15_bar_14_bar_0_bar_0 floorlamp__minus_14_dot_748_comma__minus_14_dot_748_comma_16_dot_056_comma_16_dot_056_comma_0_dot_0001871585844_comma_0_dot_0001871585844)
+(turnoffobject_1 agent1 loc_bar__minus_15_bar_14_bar_0_bar_0 floorlamp__minus_14_dot_748_comma__minus_14_dot_748_comma_16_dot_056_comma_16_dot_056_comma_0_dot_0001871585844_comma_0_dot_0001871585844)","['TurnOffObject_2', 'CloseObject_4', 'MicrowaveObject_4', 'MicrowaveObject_0', 'OpenObject_4', 'BakeObject_1', 'SliceObject_0', 'CoolObject_1', 'TurnOnObject_2', 'TurnOnObject_4', 'TurnOffObject_0', 'InspectObject_1', 'UseObject_3', 'GoToLocation_4', 'InvestigateObject_3', 'OpenObject_3', 'WarmObject_3', 'ToastObject_0', 'CookObject_0', 'DropObject_2', 'RestartObject_4', 'RinseObject_2', 'GoToLocation_3', 'FillObject_0', 'WarmObject_0', 'WashObject_3', 'ThrowAwayObject_2', 'LookAtObject_1', 'OpenObject_1', 'TurnOnObject_1', 'ThrowAwayObject_1', 'CoolObject_4', 'TurnOffObject_4', 'BakeObject_4', 'SliceObject_1', 'ThrowAwayObject_3', 'RestartObject_1', 'DropObject_4', 'WarmObject_2', 'TurnOnObject_3', 'WashObject_1', 'TakeObject_0', 'RinseObject_0', 'InvestigateObject_1', 'ExamineObject_2', 'RestartObject_0', 'TakeObject_3', 'HeatObject_0', 'TurnOffObject_1', 'LookAtObject_3', 'TurnOnLight_1', 'WashObject_0', 'ThrowObject_0', 'RestartObject_3', 'TurnOnLamp_2', 'ThrowAwayObject_0', 'TurnOnLamp_1', 'InspectObject_4']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,2,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",True,"(gotolocation agent1 loc_bar__minus_10_bar_6_bar_2_bar_30 loc_bar_4_bar_4_bar_2_bar_60)
+(pickupobjectinreceptacle agent1 loc_bar_4_bar_4_bar_2_bar_60 remotecontrol_3_dot_520442248_comma_3_dot_520442248_comma_2_dot_1829792_comma_2_dot_1829792_comma_0_dot_965454_comma_0_dot_965454 sidetable_2_dot_508_comma_2_dot_508_comma_1_dot_36_comma_1_dot_36_comma_0_dot_008_comma_0_dot_008)
+(gotolocation agent1 loc_bar_4_bar_4_bar_2_bar_60 loc_bar__minus_15_bar_14_bar_0_bar_0)
+(turnonlamp_2 agent1 loc_bar__minus_15_bar_14_bar_0_bar_0 floorlamp__minus_14_dot_748_comma__minus_14_dot_748_comma_16_dot_056_comma_16_dot_056_comma_0_dot_0001871585844_comma_0_dot_0001871585844)
+(turnoffobject_1 agent1 loc_bar__minus_15_bar_14_bar_0_bar_0 floorlamp__minus_14_dot_748_comma__minus_14_dot_748_comma_16_dot_056_comma_16_dot_056_comma_0_dot_0001871585844_comma_0_dot_0001871585844)","['TurnOffObject_2', 'CloseObject_4', 'MicrowaveObject_4', 'MicrowaveObject_0', 'OpenObject_4', 'BakeObject_1', 'SliceObject_0', 'CoolObject_1', 'TurnOnObject_2', 'TurnOnObject_4', 'TurnOffObject_0', 'InspectObject_1', 'UseObject_3', 'GoToLocation_4', 'InvestigateObject_3', 'OpenObject_3', 'WarmObject_3', 'ToastObject_0', 'CookObject_0', 'DropObject_2', 'RestartObject_4', 'RinseObject_2', 'GoToLocation_3', 'FillObject_0', 'WarmObject_0', 'WashObject_3', 'ThrowAwayObject_2', 'LookAtObject_1', 'OpenObject_1', 'TurnOnObject_1', 'ThrowAwayObject_1', 'CoolObject_4', 'TurnOffObject_4', 'BakeObject_4', 'SliceObject_1', 'ThrowAwayObject_3', 'RestartObject_1', 'DropObject_4', 'WarmObject_2', 'TurnOnObject_3', 'WashObject_1', 'TakeObject_0', 'RinseObject_0', 'InvestigateObject_1', 'ExamineObject_2', 'RestartObject_0', 'TakeObject_3', 'HeatObject_0', 'TurnOffObject_1', 'LookAtObject_3', 'TurnOnLight_1', 'WashObject_0', 'ThrowObject_0', 'RestartObject_3', 'TurnOnLamp_2', 'ThrowAwayObject_0', 'TurnOnLamp_1', 'InspectObject_4']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,3,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['WarmObject_3', 'ExamineObject_3', 'DropObject_4', 'ThrowAwayObject_0', 'MicrowaveObject_1', 'CoolObject_2', 'RestartObject_2', 'TurnOnObject_2', 'ExamineObject_0', 'BakeObject_4', 'InspectObject_3', 'ToastObject_4', 'GoToLocation_2', 'InspectObject_0', 'WashObject_0', 'TakeObject_2', 'LookAtObject_0', 'ToastObject_2', 'WashObject_4', 'InvestigateObject_0', 'OpenObject_0', 'PlaceObject_3', 'CookObject_0', 'CoolObject_0', 'ToastObject_3', 'WashObject_1', 'TakeObject_3', 'TurnOnLamp_0', 'RestartObject_0', 'InspectObject_4', 'ToastObject_0', 'HeatObject_1', 'ThrowAwayObject_4', 'CoolObject_3', 'ThrowObject_1', 'InvestigateObject_3', 'DropObject_1', 'TurnOnLamp_3', 'TakeObject_4', 'InvestigateObject_1', 'CloseObject_2', 'WarmObject_2', 'TurnOnObject_1', 'TurnOnLamp_4', 'UseObject_3', 'RinseObject_0', 'ThrowObject_2', 'DropObject_3', 'CloseObject_3', 'ThrowAwayObject_1', 'DropObject_2', 'OpenObject_1', 'LookAtObject_2', 'LookAtObject_3', 'SliceObject_0', 'ThrowAwayObject_3', 'LookAtObject_4']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,3,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['WarmObject_3', 'ExamineObject_3', 'DropObject_4', 'ThrowAwayObject_0', 'MicrowaveObject_1', 'CoolObject_2', 'RestartObject_2', 'TurnOnObject_2', 'ExamineObject_0', 'BakeObject_4', 'InspectObject_3', 'ToastObject_4', 'GoToLocation_2', 'InspectObject_0', 'WashObject_0', 'TakeObject_2', 'LookAtObject_0', 'ToastObject_2', 'WashObject_4', 'InvestigateObject_0', 'OpenObject_0', 'PlaceObject_3', 'CookObject_0', 'CoolObject_0', 'ToastObject_3', 'WashObject_1', 'TakeObject_3', 'TurnOnLamp_0', 'RestartObject_0', 'InspectObject_4', 'ToastObject_0', 'HeatObject_1', 'ThrowAwayObject_4', 'CoolObject_3', 'ThrowObject_1', 'InvestigateObject_3', 'DropObject_1', 'TurnOnLamp_3', 'TakeObject_4', 'InvestigateObject_1', 'CloseObject_2', 'WarmObject_2', 'TurnOnObject_1', 'TurnOnLamp_4', 'UseObject_3', 'RinseObject_0', 'ThrowObject_2', 'DropObject_3', 'CloseObject_3', 'ThrowAwayObject_1', 'DropObject_2', 'OpenObject_1', 'LookAtObject_2', 'LookAtObject_3', 'SliceObject_0', 'ThrowAwayObject_3', 'LookAtObject_4']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,3,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['WarmObject_3', 'ExamineObject_3', 'DropObject_4', 'ThrowAwayObject_0', 'MicrowaveObject_1', 'CoolObject_2', 'RestartObject_2', 'TurnOnObject_2', 'ExamineObject_0', 'BakeObject_4', 'InspectObject_3', 'ToastObject_4', 'GoToLocation_2', 'InspectObject_0', 'WashObject_0', 'TakeObject_2', 'LookAtObject_0', 'ToastObject_2', 'WashObject_4', 'InvestigateObject_0', 'OpenObject_0', 'PlaceObject_3', 'CookObject_0', 'CoolObject_0', 'ToastObject_3', 'WashObject_1', 'TakeObject_3', 'TurnOnLamp_0', 'RestartObject_0', 'InspectObject_4', 'ToastObject_0', 'HeatObject_1', 'ThrowAwayObject_4', 'CoolObject_3', 'ThrowObject_1', 'InvestigateObject_3', 'DropObject_1', 'TurnOnLamp_3', 'TakeObject_4', 'InvestigateObject_1', 'CloseObject_2', 'WarmObject_2', 'TurnOnObject_1', 'TurnOnLamp_4', 'UseObject_3', 'RinseObject_0', 'ThrowObject_2', 'DropObject_3', 'CloseObject_3', 'ThrowAwayObject_1', 'DropObject_2', 'OpenObject_1', 'LookAtObject_2', 'LookAtObject_3', 'SliceObject_0', 'ThrowAwayObject_3', 'LookAtObject_4']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-202/trial_T20190909_014548_223224,3,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['WarmObject_3', 'ExamineObject_3', 'DropObject_4', 'ThrowAwayObject_0', 'MicrowaveObject_1', 'CoolObject_2', 'RestartObject_2', 'TurnOnObject_2', 'ExamineObject_0', 'BakeObject_4', 'InspectObject_3', 'ToastObject_4', 'GoToLocation_2', 'InspectObject_0', 'WashObject_0', 'TakeObject_2', 'LookAtObject_0', 'ToastObject_2', 'WashObject_4', 'InvestigateObject_0', 'OpenObject_0', 'PlaceObject_3', 'CookObject_0', 'CoolObject_0', 'ToastObject_3', 'WashObject_1', 'TakeObject_3', 'TurnOnLamp_0', 'RestartObject_0', 'InspectObject_4', 'ToastObject_0', 'HeatObject_1', 'ThrowAwayObject_4', 'CoolObject_3', 'ThrowObject_1', 'InvestigateObject_3', 'DropObject_1', 'TurnOnLamp_3', 'TakeObject_4', 'InvestigateObject_1', 'CloseObject_2', 'WarmObject_2', 'TurnOnObject_1', 'TurnOnLamp_4', 'UseObject_3', 'RinseObject_0', 'ThrowObject_2', 'DropObject_3', 'CloseObject_3', 'ThrowAwayObject_1', 'DropObject_2', 'OpenObject_1', 'LookAtObject_2', 'LookAtObject_3', 'SliceObject_0', 'ThrowAwayObject_3', 'LookAtObject_4']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-208/trial_T20190908_214829_482790,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-208/trial_T20190908_214829_482790,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-208/trial_T20190908_214829_482790,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-208/trial_T20190908_214829_482790,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-208/trial_T20190908_214829_482790,1,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['PlaceObject_4', 'FillObject_0', 'TurnOnObject_4', 'SliceObject_1', 'WashObject_4', 'MicrowaveObject_4', 'LookAtObject_4', 'WashObject_0', 'LookAtObject_0', 'ToastObject_3', 'ToastObject_4', 'OpenObject_1', 'DropObject_3', 'OpenObject_0', 'InvestigateObject_1', 'MicrowaveObject_1', 'LookAtObject_2', 'TurnOnObject_1', 'GoToLocation_3', 'TurnOnLight_1', 'TurnOnObject_3', 'DropObject_2', 'ChillObject_1', 'RestartObject_0', 'TakeObject_3', 'TakeObject_4', 'InspectObject_3', 'InvestigateObject_2', 'InvestigateObject_0', 'GoToLocation_0', 'GoToLocation_1', 'RestartObject_4', 'ExamineObject_2', 'InspectObject_2', 'LookAtObject_1', 'CloseObject_0', 'TurnOnLamp_1', 'TakeObject_0', 'HeatObject_0', 'InspectObject_1', 'CloseObject_4', 'CoolObject_3', 'WashObject_3', 'GoToLocation_2', 'CoolObject_1', 'DropObject_1', 'DropObject_4', 'UseObject_4', 'ThrowAwayObject_3', 'WashObject_1', 'BakeObject_4', 'ThrowAwayObject_1', 'InspectObject_0', 'BakeObject_1', 'TurnOffObject_4', 'DropObject_0', 'TurnOffObject_0']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-208/trial_T20190908_214829_482790,1,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['PlaceObject_4', 'FillObject_0', 'TurnOnObject_4', 'SliceObject_1', 'WashObject_4', 'MicrowaveObject_4', 'LookAtObject_4', 'WashObject_0', 'LookAtObject_0', 'ToastObject_3', 'ToastObject_4', 'OpenObject_1', 'DropObject_3', 'OpenObject_0', 'InvestigateObject_1', 'MicrowaveObject_1', 'LookAtObject_2', 'TurnOnObject_1', 'GoToLocation_3', 'TurnOnLight_1', 'TurnOnObject_3', 'DropObject_2', 'ChillObject_1', 'RestartObject_0', 'TakeObject_3', 'TakeObject_4', 'InspectObject_3', 'InvestigateObject_2', 'InvestigateObject_0', 'GoToLocation_0', 'GoToLocation_1', 'RestartObject_4', 'ExamineObject_2', 'InspectObject_2', 'LookAtObject_1', 'CloseObject_0', 'TurnOnLamp_1', 'TakeObject_0', 'HeatObject_0', 'InspectObject_1', 'CloseObject_4', 'CoolObject_3', 'WashObject_3', 'GoToLocation_2', 'CoolObject_1', 'DropObject_1', 'DropObject_4', 'UseObject_4', 'ThrowAwayObject_3', 'WashObject_1', 'BakeObject_4', 'ThrowAwayObject_1', 'InspectObject_0', 'BakeObject_1', 'TurnOffObject_4', 'DropObject_0', 'TurnOffObject_0']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-208/trial_T20190908_214829_482790,1,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['PlaceObject_4', 'FillObject_0', 'TurnOnObject_4', 'SliceObject_1', 'WashObject_4', 'MicrowaveObject_4', 'LookAtObject_4', 'WashObject_0', 'LookAtObject_0', 'ToastObject_3', 'ToastObject_4', 'OpenObject_1', 'DropObject_3', 'OpenObject_0', 'InvestigateObject_1', 'MicrowaveObject_1', 'LookAtObject_2', 'TurnOnObject_1', 'GoToLocation_3', 'TurnOnLight_1', 'TurnOnObject_3', 'DropObject_2', 'ChillObject_1', 'RestartObject_0', 'TakeObject_3', 'TakeObject_4', 'InspectObject_3', 'InvestigateObject_2', 'InvestigateObject_0', 'GoToLocation_0', 'GoToLocation_1', 'RestartObject_4', 'ExamineObject_2', 'InspectObject_2', 'LookAtObject_1', 'CloseObject_0', 'TurnOnLamp_1', 'TakeObject_0', 'HeatObject_0', 'InspectObject_1', 'CloseObject_4', 'CoolObject_3', 'WashObject_3', 'GoToLocation_2', 'CoolObject_1', 'DropObject_1', 'DropObject_4', 'UseObject_4', 'ThrowAwayObject_3', 'WashObject_1', 'BakeObject_4', 'ThrowAwayObject_1', 'InspectObject_0', 'BakeObject_1', 'TurnOffObject_4', 'DropObject_0', 'TurnOffObject_0']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-208/trial_T20190908_214829_482790,1,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",False,,"['PlaceObject_4', 'FillObject_0', 'TurnOnObject_4', 'SliceObject_1', 'WashObject_4', 'MicrowaveObject_4', 'LookAtObject_4', 'WashObject_0', 'LookAtObject_0', 'ToastObject_3', 'ToastObject_4', 'OpenObject_1', 'DropObject_3', 'OpenObject_0', 'InvestigateObject_1', 'MicrowaveObject_1', 'LookAtObject_2', 'TurnOnObject_1', 'GoToLocation_3', 'TurnOnLight_1', 'TurnOnObject_3', 'DropObject_2', 'ChillObject_1', 'RestartObject_0', 'TakeObject_3', 'TakeObject_4', 'InspectObject_3', 'InvestigateObject_2', 'InvestigateObject_0', 'GoToLocation_0', 'GoToLocation_1', 'RestartObject_4', 'ExamineObject_2', 'InspectObject_2', 'LookAtObject_1', 'CloseObject_0', 'TurnOnLamp_1', 'TakeObject_0', 'HeatObject_0', 'InspectObject_1', 'CloseObject_4', 'CoolObject_3', 'WashObject_3', 'GoToLocation_2', 'CoolObject_1', 'DropObject_1', 'DropObject_4', 'UseObject_4', 'ThrowAwayObject_3', 'WashObject_1', 'BakeObject_4', 'ThrowAwayObject_1', 'InspectObject_0', 'BakeObject_1', 'TurnOffObject_4', 'DropObject_0', 'TurnOffObject_0']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-208/trial_T20190908_214829_482790,2,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",True,"(gotolocation agent1 loc_bar__minus_7_bar_2_bar_2_bar_30 loc_bar_5_bar_3_bar_1_bar_0)
+(gotolocation agent1 loc_bar_5_bar_3_bar_1_bar_0 loc_bar__minus_5_bar_8_bar_1_bar_60)
+(examineobject_0 agent1 loc_bar__minus_5_bar_8_bar_1_bar_60 remotecontrol__minus_1_dot_614460228_comma__minus_1_dot_614460228_comma_7_dot_75475504_comma_7_dot_75475504_comma_1_dot_569454_comma_1_dot_569454)
+(gotolocation agent1 loc_bar__minus_5_bar_8_bar_1_bar_60 loc_bar_5_bar_3_bar_1_bar_0)
+(turnonlight_4 agent1 loc_bar_5_bar_3_bar_1_bar_0 floorlamp_6_dot_84815932_comma_6_dot_84815932_comma_1_dot_49665022_comma_1_dot_49665022_comma_0_dot_0_comma_0_dot_0)","['WarmObject_0', 'ToastObject_0', 'WarmObject_2', 'TurnOnLight_0', 'CloseObject_2', 'WarmObject_3', 'GoToLocation_2', 'CloseObject_3', 'OpenObject_0', 'TurnOffObject_3', 'ExamineObject_3', 'MicrowaveObject_4', 'SliceObject_4', 'TurnOnLamp_1', 'ToastObject_4', 'RinseObject_2', 'HeatObject_1', 'MicrowaveObject_0', 'InspectObject_4', 'WashObject_3', 'TakeObject_3', 'ThrowAwayObject_3', 'LookAtObject_0', 'ExamineObject_0', 'WashObject_4', 'OpenObject_3', 'TurnOnLamp_0', 'ToastObject_2', 'DropObject_4', 'MicrowaveObject_1', 'BakeObject_4', 'ToastObject_3', 'TurnOnObject_4', 'CoolObject_1', 'CloseObject_1', 'OpenObject_4', 'ThrowObject_1', 'ThrowAwayObject_1', 'CloseObject_4', 'MicrowaveObject_2', 'DropObject_3', 'TurnOnLight_3', 'GoToLocation_3', 'DropObject_2', 'ThrowObject_3', 'TurnOnLight_4', 'LookAtObject_3', 'GoToLocation_1', 'OpenObject_2', 'TurnOffObject_2', 'InvestigateObject_1', 'TurnOnLight_2', 'ThrowObject_0', 'ExamineObject_2', 'CloseObject_0', 'ChillObject_1', 'ThrowObject_2']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-208/trial_T20190908_214829_482790,2,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",True,"(gotolocation agent1 loc_bar__minus_7_bar_2_bar_2_bar_30 loc_bar_5_bar_3_bar_1_bar_0)
+(gotolocation agent1 loc_bar_5_bar_3_bar_1_bar_0 loc_bar__minus_5_bar_8_bar_1_bar_60)
+(examineobject_0 agent1 loc_bar__minus_5_bar_8_bar_1_bar_60 remotecontrol__minus_1_dot_614460228_comma__minus_1_dot_614460228_comma_7_dot_75475504_comma_7_dot_75475504_comma_1_dot_569454_comma_1_dot_569454)
+(gotolocation agent1 loc_bar__minus_5_bar_8_bar_1_bar_60 loc_bar_5_bar_3_bar_1_bar_0)
+(turnonlight_4 agent1 loc_bar_5_bar_3_bar_1_bar_0 floorlamp_6_dot_84815932_comma_6_dot_84815932_comma_1_dot_49665022_comma_1_dot_49665022_comma_0_dot_0_comma_0_dot_0)","['WarmObject_0', 'ToastObject_0', 'WarmObject_2', 'TurnOnLight_0', 'CloseObject_2', 'WarmObject_3', 'GoToLocation_2', 'CloseObject_3', 'OpenObject_0', 'TurnOffObject_3', 'ExamineObject_3', 'MicrowaveObject_4', 'SliceObject_4', 'TurnOnLamp_1', 'ToastObject_4', 'RinseObject_2', 'HeatObject_1', 'MicrowaveObject_0', 'InspectObject_4', 'WashObject_3', 'TakeObject_3', 'ThrowAwayObject_3', 'LookAtObject_0', 'ExamineObject_0', 'WashObject_4', 'OpenObject_3', 'TurnOnLamp_0', 'ToastObject_2', 'DropObject_4', 'MicrowaveObject_1', 'BakeObject_4', 'ToastObject_3', 'TurnOnObject_4', 'CoolObject_1', 'CloseObject_1', 'OpenObject_4', 'ThrowObject_1', 'ThrowAwayObject_1', 'CloseObject_4', 'MicrowaveObject_2', 'DropObject_3', 'TurnOnLight_3', 'GoToLocation_3', 'DropObject_2', 'ThrowObject_3', 'TurnOnLight_4', 'LookAtObject_3', 'GoToLocation_1', 'OpenObject_2', 'TurnOffObject_2', 'InvestigateObject_1', 'TurnOnLight_2', 'ThrowObject_0', 'ExamineObject_2', 'CloseObject_0', 'ChillObject_1', 'ThrowObject_2']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-208/trial_T20190908_214829_482790,2,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",True,"(gotolocation agent1 loc_bar__minus_7_bar_2_bar_2_bar_30 loc_bar_5_bar_3_bar_1_bar_0)
+(gotolocation agent1 loc_bar_5_bar_3_bar_1_bar_0 loc_bar__minus_5_bar_8_bar_1_bar_60)
+(examineobject_0 agent1 loc_bar__minus_5_bar_8_bar_1_bar_60 remotecontrol__minus_1_dot_614460228_comma__minus_1_dot_614460228_comma_7_dot_75475504_comma_7_dot_75475504_comma_1_dot_569454_comma_1_dot_569454)
+(gotolocation agent1 loc_bar__minus_5_bar_8_bar_1_bar_60 loc_bar_5_bar_3_bar_1_bar_0)
+(turnonlight_4 agent1 loc_bar_5_bar_3_bar_1_bar_0 floorlamp_6_dot_84815932_comma_6_dot_84815932_comma_1_dot_49665022_comma_1_dot_49665022_comma_0_dot_0_comma_0_dot_0)","['WarmObject_0', 'ToastObject_0', 'WarmObject_2', 'TurnOnLight_0', 'CloseObject_2', 'WarmObject_3', 'GoToLocation_2', 'CloseObject_3', 'OpenObject_0', 'TurnOffObject_3', 'ExamineObject_3', 'MicrowaveObject_4', 'SliceObject_4', 'TurnOnLamp_1', 'ToastObject_4', 'RinseObject_2', 'HeatObject_1', 'MicrowaveObject_0', 'InspectObject_4', 'WashObject_3', 'TakeObject_3', 'ThrowAwayObject_3', 'LookAtObject_0', 'ExamineObject_0', 'WashObject_4', 'OpenObject_3', 'TurnOnLamp_0', 'ToastObject_2', 'DropObject_4', 'MicrowaveObject_1', 'BakeObject_4', 'ToastObject_3', 'TurnOnObject_4', 'CoolObject_1', 'CloseObject_1', 'OpenObject_4', 'ThrowObject_1', 'ThrowAwayObject_1', 'CloseObject_4', 'MicrowaveObject_2', 'DropObject_3', 'TurnOnLight_3', 'GoToLocation_3', 'DropObject_2', 'ThrowObject_3', 'TurnOnLight_4', 'LookAtObject_3', 'GoToLocation_1', 'OpenObject_2', 'TurnOffObject_2', 'InvestigateObject_1', 'TurnOnLight_2', 'ThrowObject_0', 'ExamineObject_2', 'CloseObject_0', 'ChillObject_1', 'ThrowObject_2']"
+train/look_at_obj_in_light-RemoteControl-None-FloorLamp-208/trial_T20190908_214829_482790,2,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o RemoteControlType)
+		(holds ?a ?o))))))
+)",True,"(gotolocation agent1 loc_bar__minus_7_bar_2_bar_2_bar_30 loc_bar_5_bar_3_bar_1_bar_0)
+(gotolocation agent1 loc_bar_5_bar_3_bar_1_bar_0 loc_bar__minus_5_bar_8_bar_1_bar_60)
+(examineobject_0 agent1 loc_bar__minus_5_bar_8_bar_1_bar_60 remotecontrol__minus_1_dot_614460228_comma__minus_1_dot_614460228_comma_7_dot_75475504_comma_7_dot_75475504_comma_1_dot_569454_comma_1_dot_569454)
+(gotolocation agent1 loc_bar__minus_5_bar_8_bar_1_bar_60 loc_bar_5_bar_3_bar_1_bar_0)
+(turnonlight_4 agent1 loc_bar_5_bar_3_bar_1_bar_0 floorlamp_6_dot_84815932_comma_6_dot_84815932_comma_1_dot_49665022_comma_1_dot_49665022_comma_0_dot_0_comma_0_dot_0)","['WarmObject_0', 'ToastObject_0', 'WarmObject_2', 'TurnOnLight_0', 'CloseObject_2', 'WarmObject_3', 'GoToLocation_2', 'CloseObject_3', 'OpenObject_0', 'TurnOffObject_3', 'ExamineObject_3', 'MicrowaveObject_4', 'SliceObject_4', 'TurnOnLamp_1', 'ToastObject_4', 'RinseObject_2', 'HeatObject_1', 'MicrowaveObject_0', 'InspectObject_4', 'WashObject_3', 'TakeObject_3', 'ThrowAwayObject_3', 'LookAtObject_0', 'ExamineObject_0', 'WashObject_4', 'OpenObject_3', 'TurnOnLamp_0', 'ToastObject_2', 'DropObject_4', 'MicrowaveObject_1', 'BakeObject_4', 'ToastObject_3', 'TurnOnObject_4', 'CoolObject_1', 'CloseObject_1', 'OpenObject_4', 'ThrowObject_1', 'ThrowAwayObject_1', 'CloseObject_4', 'MicrowaveObject_2', 'DropObject_3', 'TurnOnLight_3', 'GoToLocation_3', 'DropObject_2', 'ThrowObject_3', 'TurnOnLight_4', 'LookAtObject_3', 'GoToLocation_1', 'OpenObject_2', 'TurnOffObject_2', 'InvestigateObject_1', 'TurnOnLight_2', 'ThrowObject_0', 'ExamineObject_2', 'CloseObject_0', 'ChillObject_1', 'ThrowObject_2']"
+train/look_at_obj_in_light-Bowl-None-DeskLamp-327/trial_T20190907_094422_792919,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o BowlType)
+		(holds ?a ?o))))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/look_at_obj_in_light-Bowl-None-DeskLamp-327/trial_T20190907_094422_792919,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?o BowlType)
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(holds ?a ?o))))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/look_at_obj_in_light-Bowl-None-DeskLamp-327/trial_T20190907_094422_792919,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o BowlType)
+		(holds ?a ?o))))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/look_at_obj_in_light-Bowl-None-DeskLamp-327/trial_T20190907_094422_792919,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(holds ?a Bowl)))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/look_at_obj_in_light-Bowl-None-DeskLamp-327/trial_T20190907_094422_792919,1,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o BowlType)
+		(holds ?a ?o))))))
+)",False,,"['InspectObject_2', 'OpenObject_4', 'ThrowObject_0', 'OpenObject_1', 'CloseObject_1', 'TurnOnLight_3', 'TurnOnLamp_4', 'GoToLocation_4', 'LookAtObject_0', 'ExamineObject_2', 'CoolObject_1', 'TurnOnLamp_3', 'WashObject_3', 'LookAtObject_4', 'GoToLocation_2', 'ExamineObject_0', 'InvestigateObject_3', 'FillObject_0', 'ThrowAwayObject_4', 'RestartObject_0', 'TurnOnObject_4', 'BakeObject_0', 'HeatObject_0', 'LookAtObject_3', 'RestartObject_1', 'InvestigateObject_1', 'CloseObject_4', 'CoolObject_3', 'TurnOffObject_3', 'TurnOnLamp_0', 'ToastObject_3', 'RestartObject_3', 'BakeObject_2', 'ToastObject_2', 'HeatObject_1', 'TakeObject_1', 'DropObject_3', 'SliceObject_2', 'UseObject_3', 'MicrowaveObject_0', 'UseObject_4', 'CloseObject_2', 'ThrowObject_2', 'WashObject_0', 'ToastObject_0', 'ToastObject_4', 'InvestigateObject_0', 'TurnOnLight_2', 'LookAtObject_2', 'TurnOffObject_0', 'TakeObject_2', 'CoolObject_4', 'DropObject_1', 'InspectObject_3', 'TurnOnObject_3', 'TurnOnLight_0', 'BakeObject_1']"
+train/look_at_obj_in_light-Bowl-None-DeskLamp-327/trial_T20190907_094422_792919,1,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?o BowlType)
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(holds ?a ?o))))))
+)",False,,"['InspectObject_2', 'OpenObject_4', 'ThrowObject_0', 'OpenObject_1', 'CloseObject_1', 'TurnOnLight_3', 'TurnOnLamp_4', 'GoToLocation_4', 'LookAtObject_0', 'ExamineObject_2', 'CoolObject_1', 'TurnOnLamp_3', 'WashObject_3', 'LookAtObject_4', 'GoToLocation_2', 'ExamineObject_0', 'InvestigateObject_3', 'FillObject_0', 'ThrowAwayObject_4', 'RestartObject_0', 'TurnOnObject_4', 'BakeObject_0', 'HeatObject_0', 'LookAtObject_3', 'RestartObject_1', 'InvestigateObject_1', 'CloseObject_4', 'CoolObject_3', 'TurnOffObject_3', 'TurnOnLamp_0', 'ToastObject_3', 'RestartObject_3', 'BakeObject_2', 'ToastObject_2', 'HeatObject_1', 'TakeObject_1', 'DropObject_3', 'SliceObject_2', 'UseObject_3', 'MicrowaveObject_0', 'UseObject_4', 'CloseObject_2', 'ThrowObject_2', 'WashObject_0', 'ToastObject_0', 'ToastObject_4', 'InvestigateObject_0', 'TurnOnLight_2', 'LookAtObject_2', 'TurnOffObject_0', 'TakeObject_2', 'CoolObject_4', 'DropObject_1', 'InspectObject_3', 'TurnOnObject_3', 'TurnOnLight_0', 'BakeObject_1']"
+train/look_at_obj_in_light-Bowl-None-DeskLamp-327/trial_T20190907_094422_792919,1,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o BowlType)
+		(holds ?a ?o))))))
+)",False,,"['InspectObject_2', 'OpenObject_4', 'ThrowObject_0', 'OpenObject_1', 'CloseObject_1', 'TurnOnLight_3', 'TurnOnLamp_4', 'GoToLocation_4', 'LookAtObject_0', 'ExamineObject_2', 'CoolObject_1', 'TurnOnLamp_3', 'WashObject_3', 'LookAtObject_4', 'GoToLocation_2', 'ExamineObject_0', 'InvestigateObject_3', 'FillObject_0', 'ThrowAwayObject_4', 'RestartObject_0', 'TurnOnObject_4', 'BakeObject_0', 'HeatObject_0', 'LookAtObject_3', 'RestartObject_1', 'InvestigateObject_1', 'CloseObject_4', 'CoolObject_3', 'TurnOffObject_3', 'TurnOnLamp_0', 'ToastObject_3', 'RestartObject_3', 'BakeObject_2', 'ToastObject_2', 'HeatObject_1', 'TakeObject_1', 'DropObject_3', 'SliceObject_2', 'UseObject_3', 'MicrowaveObject_0', 'UseObject_4', 'CloseObject_2', 'ThrowObject_2', 'WashObject_0', 'ToastObject_0', 'ToastObject_4', 'InvestigateObject_0', 'TurnOnLight_2', 'LookAtObject_2', 'TurnOffObject_0', 'TakeObject_2', 'CoolObject_4', 'DropObject_1', 'InspectObject_3', 'TurnOnObject_3', 'TurnOnLight_0', 'BakeObject_1']"
+train/look_at_obj_in_light-Bowl-None-DeskLamp-327/trial_T20190907_094422_792919,1,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(holds ?a Bowl)))))
+)",False,,"['InspectObject_2', 'OpenObject_4', 'ThrowObject_0', 'OpenObject_1', 'CloseObject_1', 'TurnOnLight_3', 'TurnOnLamp_4', 'GoToLocation_4', 'LookAtObject_0', 'ExamineObject_2', 'CoolObject_1', 'TurnOnLamp_3', 'WashObject_3', 'LookAtObject_4', 'GoToLocation_2', 'ExamineObject_0', 'InvestigateObject_3', 'FillObject_0', 'ThrowAwayObject_4', 'RestartObject_0', 'TurnOnObject_4', 'BakeObject_0', 'HeatObject_0', 'LookAtObject_3', 'RestartObject_1', 'InvestigateObject_1', 'CloseObject_4', 'CoolObject_3', 'TurnOffObject_3', 'TurnOnLamp_0', 'ToastObject_3', 'RestartObject_3', 'BakeObject_2', 'ToastObject_2', 'HeatObject_1', 'TakeObject_1', 'DropObject_3', 'SliceObject_2', 'UseObject_3', 'MicrowaveObject_0', 'UseObject_4', 'CloseObject_2', 'ThrowObject_2', 'WashObject_0', 'ToastObject_0', 'ToastObject_4', 'InvestigateObject_0', 'TurnOnLight_2', 'LookAtObject_2', 'TurnOffObject_0', 'TakeObject_2', 'CoolObject_4', 'DropObject_1', 'InspectObject_3', 'TurnOnObject_3', 'TurnOnLight_0', 'BakeObject_1']"
+train/look_at_obj_in_light-Bowl-None-DeskLamp-327/trial_T20190907_094422_792919,2,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o BowlType)
+		(holds ?a ?o))))))
+)",False,,"['SliceObject_2', 'CoolObject_1', 'ToastObject_2', 'ThrowObject_0', 'CloseObject_4', 'GoToLocation_0', 'WashObject_4', 'TakeObject_2', 'LookAtObject_4', 'RinseObject_2', 'GoToLocation_3', 'TakeObject_1', 'CookObject_0', 'ExamineObject_2', 'CoolObject_2', 'TurnOnObject_1', 'CloseObject_1', 'DropObject_0', 'OpenObject_0', 'ThrowAwayObject_2', 'BakeObject_4', 'UseObject_4', 'ChillObject_1', 'TurnOffObject_0', 'TurnOnLight_2', 'InspectObject_3', 'LookAtObject_1', 'FillObject_0', 'WashObject_1', 'CloseObject_3', 'InvestigateObject_1', 'WarmObject_2', 'ThrowObject_3', 'MicrowaveObject_1', 'CoolObject_3', 'TurnOnLight_1', 'GoToLocation_1', 'InspectObject_1', 'RinseObject_0', 'ToastObject_4', 'TurnOffObject_4', 'WarmObject_0', 'InspectObject_4', 'PlaceObject_4', 'RestartObject_3', 'MicrowaveObject_4', 'ExamineObject_3', 'DropObject_1', 'OpenObject_3', 'TurnOnLight_0', 'GoToLocation_4', 'TurnOnObject_2', 'InvestigateObject_0', 'RestartObject_4', 'GoToLocation_2', 'ToastObject_3', 'HeatObject_3']"
+train/look_at_obj_in_light-Bowl-None-DeskLamp-327/trial_T20190907_094422_792919,2,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?o BowlType)
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(holds ?a ?o))))))
+)",False,,"['SliceObject_2', 'CoolObject_1', 'ToastObject_2', 'ThrowObject_0', 'CloseObject_4', 'GoToLocation_0', 'WashObject_4', 'TakeObject_2', 'LookAtObject_4', 'RinseObject_2', 'GoToLocation_3', 'TakeObject_1', 'CookObject_0', 'ExamineObject_2', 'CoolObject_2', 'TurnOnObject_1', 'CloseObject_1', 'DropObject_0', 'OpenObject_0', 'ThrowAwayObject_2', 'BakeObject_4', 'UseObject_4', 'ChillObject_1', 'TurnOffObject_0', 'TurnOnLight_2', 'InspectObject_3', 'LookAtObject_1', 'FillObject_0', 'WashObject_1', 'CloseObject_3', 'InvestigateObject_1', 'WarmObject_2', 'ThrowObject_3', 'MicrowaveObject_1', 'CoolObject_3', 'TurnOnLight_1', 'GoToLocation_1', 'InspectObject_1', 'RinseObject_0', 'ToastObject_4', 'TurnOffObject_4', 'WarmObject_0', 'InspectObject_4', 'PlaceObject_4', 'RestartObject_3', 'MicrowaveObject_4', 'ExamineObject_3', 'DropObject_1', 'OpenObject_3', 'TurnOnLight_0', 'GoToLocation_4', 'TurnOnObject_2', 'InvestigateObject_0', 'RestartObject_4', 'GoToLocation_2', 'ToastObject_3', 'HeatObject_3']"
+train/look_at_obj_in_light-Bowl-None-DeskLamp-327/trial_T20190907_094422_792919,2,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o BowlType)
+		(holds ?a ?o))))))
+)",False,,"['SliceObject_2', 'CoolObject_1', 'ToastObject_2', 'ThrowObject_0', 'CloseObject_4', 'GoToLocation_0', 'WashObject_4', 'TakeObject_2', 'LookAtObject_4', 'RinseObject_2', 'GoToLocation_3', 'TakeObject_1', 'CookObject_0', 'ExamineObject_2', 'CoolObject_2', 'TurnOnObject_1', 'CloseObject_1', 'DropObject_0', 'OpenObject_0', 'ThrowAwayObject_2', 'BakeObject_4', 'UseObject_4', 'ChillObject_1', 'TurnOffObject_0', 'TurnOnLight_2', 'InspectObject_3', 'LookAtObject_1', 'FillObject_0', 'WashObject_1', 'CloseObject_3', 'InvestigateObject_1', 'WarmObject_2', 'ThrowObject_3', 'MicrowaveObject_1', 'CoolObject_3', 'TurnOnLight_1', 'GoToLocation_1', 'InspectObject_1', 'RinseObject_0', 'ToastObject_4', 'TurnOffObject_4', 'WarmObject_0', 'InspectObject_4', 'PlaceObject_4', 'RestartObject_3', 'MicrowaveObject_4', 'ExamineObject_3', 'DropObject_1', 'OpenObject_3', 'TurnOnLight_0', 'GoToLocation_4', 'TurnOnObject_2', 'InvestigateObject_0', 'RestartObject_4', 'GoToLocation_2', 'ToastObject_3', 'HeatObject_3']"
+train/look_at_obj_in_light-Bowl-None-DeskLamp-327/trial_T20190907_094422_792919,2,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(holds ?a Bowl)))))
+)",False,,"['SliceObject_2', 'CoolObject_1', 'ToastObject_2', 'ThrowObject_0', 'CloseObject_4', 'GoToLocation_0', 'WashObject_4', 'TakeObject_2', 'LookAtObject_4', 'RinseObject_2', 'GoToLocation_3', 'TakeObject_1', 'CookObject_0', 'ExamineObject_2', 'CoolObject_2', 'TurnOnObject_1', 'CloseObject_1', 'DropObject_0', 'OpenObject_0', 'ThrowAwayObject_2', 'BakeObject_4', 'UseObject_4', 'ChillObject_1', 'TurnOffObject_0', 'TurnOnLight_2', 'InspectObject_3', 'LookAtObject_1', 'FillObject_0', 'WashObject_1', 'CloseObject_3', 'InvestigateObject_1', 'WarmObject_2', 'ThrowObject_3', 'MicrowaveObject_1', 'CoolObject_3', 'TurnOnLight_1', 'GoToLocation_1', 'InspectObject_1', 'RinseObject_0', 'ToastObject_4', 'TurnOffObject_4', 'WarmObject_0', 'InspectObject_4', 'PlaceObject_4', 'RestartObject_3', 'MicrowaveObject_4', 'ExamineObject_3', 'DropObject_1', 'OpenObject_3', 'TurnOnLight_0', 'GoToLocation_4', 'TurnOnObject_2', 'InvestigateObject_0', 'RestartObject_4', 'GoToLocation_2', 'ToastObject_3', 'HeatObject_3']"
+train/look_at_obj_in_light-Bowl-None-DeskLamp-327/trial_T20190907_094422_792919,3,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o BowlType)
+		(holds ?a ?o))))))
+)",True,"(gotolocation agent1 loc_bar__minus_1_bar__minus_7_bar_2_bar_30 loc_bar__minus_3_bar__minus_10_bar_3_bar_45)
+(gotolocation agent1 loc_bar__minus_3_bar__minus_10_bar_3_bar_45 loc_bar__minus_3_bar__minus_9_bar_3_bar_60)
+(examineobject_0 agent1 loc_bar__minus_3_bar__minus_9_bar_3_bar_60 bowl__minus_5_dot_82908772_comma__minus_5_dot_82908772_comma__minus_8_dot_76445864_comma__minus_8_dot_76445864_comma_2_dot_7967176_comma_2_dot_7967176)
+(gotolocation agent1 loc_bar__minus_3_bar__minus_9_bar_3_bar_60 loc_bar__minus_3_bar__minus_10_bar_3_bar_45)","['CookObject_0', 'HeatObject_0', 'WarmObject_0', 'TurnOnObject_1', 'ThrowObject_3', 'HeatObject_1', 'OpenObject_3', 'ExamineObject_0', 'TakeObject_1', 'WashObject_0', 'TakeObject_2', 'ThrowAwayObject_0', 'RinseObject_2', 'LookAtObject_1', 'ExamineObject_2', 'RestartObject_1', 'TurnOffObject_0', 'CloseObject_0', 'OpenObject_4', 'TakeObject_3', 'ToastObject_0', 'GoToLocation_4', 'MicrowaveObject_4', 'PlaceObject_3', 'CoolObject_1', 'MicrowaveObject_1', 'UseObject_3', 'InvestigateObject_0', 'BakeObject_4', 'CloseObject_3', 'RestartObject_4', 'RestartObject_2', 'DropObject_3', 'GoToLocation_2', 'OpenObject_0', 'ExamineObject_3', 'LookAtObject_3', 'DropObject_1', 'TurnOffObject_2', 'CoolObject_3', 'ToastObject_4', 'PlaceObject_2', 'TurnOnLamp_1', 'TakeObject_0', 'MicrowaveObject_2', 'WashObject_1', 'ThrowAwayObject_4', 'GoToLocation_1', 'TurnOnLight_1', 'OpenObject_2', 'UseObject_4', 'CloseObject_4', 'SliceObject_0', 'TurnOnLamp_4', 'CloseObject_1', 'FillObject_0', 'LookAtObject_0']"
+train/look_at_obj_in_light-Bowl-None-DeskLamp-327/trial_T20190907_094422_792919,3,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?o BowlType)
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(holds ?a ?o))))))
+)",True,"(gotolocation agent1 loc_bar__minus_1_bar__minus_7_bar_2_bar_30 loc_bar__minus_3_bar__minus_10_bar_3_bar_45)
+(gotolocation agent1 loc_bar__minus_3_bar__minus_10_bar_3_bar_45 loc_bar__minus_3_bar__minus_9_bar_3_bar_60)
+(examineobject_0 agent1 loc_bar__minus_3_bar__minus_9_bar_3_bar_60 bowl__minus_5_dot_82908772_comma__minus_5_dot_82908772_comma__minus_8_dot_76445864_comma__minus_8_dot_76445864_comma_2_dot_7967176_comma_2_dot_7967176)
+(gotolocation agent1 loc_bar__minus_3_bar__minus_9_bar_3_bar_60 loc_bar__minus_3_bar__minus_10_bar_3_bar_45)
+(turnonlamp_1 agent1 loc_bar__minus_3_bar__minus_10_bar_3_bar_45 desklamp__minus_5_dot_95776844_comma__minus_5_dot_95776844_comma__minus_9_dot_6770506_comma__minus_9_dot_6770506_comma_2_dot_7722584_comma_2_dot_7722584)","['CookObject_0', 'HeatObject_0', 'WarmObject_0', 'TurnOnObject_1', 'ThrowObject_3', 'HeatObject_1', 'OpenObject_3', 'ExamineObject_0', 'TakeObject_1', 'WashObject_0', 'TakeObject_2', 'ThrowAwayObject_0', 'RinseObject_2', 'LookAtObject_1', 'ExamineObject_2', 'RestartObject_1', 'TurnOffObject_0', 'CloseObject_0', 'OpenObject_4', 'TakeObject_3', 'ToastObject_0', 'GoToLocation_4', 'MicrowaveObject_4', 'PlaceObject_3', 'CoolObject_1', 'MicrowaveObject_1', 'UseObject_3', 'InvestigateObject_0', 'BakeObject_4', 'CloseObject_3', 'RestartObject_4', 'RestartObject_2', 'DropObject_3', 'GoToLocation_2', 'OpenObject_0', 'ExamineObject_3', 'LookAtObject_3', 'DropObject_1', 'TurnOffObject_2', 'CoolObject_3', 'ToastObject_4', 'PlaceObject_2', 'TurnOnLamp_1', 'TakeObject_0', 'MicrowaveObject_2', 'WashObject_1', 'ThrowAwayObject_4', 'GoToLocation_1', 'TurnOnLight_1', 'OpenObject_2', 'UseObject_4', 'CloseObject_4', 'SliceObject_0', 'TurnOnLamp_4', 'CloseObject_1', 'FillObject_0', 'LookAtObject_0']"
+train/look_at_obj_in_light-Bowl-None-DeskLamp-327/trial_T20190907_094422_792919,3,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o BowlType)
+		(holds ?a ?o))))))
+)",True,"(gotolocation agent1 loc_bar__minus_1_bar__minus_7_bar_2_bar_30 loc_bar__minus_3_bar__minus_10_bar_3_bar_45)
+(gotolocation agent1 loc_bar__minus_3_bar__minus_10_bar_3_bar_45 loc_bar__minus_3_bar__minus_9_bar_3_bar_60)
+(examineobject_0 agent1 loc_bar__minus_3_bar__minus_9_bar_3_bar_60 bowl__minus_5_dot_82908772_comma__minus_5_dot_82908772_comma__minus_8_dot_76445864_comma__minus_8_dot_76445864_comma_2_dot_7967176_comma_2_dot_7967176)
+(gotolocation agent1 loc_bar__minus_3_bar__minus_9_bar_3_bar_60 loc_bar__minus_3_bar__minus_10_bar_3_bar_45)
+(turnonlamp_1 agent1 loc_bar__minus_3_bar__minus_10_bar_3_bar_45 desklamp__minus_5_dot_95776844_comma__minus_5_dot_95776844_comma__minus_9_dot_6770506_comma__minus_9_dot_6770506_comma_2_dot_7722584_comma_2_dot_7722584)","['CookObject_0', 'HeatObject_0', 'WarmObject_0', 'TurnOnObject_1', 'ThrowObject_3', 'HeatObject_1', 'OpenObject_3', 'ExamineObject_0', 'TakeObject_1', 'WashObject_0', 'TakeObject_2', 'ThrowAwayObject_0', 'RinseObject_2', 'LookAtObject_1', 'ExamineObject_2', 'RestartObject_1', 'TurnOffObject_0', 'CloseObject_0', 'OpenObject_4', 'TakeObject_3', 'ToastObject_0', 'GoToLocation_4', 'MicrowaveObject_4', 'PlaceObject_3', 'CoolObject_1', 'MicrowaveObject_1', 'UseObject_3', 'InvestigateObject_0', 'BakeObject_4', 'CloseObject_3', 'RestartObject_4', 'RestartObject_2', 'DropObject_3', 'GoToLocation_2', 'OpenObject_0', 'ExamineObject_3', 'LookAtObject_3', 'DropObject_1', 'TurnOffObject_2', 'CoolObject_3', 'ToastObject_4', 'PlaceObject_2', 'TurnOnLamp_1', 'TakeObject_0', 'MicrowaveObject_2', 'WashObject_1', 'ThrowAwayObject_4', 'GoToLocation_1', 'TurnOnLight_1', 'OpenObject_2', 'UseObject_4', 'CloseObject_4', 'SliceObject_0', 'TurnOnLamp_4', 'CloseObject_1', 'FillObject_0', 'LookAtObject_0']"
+train/look_at_obj_in_light-Bowl-None-DeskLamp-327/trial_T20190907_094422_792919,3,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(holds ?a Bowl)))))
+)",False,,"['CookObject_0', 'HeatObject_0', 'WarmObject_0', 'TurnOnObject_1', 'ThrowObject_3', 'HeatObject_1', 'OpenObject_3', 'ExamineObject_0', 'TakeObject_1', 'WashObject_0', 'TakeObject_2', 'ThrowAwayObject_0', 'RinseObject_2', 'LookAtObject_1', 'ExamineObject_2', 'RestartObject_1', 'TurnOffObject_0', 'CloseObject_0', 'OpenObject_4', 'TakeObject_3', 'ToastObject_0', 'GoToLocation_4', 'MicrowaveObject_4', 'PlaceObject_3', 'CoolObject_1', 'MicrowaveObject_1', 'UseObject_3', 'InvestigateObject_0', 'BakeObject_4', 'CloseObject_3', 'RestartObject_4', 'RestartObject_2', 'DropObject_3', 'GoToLocation_2', 'OpenObject_0', 'ExamineObject_3', 'LookAtObject_3', 'DropObject_1', 'TurnOffObject_2', 'CoolObject_3', 'ToastObject_4', 'PlaceObject_2', 'TurnOnLamp_1', 'TakeObject_0', 'MicrowaveObject_2', 'WashObject_1', 'ThrowAwayObject_4', 'GoToLocation_1', 'TurnOnLight_1', 'OpenObject_2', 'UseObject_4', 'CloseObject_4', 'SliceObject_0', 'TurnOnLamp_4', 'CloseObject_1', 'FillObject_0', 'LookAtObject_0']"
+train/look_at_obj_in_light-CD-None-DeskLamp-316/trial_T20190909_114522_623490,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot LaptopType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o CDType)
+		(holds ?a ?o))))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/look_at_obj_in_light-CD-None-DeskLamp-316/trial_T20190909_114522_623490,0,1.0,"(:goal
+	(exists (?o2 - object)
+(exists (?o1 - object)
+(exists (?a - agent)
+(and 
+		(objectType ?o1 CDType)
+		(objectType ?o2 LightSwitchType)
+		(toggleable ?o2)
+		(isToggled ?o2)
+		(holds ?a ?o1)))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/look_at_obj_in_light-CD-None-DeskLamp-316/trial_T20190909_114522_623490,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(not (isToggled ?ot))
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o CDType)
+		(holds ?a ?o))))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/look_at_obj_in_light-CD-None-DeskLamp-316/trial_T20190909_114522_623490,0,1.0,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o CDType)
+		(holds ?a ?o))))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/look_at_obj_in_light-CD-None-DeskLamp-316/trial_T20190909_114522_623490,1,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot LaptopType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o CDType)
+		(holds ?a ?o))))))
+)",False,,"['ExamineObject_3', 'InvestigateObject_1', 'PlaceObject_2', 'UseObject_4', 'TurnOnLight_1', 'CoolObject_3', 'SliceObject_2', 'RinseObject_2', 'MicrowaveObject_4', 'UseObject_3', 'OpenObject_4', 'InvestigateObject_0', 'GoToLocation_0', 'WashObject_1', 'SliceObject_0', 'LookAtObject_0', 'HeatObject_1', 'ThrowAwayObject_0', 'CoolObject_2', 'TakeObject_3', 'BakeObject_0', 'InvestigateObject_3', 'CloseObject_3', 'InspectObject_1', 'CoolObject_4', 'InspectObject_2', 'BakeObject_1', 'PlaceObject_4', 'TurnOffObject_3', 'TurnOnObject_2', 'TurnOnObject_1', 'SliceObject_4', 'InspectObject_3', 'InspectObject_4', 'BakeObject_4', 'TurnOnLamp_1', 'TurnOnLamp_3', 'OpenObject_0', 'ToastObject_3', 'TurnOnLight_4', 'TurnOnLamp_4', 'ThrowAwayObject_3', 'HeatObject_3', 'ExamineObject_0', 'OpenObject_3', 'HeatObject_0', 'RestartObject_3', 'ThrowObject_2', 'ThrowAwayObject_2', 'WashObject_3', 'PlaceObject_3', 'RinseObject_0', 'CoolObject_0', 'DropObject_4', 'ThrowObject_1', 'LookAtObject_2', 'OpenObject_2']"
+train/look_at_obj_in_light-CD-None-DeskLamp-316/trial_T20190909_114522_623490,1,0.5,"(:goal
+	(exists (?o2 - object)
+(exists (?o1 - object)
+(exists (?a - agent)
+(and 
+		(objectType ?o1 CDType)
+		(objectType ?o2 LightSwitchType)
+		(toggleable ?o2)
+		(isToggled ?o2)
+		(holds ?a ?o1)))))
+)",False,,"['ExamineObject_3', 'InvestigateObject_1', 'PlaceObject_2', 'UseObject_4', 'TurnOnLight_1', 'CoolObject_3', 'SliceObject_2', 'RinseObject_2', 'MicrowaveObject_4', 'UseObject_3', 'OpenObject_4', 'InvestigateObject_0', 'GoToLocation_0', 'WashObject_1', 'SliceObject_0', 'LookAtObject_0', 'HeatObject_1', 'ThrowAwayObject_0', 'CoolObject_2', 'TakeObject_3', 'BakeObject_0', 'InvestigateObject_3', 'CloseObject_3', 'InspectObject_1', 'CoolObject_4', 'InspectObject_2', 'BakeObject_1', 'PlaceObject_4', 'TurnOffObject_3', 'TurnOnObject_2', 'TurnOnObject_1', 'SliceObject_4', 'InspectObject_3', 'InspectObject_4', 'BakeObject_4', 'TurnOnLamp_1', 'TurnOnLamp_3', 'OpenObject_0', 'ToastObject_3', 'TurnOnLight_4', 'TurnOnLamp_4', 'ThrowAwayObject_3', 'HeatObject_3', 'ExamineObject_0', 'OpenObject_3', 'HeatObject_0', 'RestartObject_3', 'ThrowObject_2', 'ThrowAwayObject_2', 'WashObject_3', 'PlaceObject_3', 'RinseObject_0', 'CoolObject_0', 'DropObject_4', 'ThrowObject_1', 'LookAtObject_2', 'OpenObject_2']"
+train/look_at_obj_in_light-CD-None-DeskLamp-316/trial_T20190909_114522_623490,1,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(not (isToggled ?ot))
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o CDType)
+		(holds ?a ?o))))))
+)",False,,"['ExamineObject_3', 'InvestigateObject_1', 'PlaceObject_2', 'UseObject_4', 'TurnOnLight_1', 'CoolObject_3', 'SliceObject_2', 'RinseObject_2', 'MicrowaveObject_4', 'UseObject_3', 'OpenObject_4', 'InvestigateObject_0', 'GoToLocation_0', 'WashObject_1', 'SliceObject_0', 'LookAtObject_0', 'HeatObject_1', 'ThrowAwayObject_0', 'CoolObject_2', 'TakeObject_3', 'BakeObject_0', 'InvestigateObject_3', 'CloseObject_3', 'InspectObject_1', 'CoolObject_4', 'InspectObject_2', 'BakeObject_1', 'PlaceObject_4', 'TurnOffObject_3', 'TurnOnObject_2', 'TurnOnObject_1', 'SliceObject_4', 'InspectObject_3', 'InspectObject_4', 'BakeObject_4', 'TurnOnLamp_1', 'TurnOnLamp_3', 'OpenObject_0', 'ToastObject_3', 'TurnOnLight_4', 'TurnOnLamp_4', 'ThrowAwayObject_3', 'HeatObject_3', 'ExamineObject_0', 'OpenObject_3', 'HeatObject_0', 'RestartObject_3', 'ThrowObject_2', 'ThrowAwayObject_2', 'WashObject_3', 'PlaceObject_3', 'RinseObject_0', 'CoolObject_0', 'DropObject_4', 'ThrowObject_1', 'LookAtObject_2', 'OpenObject_2']"
+train/look_at_obj_in_light-CD-None-DeskLamp-316/trial_T20190909_114522_623490,1,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o CDType)
+		(holds ?a ?o))))))
+)",False,,"['ExamineObject_3', 'InvestigateObject_1', 'PlaceObject_2', 'UseObject_4', 'TurnOnLight_1', 'CoolObject_3', 'SliceObject_2', 'RinseObject_2', 'MicrowaveObject_4', 'UseObject_3', 'OpenObject_4', 'InvestigateObject_0', 'GoToLocation_0', 'WashObject_1', 'SliceObject_0', 'LookAtObject_0', 'HeatObject_1', 'ThrowAwayObject_0', 'CoolObject_2', 'TakeObject_3', 'BakeObject_0', 'InvestigateObject_3', 'CloseObject_3', 'InspectObject_1', 'CoolObject_4', 'InspectObject_2', 'BakeObject_1', 'PlaceObject_4', 'TurnOffObject_3', 'TurnOnObject_2', 'TurnOnObject_1', 'SliceObject_4', 'InspectObject_3', 'InspectObject_4', 'BakeObject_4', 'TurnOnLamp_1', 'TurnOnLamp_3', 'OpenObject_0', 'ToastObject_3', 'TurnOnLight_4', 'TurnOnLamp_4', 'ThrowAwayObject_3', 'HeatObject_3', 'ExamineObject_0', 'OpenObject_3', 'HeatObject_0', 'RestartObject_3', 'ThrowObject_2', 'ThrowAwayObject_2', 'WashObject_3', 'PlaceObject_3', 'RinseObject_0', 'CoolObject_0', 'DropObject_4', 'ThrowObject_1', 'LookAtObject_2', 'OpenObject_2']"
+train/look_at_obj_in_light-CD-None-DeskLamp-316/trial_T20190909_114522_623490,2,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot LaptopType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o CDType)
+		(holds ?a ?o))))))
+)",False,,"['UseObject_4', 'DropObject_3', 'ThrowAwayObject_4', 'TurnOnObject_1', 'CloseObject_0', 'MicrowaveObject_0', 'WashObject_3', 'SliceObject_2', 'BakeObject_4', 'ThrowObject_0', 'TurnOffObject_0', 'LookAtObject_0', 'ThrowAwayObject_2', 'TurnOnLamp_3', 'HeatObject_1', 'GoToLocation_0', 'CoolObject_0', 'TakeObject_1', 'BakeObject_2', 'WarmObject_0', 'PlaceObject_3', 'TurnOnLight_1', 'SliceObject_4', 'CloseObject_4', 'TakeObject_2', 'CoolObject_4', 'RestartObject_0', 'WashObject_0', 'RinseObject_0', 'LookAtObject_1', 'InspectObject_1', 'RinseObject_2', 'OpenObject_1', 'TakeObject_0', 'InspectObject_3', 'LookAtObject_4', 'OpenObject_4', 'PlaceObject_2', 'OpenObject_2', 'InvestigateObject_3', 'CoolObject_3', 'ThrowAwayObject_1', 'TurnOnObject_2', 'InspectObject_2', 'CloseObject_2', 'CoolObject_2', 'TurnOnLamp_4', 'RestartObject_4', 'RestartObject_1', 'ThrowObject_3', 'DropObject_4', 'TurnOnLight_4', 'ToastObject_0', 'RestartObject_3', 'LookAtObject_3', 'HeatObject_0', 'ThrowAwayObject_3']"
+train/look_at_obj_in_light-CD-None-DeskLamp-316/trial_T20190909_114522_623490,2,0.5,"(:goal
+	(exists (?o2 - object)
+(exists (?o1 - object)
+(exists (?a - agent)
+(and 
+		(objectType ?o1 CDType)
+		(objectType ?o2 LightSwitchType)
+		(toggleable ?o2)
+		(isToggled ?o2)
+		(holds ?a ?o1)))))
+)",False,,"['UseObject_4', 'DropObject_3', 'ThrowAwayObject_4', 'TurnOnObject_1', 'CloseObject_0', 'MicrowaveObject_0', 'WashObject_3', 'SliceObject_2', 'BakeObject_4', 'ThrowObject_0', 'TurnOffObject_0', 'LookAtObject_0', 'ThrowAwayObject_2', 'TurnOnLamp_3', 'HeatObject_1', 'GoToLocation_0', 'CoolObject_0', 'TakeObject_1', 'BakeObject_2', 'WarmObject_0', 'PlaceObject_3', 'TurnOnLight_1', 'SliceObject_4', 'CloseObject_4', 'TakeObject_2', 'CoolObject_4', 'RestartObject_0', 'WashObject_0', 'RinseObject_0', 'LookAtObject_1', 'InspectObject_1', 'RinseObject_2', 'OpenObject_1', 'TakeObject_0', 'InspectObject_3', 'LookAtObject_4', 'OpenObject_4', 'PlaceObject_2', 'OpenObject_2', 'InvestigateObject_3', 'CoolObject_3', 'ThrowAwayObject_1', 'TurnOnObject_2', 'InspectObject_2', 'CloseObject_2', 'CoolObject_2', 'TurnOnLamp_4', 'RestartObject_4', 'RestartObject_1', 'ThrowObject_3', 'DropObject_4', 'TurnOnLight_4', 'ToastObject_0', 'RestartObject_3', 'LookAtObject_3', 'HeatObject_0', 'ThrowAwayObject_3']"
+train/look_at_obj_in_light-CD-None-DeskLamp-316/trial_T20190909_114522_623490,2,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(not (isToggled ?ot))
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o CDType)
+		(holds ?a ?o))))))
+)",False,,"['UseObject_4', 'DropObject_3', 'ThrowAwayObject_4', 'TurnOnObject_1', 'CloseObject_0', 'MicrowaveObject_0', 'WashObject_3', 'SliceObject_2', 'BakeObject_4', 'ThrowObject_0', 'TurnOffObject_0', 'LookAtObject_0', 'ThrowAwayObject_2', 'TurnOnLamp_3', 'HeatObject_1', 'GoToLocation_0', 'CoolObject_0', 'TakeObject_1', 'BakeObject_2', 'WarmObject_0', 'PlaceObject_3', 'TurnOnLight_1', 'SliceObject_4', 'CloseObject_4', 'TakeObject_2', 'CoolObject_4', 'RestartObject_0', 'WashObject_0', 'RinseObject_0', 'LookAtObject_1', 'InspectObject_1', 'RinseObject_2', 'OpenObject_1', 'TakeObject_0', 'InspectObject_3', 'LookAtObject_4', 'OpenObject_4', 'PlaceObject_2', 'OpenObject_2', 'InvestigateObject_3', 'CoolObject_3', 'ThrowAwayObject_1', 'TurnOnObject_2', 'InspectObject_2', 'CloseObject_2', 'CoolObject_2', 'TurnOnLamp_4', 'RestartObject_4', 'RestartObject_1', 'ThrowObject_3', 'DropObject_4', 'TurnOnLight_4', 'ToastObject_0', 'RestartObject_3', 'LookAtObject_3', 'HeatObject_0', 'ThrowAwayObject_3']"
+train/look_at_obj_in_light-CD-None-DeskLamp-316/trial_T20190909_114522_623490,2,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o CDType)
+		(holds ?a ?o))))))
+)",False,,"['UseObject_4', 'DropObject_3', 'ThrowAwayObject_4', 'TurnOnObject_1', 'CloseObject_0', 'MicrowaveObject_0', 'WashObject_3', 'SliceObject_2', 'BakeObject_4', 'ThrowObject_0', 'TurnOffObject_0', 'LookAtObject_0', 'ThrowAwayObject_2', 'TurnOnLamp_3', 'HeatObject_1', 'GoToLocation_0', 'CoolObject_0', 'TakeObject_1', 'BakeObject_2', 'WarmObject_0', 'PlaceObject_3', 'TurnOnLight_1', 'SliceObject_4', 'CloseObject_4', 'TakeObject_2', 'CoolObject_4', 'RestartObject_0', 'WashObject_0', 'RinseObject_0', 'LookAtObject_1', 'InspectObject_1', 'RinseObject_2', 'OpenObject_1', 'TakeObject_0', 'InspectObject_3', 'LookAtObject_4', 'OpenObject_4', 'PlaceObject_2', 'OpenObject_2', 'InvestigateObject_3', 'CoolObject_3', 'ThrowAwayObject_1', 'TurnOnObject_2', 'InspectObject_2', 'CloseObject_2', 'CoolObject_2', 'TurnOnLamp_4', 'RestartObject_4', 'RestartObject_1', 'ThrowObject_3', 'DropObject_4', 'TurnOnLight_4', 'ToastObject_0', 'RestartObject_3', 'LookAtObject_3', 'HeatObject_0', 'ThrowAwayObject_3']"
+train/look_at_obj_in_light-CD-None-DeskLamp-316/trial_T20190909_114522_623490,3,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot LaptopType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o CDType)
+		(holds ?a ?o))))))
+)",False,,"['BakeObject_2', 'HeatObject_1', 'CloseObject_3', 'DropObject_0', 'GoToLocation_3', 'SliceObject_2', 'LookAtObject_2', 'LookAtObject_3', 'ThrowObject_0', 'DropObject_4', 'PlaceObject_2', 'GoToLocation_2', 'GoToLocation_4', 'TurnOnObject_3', 'WarmObject_0', 'TurnOnLight_1', 'TurnOnObject_4', 'UseObject_4', 'HeatObject_0', 'WashObject_3', 'CoolObject_3', 'ExamineObject_0', 'InvestigateObject_1', 'UseObject_3', 'MicrowaveObject_0', 'CoolObject_2', 'MicrowaveObject_4', 'OpenObject_0', 'RestartObject_2', 'MicrowaveObject_2', 'LookAtObject_0', 'CloseObject_1', 'ThrowObject_3', 'SliceObject_1', 'TurnOffObject_3', 'TurnOnLight_0', 'TurnOnLamp_1', 'ThrowAwayObject_2', 'DropObject_1', 'LookAtObject_4', 'OpenObject_4', 'RestartObject_3', 'PlaceObject_4', 'RestartObject_0', 'SliceObject_0', 'RinseObject_0', 'ThrowAwayObject_0', 'GoToLocation_0', 'WarmObject_3', 'ToastObject_4', 'TurnOnLight_3', 'WashObject_0', 'ThrowAwayObject_3', 'DropObject_2', 'InspectObject_2', 'ThrowObject_1', 'ExamineObject_3']"
+train/look_at_obj_in_light-CD-None-DeskLamp-316/trial_T20190909_114522_623490,3,0.5,"(:goal
+	(exists (?o2 - object)
+(exists (?o1 - object)
+(exists (?a - agent)
+(and 
+		(objectType ?o1 CDType)
+		(objectType ?o2 LightSwitchType)
+		(toggleable ?o2)
+		(isToggled ?o2)
+		(holds ?a ?o1)))))
+)",False,,"['BakeObject_2', 'HeatObject_1', 'CloseObject_3', 'DropObject_0', 'GoToLocation_3', 'SliceObject_2', 'LookAtObject_2', 'LookAtObject_3', 'ThrowObject_0', 'DropObject_4', 'PlaceObject_2', 'GoToLocation_2', 'GoToLocation_4', 'TurnOnObject_3', 'WarmObject_0', 'TurnOnLight_1', 'TurnOnObject_4', 'UseObject_4', 'HeatObject_0', 'WashObject_3', 'CoolObject_3', 'ExamineObject_0', 'InvestigateObject_1', 'UseObject_3', 'MicrowaveObject_0', 'CoolObject_2', 'MicrowaveObject_4', 'OpenObject_0', 'RestartObject_2', 'MicrowaveObject_2', 'LookAtObject_0', 'CloseObject_1', 'ThrowObject_3', 'SliceObject_1', 'TurnOffObject_3', 'TurnOnLight_0', 'TurnOnLamp_1', 'ThrowAwayObject_2', 'DropObject_1', 'LookAtObject_4', 'OpenObject_4', 'RestartObject_3', 'PlaceObject_4', 'RestartObject_0', 'SliceObject_0', 'RinseObject_0', 'ThrowAwayObject_0', 'GoToLocation_0', 'WarmObject_3', 'ToastObject_4', 'TurnOnLight_3', 'WashObject_0', 'ThrowAwayObject_3', 'DropObject_2', 'InspectObject_2', 'ThrowObject_1', 'ExamineObject_3']"
+train/look_at_obj_in_light-CD-None-DeskLamp-316/trial_T20190909_114522_623490,3,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot DeskLampType)
+		(toggleable ?ot)
+		(not (isToggled ?ot))
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o CDType)
+		(holds ?a ?o))))))
+)",True,"(gotolocation agent1 loc_bar_0_bar_1_bar_3_bar_30 loc_bar_0_bar_2_bar_3_bar_60)
+(examineobject_0 agent1 loc_bar_0_bar_2_bar_3_bar_60 cd__minus_1_dot_356322288_comma__minus_1_dot_356322288_comma_2_dot_5726804_comma_2_dot_5726804_comma_2_dot_650754212_comma_2_dot_650754212)
+(gotolocation agent1 loc_bar_0_bar_2_bar_3_bar_60 loc_bar__minus_2_bar__minus_6_bar_2_bar_45)","['BakeObject_2', 'HeatObject_1', 'CloseObject_3', 'DropObject_0', 'GoToLocation_3', 'SliceObject_2', 'LookAtObject_2', 'LookAtObject_3', 'ThrowObject_0', 'DropObject_4', 'PlaceObject_2', 'GoToLocation_2', 'GoToLocation_4', 'TurnOnObject_3', 'WarmObject_0', 'TurnOnLight_1', 'TurnOnObject_4', 'UseObject_4', 'HeatObject_0', 'WashObject_3', 'CoolObject_3', 'ExamineObject_0', 'InvestigateObject_1', 'UseObject_3', 'MicrowaveObject_0', 'CoolObject_2', 'MicrowaveObject_4', 'OpenObject_0', 'RestartObject_2', 'MicrowaveObject_2', 'LookAtObject_0', 'CloseObject_1', 'ThrowObject_3', 'SliceObject_1', 'TurnOffObject_3', 'TurnOnLight_0', 'TurnOnLamp_1', 'ThrowAwayObject_2', 'DropObject_1', 'LookAtObject_4', 'OpenObject_4', 'RestartObject_3', 'PlaceObject_4', 'RestartObject_0', 'SliceObject_0', 'RinseObject_0', 'ThrowAwayObject_0', 'GoToLocation_0', 'WarmObject_3', 'ToastObject_4', 'TurnOnLight_3', 'WashObject_0', 'ThrowAwayObject_3', 'DropObject_2', 'InspectObject_2', 'ThrowObject_1', 'ExamineObject_3']"
+train/look_at_obj_in_light-CD-None-DeskLamp-316/trial_T20190909_114522_623490,3,0.5,"(:goal
+	(exists (?ot - object)
+(exists (?o - object)
+(exists (?l - location)
+(exists (?a - agent)
+(and 
+		(objectType ?ot FloorLampType)
+		(toggleable ?ot)
+		(isToggled ?ot)
+		(objectAtLocation ?ot ?l)
+		(atLocation ?a ?l)
+		(objectType ?o CDType)
+		(holds ?a ?o))))))
+)",False,,"['BakeObject_2', 'HeatObject_1', 'CloseObject_3', 'DropObject_0', 'GoToLocation_3', 'SliceObject_2', 'LookAtObject_2', 'LookAtObject_3', 'ThrowObject_0', 'DropObject_4', 'PlaceObject_2', 'GoToLocation_2', 'GoToLocation_4', 'TurnOnObject_3', 'WarmObject_0', 'TurnOnLight_1', 'TurnOnObject_4', 'UseObject_4', 'HeatObject_0', 'WashObject_3', 'CoolObject_3', 'ExamineObject_0', 'InvestigateObject_1', 'UseObject_3', 'MicrowaveObject_0', 'CoolObject_2', 'MicrowaveObject_4', 'OpenObject_0', 'RestartObject_2', 'MicrowaveObject_2', 'LookAtObject_0', 'CloseObject_1', 'ThrowObject_3', 'SliceObject_1', 'TurnOffObject_3', 'TurnOnLight_0', 'TurnOnLamp_1', 'ThrowAwayObject_2', 'DropObject_1', 'LookAtObject_4', 'OpenObject_4', 'RestartObject_3', 'PlaceObject_4', 'RestartObject_0', 'SliceObject_0', 'RinseObject_0', 'ThrowAwayObject_0', 'GoToLocation_0', 'WarmObject_3', 'ToastObject_4', 'TurnOnLight_3', 'WashObject_0', 'ThrowAwayObject_3', 'DropObject_2', 'InspectObject_2', 'ThrowObject_1', 'ExamineObject_3']"
+train/pick_and_place_simple-Box-None-Sofa-220/trial_T20190907_165527_462462,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BoxType)
+		(receptacleType ?r SofaType)
+		(inReceptacle ?o ?r))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/pick_and_place_simple-Box-None-Sofa-220/trial_T20190907_165527_462462,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BoxType)
+		(receptacleType ?r SofaType)
+		(inReceptacle ?o ?r))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/pick_and_place_simple-Box-None-Sofa-220/trial_T20190907_165527_462462,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BoxType)
+		(inReceptacle ?o ?r))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/pick_and_place_simple-Box-None-Sofa-220/trial_T20190907_165527_462462,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BoxType)
+		(receptacleType ?r SofaType)
+		(inReceptacle ?o ?r))))
+)",False,,"['TakeObject_0', 'TurnOnLamp_3', 'DropObject_2', 'ExamineObject_2', 'GoToLocation_2', 'CoolObject_1', 'WashObject_3', 'ThrowObject_0', 'ToastObject_4', 'GoToLocation_0', 'LookAtObject_0', 'TurnOnLamp_0', 'TurnOnObject_1', 'RestartObject_4', 'SliceObject_4', 'CookObject_0', 'TurnOnObject_4', 'InvestigateObject_2', 'TurnOnObject_2', 'OpenObject_2', 'UseObject_4', 'ExamineObject_3', 'HeatObject_0', 'ThrowObject_2', 'TurnOffObject_3', 'InspectObject_2', 'InspectObject_3', 'RestartObject_1', 'BakeObject_1', 'PlaceObject_3', 'TurnOnLight_3', 'GoToLocation_1', 'RestartObject_0', 'UseObject_3', 'DropObject_3', 'ThrowAwayObject_4', 'TakeObject_2', 'RestartObject_2', 'WashObject_1', 'MicrowaveObject_1', 'BakeObject_2', 'WarmObject_2', 'ThrowObject_1', 'GoToLocation_3', 'TurnOnLamp_4', 'WashObject_0', 'CloseObject_0', 'TakeObject_1', 'TurnOnLight_2', 'TakeObject_3', 'MicrowaveObject_4', 'InvestigateObject_1', 'MicrowaveObject_2', 'PlaceObject_2', 'RinseObject_0', 'CoolObject_4', 'ThrowAwayObject_0']"
+train/pick_and_place_simple-Box-None-Sofa-220/trial_T20190907_165527_462462,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BoxType)
+		(receptacleType ?r SofaType)
+		(inReceptacle ?o ?r))))
+)",False,,"['TakeObject_0', 'TurnOnLamp_3', 'DropObject_2', 'ExamineObject_2', 'GoToLocation_2', 'CoolObject_1', 'WashObject_3', 'ThrowObject_0', 'ToastObject_4', 'GoToLocation_0', 'LookAtObject_0', 'TurnOnLamp_0', 'TurnOnObject_1', 'RestartObject_4', 'SliceObject_4', 'CookObject_0', 'TurnOnObject_4', 'InvestigateObject_2', 'TurnOnObject_2', 'OpenObject_2', 'UseObject_4', 'ExamineObject_3', 'HeatObject_0', 'ThrowObject_2', 'TurnOffObject_3', 'InspectObject_2', 'InspectObject_3', 'RestartObject_1', 'BakeObject_1', 'PlaceObject_3', 'TurnOnLight_3', 'GoToLocation_1', 'RestartObject_0', 'UseObject_3', 'DropObject_3', 'ThrowAwayObject_4', 'TakeObject_2', 'RestartObject_2', 'WashObject_1', 'MicrowaveObject_1', 'BakeObject_2', 'WarmObject_2', 'ThrowObject_1', 'GoToLocation_3', 'TurnOnLamp_4', 'WashObject_0', 'CloseObject_0', 'TakeObject_1', 'TurnOnLight_2', 'TakeObject_3', 'MicrowaveObject_4', 'InvestigateObject_1', 'MicrowaveObject_2', 'PlaceObject_2', 'RinseObject_0', 'CoolObject_4', 'ThrowAwayObject_0']"
+train/pick_and_place_simple-Box-None-Sofa-220/trial_T20190907_165527_462462,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BoxType)
+		(inReceptacle ?o ?r))))
+)",False,,"['TakeObject_0', 'TurnOnLamp_3', 'DropObject_2', 'ExamineObject_2', 'GoToLocation_2', 'CoolObject_1', 'WashObject_3', 'ThrowObject_0', 'ToastObject_4', 'GoToLocation_0', 'LookAtObject_0', 'TurnOnLamp_0', 'TurnOnObject_1', 'RestartObject_4', 'SliceObject_4', 'CookObject_0', 'TurnOnObject_4', 'InvestigateObject_2', 'TurnOnObject_2', 'OpenObject_2', 'UseObject_4', 'ExamineObject_3', 'HeatObject_0', 'ThrowObject_2', 'TurnOffObject_3', 'InspectObject_2', 'InspectObject_3', 'RestartObject_1', 'BakeObject_1', 'PlaceObject_3', 'TurnOnLight_3', 'GoToLocation_1', 'RestartObject_0', 'UseObject_3', 'DropObject_3', 'ThrowAwayObject_4', 'TakeObject_2', 'RestartObject_2', 'WashObject_1', 'MicrowaveObject_1', 'BakeObject_2', 'WarmObject_2', 'ThrowObject_1', 'GoToLocation_3', 'TurnOnLamp_4', 'WashObject_0', 'CloseObject_0', 'TakeObject_1', 'TurnOnLight_2', 'TakeObject_3', 'MicrowaveObject_4', 'InvestigateObject_1', 'MicrowaveObject_2', 'PlaceObject_2', 'RinseObject_0', 'CoolObject_4', 'ThrowAwayObject_0']"
+train/pick_and_place_simple-Box-None-Sofa-220/trial_T20190907_165527_462462,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BoxType)
+		(receptacleType ?r SofaType)
+		(inReceptacle ?o ?r))))
+)",False,,"['CookObject_0', 'InspectObject_4', 'TurnOnLight_0', 'TurnOnLight_3', 'RestartObject_4', 'UseObject_4', 'DropObject_1', 'ChillObject_1', 'WashObject_1', 'CoolObject_2', 'RinseObject_2', 'InvestigateObject_3', 'DropObject_2', 'OpenObject_1', 'WashObject_0', 'HeatObject_0', 'TurnOffObject_0', 'ThrowObject_0', 'InspectObject_3', 'InspectObject_1', 'ThrowAwayObject_0', 'TakeObject_2', 'SliceObject_1', 'TurnOnObject_3', 'ThrowAwayObject_2', 'TurnOnLight_1', 'WarmObject_0', 'MicrowaveObject_0', 'GoToLocation_1', 'SliceObject_4', 'HeatObject_1', 'OpenObject_4', 'MicrowaveObject_2', 'BakeObject_4', 'CloseObject_1', 'FillObject_0', 'TakeObject_0', 'InvestigateObject_1', 'ToastObject_4', 'WarmObject_3', 'InvestigateObject_2', 'PlaceObject_3', 'BakeObject_0', 'InspectObject_0', 'CloseObject_0', 'TurnOnObject_1', 'ExamineObject_3', 'BakeObject_1', 'CloseObject_2', 'CoolObject_1', 'LookAtObject_4', 'LookAtObject_3', 'TakeObject_1', 'TurnOnLamp_1', 'WarmObject_2', 'SliceObject_0', 'ThrowObject_2']"
+train/pick_and_place_simple-Box-None-Sofa-220/trial_T20190907_165527_462462,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BoxType)
+		(receptacleType ?r SofaType)
+		(inReceptacle ?o ?r))))
+)",False,,"['CookObject_0', 'InspectObject_4', 'TurnOnLight_0', 'TurnOnLight_3', 'RestartObject_4', 'UseObject_4', 'DropObject_1', 'ChillObject_1', 'WashObject_1', 'CoolObject_2', 'RinseObject_2', 'InvestigateObject_3', 'DropObject_2', 'OpenObject_1', 'WashObject_0', 'HeatObject_0', 'TurnOffObject_0', 'ThrowObject_0', 'InspectObject_3', 'InspectObject_1', 'ThrowAwayObject_0', 'TakeObject_2', 'SliceObject_1', 'TurnOnObject_3', 'ThrowAwayObject_2', 'TurnOnLight_1', 'WarmObject_0', 'MicrowaveObject_0', 'GoToLocation_1', 'SliceObject_4', 'HeatObject_1', 'OpenObject_4', 'MicrowaveObject_2', 'BakeObject_4', 'CloseObject_1', 'FillObject_0', 'TakeObject_0', 'InvestigateObject_1', 'ToastObject_4', 'WarmObject_3', 'InvestigateObject_2', 'PlaceObject_3', 'BakeObject_0', 'InspectObject_0', 'CloseObject_0', 'TurnOnObject_1', 'ExamineObject_3', 'BakeObject_1', 'CloseObject_2', 'CoolObject_1', 'LookAtObject_4', 'LookAtObject_3', 'TakeObject_1', 'TurnOnLamp_1', 'WarmObject_2', 'SliceObject_0', 'ThrowObject_2']"
+train/pick_and_place_simple-Box-None-Sofa-220/trial_T20190907_165527_462462,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BoxType)
+		(inReceptacle ?o ?r))))
+)",False,,"['CookObject_0', 'InspectObject_4', 'TurnOnLight_0', 'TurnOnLight_3', 'RestartObject_4', 'UseObject_4', 'DropObject_1', 'ChillObject_1', 'WashObject_1', 'CoolObject_2', 'RinseObject_2', 'InvestigateObject_3', 'DropObject_2', 'OpenObject_1', 'WashObject_0', 'HeatObject_0', 'TurnOffObject_0', 'ThrowObject_0', 'InspectObject_3', 'InspectObject_1', 'ThrowAwayObject_0', 'TakeObject_2', 'SliceObject_1', 'TurnOnObject_3', 'ThrowAwayObject_2', 'TurnOnLight_1', 'WarmObject_0', 'MicrowaveObject_0', 'GoToLocation_1', 'SliceObject_4', 'HeatObject_1', 'OpenObject_4', 'MicrowaveObject_2', 'BakeObject_4', 'CloseObject_1', 'FillObject_0', 'TakeObject_0', 'InvestigateObject_1', 'ToastObject_4', 'WarmObject_3', 'InvestigateObject_2', 'PlaceObject_3', 'BakeObject_0', 'InspectObject_0', 'CloseObject_0', 'TurnOnObject_1', 'ExamineObject_3', 'BakeObject_1', 'CloseObject_2', 'CoolObject_1', 'LookAtObject_4', 'LookAtObject_3', 'TakeObject_1', 'TurnOnLamp_1', 'WarmObject_2', 'SliceObject_0', 'ThrowObject_2']"
+train/pick_and_place_simple-Box-None-Sofa-220/trial_T20190907_165527_462462,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BoxType)
+		(receptacleType ?r SofaType)
+		(inReceptacle ?o ?r))))
+)",True,"(gotolocation agent1 loc_bar__minus_19_bar_7_bar_1_bar_30 loc_bar__minus_11_bar_2_bar_2_bar_60)
+(gotolocation agent1 loc_bar__minus_11_bar_2_bar_2_bar_60 loc_bar__minus_9_bar_7_bar_2_bar_60)
+(pickupobjectinreceptacle agent1 loc_bar__minus_9_bar_7_bar_2_bar_60 box__minus_9_dot_05871392_comma__minus_9_dot_05871392_comma_5_dot_0059352_comma_5_dot_0059352_comma_2_dot_668_comma_2_dot_668 coffeetable__minus_10_dot_584_comma__minus_10_dot_584_comma_4_dot_6012_comma_4_dot_6012_comma__minus_0_dot_002000009408_comma__minus_0_dot_002000009408)
+(gotolocation agent1 loc_bar__minus_9_bar_7_bar_2_bar_60 loc_bar__minus_11_bar_2_bar_2_bar_60)
+(placeobject_2 agent1 loc_bar__minus_11_bar_2_bar_2_bar_60 sofa__minus_10_dot_732_comma__minus_10_dot_732_comma__minus_0_dot_4984_comma__minus_0_dot_4984_comma__minus_0_dot_184_comma__minus_0_dot_184 box__minus_9_dot_05871392_comma__minus_9_dot_05871392_comma_5_dot_0059352_comma_5_dot_0059352_comma_2_dot_668_comma_2_dot_668)","['RestartObject_1', 'PlaceObject_2', 'TurnOnObject_4', 'CloseObject_1', 'WashObject_1', 'TakeObject_3', 'InvestigateObject_2', 'ToastObject_3', 'TakeObject_0', 'GoToLocation_1', 'InspectObject_0', 'DropObject_3', 'HeatObject_1', 'ToastObject_4', 'ThrowAwayObject_4', 'CookObject_0', 'TurnOffObject_2', 'WashObject_0', 'BakeObject_1', 'GoToLocation_2', 'TurnOnObject_1', 'WarmObject_3', 'TurnOffObject_3', 'UseObject_4', 'GoToLocation_0', 'ThrowObject_2', 'TurnOnObject_3', 'ThrowAwayObject_3', 'BakeObject_2', 'ToastObject_0', 'CoolObject_3', 'BakeObject_0', 'CoolObject_0', 'WarmObject_2', 'ThrowObject_0', 'TurnOnLight_2', 'RinseObject_2', 'OpenObject_4', 'TurnOnLight_3', 'DropObject_0', 'InspectObject_4', 'PlaceObject_4', 'MicrowaveObject_2', 'TurnOnLight_4', 'HeatObject_3', 'ThrowObject_1', 'PlaceObject_3', 'RestartObject_3', 'WarmObject_0', 'DropObject_2', 'SliceObject_0', 'RinseObject_0', 'TurnOnLamp_4', 'ExamineObject_3', 'ThrowAwayObject_0', 'TakeObject_1', 'CoolObject_4']"
+train/pick_and_place_simple-Box-None-Sofa-220/trial_T20190907_165527_462462,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BoxType)
+		(receptacleType ?r SofaType)
+		(inReceptacle ?o ?r))))
+)",True,"(gotolocation agent1 loc_bar__minus_19_bar_7_bar_1_bar_30 loc_bar__minus_11_bar_2_bar_2_bar_60)
+(gotolocation agent1 loc_bar__minus_11_bar_2_bar_2_bar_60 loc_bar__minus_9_bar_7_bar_2_bar_60)
+(pickupobjectinreceptacle agent1 loc_bar__minus_9_bar_7_bar_2_bar_60 box__minus_9_dot_05871392_comma__minus_9_dot_05871392_comma_5_dot_0059352_comma_5_dot_0059352_comma_2_dot_668_comma_2_dot_668 coffeetable__minus_10_dot_584_comma__minus_10_dot_584_comma_4_dot_6012_comma_4_dot_6012_comma__minus_0_dot_002000009408_comma__minus_0_dot_002000009408)
+(gotolocation agent1 loc_bar__minus_9_bar_7_bar_2_bar_60 loc_bar__minus_11_bar_2_bar_2_bar_60)
+(placeobject_2 agent1 loc_bar__minus_11_bar_2_bar_2_bar_60 sofa__minus_10_dot_732_comma__minus_10_dot_732_comma__minus_0_dot_4984_comma__minus_0_dot_4984_comma__minus_0_dot_184_comma__minus_0_dot_184 box__minus_9_dot_05871392_comma__minus_9_dot_05871392_comma_5_dot_0059352_comma_5_dot_0059352_comma_2_dot_668_comma_2_dot_668)","['RestartObject_1', 'PlaceObject_2', 'TurnOnObject_4', 'CloseObject_1', 'WashObject_1', 'TakeObject_3', 'InvestigateObject_2', 'ToastObject_3', 'TakeObject_0', 'GoToLocation_1', 'InspectObject_0', 'DropObject_3', 'HeatObject_1', 'ToastObject_4', 'ThrowAwayObject_4', 'CookObject_0', 'TurnOffObject_2', 'WashObject_0', 'BakeObject_1', 'GoToLocation_2', 'TurnOnObject_1', 'WarmObject_3', 'TurnOffObject_3', 'UseObject_4', 'GoToLocation_0', 'ThrowObject_2', 'TurnOnObject_3', 'ThrowAwayObject_3', 'BakeObject_2', 'ToastObject_0', 'CoolObject_3', 'BakeObject_0', 'CoolObject_0', 'WarmObject_2', 'ThrowObject_0', 'TurnOnLight_2', 'RinseObject_2', 'OpenObject_4', 'TurnOnLight_3', 'DropObject_0', 'InspectObject_4', 'PlaceObject_4', 'MicrowaveObject_2', 'TurnOnLight_4', 'HeatObject_3', 'ThrowObject_1', 'PlaceObject_3', 'RestartObject_3', 'WarmObject_0', 'DropObject_2', 'SliceObject_0', 'RinseObject_0', 'TurnOnLamp_4', 'ExamineObject_3', 'ThrowAwayObject_0', 'TakeObject_1', 'CoolObject_4']"
+train/pick_and_place_simple-Box-None-Sofa-220/trial_T20190907_165527_462462,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o BoxType)
+		(inReceptacle ?o ?r))))
+)",False,,"['RestartObject_1', 'PlaceObject_2', 'TurnOnObject_4', 'CloseObject_1', 'WashObject_1', 'TakeObject_3', 'InvestigateObject_2', 'ToastObject_3', 'TakeObject_0', 'GoToLocation_1', 'InspectObject_0', 'DropObject_3', 'HeatObject_1', 'ToastObject_4', 'ThrowAwayObject_4', 'CookObject_0', 'TurnOffObject_2', 'WashObject_0', 'BakeObject_1', 'GoToLocation_2', 'TurnOnObject_1', 'WarmObject_3', 'TurnOffObject_3', 'UseObject_4', 'GoToLocation_0', 'ThrowObject_2', 'TurnOnObject_3', 'ThrowAwayObject_3', 'BakeObject_2', 'ToastObject_0', 'CoolObject_3', 'BakeObject_0', 'CoolObject_0', 'WarmObject_2', 'ThrowObject_0', 'TurnOnLight_2', 'RinseObject_2', 'OpenObject_4', 'TurnOnLight_3', 'DropObject_0', 'InspectObject_4', 'PlaceObject_4', 'MicrowaveObject_2', 'TurnOnLight_4', 'HeatObject_3', 'ThrowObject_1', 'PlaceObject_3', 'RestartObject_3', 'WarmObject_0', 'DropObject_2', 'SliceObject_0', 'RinseObject_0', 'TurnOnLamp_4', 'ExamineObject_3', 'ThrowAwayObject_0', 'TakeObject_1', 'CoolObject_4']"
+train/pick_and_place_simple-RemoteControl-None-ArmChair-230/trial_T20190909_020906_064567,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o RemoteControlType)
+		(receptacleType ?r ArmChairType)
+		(inReceptacle ?o ?r))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/pick_and_place_simple-RemoteControl-None-ArmChair-230/trial_T20190909_020906_064567,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o RemoteControlType)
+		(receptacleType ?r ArmChairType)
+		(inReceptacle ?o ?r))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/pick_and_place_simple-RemoteControl-None-ArmChair-230/trial_T20190909_020906_064567,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o RemoteControlType)
+		(receptacleType ?r ArmChairType)
+		(inReceptacle ?o ?r))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/pick_and_place_simple-RemoteControl-None-ArmChair-230/trial_T20190909_020906_064567,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o RemoteControlType)
+		(inReceptacle ?o ?r))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/pick_and_place_simple-RemoteControl-None-ArmChair-230/trial_T20190909_020906_064567,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o RemoteControlType)
+		(receptacleType ?r ArmChairType)
+		(inReceptacle ?o ?r))))
+)",True,"(gotolocation agent1 loc_bar__minus_22_bar_8_bar_3_bar_30 loc_bar__minus_10_bar_22_bar_2_bar_60)
+(gotolocation agent1 loc_bar__minus_10_bar_22_bar_2_bar_60 loc_bar__minus_6_bar_9_bar_3_bar_45)
+(takeobject_0 agent1 loc_bar__minus_6_bar_9_bar_3_bar_45 diningtable__minus_11_dot_612_comma__minus_11_dot_612_comma_8_dot_9_comma_8_dot_9_comma_0_dot_0572_comma_0_dot_0572 remotecontrol__minus_13_dot_73041724_comma__minus_13_dot_73041724_comma_8_dot_24723052_comma_8_dot_24723052_comma_3_dot_133654_comma_3_dot_133654)
+(gotolocation agent1 loc_bar__minus_6_bar_9_bar_3_bar_45 loc_bar__minus_10_bar_22_bar_2_bar_60)
+(placeobject_2 agent1 loc_bar__minus_10_bar_22_bar_2_bar_60 armchair__minus_10_dot_764_comma__minus_10_dot_764_comma_18_dot_464_comma_18_dot_464_comma_0_dot_0037252904_comma_0_dot_0037252904 remotecontrol__minus_13_dot_73041724_comma__minus_13_dot_73041724_comma_8_dot_24723052_comma_8_dot_24723052_comma_3_dot_133654_comma_3_dot_133654)","['InspectObject_0', 'RestartObject_1', 'TurnOnLight_4', 'WashObject_3', 'CoolObject_2', 'TurnOnObject_4', 'OpenObject_0', 'MicrowaveObject_1', 'RestartObject_3', 'CookObject_0', 'CloseObject_1', 'ToastObject_0', 'PlaceObject_2', 'InvestigateObject_3', 'CoolObject_3', 'MicrowaveObject_2', 'HeatObject_1', 'LookAtObject_0', 'LookAtObject_3', 'TurnOnObject_1', 'ToastObject_4', 'TurnOffObject_4', 'CloseObject_4', 'CloseObject_0', 'InspectObject_2', 'PlaceObject_4', 'TurnOffObject_3', 'GoToLocation_0', 'MicrowaveObject_4', 'TakeObject_4', 'TurnOffObject_2', 'BakeObject_1', 'GoToLocation_2', 'TakeObject_0', 'ThrowAwayObject_3', 'OpenObject_3', 'PlaceObject_3', 'UseObject_3', 'SliceObject_1', 'ThrowAwayObject_4', 'DropObject_3', 'LookAtObject_4', 'CoolObject_1', 'InspectObject_4', 'UseObject_4', 'InvestigateObject_0', 'WashObject_4', 'RestartObject_0', 'RinseObject_0', 'WashObject_1', 'ThrowObject_3', 'TurnOffObject_0', 'DropObject_0', 'WarmObject_2', 'InvestigateObject_1', 'ExamineObject_3', 'GoToLocation_3']"
+train/pick_and_place_simple-RemoteControl-None-ArmChair-230/trial_T20190909_020906_064567,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o RemoteControlType)
+		(receptacleType ?r ArmChairType)
+		(inReceptacle ?o ?r))))
+)",True,"(gotolocation agent1 loc_bar__minus_22_bar_8_bar_3_bar_30 loc_bar__minus_10_bar_22_bar_2_bar_60)
+(gotolocation agent1 loc_bar__minus_10_bar_22_bar_2_bar_60 loc_bar__minus_6_bar_9_bar_3_bar_45)
+(takeobject_0 agent1 loc_bar__minus_6_bar_9_bar_3_bar_45 diningtable__minus_11_dot_612_comma__minus_11_dot_612_comma_8_dot_9_comma_8_dot_9_comma_0_dot_0572_comma_0_dot_0572 remotecontrol__minus_13_dot_73041724_comma__minus_13_dot_73041724_comma_8_dot_24723052_comma_8_dot_24723052_comma_3_dot_133654_comma_3_dot_133654)
+(gotolocation agent1 loc_bar__minus_6_bar_9_bar_3_bar_45 loc_bar__minus_10_bar_22_bar_2_bar_60)
+(placeobject_2 agent1 loc_bar__minus_10_bar_22_bar_2_bar_60 armchair__minus_10_dot_764_comma__minus_10_dot_764_comma_18_dot_464_comma_18_dot_464_comma_0_dot_0037252904_comma_0_dot_0037252904 remotecontrol__minus_13_dot_73041724_comma__minus_13_dot_73041724_comma_8_dot_24723052_comma_8_dot_24723052_comma_3_dot_133654_comma_3_dot_133654)","['InspectObject_0', 'RestartObject_1', 'TurnOnLight_4', 'WashObject_3', 'CoolObject_2', 'TurnOnObject_4', 'OpenObject_0', 'MicrowaveObject_1', 'RestartObject_3', 'CookObject_0', 'CloseObject_1', 'ToastObject_0', 'PlaceObject_2', 'InvestigateObject_3', 'CoolObject_3', 'MicrowaveObject_2', 'HeatObject_1', 'LookAtObject_0', 'LookAtObject_3', 'TurnOnObject_1', 'ToastObject_4', 'TurnOffObject_4', 'CloseObject_4', 'CloseObject_0', 'InspectObject_2', 'PlaceObject_4', 'TurnOffObject_3', 'GoToLocation_0', 'MicrowaveObject_4', 'TakeObject_4', 'TurnOffObject_2', 'BakeObject_1', 'GoToLocation_2', 'TakeObject_0', 'ThrowAwayObject_3', 'OpenObject_3', 'PlaceObject_3', 'UseObject_3', 'SliceObject_1', 'ThrowAwayObject_4', 'DropObject_3', 'LookAtObject_4', 'CoolObject_1', 'InspectObject_4', 'UseObject_4', 'InvestigateObject_0', 'WashObject_4', 'RestartObject_0', 'RinseObject_0', 'WashObject_1', 'ThrowObject_3', 'TurnOffObject_0', 'DropObject_0', 'WarmObject_2', 'InvestigateObject_1', 'ExamineObject_3', 'GoToLocation_3']"
+train/pick_and_place_simple-RemoteControl-None-ArmChair-230/trial_T20190909_020906_064567,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o RemoteControlType)
+		(receptacleType ?r ArmChairType)
+		(inReceptacle ?o ?r))))
+)",True,"(gotolocation agent1 loc_bar__minus_22_bar_8_bar_3_bar_30 loc_bar__minus_10_bar_22_bar_2_bar_60)
+(gotolocation agent1 loc_bar__minus_10_bar_22_bar_2_bar_60 loc_bar__minus_6_bar_9_bar_3_bar_45)
+(takeobject_0 agent1 loc_bar__minus_6_bar_9_bar_3_bar_45 diningtable__minus_11_dot_612_comma__minus_11_dot_612_comma_8_dot_9_comma_8_dot_9_comma_0_dot_0572_comma_0_dot_0572 remotecontrol__minus_13_dot_73041724_comma__minus_13_dot_73041724_comma_8_dot_24723052_comma_8_dot_24723052_comma_3_dot_133654_comma_3_dot_133654)
+(gotolocation agent1 loc_bar__minus_6_bar_9_bar_3_bar_45 loc_bar__minus_10_bar_22_bar_2_bar_60)
+(placeobject_2 agent1 loc_bar__minus_10_bar_22_bar_2_bar_60 armchair__minus_10_dot_764_comma__minus_10_dot_764_comma_18_dot_464_comma_18_dot_464_comma_0_dot_0037252904_comma_0_dot_0037252904 remotecontrol__minus_13_dot_73041724_comma__minus_13_dot_73041724_comma_8_dot_24723052_comma_8_dot_24723052_comma_3_dot_133654_comma_3_dot_133654)","['InspectObject_0', 'RestartObject_1', 'TurnOnLight_4', 'WashObject_3', 'CoolObject_2', 'TurnOnObject_4', 'OpenObject_0', 'MicrowaveObject_1', 'RestartObject_3', 'CookObject_0', 'CloseObject_1', 'ToastObject_0', 'PlaceObject_2', 'InvestigateObject_3', 'CoolObject_3', 'MicrowaveObject_2', 'HeatObject_1', 'LookAtObject_0', 'LookAtObject_3', 'TurnOnObject_1', 'ToastObject_4', 'TurnOffObject_4', 'CloseObject_4', 'CloseObject_0', 'InspectObject_2', 'PlaceObject_4', 'TurnOffObject_3', 'GoToLocation_0', 'MicrowaveObject_4', 'TakeObject_4', 'TurnOffObject_2', 'BakeObject_1', 'GoToLocation_2', 'TakeObject_0', 'ThrowAwayObject_3', 'OpenObject_3', 'PlaceObject_3', 'UseObject_3', 'SliceObject_1', 'ThrowAwayObject_4', 'DropObject_3', 'LookAtObject_4', 'CoolObject_1', 'InspectObject_4', 'UseObject_4', 'InvestigateObject_0', 'WashObject_4', 'RestartObject_0', 'RinseObject_0', 'WashObject_1', 'ThrowObject_3', 'TurnOffObject_0', 'DropObject_0', 'WarmObject_2', 'InvestigateObject_1', 'ExamineObject_3', 'GoToLocation_3']"
+train/pick_and_place_simple-RemoteControl-None-ArmChair-230/trial_T20190909_020906_064567,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o RemoteControlType)
+		(inReceptacle ?o ?r))))
+)",False,,"['InspectObject_0', 'RestartObject_1', 'TurnOnLight_4', 'WashObject_3', 'CoolObject_2', 'TurnOnObject_4', 'OpenObject_0', 'MicrowaveObject_1', 'RestartObject_3', 'CookObject_0', 'CloseObject_1', 'ToastObject_0', 'PlaceObject_2', 'InvestigateObject_3', 'CoolObject_3', 'MicrowaveObject_2', 'HeatObject_1', 'LookAtObject_0', 'LookAtObject_3', 'TurnOnObject_1', 'ToastObject_4', 'TurnOffObject_4', 'CloseObject_4', 'CloseObject_0', 'InspectObject_2', 'PlaceObject_4', 'TurnOffObject_3', 'GoToLocation_0', 'MicrowaveObject_4', 'TakeObject_4', 'TurnOffObject_2', 'BakeObject_1', 'GoToLocation_2', 'TakeObject_0', 'ThrowAwayObject_3', 'OpenObject_3', 'PlaceObject_3', 'UseObject_3', 'SliceObject_1', 'ThrowAwayObject_4', 'DropObject_3', 'LookAtObject_4', 'CoolObject_1', 'InspectObject_4', 'UseObject_4', 'InvestigateObject_0', 'WashObject_4', 'RestartObject_0', 'RinseObject_0', 'WashObject_1', 'ThrowObject_3', 'TurnOffObject_0', 'DropObject_0', 'WarmObject_2', 'InvestigateObject_1', 'ExamineObject_3', 'GoToLocation_3']"
+train/pick_and_place_simple-Vase-None-Safe-204/trial_T20190919_000336_714640,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r SafeType)
+		(inReceptacle ?o ?r))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/pick_and_place_simple-Vase-None-Safe-204/trial_T20190919_000336_714640,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r SafeType)
+		(inReceptacle ?o ?r))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/pick_and_place_simple-Vase-None-Safe-204/trial_T20190919_000336_714640,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r SafeType)
+		(inReceptacle ?o ?r))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/pick_and_place_simple-Vase-None-Safe-204/trial_T20190919_000336_714640,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r SafeType)
+		(inReceptacle ?o ?r))))
+)",False,,"['BakeObject_4', 'RestartObject_0', 'CloseObject_3', 'ExamineObject_0', 'LookAtObject_3', 'CookObject_0', 'OpenObject_4', 'ToastObject_3', 'RestartObject_3', 'WashObject_3', 'DropObject_2', 'UseObject_4', 'RestartObject_4', 'TurnOnLight_3', 'LookAtObject_1', 'UseObject_3', 'TurnOnLamp_3', 'InvestigateObject_2', 'ThrowObject_1', 'TurnOnLight_4', 'WashObject_4', 'ThrowAwayObject_4', 'ThrowObject_2', 'TakeObject_3', 'TakeObject_1', 'InvestigateObject_1', 'TakeObject_2', 'GoToLocation_4', 'TakeObject_4', 'InvestigateObject_0', 'DropObject_1', 'TurnOnLight_2', 'GoToLocation_0', 'MicrowaveObject_4', 'TurnOffObject_2', 'WarmObject_0', 'ThrowAwayObject_3', 'GoToLocation_3', 'CloseObject_2', 'CoolObject_1', 'OpenObject_1', 'TurnOffObject_0', 'BakeObject_0', 'RestartObject_2', 'PlaceObject_2', 'ThrowObject_3', 'TurnOnLamp_0', 'ExamineObject_2', 'InspectObject_0', 'WarmObject_2', 'ExamineObject_3', 'RestartObject_1', 'ThrowAwayObject_0', 'ToastObject_0', 'CoolObject_2', 'FillObject_0', 'BakeObject_1', 'WashObject_1', 'PlaceObject_3', 'HeatObject_1', 'BakeObject_2', 'DropObject_4', 'LookAtObject_2', 'CoolObject_3', 'ToastObject_4', 'ChillObject_1', 'ThrowAwayObject_1', 'SliceObject_4', 'GoToLocation_1', 'TurnOnObject_2', 'RinseObject_0', 'OpenObject_0', 'MicrowaveObject_1', 'HeatObject_3', 'CoolObject_0', 'TurnOffObject_3', 'TakeObject_0', 'InspectObject_1', 'CloseObject_0', 'SliceObject_0', 'InspectObject_3', 'MicrowaveObject_2', 'TurnOnLamp_4', 'GoToLocation_2', 'LookAtObject_0', 'PlaceObject_4', 'RinseObject_2', 'SliceObject_2', 'LookAtObject_4', 'DropObject_0', 'HeatObject_0', 'WarmObject_3', 'SliceObject_1', 'InspectObject_2', 'MicrowaveObject_0', 'TurnOnLamp_1', 'WashObject_0', 'CloseObject_4', 'TurnOffObject_4', 'OpenObject_3', 'InvestigateObject_3', 'DropObject_3', 'ThrowAwayObject_2', 'ThrowObject_0', 'TurnOnObject_4', 'TurnOnLight_0', 'OpenObject_2', 'TurnOnLight_1', 'TurnOnObject_1', 'CloseObject_1', 'CoolObject_4', 'InspectObject_4', 'ToastObject_2', 'TurnOnObject_3']"
+train/pick_and_place_simple-Vase-None-Safe-204/trial_T20190919_000336_714640,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r SafeType)
+		(inReceptacle ?o ?r))))
+)",False,,"['ThrowAwayObject_4', 'TurnOffObject_0', 'MicrowaveObject_2', 'CloseObject_4', 'TakeObject_4', 'WashObject_1', 'HeatObject_3', 'CoolObject_3', 'CoolObject_2', 'MicrowaveObject_1', 'WarmObject_3', 'TurnOnObject_2', 'InspectObject_3', 'BakeObject_1', 'OpenObject_4', 'GoToLocation_1', 'TakeObject_3', 'WarmObject_2', 'CloseObject_0', 'ThrowAwayObject_0', 'TurnOnObject_3', 'DropObject_3', 'RestartObject_1', 'SliceObject_4', 'LookAtObject_0', 'LookAtObject_2', 'ExamineObject_2', 'HeatObject_0', 'InvestigateObject_1', 'DropObject_0', 'SliceObject_0', 'ThrowAwayObject_3', 'TurnOnObject_4', 'LookAtObject_3', 'GoToLocation_4', 'WashObject_4', 'UseObject_4', 'CloseObject_1', 'TurnOnLamp_1', 'OpenObject_2', 'RestartObject_2', 'CoolObject_0', 'ThrowObject_0', 'OpenObject_0', 'ToastObject_3', 'CloseObject_3', 'BakeObject_0', 'SliceObject_1', 'TurnOnLight_4', 'PlaceObject_2', 'DropObject_4', 'TurnOffObject_3', 'PlaceObject_4', 'InvestigateObject_3', 'GoToLocation_0', 'TurnOffObject_4', 'TurnOnLight_1']"
+train/pick_and_place_simple-Vase-None-Safe-204/trial_T20190919_000336_714640,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r SafeType)
+		(inReceptacle ?o ?r))))
+)",False,,"['ThrowAwayObject_4', 'TurnOffObject_0', 'MicrowaveObject_2', 'CloseObject_4', 'TakeObject_4', 'WashObject_1', 'HeatObject_3', 'CoolObject_3', 'CoolObject_2', 'MicrowaveObject_1', 'WarmObject_3', 'TurnOnObject_2', 'InspectObject_3', 'BakeObject_1', 'OpenObject_4', 'GoToLocation_1', 'TakeObject_3', 'WarmObject_2', 'CloseObject_0', 'ThrowAwayObject_0', 'TurnOnObject_3', 'DropObject_3', 'RestartObject_1', 'SliceObject_4', 'LookAtObject_0', 'LookAtObject_2', 'ExamineObject_2', 'HeatObject_0', 'InvestigateObject_1', 'DropObject_0', 'SliceObject_0', 'ThrowAwayObject_3', 'TurnOnObject_4', 'LookAtObject_3', 'GoToLocation_4', 'WashObject_4', 'UseObject_4', 'CloseObject_1', 'TurnOnLamp_1', 'OpenObject_2', 'RestartObject_2', 'CoolObject_0', 'ThrowObject_0', 'OpenObject_0', 'ToastObject_3', 'CloseObject_3', 'BakeObject_0', 'SliceObject_1', 'TurnOnLight_4', 'PlaceObject_2', 'DropObject_4', 'TurnOffObject_3', 'PlaceObject_4', 'InvestigateObject_3', 'GoToLocation_0', 'TurnOffObject_4', 'TurnOnLight_1']"
+train/pick_and_place_simple-Vase-None-Safe-204/trial_T20190919_000336_714640,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r SafeType)
+		(inReceptacle ?o ?r))))
+)",False,,"['ThrowAwayObject_4', 'TurnOffObject_0', 'MicrowaveObject_2', 'CloseObject_4', 'TakeObject_4', 'WashObject_1', 'HeatObject_3', 'CoolObject_3', 'CoolObject_2', 'MicrowaveObject_1', 'WarmObject_3', 'TurnOnObject_2', 'InspectObject_3', 'BakeObject_1', 'OpenObject_4', 'GoToLocation_1', 'TakeObject_3', 'WarmObject_2', 'CloseObject_0', 'ThrowAwayObject_0', 'TurnOnObject_3', 'DropObject_3', 'RestartObject_1', 'SliceObject_4', 'LookAtObject_0', 'LookAtObject_2', 'ExamineObject_2', 'HeatObject_0', 'InvestigateObject_1', 'DropObject_0', 'SliceObject_0', 'ThrowAwayObject_3', 'TurnOnObject_4', 'LookAtObject_3', 'GoToLocation_4', 'WashObject_4', 'UseObject_4', 'CloseObject_1', 'TurnOnLamp_1', 'OpenObject_2', 'RestartObject_2', 'CoolObject_0', 'ThrowObject_0', 'OpenObject_0', 'ToastObject_3', 'CloseObject_3', 'BakeObject_0', 'SliceObject_1', 'TurnOnLight_4', 'PlaceObject_2', 'DropObject_4', 'TurnOffObject_3', 'PlaceObject_4', 'InvestigateObject_3', 'GoToLocation_0', 'TurnOffObject_4', 'TurnOnLight_1']"
+train/pick_and_place_simple-Vase-None-Safe-204/trial_T20190919_000336_714640,1,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r SafeType)
+		(inReceptacle ?o ?r))))
+)",False,,"['ThrowAwayObject_4', 'TurnOffObject_0', 'MicrowaveObject_2', 'CloseObject_4', 'TakeObject_4', 'WashObject_1', 'HeatObject_3', 'CoolObject_3', 'CoolObject_2', 'MicrowaveObject_1', 'WarmObject_3', 'TurnOnObject_2', 'InspectObject_3', 'BakeObject_1', 'OpenObject_4', 'GoToLocation_1', 'TakeObject_3', 'WarmObject_2', 'CloseObject_0', 'ThrowAwayObject_0', 'TurnOnObject_3', 'DropObject_3', 'RestartObject_1', 'SliceObject_4', 'LookAtObject_0', 'LookAtObject_2', 'ExamineObject_2', 'HeatObject_0', 'InvestigateObject_1', 'DropObject_0', 'SliceObject_0', 'ThrowAwayObject_3', 'TurnOnObject_4', 'LookAtObject_3', 'GoToLocation_4', 'WashObject_4', 'UseObject_4', 'CloseObject_1', 'TurnOnLamp_1', 'OpenObject_2', 'RestartObject_2', 'CoolObject_0', 'ThrowObject_0', 'OpenObject_0', 'ToastObject_3', 'CloseObject_3', 'BakeObject_0', 'SliceObject_1', 'TurnOnLight_4', 'PlaceObject_2', 'DropObject_4', 'TurnOffObject_3', 'PlaceObject_4', 'InvestigateObject_3', 'GoToLocation_0', 'TurnOffObject_4', 'TurnOnLight_1']"
+train/pick_and_place_simple-Vase-None-Safe-204/trial_T20190919_000336_714640,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r SafeType)
+		(inReceptacle ?o ?r))))
+)",True,"(gotolocation agent1 loc_bar__minus_7_bar__minus_12_bar_0_bar_30 loc_bar__minus_3_bar_2_bar_1_bar_60)
+(gotolocation agent1 loc_bar__minus_3_bar_2_bar_1_bar_60 loc_bar__minus_8_bar_12_bar_0_bar_60)
+(takeobject_0 agent1 loc_bar__minus_8_bar_12_bar_0_bar_60 coffeetable__minus_7_dot_8633914_comma__minus_7_dot_8633914_comma_16_dot_749424_comma_16_dot_749424_comma_0_dot_0151632_comma_0_dot_0151632 vase__minus_6_dot_181544_comma__minus_6_dot_181544_comma_17_dot_85756684_comma_17_dot_85756684_comma_1_dot_831801056_comma_1_dot_831801056)
+(gotolocation agent1 loc_bar__minus_8_bar_12_bar_0_bar_60 loc_bar__minus_3_bar_2_bar_1_bar_60)
+(placeobject_2 agent1 loc_bar__minus_3_bar_2_bar_1_bar_60 safe_0_dot_7896_comma_0_dot_7896_comma__minus_0_dot_4084_comma__minus_0_dot_4084_comma_0_dot_00526052712_comma_0_dot_00526052712 vase__minus_6_dot_181544_comma__minus_6_dot_181544_comma_17_dot_85756684_comma_17_dot_85756684_comma_1_dot_831801056_comma_1_dot_831801056)","['DropObject_4', 'PlaceObject_2', 'ExamineObject_2', 'ChillObject_1', 'TurnOnLamp_1', 'TurnOnLight_3', 'PlaceObject_4', 'UseObject_4', 'ToastObject_0', 'CoolObject_2', 'RestartObject_2', 'DropObject_0', 'TurnOffObject_0', 'OpenObject_2', 'RestartObject_4', 'OpenObject_0', 'InvestigateObject_2', 'TurnOnLamp_0', 'ThrowAwayObject_3', 'MicrowaveObject_0', 'TurnOnLight_2', 'UseObject_3', 'InspectObject_4', 'CloseObject_1', 'GoToLocation_1', 'TakeObject_2', 'BakeObject_1', 'InvestigateObject_0', 'RinseObject_2', 'DropObject_1', 'HeatObject_3', 'GoToLocation_2', 'BakeObject_2', 'ThrowObject_3', 'CoolObject_3', 'TakeObject_0', 'SliceObject_4', 'SliceObject_0', 'LookAtObject_3', 'InvestigateObject_1', 'OpenObject_3', 'WarmObject_2', 'CoolObject_0', 'LookAtObject_0', 'LookAtObject_2', 'WashObject_3', 'WashObject_4', 'BakeObject_4', 'TurnOnLight_4', 'HeatObject_1', 'InspectObject_1', 'ThrowAwayObject_2', 'RestartObject_0', 'InvestigateObject_3', 'WarmObject_0', 'SliceObject_2', 'TurnOnObject_1']"
+train/pick_and_place_simple-Vase-None-Safe-204/trial_T20190919_000336_714640,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r SafeType)
+		(inReceptacle ?o ?r))))
+)",True,"(gotolocation agent1 loc_bar__minus_7_bar__minus_12_bar_0_bar_30 loc_bar__minus_3_bar_2_bar_1_bar_60)
+(gotolocation agent1 loc_bar__minus_3_bar_2_bar_1_bar_60 loc_bar__minus_8_bar_12_bar_0_bar_60)
+(takeobject_0 agent1 loc_bar__minus_8_bar_12_bar_0_bar_60 coffeetable__minus_7_dot_8633914_comma__minus_7_dot_8633914_comma_16_dot_749424_comma_16_dot_749424_comma_0_dot_0151632_comma_0_dot_0151632 vase__minus_6_dot_181544_comma__minus_6_dot_181544_comma_17_dot_85756684_comma_17_dot_85756684_comma_1_dot_831801056_comma_1_dot_831801056)
+(gotolocation agent1 loc_bar__minus_8_bar_12_bar_0_bar_60 loc_bar__minus_3_bar_2_bar_1_bar_60)
+(placeobject_2 agent1 loc_bar__minus_3_bar_2_bar_1_bar_60 safe_0_dot_7896_comma_0_dot_7896_comma__minus_0_dot_4084_comma__minus_0_dot_4084_comma_0_dot_00526052712_comma_0_dot_00526052712 vase__minus_6_dot_181544_comma__minus_6_dot_181544_comma_17_dot_85756684_comma_17_dot_85756684_comma_1_dot_831801056_comma_1_dot_831801056)","['DropObject_4', 'PlaceObject_2', 'ExamineObject_2', 'ChillObject_1', 'TurnOnLamp_1', 'TurnOnLight_3', 'PlaceObject_4', 'UseObject_4', 'ToastObject_0', 'CoolObject_2', 'RestartObject_2', 'DropObject_0', 'TurnOffObject_0', 'OpenObject_2', 'RestartObject_4', 'OpenObject_0', 'InvestigateObject_2', 'TurnOnLamp_0', 'ThrowAwayObject_3', 'MicrowaveObject_0', 'TurnOnLight_2', 'UseObject_3', 'InspectObject_4', 'CloseObject_1', 'GoToLocation_1', 'TakeObject_2', 'BakeObject_1', 'InvestigateObject_0', 'RinseObject_2', 'DropObject_1', 'HeatObject_3', 'GoToLocation_2', 'BakeObject_2', 'ThrowObject_3', 'CoolObject_3', 'TakeObject_0', 'SliceObject_4', 'SliceObject_0', 'LookAtObject_3', 'InvestigateObject_1', 'OpenObject_3', 'WarmObject_2', 'CoolObject_0', 'LookAtObject_0', 'LookAtObject_2', 'WashObject_3', 'WashObject_4', 'BakeObject_4', 'TurnOnLight_4', 'HeatObject_1', 'InspectObject_1', 'ThrowAwayObject_2', 'RestartObject_0', 'InvestigateObject_3', 'WarmObject_0', 'SliceObject_2', 'TurnOnObject_1']"
+train/pick_and_place_simple-Vase-None-Safe-204/trial_T20190919_000336_714640,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r SafeType)
+		(inReceptacle ?o ?r))))
+)",True,"(gotolocation agent1 loc_bar__minus_7_bar__minus_12_bar_0_bar_30 loc_bar__minus_3_bar_2_bar_1_bar_60)
+(gotolocation agent1 loc_bar__minus_3_bar_2_bar_1_bar_60 loc_bar__minus_8_bar_12_bar_0_bar_60)
+(takeobject_0 agent1 loc_bar__minus_8_bar_12_bar_0_bar_60 coffeetable__minus_7_dot_8633914_comma__minus_7_dot_8633914_comma_16_dot_749424_comma_16_dot_749424_comma_0_dot_0151632_comma_0_dot_0151632 vase__minus_6_dot_181544_comma__minus_6_dot_181544_comma_17_dot_85756684_comma_17_dot_85756684_comma_1_dot_831801056_comma_1_dot_831801056)
+(gotolocation agent1 loc_bar__minus_8_bar_12_bar_0_bar_60 loc_bar__minus_3_bar_2_bar_1_bar_60)
+(placeobject_2 agent1 loc_bar__minus_3_bar_2_bar_1_bar_60 safe_0_dot_7896_comma_0_dot_7896_comma__minus_0_dot_4084_comma__minus_0_dot_4084_comma_0_dot_00526052712_comma_0_dot_00526052712 vase__minus_6_dot_181544_comma__minus_6_dot_181544_comma_17_dot_85756684_comma_17_dot_85756684_comma_1_dot_831801056_comma_1_dot_831801056)","['DropObject_4', 'PlaceObject_2', 'ExamineObject_2', 'ChillObject_1', 'TurnOnLamp_1', 'TurnOnLight_3', 'PlaceObject_4', 'UseObject_4', 'ToastObject_0', 'CoolObject_2', 'RestartObject_2', 'DropObject_0', 'TurnOffObject_0', 'OpenObject_2', 'RestartObject_4', 'OpenObject_0', 'InvestigateObject_2', 'TurnOnLamp_0', 'ThrowAwayObject_3', 'MicrowaveObject_0', 'TurnOnLight_2', 'UseObject_3', 'InspectObject_4', 'CloseObject_1', 'GoToLocation_1', 'TakeObject_2', 'BakeObject_1', 'InvestigateObject_0', 'RinseObject_2', 'DropObject_1', 'HeatObject_3', 'GoToLocation_2', 'BakeObject_2', 'ThrowObject_3', 'CoolObject_3', 'TakeObject_0', 'SliceObject_4', 'SliceObject_0', 'LookAtObject_3', 'InvestigateObject_1', 'OpenObject_3', 'WarmObject_2', 'CoolObject_0', 'LookAtObject_0', 'LookAtObject_2', 'WashObject_3', 'WashObject_4', 'BakeObject_4', 'TurnOnLight_4', 'HeatObject_1', 'InspectObject_1', 'ThrowAwayObject_2', 'RestartObject_0', 'InvestigateObject_3', 'WarmObject_0', 'SliceObject_2', 'TurnOnObject_1']"
+train/pick_and_place_simple-Vase-None-Safe-204/trial_T20190919_000336_714640,2,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r SafeType)
+		(inReceptacle ?o ?r))))
+)",True,"(gotolocation agent1 loc_bar__minus_7_bar__minus_12_bar_0_bar_30 loc_bar__minus_3_bar_2_bar_1_bar_60)
+(gotolocation agent1 loc_bar__minus_3_bar_2_bar_1_bar_60 loc_bar__minus_8_bar_12_bar_0_bar_60)
+(takeobject_0 agent1 loc_bar__minus_8_bar_12_bar_0_bar_60 coffeetable__minus_7_dot_8633914_comma__minus_7_dot_8633914_comma_16_dot_749424_comma_16_dot_749424_comma_0_dot_0151632_comma_0_dot_0151632 vase__minus_6_dot_181544_comma__minus_6_dot_181544_comma_17_dot_85756684_comma_17_dot_85756684_comma_1_dot_831801056_comma_1_dot_831801056)
+(gotolocation agent1 loc_bar__minus_8_bar_12_bar_0_bar_60 loc_bar__minus_3_bar_2_bar_1_bar_60)
+(placeobject_2 agent1 loc_bar__minus_3_bar_2_bar_1_bar_60 safe_0_dot_7896_comma_0_dot_7896_comma__minus_0_dot_4084_comma__minus_0_dot_4084_comma_0_dot_00526052712_comma_0_dot_00526052712 vase__minus_6_dot_181544_comma__minus_6_dot_181544_comma_17_dot_85756684_comma_17_dot_85756684_comma_1_dot_831801056_comma_1_dot_831801056)","['DropObject_4', 'PlaceObject_2', 'ExamineObject_2', 'ChillObject_1', 'TurnOnLamp_1', 'TurnOnLight_3', 'PlaceObject_4', 'UseObject_4', 'ToastObject_0', 'CoolObject_2', 'RestartObject_2', 'DropObject_0', 'TurnOffObject_0', 'OpenObject_2', 'RestartObject_4', 'OpenObject_0', 'InvestigateObject_2', 'TurnOnLamp_0', 'ThrowAwayObject_3', 'MicrowaveObject_0', 'TurnOnLight_2', 'UseObject_3', 'InspectObject_4', 'CloseObject_1', 'GoToLocation_1', 'TakeObject_2', 'BakeObject_1', 'InvestigateObject_0', 'RinseObject_2', 'DropObject_1', 'HeatObject_3', 'GoToLocation_2', 'BakeObject_2', 'ThrowObject_3', 'CoolObject_3', 'TakeObject_0', 'SliceObject_4', 'SliceObject_0', 'LookAtObject_3', 'InvestigateObject_1', 'OpenObject_3', 'WarmObject_2', 'CoolObject_0', 'LookAtObject_0', 'LookAtObject_2', 'WashObject_3', 'WashObject_4', 'BakeObject_4', 'TurnOnLight_4', 'HeatObject_1', 'InspectObject_1', 'ThrowAwayObject_2', 'RestartObject_0', 'InvestigateObject_3', 'WarmObject_0', 'SliceObject_2', 'TurnOnObject_1']"
+train/pick_and_place_simple-Vase-None-Safe-204/trial_T20190919_000336_714640,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r SafeType)
+		(inReceptacle ?o ?r))))
+)",True,"(gotolocation agent1 loc_bar__minus_7_bar__minus_12_bar_0_bar_30 loc_bar__minus_3_bar_2_bar_1_bar_60)
+(gotolocation agent1 loc_bar__minus_3_bar_2_bar_1_bar_60 loc_bar__minus_7_bar__minus_5_bar_2_bar_60)
+(examineobject_0 agent1 loc_bar__minus_7_bar__minus_5_bar_2_bar_60 vase__minus_8_dot_04414652_comma__minus_8_dot_04414652_comma__minus_7_dot_28146124_comma__minus_7_dot_28146124_comma_2_dot_63630414_comma_2_dot_63630414)
+(gotolocation agent1 loc_bar__minus_7_bar__minus_5_bar_2_bar_60 loc_bar__minus_3_bar_2_bar_1_bar_60)
+(placeobject_3 agent1 loc_bar__minus_3_bar_2_bar_1_bar_60 safe_0_dot_7896_comma_0_dot_7896_comma__minus_0_dot_4084_comma__minus_0_dot_4084_comma_0_dot_00526052712_comma_0_dot_00526052712 vase__minus_8_dot_04414652_comma__minus_8_dot_04414652_comma__minus_7_dot_28146124_comma__minus_7_dot_28146124_comma_2_dot_63630414_comma_2_dot_63630414)","['DropObject_3', 'CoolObject_1', 'LookAtObject_2', 'GoToLocation_0', 'DropObject_4', 'CoolObject_3', 'SliceObject_1', 'WashObject_1', 'BakeObject_4', 'TurnOnLight_1', 'WashObject_3', 'RinseObject_2', 'DropObject_1', 'FillObject_0', 'InvestigateObject_3', 'InvestigateObject_1', 'TurnOnLamp_0', 'SliceObject_4', 'BakeObject_1', 'TurnOnObject_1', 'TurnOnLight_2', 'MicrowaveObject_1', 'CoolObject_4', 'ExamineObject_0', 'TakeObject_4', 'LookAtObject_1', 'BakeObject_0', 'PlaceObject_3', 'MicrowaveObject_2', 'WashObject_4', 'TurnOnObject_3', 'InspectObject_2', 'ThrowAwayObject_3', 'RestartObject_1', 'MicrowaveObject_0', 'RestartObject_2', 'WarmObject_2', 'OpenObject_2', 'TurnOnLamp_1', 'CloseObject_3', 'MicrowaveObject_4', 'CloseObject_2', 'TurnOffObject_3', 'GoToLocation_1', 'RestartObject_0', 'DropObject_2', 'InvestigateObject_0', 'TurnOffObject_0', 'ToastObject_4', 'ThrowAwayObject_4', 'ThrowObject_3', 'OpenObject_4', 'ChillObject_1', 'CoolObject_0', 'ToastObject_0', 'SliceObject_0']"
+train/pick_and_place_simple-Vase-None-Safe-204/trial_T20190919_000336_714640,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r SafeType)
+		(inReceptacle ?o ?r))))
+)",True,"(gotolocation agent1 loc_bar__minus_7_bar__minus_12_bar_0_bar_30 loc_bar__minus_3_bar_2_bar_1_bar_60)
+(gotolocation agent1 loc_bar__minus_3_bar_2_bar_1_bar_60 loc_bar__minus_7_bar__minus_5_bar_2_bar_60)
+(examineobject_0 agent1 loc_bar__minus_7_bar__minus_5_bar_2_bar_60 vase__minus_8_dot_04414652_comma__minus_8_dot_04414652_comma__minus_7_dot_28146124_comma__minus_7_dot_28146124_comma_2_dot_63630414_comma_2_dot_63630414)
+(gotolocation agent1 loc_bar__minus_7_bar__minus_5_bar_2_bar_60 loc_bar__minus_3_bar_2_bar_1_bar_60)
+(placeobject_3 agent1 loc_bar__minus_3_bar_2_bar_1_bar_60 safe_0_dot_7896_comma_0_dot_7896_comma__minus_0_dot_4084_comma__minus_0_dot_4084_comma_0_dot_00526052712_comma_0_dot_00526052712 vase__minus_8_dot_04414652_comma__minus_8_dot_04414652_comma__minus_7_dot_28146124_comma__minus_7_dot_28146124_comma_2_dot_63630414_comma_2_dot_63630414)","['DropObject_3', 'CoolObject_1', 'LookAtObject_2', 'GoToLocation_0', 'DropObject_4', 'CoolObject_3', 'SliceObject_1', 'WashObject_1', 'BakeObject_4', 'TurnOnLight_1', 'WashObject_3', 'RinseObject_2', 'DropObject_1', 'FillObject_0', 'InvestigateObject_3', 'InvestigateObject_1', 'TurnOnLamp_0', 'SliceObject_4', 'BakeObject_1', 'TurnOnObject_1', 'TurnOnLight_2', 'MicrowaveObject_1', 'CoolObject_4', 'ExamineObject_0', 'TakeObject_4', 'LookAtObject_1', 'BakeObject_0', 'PlaceObject_3', 'MicrowaveObject_2', 'WashObject_4', 'TurnOnObject_3', 'InspectObject_2', 'ThrowAwayObject_3', 'RestartObject_1', 'MicrowaveObject_0', 'RestartObject_2', 'WarmObject_2', 'OpenObject_2', 'TurnOnLamp_1', 'CloseObject_3', 'MicrowaveObject_4', 'CloseObject_2', 'TurnOffObject_3', 'GoToLocation_1', 'RestartObject_0', 'DropObject_2', 'InvestigateObject_0', 'TurnOffObject_0', 'ToastObject_4', 'ThrowAwayObject_4', 'ThrowObject_3', 'OpenObject_4', 'ChillObject_1', 'CoolObject_0', 'ToastObject_0', 'SliceObject_0']"
+train/pick_and_place_simple-Vase-None-Safe-204/trial_T20190919_000336_714640,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r SafeType)
+		(inReceptacle ?o ?r))))
+)",True,"(gotolocation agent1 loc_bar__minus_7_bar__minus_12_bar_0_bar_30 loc_bar__minus_3_bar_2_bar_1_bar_60)
+(gotolocation agent1 loc_bar__minus_3_bar_2_bar_1_bar_60 loc_bar__minus_7_bar__minus_5_bar_2_bar_60)
+(examineobject_0 agent1 loc_bar__minus_7_bar__minus_5_bar_2_bar_60 vase__minus_8_dot_04414652_comma__minus_8_dot_04414652_comma__minus_7_dot_28146124_comma__minus_7_dot_28146124_comma_2_dot_63630414_comma_2_dot_63630414)
+(gotolocation agent1 loc_bar__minus_7_bar__minus_5_bar_2_bar_60 loc_bar__minus_3_bar_2_bar_1_bar_60)
+(placeobject_3 agent1 loc_bar__minus_3_bar_2_bar_1_bar_60 safe_0_dot_7896_comma_0_dot_7896_comma__minus_0_dot_4084_comma__minus_0_dot_4084_comma_0_dot_00526052712_comma_0_dot_00526052712 vase__minus_8_dot_04414652_comma__minus_8_dot_04414652_comma__minus_7_dot_28146124_comma__minus_7_dot_28146124_comma_2_dot_63630414_comma_2_dot_63630414)","['DropObject_3', 'CoolObject_1', 'LookAtObject_2', 'GoToLocation_0', 'DropObject_4', 'CoolObject_3', 'SliceObject_1', 'WashObject_1', 'BakeObject_4', 'TurnOnLight_1', 'WashObject_3', 'RinseObject_2', 'DropObject_1', 'FillObject_0', 'InvestigateObject_3', 'InvestigateObject_1', 'TurnOnLamp_0', 'SliceObject_4', 'BakeObject_1', 'TurnOnObject_1', 'TurnOnLight_2', 'MicrowaveObject_1', 'CoolObject_4', 'ExamineObject_0', 'TakeObject_4', 'LookAtObject_1', 'BakeObject_0', 'PlaceObject_3', 'MicrowaveObject_2', 'WashObject_4', 'TurnOnObject_3', 'InspectObject_2', 'ThrowAwayObject_3', 'RestartObject_1', 'MicrowaveObject_0', 'RestartObject_2', 'WarmObject_2', 'OpenObject_2', 'TurnOnLamp_1', 'CloseObject_3', 'MicrowaveObject_4', 'CloseObject_2', 'TurnOffObject_3', 'GoToLocation_1', 'RestartObject_0', 'DropObject_2', 'InvestigateObject_0', 'TurnOffObject_0', 'ToastObject_4', 'ThrowAwayObject_4', 'ThrowObject_3', 'OpenObject_4', 'ChillObject_1', 'CoolObject_0', 'ToastObject_0', 'SliceObject_0']"
+train/pick_and_place_simple-Vase-None-Safe-204/trial_T20190919_000336_714640,3,0.5,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o VaseType)
+		(receptacleType ?r SafeType)
+		(inReceptacle ?o ?r))))
+)",True,"(gotolocation agent1 loc_bar__minus_7_bar__minus_12_bar_0_bar_30 loc_bar__minus_3_bar_2_bar_1_bar_60)
+(gotolocation agent1 loc_bar__minus_3_bar_2_bar_1_bar_60 loc_bar__minus_7_bar__minus_5_bar_2_bar_60)
+(examineobject_0 agent1 loc_bar__minus_7_bar__minus_5_bar_2_bar_60 vase__minus_8_dot_04414652_comma__minus_8_dot_04414652_comma__minus_7_dot_28146124_comma__minus_7_dot_28146124_comma_2_dot_63630414_comma_2_dot_63630414)
+(gotolocation agent1 loc_bar__minus_7_bar__minus_5_bar_2_bar_60 loc_bar__minus_3_bar_2_bar_1_bar_60)
+(placeobject_3 agent1 loc_bar__minus_3_bar_2_bar_1_bar_60 safe_0_dot_7896_comma_0_dot_7896_comma__minus_0_dot_4084_comma__minus_0_dot_4084_comma_0_dot_00526052712_comma_0_dot_00526052712 vase__minus_8_dot_04414652_comma__minus_8_dot_04414652_comma__minus_7_dot_28146124_comma__minus_7_dot_28146124_comma_2_dot_63630414_comma_2_dot_63630414)","['DropObject_3', 'CoolObject_1', 'LookAtObject_2', 'GoToLocation_0', 'DropObject_4', 'CoolObject_3', 'SliceObject_1', 'WashObject_1', 'BakeObject_4', 'TurnOnLight_1', 'WashObject_3', 'RinseObject_2', 'DropObject_1', 'FillObject_0', 'InvestigateObject_3', 'InvestigateObject_1', 'TurnOnLamp_0', 'SliceObject_4', 'BakeObject_1', 'TurnOnObject_1', 'TurnOnLight_2', 'MicrowaveObject_1', 'CoolObject_4', 'ExamineObject_0', 'TakeObject_4', 'LookAtObject_1', 'BakeObject_0', 'PlaceObject_3', 'MicrowaveObject_2', 'WashObject_4', 'TurnOnObject_3', 'InspectObject_2', 'ThrowAwayObject_3', 'RestartObject_1', 'MicrowaveObject_0', 'RestartObject_2', 'WarmObject_2', 'OpenObject_2', 'TurnOnLamp_1', 'CloseObject_3', 'MicrowaveObject_4', 'CloseObject_2', 'TurnOffObject_3', 'GoToLocation_1', 'RestartObject_0', 'DropObject_2', 'InvestigateObject_0', 'TurnOffObject_0', 'ToastObject_4', 'ThrowAwayObject_4', 'ThrowObject_3', 'OpenObject_4', 'ChillObject_1', 'CoolObject_0', 'ToastObject_0', 'SliceObject_0']"

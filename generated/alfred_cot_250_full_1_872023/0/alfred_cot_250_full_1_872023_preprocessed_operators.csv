@@ -1,0 +1,133 @@
+operator_name,gt_operator,codex_raw_operator,codex_preprocessed_operator,
+0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
+(:action CarryObject
+        :parameters (?a - agent ?l - location ?o - object)
+        :precondition (and
+            (atLocation ?a ?l)
+            (objectAtLocation ?o ?l)
+            (not (holdsAny ?a))
+        )
+        :effect (and
+            (holds ?a ?o)
+            (holdsAny ?a)
+            (not (objectAtLocation ?o ?l))
+        )
+    )
+
+<END>","(:action CarryObject_0
+        :parameters (?a - agent ?l - location ?o - object)
+
+        :precondition (and 
+		(atLocation ?a ?l)
+		(objectAtLocation ?o ?l)
+		(not (holdsAny ?a))
+		)
+        :effect (and 
+		(holds ?a ?o)
+		(holdsAny ?a)
+		(not (objectAtLocation ?o ?l))
+		)
+)",
+0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
+(:action CarryObject
+        :parameters (?a - agent ?l - location ?o - object)
+        :precondition (and
+            (atLocation ?a ?l)
+            (objectAtLocation ?o ?l)
+            (holdsAny ?a)
+            (not (holds ?a ?o))
+            (not (isReceptacleObject ?o))
+        )
+        :effect (and
+            (holds ?a ?o)
+            (not (objectAtLocation ?o ?l))
+        )
+    )
+
+<END>","(:action CarryObject_1
+        :parameters (?a - agent ?l - location ?o - object)
+
+        :precondition (and 
+		(atLocation ?a ?l)
+		(objectAtLocation ?o ?l)
+		(holdsAny ?a)
+		(not (holds ?a ?o))
+		(not (isReceptacleObject ?o))
+		)
+        :effect (and 
+		(holds ?a ?o)
+		(not (objectAtLocation ?o ?l))
+		)
+)",
+0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as parameters to the operator.
+(:action CarryObject
+        :parameters (?a - agent ?l - location ?o - object)
+        :precondition (and
+            (atLocation ?a ?l)
+            (objectAtLocation ?o ?l)
+        )
+        :effect (and
+            (holds ?a ?o)
+            (not (objectAtLocation ?o ?l))
+        )
+    )
+
+<END>","(:action CarryObject_2
+        :parameters (?a - agent ?l - location ?o - object)
+
+        :precondition (and 
+		(atLocation ?a ?l)
+		(objectAtLocation ?o ?l)
+		)
+        :effect (and 
+		(holds ?a ?o)
+		(not (objectAtLocation ?o ?l))
+		)
+)",
+0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
+(:action CarryObject
+        :parameters (?a - agent ?l - location ?ot - otype ?o - object)
+        :precondition (and
+            (atLocation ?a ?l)
+            (objectAtLocation ?o ?l)
+            (objectType ?o ?ot)
+            (not (holdsAny ?a))
+            (not (inReceptacle ?o ?r))
+        )
+        :effect (and
+            (holds ?a ?o)
+            (not (objectAtLocation ?o ?l))
+            (not (atLocation ?a ?l))
+        )
+    )
+
+<END>",FAILED,
+0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
+(:action CarryObject
+        :parameters (?a - agent ?l - location ?o - object)
+        :precondition (and
+            (atLocation ?a ?l)
+            (objectAtLocation ?o ?l)
+            (not (holdsAny ?a))
+        )
+        :effect (and
+            (not (objectAtLocation ?o ?l))
+            (holds ?a ?o)
+            (holdsAny ?a)
+        )
+    )
+
+<END>","(:action CarryObject_4
+        :parameters (?a - agent ?l - location ?o - object)
+
+        :precondition (and 
+		(atLocation ?a ?l)
+		(objectAtLocation ?o ?l)
+		(not (holdsAny ?a))
+		)
+        :effect (and 
+		(not (objectAtLocation ?o ?l))
+		(holds ?a ?o)
+		(holdsAny ?a)
+		)
+)",

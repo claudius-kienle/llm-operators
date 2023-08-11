@@ -1,0 +1,146 @@
+operator_name,gt_operator,codex_raw_operator,codex_preprocessed_operator,
+0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
+(:action PutdownObject
+        :parameters (?a - agent ?l - location ?o - object ?r - receptacle)
+        :precondition (and
+            (atLocation ?a ?l)
+            (receptacleAtLocation ?r ?l)
+            (holds ?a ?o)
+            (not (holdsAnyReceptacleObject ?a))
+        )
+        :effect (and
+            (objectAtLocation ?o ?l)
+            (not (holds ?a ?o))
+            (not (holdsAny ?a))
+            (not (inReceptacle ?o ?r))
+        )
+    )
+
+<END>","(:action PutdownObject_0
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
+
+        :precondition (and 
+		(atLocation ?a ?l)
+		(receptacleAtLocation ?r ?l)
+		(holds ?a ?o)
+		(not (holdsAnyReceptacleObject ?a))
+		)
+        :effect (and 
+		(objectAtLocation ?o ?l)
+		(not (holds ?a ?o))
+		(not (holdsAny ?a))
+		(not (inReceptacle ?o ?r))
+		)
+)",
+0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
+(:action PutdownObject
+        :parameters (?a - agent ?l - location ?o - object ?r - receptacle)
+        :precondition (and
+            (atLocation ?a ?l)
+            (receptacleAtLocation ?r ?l)
+            (holds ?a ?o)
+            (not (holdsAnyReceptacleObject ?a))
+        )
+        :effect (and
+            (objectAtLocation ?o ?l)
+            (inReceptacle ?o ?r)
+            (not (holds ?a ?o))
+            (not (holdsAny ?a))
+        )
+    )
+
+<END>","(:action PutdownObject_1
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
+
+        :precondition (and 
+		(atLocation ?a ?l)
+		(receptacleAtLocation ?r ?l)
+		(holds ?a ?o)
+		(not (holdsAnyReceptacleObject ?a))
+		)
+        :effect (and 
+		(objectAtLocation ?o ?l)
+		(inReceptacle ?o ?r)
+		(not (holds ?a ?o))
+		(not (holdsAny ?a))
+		)
+)",
+0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
+(:action PutdownObject
+        :parameters (?a - agent ?l - location ?o - object ?r - receptacle)
+        :precondition (and
+            (atLocation ?a ?l)
+            (objectType ?o ?ot)
+            (receptacleType ?r ?rt)
+            (inReceptacle ?o ?r)
+            (holds ?a ?o)
+        )
+        :effect (and
+            (not (inReceptacle ?o ?r))
+            (not (holds ?a ?o))
+            (not (holdsAny ?a))
+            (objectAtLocation ?o ?l)
+        )
+    )
+
+<END>",FAILED,
+0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
+(:action PutdownObject
+        :parameters (?a - agent ?l - location ?o - object ?r - receptacle)
+        :precondition (and
+            (atLocation ?a ?l)
+            (receptacleAtLocation ?r ?l)
+            (holds ?a ?o)
+        )
+        :effect (and
+            (objectAtLocation ?o ?l)
+            (holdsAnyReceptacleObject ?a)
+            (not (holds ?a ?o))
+        )
+    )
+
+<END>","(:action PutdownObject_3
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
+
+        :precondition (and 
+		(atLocation ?a ?l)
+		(receptacleAtLocation ?r ?l)
+		(holds ?a ?o)
+		)
+        :effect (and 
+		(objectAtLocation ?o ?l)
+		(holdsAnyReceptacleObject ?a)
+		(not (holds ?a ?o))
+		)
+)",
+0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
+(:action PutdownObject
+        :parameters (?a - agent ?l - location ?o - object ?r - receptacle)
+        :precondition (and
+            (atLocation ?a ?l)
+            (receptacleAtLocation ?r ?l)
+            (holds ?a ?o)
+        )
+        :effect (and
+            (objectAtLocation ?o ?l)
+            (inReceptacle ?o ?r)
+            (not (holds ?a ?o))
+            (not (holdsAny ?a))
+        )
+    )
+
+<END>","(:action PutdownObject_4
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
+
+        :precondition (and 
+		(atLocation ?a ?l)
+		(receptacleAtLocation ?r ?l)
+		(holds ?a ?o)
+		)
+        :effect (and 
+		(objectAtLocation ?o ?l)
+		(inReceptacle ?o ?r)
+		(not (holds ?a ?o))
+		(not (holdsAny ?a))
+		)
+)",
