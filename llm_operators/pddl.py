@@ -1239,7 +1239,7 @@ def preprocess_goals(
         problems[p]
         for p in problems
         if len(problems[p].solved_motion_plan_results) < 1
-        and not problems[p].should_supervise_pddl
+        and not problems[p].supervise_goal
     ]
     output_json = dict()
     if verbose:
@@ -1272,6 +1272,8 @@ def preprocess_goals(
         problem.codex_raw_goals = problem.proposed_pddl_goals
         problem.proposed_pddl_goals = preprocessed_goals
         output_json[problem.problem_id] = preprocessed_goals
+    
+    print(f"Preprocess goals top-K accuracy: {len([p for p in unsolved_problems if p.correct_pddl_goal])} / {len(unsolved_problems)} exact match to ground truth goal.")
 
     experiment_name = command_args.experiment_name
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"

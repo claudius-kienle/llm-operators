@@ -114,6 +114,12 @@ parser.add_argument(
     nargs="+",
     help="Which initial plan types to supervise on. Used to seed the Codex proposals, or ALL if we want some subset of the initial",
 )
+parser.add_argument(
+    "--external_plan_supervision",
+    type=str,
+    default=None,
+    help="If provided, file containing initial plans that will be provided as supervision."
+)
 
 parser.add_argument(
     "--initial_pddl_operators",
@@ -225,6 +231,24 @@ parser.add_argument(
     help="OpenAI temperature for goal proposal.",
 )
 parser.add_argument(
+    "--n_goal_samples",
+    type=int,
+    default=4,
+    help="Number of initial samples to take from the LLM for goals.",
+)
+parser.add_argument(
+    "--n_plan_samples",
+    type=int,
+    default=5,
+    help="Number of initial samples to take from the LLM for plans.",
+)
+parser.add_argument(
+    "--n_operator_samples",
+    type=int,
+    default=5,
+    help="Number of initial samples to take from the LLM for operators.",
+)
+parser.add_argument(
     "--n_attempts_to_plan",
     type=int,
     default=4,
@@ -250,6 +274,8 @@ parser.add_argument(
     default=0,
     help="Random seed for replication.",
 )
+
+
 
 
 def main():
@@ -298,6 +324,7 @@ def main():
                 output_directory=output_directory,
                 supervision_pddl=None, # (ZS 7/27/23) skip supervising on external datasets for now.
                 verbose=args.verbose,
+                n_samples=args.n_goal_samples,
                 temperature=args.codex_goal_temperature,
                 initial_pddl_predicates=args.initial_pddl_predicates,
                 experiment_name=args.experiment_name,
@@ -316,12 +343,14 @@ def main():
                 current_domain=pddl_domain,
                 problems=planning_problems["train"],
                 supervision_pddl=supervision_pddl,
-                n_samples=5,
+                n_plan_samples=args.n_plan_samples,
+                n_operator_samples=args.n_operator_samples,
                 minimum_usage=args.operator_propose_minimum_usage,
                 verbose=args.verbose,
                 output_directory=output_directory,
                 command_args=args,
                 use_gt=args.debug_ground_truth_operators,
+                external_plan_supervision=args.external_plan_supervision
             )
             # TODO (LCW) - this removes the partially grounded (receptacleType ?r FridgeType) rn.
             pddl.preprocess_operators(

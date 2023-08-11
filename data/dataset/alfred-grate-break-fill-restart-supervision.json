@@ -1,0 +1,239 @@
+[
+    {
+        "goal": "put grated cheese on the countertop.",
+        "operator_sequence": [
+            {
+                "action": "GotoLocation",
+                "args": [
+                    "fridge"
+                ]
+            },
+            {
+                "action": "PickupObject",
+                "args": [
+                    "cheese"
+                ]
+            },
+            {
+                "action": "PutObject",
+                "args": [
+                    "cheese",
+                    "countertop"
+                ]
+            },
+            {
+                "action": "GotoLocation",
+                "args": [
+                    "diningtable"
+                ]
+            },
+            {
+                "action": "PickupObject",
+                "args": [
+                    "grater"
+                ]
+            },
+            {
+                "action": "GotoLocation",
+                "args": [
+                    "countertop"
+                ]
+            },
+            {
+                "action": "GrateObject",
+                "args": [
+                    "cheese",
+                    "grater"
+                ]
+            }
+        ],
+        "file_name": "none"
+    },
+    {
+        "goal": "bake a potato and put it in the fridge.",
+        "operator_sequence": [
+            {
+                "action": "GotoLocation",
+                "args": [
+                    "countertop"
+                ]
+            },
+            {
+                "action": "PickupObject",
+                "args": [
+                    "potato"
+                ]
+            },
+            {
+                "action": "GotoLocation",
+                "args": [
+                    "oven"
+                ]
+            },
+            {
+                "action": "BakeObject",
+                "args": [
+                    "potato",
+                    "oven"
+                ]
+            },
+            {
+                "action": "GotoLocation",
+                "args": [
+                    "fridge"
+                ]
+            },
+            {
+                "action": "PutObject",
+                "args": [
+                    "potato",
+                    "fridge"
+                ]
+            }
+        ],
+        "file_name": "none"
+    },
+    {
+        "goal": "place a baked, grated apple on top of the dining table.",
+        "operator_sequence": [
+            {
+                "action": "GotoLocation",
+                "args": [
+                    "sidetable"
+                ]
+            },
+            {
+                "action": "PickupObject",
+                "args": [
+                    "grater"
+                ]
+            },
+            {
+                "action": "GrateObject",
+                "args": [
+                    "apple",
+                    "grater"
+                ]
+            },
+            {
+                "action": "GotoLocation",
+                "args": [
+                    "diningtable"
+                ]
+            },
+            {
+                "action": "PutObject",
+                "args": [
+                    "grater",
+                    "diningtable"
+                ]
+            },
+            {
+                "action": "GotoLocation",
+                "args": [
+                    "sidetable"
+                ]
+            },
+            {
+                "action": "PickupObject",
+                "args": [
+                    "apple"
+                ]
+            },
+            {
+                "action": "GotoLocation",
+                "args": [
+                    "oven"
+                ]
+            },
+            {
+                "action": "BakeObject",
+                "args": [
+                    "apple",
+                    "oven"
+                ]
+            },
+            {
+                "action": "GotoLocation",
+                "args": [
+                    "sidetable"
+                ]
+            },
+            {
+                "action": "PutObject",
+                "args": [
+                    "apple",
+                    "sidetable"
+                ]
+            }
+        ],
+        "file_name": "none"
+    },
+    {
+        "goal": "place a plate in a full sink.",
+        "operator_sequence": [
+            {
+                "action": "FillObject",
+                "args": [
+                    "sinkbasin"
+                ]
+            },
+            {
+                "action": "GotoLocation",
+                "args": [
+                    "cabinet"
+                ]
+            },
+            {
+                "action": "PickupObject",
+                "args": [
+                    "plate"
+                ]
+            },
+            {
+                "action": "GotoLocation",
+                "args": [
+                    "sinkbasin"
+                ]
+            },
+            {
+                "action": "PutObject",
+                "args": [
+                    "plate",
+                    "sinkbasin"
+                ]
+            }
+        ],
+        "file_name": "none"
+    },
+    {
+        "goal": "pick up a laptop and then carry it over to the desk lamp, then restart the desk lamp.",
+        "operator_sequence": [
+            {
+                "action": "GotoLocation",
+                "args": [
+                    "bed"
+                ]
+            },
+            {
+                "action": "PickupObject",
+                "args": [
+                    "laptop"
+                ]
+            },
+            {
+                "action": "GotoLocation",
+                "args": [
+                    "desklamp"
+                ]
+            },
+            {
+                "action": "RestartObject",
+                "args": [
+                    "desklamp"
+                ]
+            }
+        ],
+        "file_name": "none"
+    }
+]
