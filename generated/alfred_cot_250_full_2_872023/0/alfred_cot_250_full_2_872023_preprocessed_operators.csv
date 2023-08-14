@@ -1,144 +1,105 @@
 operator_name,gt_operator,codex_raw_operator,codex_preprocessed_operator,
-0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
-(:action TurnOnLamp
-        :parameters (?a - agent ?l - location ?o - object)
-        :precondition (and
-            (toggleable ?o)
-            (atLocation ?a ?l)
-            (objectAtLocation ?o ?l)
-            (not (isOn ?o))
-        )
-        :effect (and
-            (isOn ?o)
-        )
-    )
-
-<END>","(:action TurnOnLamp_0
-        :parameters (?o - object ?a - agent ?l - location)
-
-        :precondition (and 
-		(toggleable ?o)
-		(atLocation ?a ?l)
-		(objectAtLocation ?o ?l)
-		(not (isOn ?o))
-		)
-        :effect (and 
-		(isOn ?o)
-		)
-)",
-0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
-(:action TurnOnLamp
-        :parameters (?a - agent ?l - location ?o - object)
-        :precondition (and
-            (atLocation ?a ?l)
-            (objectType ?o DeskLampType)
-            (toggleable ?o)
-            (not (isToggled ?o))
-        )
-        :effect (and
-            (isOn ?o)
-            (isToggled ?o)
-        )
-    )
-
-<END>","(:action TurnOnLamp_1
-        :parameters (?a - agent ?l - location ?o - object)
-
-        :precondition (and 
-		(atLocation ?a ?l)
-		(objectType ?o DeskLampType)
-		(toggleable ?o)
-		(not (isToggled ?o))
-		)
-        :effect (and 
-		(isOn ?o)
-		(isToggled ?o)
-		)
-)",
-0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
-(:action TurnOnLamp
-        :parameters (?a - agent ?l - location ?lmp - object)
-        :precondition (and
-            (atLocation ?a ?l)
-            (objectAtLocation ?lmp ?l)
-            (toggleable ?lmp)
-            (not (isOn ?lmp))
-        )
-        :effect (and
-            (isOn ?lmp)
-        )
-    )
-
-<END>","(:action TurnOnLamp_2
-        :parameters (?a - agent ?l - location ?lmp - object)
-
-        :precondition (and 
-		(atLocation ?a ?l)
-		(objectAtLocation ?lmp ?l)
-		(toggleable ?lmp)
-		(not (isOn ?lmp))
-		)
-        :effect (and 
-		(isOn ?lmp)
-		)
-)",
-0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
-(:action TurnOnLamp
-        :parameters (?a - agent ?l - location ?ot - otype ?o - object)
-        :precondition (and
-            (atLocation ?a ?l)
-            (objectAtLocation ?o ?l)
-            (objectType ?o ?ot)
-            (toggleable ?o)
-            (not (isOn ?o))
-        )
-        :effect (and
-            (isOn ?o)
-            (isToggled ?o)
-        )
-    )
-
-<END>","(:action TurnOnLamp_3
-        :parameters (?a - agent ?l - location ?o - object ?ot - otype)
-
-        :precondition (and 
-		(atLocation ?a ?l)
-		(objectAtLocation ?o ?l)
-		(objectType ?o ?ot)
-		(toggleable ?o)
-		(not (isOn ?o))
-		)
-        :effect (and 
-		(isOn ?o)
-		(isToggled ?o)
-		)
-)",
-0,,";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator.
+0,,"
+;; Operator, TurnOnLamp - Operator that turns on a lamp.
+;; TurnOnLamp takes a lamp object.
+;; Parameters: ?a - agent, ?l - location of the lamp, ?o - lamp object.
+;; Preconditions: The agent is at a location and the lamp is at the same location, and the lamp object is toggleable and off.
+;; Postconditions: The lamp object is on.
 (:action TurnOnLamp
         :parameters (?a - agent ?l - location ?o - object)
         :precondition (and
             (atLocation ?a ?l)
             (objectAtLocation ?o ?l)
             (toggleable ?o)
-            (not (isOn ?o))
+            (isOff ?o)
         )
         :effect (and
             (isOn ?o)
-            (isToggled ?o)
         )
-    )
-
-<END>","(:action TurnOnLamp_4
+)
+","(:action TurnOnLamp_0
         :parameters (?a - agent ?l - location ?o - object)
 
         :precondition (and 
 		(atLocation ?a ?l)
 		(objectAtLocation ?o ?l)
 		(toggleable ?o)
-		(not (isOn ?o))
 		)
         :effect (and 
 		(isOn ?o)
-		(isToggled ?o)
+		)
+)",
+0,,"
+;; Operator, TurnOnLampWithSwitch - Operator that turns on a lamp using a switch.
+;; TurnOnLampWithSwitch takes a lamp object and a switch object.
+;; Parameters: ?a - agent, ?l - location of the lamp, ?o - lamp object, ?switch - switch object.
+;; Preconditions: The agent is at a location and the lamp and switch are at the same location, and the lamp object is toggleable and off, and the switch object is toggleable and off.
+;; Postconditions: The lamp object is on, and the switch object is toggled.
+(:action TurnOnLampWithSwitch
+        :parameters (?a - agent ?l - location ?o - object ?switch - object)
+        :precondition (and
+            (atLocation ?a ?l)
+            (objectAtLocation ?o ?l)
+            (objectAtLocation ?switch ?l)
+            (toggleable ?o)
+            (isOff ?o)
+            (toggleable ?switch)
+            (isOff ?switch)
+        )
+        :effect (and
+            (isOn ?o)
+            (isToggled ?switch)
+        )
+)
+","(:action TurnOnLamp_1WithSwitch
+        :parameters (?a - agent ?l - location ?o - object ?switch - object)
+
+        :precondition (and 
+		(atLocation ?a ?l)
+		(objectAtLocation ?o ?l)
+		(objectAtLocation ?switch ?l)
+		(toggleable ?o)
+		(toggleable ?switch)
+		)
+        :effect (and 
+		(isOn ?o)
+		(isToggled ?switch)
+		)
+)",
+0,,"
+;; Operator, TurnOnLampWithBulb - Operator that turns on a lamp using a bulb.
+;; TurnOnLampWithBulb takes a lamp object and a bulb object.
+;; Parameters: ?a - agent, ?l - location of the lamp, ?o - lamp object, ?bulb - bulb object.
+;; Preconditions: The agent is at a location and the lamp and bulb are at the same location, and the lamp object is toggleable and off, and the bulb object is toggleable and off.
+;; Postconditions: The lamp object is on, and the bulb object is toggled.
+(:action TurnOnLampWithBulb
+        :parameters (?a - agent ?l - location ?o - object ?bulb - object)
+        :precondition (and
+            (atLocation ?a ?l)
+            (objectAtLocation ?o ?l)
+            (objectAtLocation ?bulb ?l)
+            (toggleable ?o)
+            (isOff ?o)
+            (toggleable ?bulb)
+            (isOff ?bulb)
+        )
+        :effect (and
+            (isOn ?o)
+            (isToggled ?bulb)
+        )
+)
+","(:action TurnOnLamp_2WithBulb
+        :parameters (?a - agent ?l - location ?o - object ?bulb - object)
+
+        :precondition (and 
+		(atLocation ?a ?l)
+		(objectAtLocation ?o ?l)
+		(objectAtLocation ?bulb ?l)
+		(toggleable ?o)
+		(toggleable ?bulb)
+		)
+        :effect (and 
+		(isOn ?o)
+		(isToggled ?bulb)
 		)
 )",

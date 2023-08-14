@@ -1,0 +1,257 @@
+;; You are a software engineer who will be writing planning operators in the PDDL planning language.
+;; These operators are based on the following PDDL domain definition. 
+;; Note that there are separate types for both objects (otype) and receptacles (rtype).
+(:requirements :adl)
+
+(:types 
+				agent location receptacle object rtype otype
+)
+
+;; otype: object types.
+(:otype
+        CandleType - otype
+        ShowerGlassType - otype
+        CDType - otype
+        TomatoType - otype
+        MirrorType - otype
+        ScrubBrushType - otype
+        MugType - otype
+        ToasterType - otype
+        PaintingType - otype
+        CellPhoneType - otype
+        LadleType - otype
+        BreadType - otype
+        PotType - otype
+        BookType - otype
+        TennisRacketType - otype
+        ButterKnifeType - otype
+        ShowerDoorType - otype
+        KeyChainType - otype
+        BaseballBatType - otype
+        EggType - otype
+        PenType - otype
+        ForkType - otype
+				WhiskType - otype
+        VaseType - otype
+        ClothType - otype
+        WindowType - otype
+        PencilType - otype
+        StatueType - otype
+        LightSwitchType - otype
+        WatchType - otype
+        SpatulaType - otype
+        PaperTowelRollType - otype
+        FloorLampType - otype
+        KettleType - otype
+        SoapBottleType - otype
+        BootsType - otype
+        TowelType - otype
+        PillowType - otype
+        AlarmClockType - otype
+        PotatoType - otype
+        ChairType - otype
+        PlungerType - otype
+        SprayBottleType - otype
+        HandTowelType - otype
+        BathtubType - otype
+        RemoteControlType - otype
+        PepperShakerType - otype
+        PlateType - otype
+        BasketBallType - otype
+        DeskLampType - otype
+        FootstoolType - otype
+        GlassbottleType - otype
+        PaperTowelType - otype
+        CreditCardType - otype
+        PanType - otype
+        ToiletPaperType - otype
+        SaltShakerType - otype
+        PosterType - otype
+        ToiletPaperRollType - otype
+        LettuceType - otype
+        WineBottleType - otype
+        KnifeType - otype
+        LaundryHamperLidType - otype
+        SpoonType - otype
+        TissueBoxType - otype
+        BowlType - otype
+        BoxType - otype
+        SoapBarType - otype
+        HousePlantType - otype
+        NewspaperType - otype
+        CupType - otype
+        DishSpongeType - otype
+        LaptopType - otype
+        TelevisionType - otype
+        StoveKnobType - otype
+        CurtainsType - otype
+        BlindsType - otype
+        TeddyBearType - otype
+        AppleType - otype
+        WateringCanType - otype
+        SinkType - otype
+)
+;; rtype: receptacle types.
+(:rtype
+        ArmChairType - rtype
+        BedType - rtype
+        BathtubBasinType - rtype
+        DresserType - rtype
+        SafeType - rtype
+        DiningTableType - rtype
+        SofaType - rtype
+        HandTowelHolderType - rtype
+        StoveBurnerType - rtype
+        CartType - rtype
+        DeskType - rtype
+        CoffeeMachineType - rtype
+        MicrowaveType - rtype
+        ToiletType - rtype
+        CounterTopType - rtype
+        GarbageCanType - rtype
+        CoffeeTableType - rtype
+        CabinetType - rtype
+        SinkBasinType - rtype
+        OttomanType - rtype
+        ToiletPaperHangerType - rtype
+        TowelHolderType - rtype
+        FridgeType - rtype
+        DrawerType - rtype
+        SideTableType - rtype
+        ShelfType - rtype
+        LaundryHamperType - rtype
+)
+
+;; Predicates defined on this domain. Note the types for each predicate.
+(:predicates
+				(atLocation ?a - agent ?l - location) 
+        (receptacleAtLocation ?r - receptacle ?l - location) 
+        (objectAtLocation ?o - object ?l - location)
+        (inReceptacle ?o - object ?r - receptacle) 
+        (receptacleType ?r - receptacle ?t - rtype) 
+        (objectType ?o - object ?t - otype) 
+        (holds ?a - agent ?o - object) 
+        (holdsAny ?a - agent) 
+        (holdsAnyReceptacleObject ?a - agent) 
+        
+				(openable ?r - receptacle) 
+        (opened ?r - receptacle) 
+        (isClean ?o - object) 
+        (cleanable ?o - object) 
+        (isHot ?o - object) 
+        (heatable ?o - object) 
+        (isCool ?o - object) 
+        (coolable ?o - object) 
+        (toggleable ?o - object) 
+        (isOn ?o - object) 
+        (isToggled ?o - object) 
+        (sliceable ?o - object) 
+        (isSliced ?o - object) 
+ )
+
+;; Operators defined given the object types, receptacle types, and predicates.
+;; Note that operator names may not be correct. For instance, FillObject actually fills a receptacle.
+;; Parameters should specify the correct type of all arguments, distinguishing between objects and receptables.
+;; Preconditions should specify any specific objectType and receptacleType if necessary, locations of objects and receptacles, and any precondition predicates.
+;; Effects should specify any effects.
+
+;; Operator, GotoLocation
+;; GotoLocation takes a start and end location.
+;; This is applicable to all locations.
+;; Parameters: ?a - agent, ?lStart - start location; ?lEnd - end location;
+;; Preconditions: The agent is at the start location.
+;; Postconditions: The agent is at the end location and is not at the start location.
+<START>
+(:action GotoLocation
+      :parameters (?a - agent ?lStart - location ?lEnd - location)
+      :precondition (and
+          (atLocation ?a ?lStart)
+      )
+      :effect (and
+          (atLocation ?a ?lEnd)
+          (not (atLocation ?a ?lStart))
+      )
+  )
+<END>
+
+;; Operator, GrateObject.
+;; GrateObject takes an object to grate and a specific tool of type GraterType.
+;; GraterType is an otype. Therefore, the tool is an object.
+;; Parameters: ?a - agent, ?l - location of object to be grated; ?o - object to be grated, ?toolobject - object to grate with.
+;; Preconditions: The toolobject is a GraterType, the agent is at a location and the object to be grated is at the same location, the object is gratable, and the agent is holding the tool.
+;; Postconditions: the ?o object is grated.
+(:action GrateObject
+        :parameters (?a - agent ?l - location ?o - object ?toolobject - object)
+        :precondition (and
+            (objectType ?toolobject GraterType)
+            (atLocation ?a ?l)
+            (objectAtLocation ?o ?l)
+            (gratable ?o)
+            (holds ?a ?toolobject)
+        )
+        :effect (and
+            (isGrated ?o)
+        )
+    )
+<END>
+
+;; Operator, BakeObject.
+;; BakeObject takes an object to baked and a specific tool of type OvenType.
+;; OvenType is an rtype. Therefore, the tool is an receptacle.
+;; Parameters: ?a - agent, ?l - location of the receptacle; ?o - object to be baked, ?toolreceptacle - receptacle to bake the object in.
+;; Preconditions: The toolreceptacle is an OvenType, the agent is at a location and the receptacle is at the same location, and the agent is holding the object to be baked.
+;; Postconditions: the ?o object is now hot.
+<START>
+(:action BakeObject
+        :parameters (?a - agent ?l - location ?o - object ?toolreceptacle - receptacle)
+        :precondition (and
+            (receptacleType ?toolreceptacle OvenType)
+            (atLocation ?a ?l)
+            (receptacleAtLocation ?toolreceptacle ?l)
+            (holds ?a ?o)
+        )
+        :effect (and
+           (isHot ?o)
+        )
+    )
+<END>
+
+;; Operator, FillObject.
+;; FillObject takes any receptacle to fill.
+;; This action is applicable to any fillable receptacle.
+;; Parameters: ?a - agent, ?l - location of the receptacle; ?r - receptacle to be filled.
+;; Preconditions: The agent is at a location and the receptacle is at the same location, and the receptacle is fillable.
+;; Postconditions: the ?r receptacle is now filled.
+<START>
+(:action FillObject
+        :parameters (?a - agent ?l - location ?r - receptacle)
+        :precondition (and
+            (atLocation ?a ?l)
+            (receptacleAtLocation ?r ?l)
+            (fillable ?r)
+        )
+        :effect (and
+            (isFilled ?r)
+        )
+    )
+<END>
+
+;; Operator, RestartObject.
+;; RestartObject takes any object to restart.
+;; This action is applicable to any restartable object.
+;; Parameters: ?a - agent, ?l - location of the object; ?o - object to be restarted.
+;; Preconditions: The agent is at a location and the object is at the same location, and the object is restartable.
+;; Postconditions: the ?o object is now restarted.
+<START>
+(:action RestartObject
+        :parameters (?a - agent ?l - location ?o - object)
+        :precondition (and
+            (atLocation ?a ?l)
+            (objectAtLocation ?o ?l)
+            (restartable ?o)
+        )
+        :effect (and
+            (isRestarted ?o)
+        )
+)
+<END>

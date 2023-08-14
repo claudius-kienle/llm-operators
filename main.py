@@ -23,7 +23,6 @@ sys.path.insert(0, ALFRED_PATH)
 
 # Import concepts.
 try:
-
     JACINLE_PATH = osp.join(osp.dirname(osp.abspath(__file__)), "../jacinle")
     print("Adding jacinle path: {}".format(JACINLE_PATH))
     sys.path.insert(0, JACINLE_PATH)
@@ -58,9 +57,7 @@ parser.add_argument(
     default="",
     help="Experiment name tag. This will be appended to any checkpointed data.",
 )
-parser.add_argument(
-    "--dataset_name", type=str, help="Name of the dataset of planning problems to load."
-)
+parser.add_argument("--dataset_name", type=str, help="Name of the dataset of planning problems to load.")
 parser.add_argument(
     "--dataset_fraction",
     default=1.0,
@@ -73,12 +70,12 @@ parser.add_argument(
     help="Location of the top level PDDL directory.",
 )
 parser.add_argument(
-    "--pddl_domain_name", type=str, help="Name of the PDDL domain to load.",
+    "--pddl_domain_name",
+    type=str,
+    help="Name of the PDDL domain to load.",
 )
 
-parser.add_argument(
-    "--train_iterations", type=int, help="How many training iterations to run."
-)
+parser.add_argument("--train_iterations", type=int, help="How many training iterations to run.")
 parser.add_argument(
     "--supervision_name",
     type=str,
@@ -118,7 +115,24 @@ parser.add_argument(
     "--external_plan_supervision",
     type=str,
     default=None,
-    help="If provided, file containing initial plans that will be provided as supervision."
+    help="If provided, file containing initial plans that will be provided as supervision.",
+)
+parser.add_argument(
+    "--external_operator_supervision",
+    type=str,
+    default=None,
+    help="If provided, file HEADER path containing the supervision used for external operators. Assuming you are prompting GPT-3.5, this should be followed by two file suffices, one _system.txt and the other _user.txt.",
+)
+parser.add_argument(
+    "--external_operator_sample_with_prompt",
+    action="store_true",
+    help="If provided, this assumes that instead of taking N discrete samples with the same prompt, we will 'sample' the LLM based on the user message, and attempt to parse out discrete operators from the prompt itself.",
+)
+parser.add_argument(
+    "--external_operator_names",
+    type=str,
+    nargs="+",
+    help="Initial PDDL operators that were provided. These will be excluded from downstream proposal.",
 )
 
 parser.add_argument(
@@ -146,7 +160,10 @@ parser.add_argument(
     help="Whether to include Codex types in the prompts for goal proposal.",
 )
 parser.add_argument(
-    "--planner", type=str, default="task_planner_fd", help="Which planner to use.",
+    "--planner",
+    type=str,
+    default="task_planner_fd",
+    help="Which planner to use.",
 )
 parser.add_argument(
     "--output_directory",
@@ -154,7 +171,9 @@ parser.add_argument(
     help="Location of the directory for writing outputs.",
 )
 parser.add_argument("--verbose", action="store_true", help="Run on verbose.")
-parser.add_argument('--debug_export_failed_pddl', type=str, default=None, help='Export failed PDDL problems to this directory.')
+parser.add_argument(
+    "--debug_export_failed_pddl", type=str, default=None, help="Export failed PDDL problems to this directory."
+)
 parser.add_argument(
     "--debug_no_propose_plans_operators_goals",
     action="store_true",
@@ -204,7 +223,7 @@ parser.add_argument(
 parser.add_argument(
     "--debug_skip_problems",
     type=int,
-    nargs = '+',
+    nargs="+",
     help="debug: skip these problems.",
 )
 
@@ -231,6 +250,12 @@ parser.add_argument(
     help="OpenAI temperature for goal proposal.",
 )
 parser.add_argument(
+    "--codex_operator_temperature",
+    type=float,
+    default=codex.DEFAULT_OPERATOR_TEMPERATURE,
+    help="OpenAI temperature for goal proposal.",
+)
+parser.add_argument(
     "--n_goal_samples",
     type=int,
     default=4,
@@ -245,7 +270,7 @@ parser.add_argument(
 parser.add_argument(
     "--n_operator_samples",
     type=int,
-    default=5,
+    default=3,
     help="Number of initial samples to take from the LLM for operators.",
 )
 parser.add_argument(
@@ -276,8 +301,6 @@ parser.add_argument(
 )
 
 
-
-
 def main():
     args = parser.parse_args()
     random.seed(args.random_seed)
@@ -295,14 +318,13 @@ def main():
         verbose=args.verbose,
     )
 
-    pddl_domain = datasets.load_pddl_domain(
-        args.pddl_domain_name, args.initial_pddl_operators, args.verbose
-    )
+    pddl_domain = datasets.load_pddl_domain(args.pddl_domain_name, args.initial_pddl_operators, args.verbose)
 
     # Load any external supervision on PDDL domains.
     if args.supervision_name != "None":
         supervision_pddl = datasets.load_pddl_supervision(
-            supervision_name=args.supervision_name, verbose=args.verbose,
+            supervision_name=args.supervision_name,
+            verbose=args.verbose,
         )
     else:
         supervision_pddl = None
@@ -322,7 +344,7 @@ def main():
                 problems=planning_problems["train"],
                 current_domain=pddl_domain,
                 output_directory=output_directory,
-                supervision_pddl=None, # (ZS 7/27/23) skip supervising on external datasets for now.
+                supervision_pddl=None,  # (ZS 7/27/23) skip supervising on external datasets for now.
                 verbose=args.verbose,
                 n_samples=args.n_goal_samples,
                 temperature=args.codex_goal_temperature,
@@ -350,9 +372,12 @@ def main():
                 output_directory=output_directory,
                 command_args=args,
                 use_gt=args.debug_ground_truth_operators,
-                external_plan_supervision=args.external_plan_supervision
+                external_plan_supervision=args.external_plan_supervision,
+                external_operator_supervision=args.external_operator_supervision,
+                external_operator_sample_with_prompt=args.external_operator_sample_with_prompt,
+                operator_temperature=args.codex_operator_temperature,
+                external_operator_names=args.external_operator_names,
             )
-            # TODO (LCW) - this removes the partially grounded (receptacleType ?r FridgeType) rn.
             pddl.preprocess_operators(
                 pddl_domain,
                 maximum_operator_arity=args.maximum_operator_arity,
@@ -366,7 +391,7 @@ def main():
 
         if output_directory:
             if not args.debug_skip_task_plans and not args.debug_mock_task_plans:
-                experiment_tag = ("" if len(args.experiment_name) < 1 else f"{args.experiment_name}_")
+                experiment_tag = "" if len(args.experiment_name) < 1 else f"{args.experiment_name}_"
                 output_filepath = f"{experiment_tag}task_planner_results.csv"
                 output_filename = osp.join(output_directory, output_filepath)
 
@@ -375,7 +400,10 @@ def main():
 
         ###################### Refine operators.
         for problem_idx, problem_id in enumerate(planning_problems["train"]):
-            if problem_idx < args.debug_start_problem_idx or (args.debug_skip_problems is not None and problem_idx in args.debug_skip_problems): continue
+            if problem_idx < args.debug_start_problem_idx or (
+                args.debug_skip_problems is not None and problem_idx in args.debug_skip_problems
+            ):
+                continue
             should_continue_attempts = True
             for plan_attempt_idx in range(args.n_attempts_to_plan):
                 if should_continue_attempts:
