@@ -307,7 +307,6 @@ def propose_operators_for_problems(
     proposed_operators = get_operators_to_propose(
         current_domain, operator_uses, operator_use_counts, minimum_usage, external_operator_names
     )
-
     output_filepath = f"{experiment_tag}codex_operators_count{'_'.join(initial_pddl_predicates)}.json"
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
@@ -375,13 +374,20 @@ def mock_propose_operators_for_problems(output_filepath, proposed_operators, out
 def get_operators_to_propose(
     current_domain, operator_uses, operator_use_counts, minimum_usage, external_operator_names
 ):
+    external_operator_names = [o.lower() for o in external_operator_names]
     existing_operators = set(
         [
-            o if o not in current_domain.operator_canonicalization else current_domain.operator_canonicalization[o]
+            o.lower()
+            if o not in current_domain.operator_canonicalization
+            else current_domain.operator_canonicalization[o]
             for o in current_domain.operators
         ]
     )
-    proposed_operators = [p for p in operator_uses if p not in existing_operators and p not in external_operator_names]
+
+    # Don't match any that have the same characters.
+    proposed_operators = [
+        p for p in operator_uses if p.lower() not in existing_operators and p.lower() not in external_operator_names
+    ]
     # Filter by those with minimum usage.
     proposed_operators = [p for p in proposed_operators if operator_use_counts[p] >= minimum_usage]
     return proposed_operators

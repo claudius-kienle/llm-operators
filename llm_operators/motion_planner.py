@@ -61,14 +61,8 @@ def attempt_motion_plan_for_problem(
             f"motion_planner.attempt_motion_plan_for_problem: attempt {plan_attempt_idx} : {problem_idx} / {len(problems)}"
         )
     else:
-        print(
-            f"\tmotion_planner.attempt_motion_plan_for_problem: attempt {plan_attempt_idx}"
-        )
-    experiment_tag = (
-        ""
-        if len(command_args.experiment_name) < 1
-        else f"{command_args.experiment_name}_"
-    )
+        print(f"\tmotion_planner.attempt_motion_plan_for_problem: attempt {plan_attempt_idx}")
+    experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
 
     output_filepath = f"{experiment_tag}motion_plans.json"
     if use_mock:
@@ -76,10 +70,7 @@ def attempt_motion_plan_for_problem(
             unsolved_problems = mock_evaluate_motion_plans_and_costs_for_problems(
                 output_filepath, output_directory, problems
             )
-            if (
-                problem_id in unsolved_problems
-                or len(problems[problem_id].evaluated_motion_planner_results) > 0
-            ):
+            if problem_id in unsolved_problems or len(problems[problem_id].evaluated_motion_planner_results) > 0:
                 print("Mock found for motion plan, continuing...")
                 return
             else:
@@ -116,14 +107,10 @@ def attempt_motion_plan_for_problem(
             print("=============================================")
             print(f"Problem Number: {problem_idx}")
             print(f"Problem ID: {problem_id}")
+            print(f"Motion plan result: task_success: {motion_plan_result.task_success}")
+            print(f"Total Actions Taken: {motion_plan_result.total_trajs_sampled}")
             print(
-                f"Motion plan result: task_success: {motion_plan_result.task_success}"
-            )
-            print(
-                f"Total Actions Taken: {motion_plan_result.total_trajs_sampled}"
-            )
-            print(
-                f"Failed at operator: {motion_plan_result.last_failed_operator} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan."
+                f"Failed at operator: {motion_plan_result.last_failed_operator + 1} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan."
             )
             print("=============================================")
 
@@ -169,9 +156,7 @@ def evaluate_motion_plans_and_costs_for_problems(
         assert False
 
 
-def mock_evaluate_motion_plans_and_costs_for_problems(
-    output_filepath, output_directory, problems
-):
+def mock_evaluate_motion_plans_and_costs_for_problems(output_filepath, output_directory, problems):
     unsolved_problems = set()
     with open(os.path.join(output_directory, output_filepath), "r") as f:
         output_json = json.load(f)
@@ -207,11 +192,7 @@ def evaluate_alfred_motion_plans_and_costs_for_problems(
     debug_skip=False,
 ):
     print(f"evaluate_motion_plans_and_costs_for_problems on {len(problems)} problems.")
-    experiment_tag = (
-        ""
-        if len(command_args.experiment_name) < 1
-        else f"{command_args.experiment_name}_"
-    )
+    experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
     output_filepath = f"{experiment_tag}motion_plans.json"
 
     for max_problems, problem_id in enumerate(problems):
@@ -229,24 +210,25 @@ def evaluate_alfred_motion_plans_and_costs_for_problems(
                     verbose,
                     debug_skip=debug_skip,
                 )
-                problems[problem_id].evaluated_motion_planner_results[
-                    pddl_goal
-                ] = motion_plan_result
+                problems[problem_id].evaluated_motion_planner_results[pddl_goal] = motion_plan_result
                 if motion_plan_result.task_success:
-                    problems[
-                        problem_id
-                    ].best_evaluated_plan_at_iteration = curr_iteration
+                    problems[problem_id].best_evaluated_plan_at_iteration = curr_iteration
                 if verbose:
+                    print(f"Motion plan result: task_success: {motion_plan_result.task_success}")
                     print(
-                        f"Motion plan result: task_success: {motion_plan_result.task_success}"
-                    )
-                    print(
-                        f"Successfully executed: {motion_plan_result.last_failed_operator} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan.\n\n\n"
+                        f"Successfully executed: {motion_plan_result.last_failed_operator + 1} / {len(motion_plan_result.pddl_plan)} operators in final task sequence.\n\n\n"
                     )
 
 
 def evaluate_alfred_motion_plans_and_costs_for_goal_plan(
-    problem_id, problems, pddl_goal, pddl_plan, pddl_domain, verbose, debug_skip=False, motionplan_search_type="bfs",
+    problem_id,
+    problems,
+    pddl_goal,
+    pddl_plan,
+    pddl_domain,
+    verbose,
+    debug_skip=False,
+    motionplan_search_type="bfs",
 ):
     if verbose:
         print(f"Motion planning for: {problem_id}")
@@ -255,22 +237,22 @@ def evaluate_alfred_motion_plans_and_costs_for_goal_plan(
         print(f"Ground truth oracle goal is: ")
         print(problems[problem_id].ground_truth_pddl_problem.ground_truth_goal)
 
-    # Convert plan to sequential plan predicates.
-    task_plan_json = pddl_plan.to_task_plan_json(
-        problem=problems[problem_id], pddl_domain=pddl_domain, remove_alfred_object_ids=True, remove_alfred_agent=True,
+    # Convert plan to sequential plan predicates. Returns a pruned PDDL plan that does not include operators we didn't execute.
+    task_plan_json, pruned_pddl_plan = pddl_plan.to_task_plan_json(
+        problem=problems[problem_id],
+        pddl_domain=pddl_domain,
+        remove_alfred_object_ids=True,
+        remove_alfred_agent=True,
     )
     operator_sequence = task_plan_json["operator_sequence"]
     # This is the ground truth goal according to ALFRED.
     goal_ground_truth_predicates = task_plan_json["goal_ground_truth_predicates"]
-
     if debug_skip:
         return MotionPlanResult(
-            pddl_plan=pddl_plan,
+            pddl_plan=pruned_pddl_plan,
             task_success=True,
             last_failed_operator=None,
-            max_satisfied_predicates=operator_sequence[-1][
-                PDDLPlan.PDDL_POSTCOND_GROUND_PREDICATES
-            ][-1],
+            max_satisfied_predicates=operator_sequence[-1][PDDLPlan.PDDL_POSTCOND_GROUND_PREDICATES][-1],
         )
     else:
         # Run the motion planner.
@@ -300,9 +282,8 @@ def evaluate_alfred_motion_plans_and_costs_for_goal_plan(
             verbose=verbose,
             motionplan_search_type=motionplan_search_type,
         )
-
         return MotionPlanResult(
-            pddl_plan=pddl_plan,
+            pddl_plan=pruned_pddl_plan,
             task_success=raw_motion_plan_result["task_success"],
             last_failed_operator=raw_motion_plan_result["last_failed_operator"],
             max_satisfied_predicates=raw_motion_plan_result["max_satisfied_predicates"],
@@ -321,11 +302,7 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_problems(
     debug_skip=False,
 ):
     print(f"evaluate_motion_plans_and_costs_for_problems on {len(problems)} problems.")
-    experiment_tag = (
-        ""
-        if len(command_args.experiment_name) < 1
-        else f"{command_args.experiment_name}_"
-    )
+    experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
     output_filepath = f"{experiment_tag}motion_plans.json"
 
     if use_mock:
@@ -346,29 +323,27 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_problems(
                     verbose,
                     debug_skip=debug_skip,
                 )
-                problems[problem_id].evaluated_motion_planner_results[
-                    pddl_goal
-                ] = motion_plan_result
+                problems[problem_id].evaluated_motion_planner_results[pddl_goal] = motion_plan_result
                 if motion_plan_result.task_success:
-                    problems[
-                        problem_id
-                    ].best_evaluated_plan_at_iteration = curr_iteration
+                    problems[problem_id].best_evaluated_plan_at_iteration = curr_iteration
                 if verbose:
-                    print(
-                        f"Motion plan result: task_success: {motion_plan_result.task_success}"
-                    )
+                    print(f"Motion plan result: task_success: {motion_plan_result.task_success}")
                     print(
                         f"Successfully executed: {motion_plan_result.last_failed_operator} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan.\n\n\n"
                     )
 
 
 def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
-    problem_id, problems, pddl_goal, pddl_plan, pddl_domain, verbose, debug_skip=False,
+    problem_id,
+    problems,
+    pddl_goal,
+    pddl_plan,
+    pddl_domain,
+    verbose,
+    debug_skip=False,
 ):
     problem = problems[problem_id].ground_truth_pddl_problem
-    current_problem_string = problem.get_pddl_string_with_proposed_goal(
-        proposed_goal=pddl_goal
-    )
+    current_problem_string = problem.get_pddl_string_with_proposed_goal(proposed_goal=pddl_goal)
     current_domain_string = pddl_domain.to_string(
         ground_truth_operators=False,
         current_operators=True,
@@ -378,9 +353,7 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
     import concepts.pdsketch as pds
 
     domain = pds.load_domain_string(current_domain_string)
-    problem = pds.load_problem_string(
-        current_problem_string, domain, return_tensor_state=False
-    )
+    problem = pds.load_problem_string(current_problem_string, domain, return_tensor_state=False)
 
     from concepts.pdsketch.strips.strips_grounding_onthefly import (
         OnTheFlyGStripsProblem,
@@ -408,7 +381,7 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
             if verbose:
                 print("move-left")
             simulator.move_left()
-        elif action_name == 'move-to':
+        elif action_name == "move-to":
             if verbose:
                 print("move-to")
             simulator.move_to(int(action_args[1][1:]))
@@ -427,14 +400,10 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
             )
         else:
             # Trying mining.
-            inventory_indices = [
-                int(x[1:]) for x in _find_string_start_with(action_args, "i")
-            ]
+            inventory_indices = [int(x[1:]) for x in _find_string_start_with(action_args, "i")]
             object_indices = _find_string_start_with(action_args, "o")
 
-            hypothetical_object = [
-                x for x in object_indices if x in simulator.hypothetical
-            ]
+            hypothetical_object = [x for x in object_indices if x in simulator.hypothetical]
             if len(hypothetical_object) != 1:
                 if verbose:
                     print("Hypothetical object not found.", object_indices)
@@ -442,9 +411,7 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
                 break
             hypothetical_object = hypothetical_object[0]
 
-            empty_inventory = [
-                x for x in inventory_indices if simulator.inventory[x] is None
-            ]
+            empty_inventory = [x for x in inventory_indices if simulator.inventory[x] is None]
             if len(empty_inventory) != 1:
                 if verbose:
                     print("Empty inventory not found.", inventory_indices)
@@ -453,10 +420,7 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
             empty_inventory = empty_inventory[0]
 
             target_object = [
-                x
-                for x in object_indices
-                if x in simulator.objects
-                and simulator.objects[x][1] == simulator.agent_pos
+                x for x in object_indices if x in simulator.objects and simulator.objects[x][1] == simulator.agent_pos
             ]
             if len(target_object) != 1:
                 if verbose:
@@ -507,4 +471,3 @@ def _find_string_start_with(list_of_string, start, first=False):
                 return s
             rv.append(s)
     return rv
-

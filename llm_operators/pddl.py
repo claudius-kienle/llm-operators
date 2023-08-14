@@ -37,12 +37,8 @@ class Domain:
         self.functions = self.init_simple_pddl(functions, "functions")
         self.operators = self.init_operators(operators)  # Evaluated operators.
         self.ground_truth_operators = None
-        self.ground_truth_predicates = PDDLParser._parse_domain_predicates(
-            self.pddl_domain
-        )
-        self.ground_truth_constants = PDDLParser._parse_constants(
-            self.constants[len("(:constants") : -1]
-        )
+        self.ground_truth_predicates = PDDLParser._parse_domain_predicates(self.pddl_domain)
+        self.ground_truth_constants = PDDLParser._parse_constants(self.constants[len("(:constants") : -1])
 
         # One or more proposed predicates.
         self.proposed_predicates = []
@@ -50,9 +46,7 @@ class Domain:
         # One or more operators that have been proposed by Codex at the current iteration.
         self.proposed_operators = defaultdict(list)  # Operator name -> definitions
         self.codex_raw_operators = defaultdict(list)
-        self.operators_to_scores = defaultdict(
-            float
-        )  # (operator_name, body) -> scalar score.
+        self.operators_to_scores = defaultdict(float)  # (operator_name, body) -> scalar score.
         # Some operators have had standardized names.
         self.operator_canonicalization = {}
 
@@ -60,9 +54,7 @@ class Domain:
         self.codex_types = ""
 
     def add_additional_constants(self, additional_constant_string):
-        self.ground_truth_constants.update(
-            PDDLParser._parse_constants(additional_constant_string)
-        )
+        self.ground_truth_constants.update(PDDLParser._parse_constants(additional_constant_string))
 
     def init_pddl_domain(self, pddl_domain):
         if pddl_domain is not None:
@@ -87,9 +79,7 @@ class Domain:
             return vars(self.parent_domain)[str_keyword]
         elif self.pddl_domain is not None:
             try:
-                return PDDLParser._find_labelled_expression(
-                    self.pddl_domain, f":{str_keyword}"
-                )
+                return PDDLParser._find_labelled_expression(self.pddl_domain, f":{str_keyword}")
             except:
                 return ""
         return initial_value
@@ -98,9 +88,7 @@ class Domain:
         if initial_value is not None:
             return initial_value
         elif self.parent_domain is not None:
-            return copy.deepcopy(
-                vars(self.parent_domain)["operators"]
-            )  # Don't share the operator object.
+            return copy.deepcopy(vars(self.parent_domain)["operators"])  # Don't share the operator object.
         elif self.pddl_domain is not None:
             return PDDLParser._parse_domain_operators(self.pddl_domain)
         return initial_value
@@ -125,17 +113,9 @@ class Domain:
             return False
 
     def get_canonical_operator(self, operator_name):
-        operators_lower = {
-            o.lower(): o
-            for o in list(self.operators.keys()) + list(self.proposed_operators.keys())
-        }
-        operators_upper = {
-            o.upper(): o
-            for o in list(self.operators.keys()) + list(self.proposed_operators.keys())
-        }
-        if operator_name in list(self.operators.keys()) + list(
-            self.proposed_operators.keys()
-        ):
+        operators_lower = {o.lower(): o for o in list(self.operators.keys()) + list(self.proposed_operators.keys())}
+        operators_upper = {o.upper(): o for o in list(self.operators.keys()) + list(self.proposed_operators.keys())}
+        if operator_name in list(self.operators.keys()) + list(self.proposed_operators.keys()):
             return operator_name
         elif operator_name in operators_lower:
             return operators_lower[operator_name]
@@ -160,9 +140,7 @@ class Domain:
         verbose=True,
     ):
         if ground_truth_operators:
-            return separator.join(
-                [f"""{s}""" for _, s in self.ground_truth_operators.items()]
-            )
+            return separator.join([f"""{s}""" for _, s in self.ground_truth_operators.items()])
         else:
             o = ""
             if current_operators:
@@ -172,8 +150,7 @@ class Domain:
                 [
                     f"{self.proposed_operators[o][proposed_operator_index]}"
                     for o in proposed_operators
-                    if o in self.proposed_operators
-                    and proposed_operator_index < len(self.proposed_operators[o])
+                    if o in self.proposed_operators and proposed_operator_index < len(self.proposed_operators[o])
                 ]
             )
 
@@ -211,19 +188,13 @@ class Domain:
                 ]
             )
         else:
-            return "\n".join(
-                [self.requirements, self.types, self.predicates, self.functions]
-            )
+            return "\n".join([self.requirements, self.types, self.predicates, self.functions])
 
-    def domain_for_goal_prompting(
-        self, pddl_problem, include_codex_types: bool = False
-    ):
+    def domain_for_goal_prompting(self, pddl_problem, include_codex_types: bool = False):
         # pddl_problem is the problem string
         # this is to to return shorter version of to_string with only the requirements and types
         problem_types = (
-            PDDLParser._find_labelled_expression(pddl_problem, ":objects")
-            .split("\n\n")[0]
-            .split("\n")[1:-1]
+            PDDLParser._find_labelled_expression(pddl_problem, ":objects").split("\n\n")[0].split("\n")[1:-1]
         )
         domain_types = self.types.split("\n")[1:-1]
         type_list = domain_types + problem_types
@@ -253,9 +224,7 @@ class OtherDomain:
 
     def init_simple_pddl(self, str_keyword):
         try:
-            return PDDLParser._find_labelled_expression(
-                self.pddl_domain, f":{str_keyword}"
-            )
+            return PDDLParser._find_labelled_expression(self.pddl_domain, f":{str_keyword}")
         except:
             return ""
 
@@ -266,9 +235,7 @@ class OtherDomain:
     def domain_for_goal_prompting(self, pddl_problem):
         # pddl_problem is the problem string
         # this is to to return shorter version of to_string with only the requirements and types
-        problem_types = PDDLParser._find_labelled_expression(
-            pddl_problem, ":objects"
-        ).split("\n")[1:-1]
+        problem_types = PDDLParser._find_labelled_expression(pddl_problem, ":objects").split("\n")[1:-1]
         domain_types = self.types.split("\n")[1:-1]
         type_list = domain_types + problem_types
         types = "(:types\n" + "\n".join(type_list) + ")"
@@ -279,9 +246,7 @@ class OtherDomain:
                     """
 
 
-def save_gt_and_learned_plans(
-    curr_iteration, directory, dataset, gt_plans, solved_plans_pddl, problems
-):
+def save_gt_and_learned_plans(curr_iteration, directory, dataset, gt_plans, solved_plans_pddl, problems):
     plan_filename = os.path.join(directory, f"{dataset}_plans_it_{curr_iteration}.json")
 
     output_plans = {}
@@ -297,9 +262,7 @@ def save_gt_and_learned_plans(
 
 
 def save_learned_operators(curr_iteration, directory, dataset, train_domain, gt_domain):
-    operators_filename = os.path.join(
-        directory, f"{dataset}_operators_it_{curr_iteration}.json"
-    )
+    operators_filename = os.path.join(directory, f"{dataset}_operators_it_{curr_iteration}.json")
 
     output_operators = {}
     for operator_name in train_domain.operators:
@@ -322,22 +285,20 @@ def update_pddl_domain_and_problem(
 ):
     """Updates the PDDL domain and PDDL problem based on the motion planner results."""
     # Score if operator succeeds.
-    operator_success_score = 1
-    operator_failure_score = -20  # Penalize an operator heavily for failing
-    # Score if task succeeded.
-    task_success_score = 1
-    task_failure_score = -1
+    operator_success_score = 5  # Reward an operator if it could at least be executed.
+    operator_failure_score = -10  # Penalize an operator heavily if it was the point of failure.
+    task_success_score = 10
+    task_failure_score = -1  # Penalize an operator if it was unable to ultimately sovle the plan.
 
     any_success = False
     for goal, plan in problems[problem_id].evaluated_motion_planner_results:
-        motion_plan_result = problems[problem_id].evaluated_motion_planner_results[
-            (goal, plan)
-        ]
+        motion_plan_result = problems[problem_id].evaluated_motion_planner_results[(goal, plan)]
         if motion_plan_result.task_success:
             any_success = True
 
+        # These are the operators that were actually executed by the motion planner.
         for operator_idx, o in enumerate(motion_plan_result.pddl_plan.plan):
-            # Score the operator for its own success.
+            # The operator was successfully executed -- its on the path..
             if (
                 motion_plan_result.task_success
                 or motion_plan_result.last_failed_operator is None
@@ -346,7 +307,8 @@ def update_pddl_domain_and_problem(
                 pddl_domain.operators_to_scores[
                     (o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])
                 ] += operator_success_score
-            else:
+            # The operator was the actual one that failed.
+            if operator_idx == motion_plan_result.last_failed_operator:
                 pddl_domain.operators_to_scores[
                     (o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])
                 ] += operator_failure_score
@@ -359,6 +321,7 @@ def update_pddl_domain_and_problem(
                 pddl_domain.operators_to_scores[
                     (o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])
                 ] += task_failure_score
+
     if verbose:
         print("Top operators after success are:")
         for o_name, o_body in sorted(
@@ -372,27 +335,17 @@ def update_pddl_domain_and_problem(
     return should_continue_planner_attempts
 
 
-def checkpoint_and_reset_plans(
-    pddl_domain, problems, curr_iteration, command_args, output_directory
-):
-    experiment_tag = (
-        ""
-        if len(command_args.experiment_name) < 1
-        else f"{command_args.experiment_name}_"
-    )
+def checkpoint_and_reset_plans(pddl_domain, problems, curr_iteration, command_args, output_directory):
+    experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
     # Checkpoint all of the task plans regardless of whether they succeeded.
-    output_json = [
-        problems[problem_id].get_evaluated_pddl_plan_json() for problem_id in problems
-    ]
+    output_json = [problems[problem_id].get_evaluated_pddl_plan_json() for problem_id in problems]
     output_filepath = f"{experiment_tag}task_plans.json"
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
 
     # Checkpoint all of the motion plans regardless of whether they succeeded.
-    output_json = [
-        problems[problem_id].get_evaluated_motion_plan_json() for problem_id in problems
-    ]
+    output_json = [problems[problem_id].get_evaluated_motion_plan_json() for problem_id in problems]
     output_filepath = f"{experiment_tag}motion_plans.json"
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
@@ -407,9 +360,7 @@ def checkpoint_and_reset_plans(
         problems[problem_id].reset_evaluated_motion_planner_results()
 
 
-def checkpoint_and_reset_operators(
-    pddl_domain, curr_iteration, command_args, output_directory
-):
+def checkpoint_and_reset_operators(pddl_domain, curr_iteration, command_args, output_directory):
     # Set operators with final scores.
     OPERATOR_SCORE_THRESHOLD = 0
     for o_name, o_body in pddl_domain.operators_to_scores:
@@ -419,18 +370,14 @@ def checkpoint_and_reset_operators(
     pddl_domain.reset_proposed_operators()
     # Log operators.
     log_final_operators(pddl_domain, output_directory, command_args.experiment_name)
-    print(
-        f"Final operators after iteration {curr_iteration}: {pddl_domain.operators.keys()}"
-    )
+    print(f"Final operators after iteration {curr_iteration}: {pddl_domain.operators.keys()}")
 
 
 def log_final_operators(pddl_domain, output_directory, experiment_name):
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
     output_filepath = f"{experiment_tag}final_operators.json"
     # JSON.
-    output_json = {
-        o_name: pddl_domain.operators[o_name] for o_name in pddl_domain.operators
-    }
+    output_json = {o_name: pddl_domain.operators[o_name] for o_name in pddl_domain.operators}
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
@@ -439,9 +386,7 @@ def log_final_operators(pddl_domain, output_directory, experiment_name):
     output_filepath = f"{experiment_tag}final_operators.csv"
 
     if output_directory:
-        print(
-            f"Logging final operators: {os.path.join(output_directory, output_filepath)}"
-        )
+        print(f"Logging final operators: {os.path.join(output_directory, output_filepath)}")
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             fieldnames = [
                 "operator_name",
@@ -482,39 +427,25 @@ def update_pddl_domain_from_planner_results(
     operator_scores = defaultdict(float)
     for problem_id in problems:
         for goal in problems[problem_id].evaluated_motion_planner_results:
-            motion_plan_result = problems[problem_id].evaluated_motion_planner_results[
-                goal
-            ]
+            motion_plan_result = problems[problem_id].evaluated_motion_planner_results[goal]
             successful_operator_names = [
                 o[PDDLPlan.PDDL_ACTION]
-                for o in motion_plan_result.pddl_plan.plan[
-                    : motion_plan_result.last_failed_operator
-                ]
+                for o in motion_plan_result.pddl_plan.plan[: motion_plan_result.last_failed_operator]
             ]
             for o in successful_operator_names:
                 if o not in pddl_domain.operators:
                     operator_scores[o] += EXECUTED_SCORE
-                    task_success_score = (
-                        TASK_SUCCESS_SCORE if motion_plan_result.task_success else 0
-                    )
+                    task_success_score = TASK_SUCCESS_SCORE if motion_plan_result.task_success else 0
                     operator_scores[o] += task_success_score
 
     log_motion_planner_results(problems, command_args, output_directory)
 
     # Print the top operators and scores.
-    top_operators = sorted(
-        list(operator_scores.keys()), key=lambda o: -operator_scores[o]
-    )[:top_n_operators]
+    top_operators = sorted(list(operator_scores.keys()), key=lambda o: -operator_scores[o])[:top_n_operators]
     if verbose:
-        print(
-            f"Adding {len(top_operators)} operators to the domain with the following scores:"
-        )
+        print(f"Adding {len(top_operators)} operators to the domain with the following scores:")
 
-    experiment_tag = (
-        ""
-        if len(command_args.experiment_name) < 1
-        else f"{command_args.experiment_name}_"
-    )
+    experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
     output_filepath = f"{experiment_tag}operator_scores.json"
     if output_directory:
         print(
@@ -536,11 +467,7 @@ def update_pddl_domain_from_planner_results(
 
 
 def log_motion_planner_results(problems, command_args, output_directory):
-    experiment_tag = (
-        ""
-        if len(command_args.experiment_name) < 1
-        else f"{command_args.experiment_name}_"
-    )
+    experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
     output_filepath = f"{experiment_tag}motion_planner_results.csv"
 
     if output_directory:
@@ -563,10 +490,7 @@ def log_motion_planner_results(problems, command_args, output_directory):
                 for goal, r in problem.evaluated_motion_planner_results.items():
                     task_plan = ", ".join([x["action"] for x in r.pddl_plan.plan])
                     task_plan_success_prefix = ", ".join(
-                        [
-                            x["action"]
-                            for x in r.pddl_plan.plan[: r.last_failed_operator]
-                        ]
+                        [x["action"] for x in r.pddl_plan.plan[: r.last_failed_operator]]
                     )
                     writer.writerow(
                         {
@@ -652,9 +576,7 @@ class PDDLParser:
             else:
                 arg_values.append(arg.strip())
                 arg_types.append("")
-        return PDDLPredicate(
-            pred_name, len(pred[1:]), arg_types, argument_values=arg_values, neg=neg
-        )
+        return PDDLPredicate(pred_name, len(pred[1:]), arg_types, argument_values=arg_values, neg=neg)
 
     @classmethod
     def _parse_constants(cls, strings):
@@ -771,12 +693,7 @@ class PDDLPlan:
         self.overall_plan_cost = overall_plan_cost
 
     def plan_to_string(self, plan):
-        return "\n".join(
-            [
-                f"({a[PDDLPlan.PDDL_ACTION]} {' '.join(a[PDDLPlan.PDDL_ARGUMENTS])})"
-                for a in self.plan
-            ]
-        )
+        return "\n".join([f"({a[PDDLPlan.PDDL_ACTION]} {' '.join(a[PDDLPlan.PDDL_ARGUMENTS])})" for a in self.plan])
 
     def string_to_plan(self, plan_string, pddl_domain=None):
         action_strings = plan_string.strip().split("\n")
@@ -785,19 +702,13 @@ class PDDLPlan:
             assert a.startswith("(") and a.endswith(")")
             tokens = a.strip("()").split(" ")
             assert len(tokens) > 0
-            actions.append(
-                {PDDLPlan.PDDL_ACTION: tokens[0], PDDLPlan.PDDL_ARGUMENTS: tokens[1:]}
-            )
+            actions.append({PDDLPlan.PDDL_ACTION: tokens[0], PDDLPlan.PDDL_ARGUMENTS: tokens[1:]})
         if pddl_domain is not None:
             # Possibly check that we haven't lowercased the actions.
             for action in actions:
-                action[PDDLPlan.PDDL_ACTION] = pddl_domain.get_canonical_operator(
-                    action[PDDLPlan.PDDL_ACTION]
-                )
+                action[PDDLPlan.PDDL_ACTION] = pddl_domain.get_canonical_operator(action[PDDLPlan.PDDL_ACTION])
 
-                operator_body = pddl_domain.get_operator_body(
-                    action[PDDLPlan.PDDL_ACTION]
-                )
+                operator_body = pddl_domain.get_operator_body(action[PDDLPlan.PDDL_ACTION])
                 if operator_body:
                     action[PDDLPlan.PDDL_OPERATOR_BODY] = operator_body
         return actions
@@ -808,7 +719,14 @@ class PDDLPlan:
         pddl_domain,
         remove_alfred_object_ids,
         remove_alfred_agent,
-        ignore_predicates=["atLocation", "objectAtLocation", "holdsAny", 'objectType', 'receptacleType', 'holdsAnyReceptacleObject'],
+        ignore_predicates=[
+            "atLocation",
+            "objectAtLocation",
+            "holdsAny",
+            "objectType",
+            "receptacleType",
+            "holdsAnyReceptacleObject",
+        ],
     ):
         """
         :ret:
@@ -835,6 +753,7 @@ class PDDLPlan:
             }]
         }
         """
+        pruned_pddl_plan = []
         operator_sequence = []
         for action in self.plan:
             ground_postcondition_predicates = PDDLPlan.get_postcondition_predicates(
@@ -852,44 +771,50 @@ class PDDLPlan:
                 ignore_predicates=ignore_predicates,
             )
             # If we wound up removing all of them, then don't include this action.
-            if (
-                len(ground_postcondition_predicates) == 0
-                and len(ground_precondition_predicates) == 0
-            ):
+            if len(ground_postcondition_predicates) == 0 and len(ground_precondition_predicates) == 0:
                 continue
             else:
                 operator_sequence.append(
                     {
                         PDDLPlan.PDDL_ACTION: action[PDDLPlan.PDDL_ACTION],
                         PDDLPlan.PDDL_POSTCOND_GROUND_PREDICATES: [
-                            ground_predicate.to_json()
-                            for ground_predicate in ground_postcondition_predicates
+                            ground_predicate.to_json() for ground_predicate in ground_postcondition_predicates
                         ],
                         PDDLPlan.PDDL_PRECOND_GROUND_PREDICATES: [
-                            ground_predicate.to_json()
-                            for ground_predicate in ground_precondition_predicates
+                            ground_predicate.to_json() for ground_predicate in ground_precondition_predicates
                         ],
                     }
                 )
+                pruned_pddl_plan.append(action)
 
-        goal_ground_truth_predicates = PDDLPlan.get_goal_ground_truth_predicates(problem, pddl_domain, ignore_predicates=ignore_predicates)
-        goal_ground_truth_predicates_json = [ground_predicate.to_json() for ground_predicate in goal_ground_truth_predicates]
+        goal_ground_truth_predicates = PDDLPlan.get_goal_ground_truth_predicates(
+            problem, pddl_domain, ignore_predicates=ignore_predicates
+        )
+        goal_ground_truth_predicates_json = [
+            ground_predicate.to_json() for ground_predicate in goal_ground_truth_predicates
+        ]
 
         task_plan_json = {
             "operator_sequence": operator_sequence,
             "goal_ground_truth_predicates": goal_ground_truth_predicates_json,
         }
+        return task_plan_json, PDDLPlan(plan=pruned_pddl_plan)
 
-        return task_plan_json
-    
     @classmethod
     def get_ground_predicates(
         cls,
         pddl_action,
         ordered_parameter_keys,
         lifted_predicates_list,
-        ignore_predicates=["atLocation", "objectAtLocation", "holdsAny", 'objectType', 'receptacleType', 'holdsAnyReceptacleObject'],
-        remove_alfred_agent=True, 
+        ignore_predicates=[
+            "atLocation",
+            "objectAtLocation",
+            "holdsAny",
+            "objectType",
+            "receptacleType",
+            "holdsAnyReceptacleObject",
+        ],
+        remove_alfred_agent=True,
         remove_alfred_object_ids=True,
         ground_arguments_map=None,
     ):
@@ -903,8 +828,7 @@ class PDDLPlan:
         ALFRED_AGENT = "agent"
         if not ground_arguments_map:
             ground_arguments_map = {
-                argument: ground
-                for (argument, ground) in zip(ordered_parameter_keys, pddl_action["args"])
+                argument: ground for (argument, ground) in zip(ordered_parameter_keys, pddl_action["args"])
             }
         ground_predicates_list = []
         for lifted_predicate in lifted_predicates_list:
@@ -912,17 +836,14 @@ class PDDLPlan:
                 continue
             ground_arguments = [
                 # Get the ground argument from the map; if its not in the map, its already a ground predicate.
-                ground_arguments_map.get(arg, arg) for arg in lifted_predicate.argument_values
+                ground_arguments_map.get(arg, arg)
+                for arg in lifted_predicate.argument_values
             ]
             # ALFRED specific. Strips away the 'agent' argument which the motion planner does not accept.
             if remove_alfred_agent:
-                ground_arguments = [
-                    g for g in ground_arguments if ALFRED_AGENT not in g
-                ]
+                ground_arguments = [g for g in ground_arguments if ALFRED_AGENT not in g]
             if remove_alfred_object_ids:
-                ground_arguments = [
-                    PDDLPredicate.remove_alfred_object_ids(a) for a in ground_arguments
-                ]
+                ground_arguments = [PDDLPredicate.remove_alfred_object_ids(a) for a in ground_arguments]
             ground_predicates_list.append(
                 PDDLPredicate(
                     name=lifted_predicate.name,
@@ -933,9 +854,21 @@ class PDDLPlan:
                 )
             )
         return ground_predicates_list
-    
+
     @classmethod
-    def get_goal_ground_truth_predicates(cls, problem, pddl_domain, ignore_predicates=["atLocation", "objectAtLocation", "holdsAny", 'objectType', 'receptacleType', 'holdsAnyReceptacleObject']):
+    def get_goal_ground_truth_predicates(
+        cls,
+        problem,
+        pddl_domain,
+        ignore_predicates=[
+            "atLocation",
+            "objectAtLocation",
+            "holdsAny",
+            "objectType",
+            "receptacleType",
+            "holdsAnyReceptacleObject",
+        ],
+    ):
         """
         Extracts the ground truth goal from the original problem.
 
@@ -960,19 +893,20 @@ class PDDLPlan:
         # PDDLPredicate list rather than list of strings.
         ground_truth_goal_predicates = goal_predicates_string_to_predicates_list(ground_truth_goal_predicates_strings)
         # Extract the ground truth goal map
-        ground_arguments_map = get_goal_ground_arguments_map(ground_truth_goal_predicates, type_predicates=['objectType', 'receptacleType'])
+        ground_arguments_map = get_goal_ground_arguments_map(
+            ground_truth_goal_predicates, type_predicates=["objectType", "receptacleType"]
+        )
         ground_goal_predicates = PDDLPlan.get_ground_predicates(
             pddl_action=None,
             ordered_parameter_keys=None,
             lifted_predicates_list=ground_truth_goal_predicates,
             ignore_predicates=ignore_predicates,
-            remove_alfred_agent=True, 
+            remove_alfred_agent=True,
             remove_alfred_object_ids=False,
-            ground_arguments_map=ground_arguments_map
+            ground_arguments_map=ground_arguments_map,
         )
         return ground_goal_predicates
 
-    
     @classmethod
     def get_precondition_predicates(
         cls,
@@ -980,7 +914,14 @@ class PDDLPlan:
         pddl_domain,
         remove_alfred_object_ids=True,
         remove_alfred_agent=True,
-        ignore_predicates=["atLocation", "objectAtLocation", "holdsAny", 'objectType', 'receptacleType', 'holdsAnyReceptacleObject'],
+        ignore_predicates=[
+            "atLocation",
+            "objectAtLocation",
+            "holdsAny",
+            "objectType",
+            "receptacleType",
+            "holdsAnyReceptacleObject",
+        ],
     ):
         operator_body = pddl_domain.get_operator_body(action[PDDLPlan.PDDL_ACTION])
         # There's a chance that this is a predefined operator, in which case we need to get it directly.
@@ -997,7 +938,7 @@ class PDDLPlan:
             ordered_parameter_keys,
             processed_preconds,
             ignore_predicates=ignore_predicates,
-            remove_alfred_agent=remove_alfred_agent, 
+            remove_alfred_agent=remove_alfred_agent,
             remove_alfred_object_ids=remove_alfred_object_ids,
         )
         return ground_precondition_predicates
@@ -1025,11 +966,10 @@ class PDDLPlan:
             ordered_parameter_keys,
             processed_effects,
             ignore_predicates=ignore_predicates,
-            remove_alfred_agent=remove_alfred_agent, 
+            remove_alfred_agent=remove_alfred_agent,
             remove_alfred_object_ids=remove_alfred_object_ids,
         )
         return ground_precondition_predicates
-    
 
     def __str__(self):
         return "PDDLPlan[{}]".format(self.plan_string.replace("\n", " "))
@@ -1089,7 +1029,7 @@ class PDDLPredicate:
     @classmethod
     def remove_alfred_object_ids(cls, argument_value):
         return argument_value.split("_")[0]
-    
+
     @classmethod
     def get_alfred_object_type(cls, argument_value):
         return argument_value.split("Type")[0].lower()
@@ -1106,19 +1046,13 @@ class PDDLPredicate:
 class PDDLProblem:
     def __init__(self, ground_truth_pddl_problem_string=None):
         self.ground_truth_pddl_problem_string = ground_truth_pddl_problem_string
-        self.ground_truth_goal = self.parse_goal_pddl(
-            self.ground_truth_pddl_problem_string
-        )
+        self.ground_truth_goal = self.parse_goal_pddl(self.ground_truth_pddl_problem_string)
         self.ground_truth_goal_list = self.parse_goal_pddl_list(self.ground_truth_goal)
-        self.ground_truth_objects_dict = self.parse_problem_objects_pddl(
-            return_dict=True
-        )
+        self.ground_truth_objects_dict = self.parse_problem_objects_pddl(return_dict=True)
 
     def get_pddl_string_with_proposed_goal(self, proposed_goal):
         # Replaces the ground truth goal with a proposed goal.
-        pddl_string = self.ground_truth_pddl_problem_string.replace(
-            self.ground_truth_goal, proposed_goal
-        )
+        pddl_string = self.ground_truth_pddl_problem_string.replace(self.ground_truth_goal, proposed_goal)
         return pddl_string
 
     def parse_goal_pddl(self, pddl_problem):
@@ -1186,9 +1120,7 @@ class PDDLProblem:
         returns a list of the objects in the pddl problem
         """
         pddl_problem = PDDLParser._purge_comments(self.ground_truth_pddl_problem_string)
-        object_types = PDDLParser._find_labelled_expression(
-            pddl_problem, ":objects"
-        ).split("\n")[1:-1]
+        object_types = PDDLParser._find_labelled_expression(pddl_problem, ":objects").split("\n")[1:-1]
         if return_dict:
             return self.parse_object_types_to_dict(object_types)
         return self.parse_object_types_to_list(object_types)
@@ -1204,9 +1136,7 @@ class PDDLProblem:
         pddl_problem = PDDLParser._purge_comments(self.ground_truth_pddl_problem_string)
         # taking the first bunch of objects bc they are separated from location by \n\n
         object_types = (
-            PDDLParser._find_labelled_expression(pddl_problem, ":objects")
-            .split("\n\n")[0]
-            .split("\n")[1:-1]
+            PDDLParser._find_labelled_expression(pddl_problem, ":objects").split("\n\n")[0].split("\n")[1:-1]
         )
         return self.parse_object_types_to_list(object_types)
 
@@ -1231,23 +1161,18 @@ def preprocess_proposed_plans_operators_goals(
     )
 
 
-def preprocess_goals(
-    problems, pddl_domain, output_directory, command_args=None, verbose=False
-):
+def preprocess_goals(problems, pddl_domain, output_directory, command_args=None, verbose=False):
     # Preprocess goals, making the hard assumption that we want goals to be conjunctions of existing predicates only.
     unsolved_problems = [
         problems[p]
         for p in problems
-        if len(problems[p].solved_motion_plan_results) < 1
-        and not problems[p].supervise_goal
+        if len(problems[p].solved_motion_plan_results) < 1 and not problems[p].supervise_goal
     ]
     output_json = dict()
     if verbose:
-        print(
-            f"preprocess_goals: preprocessing {len(unsolved_problems)} unsolved problems."
-        )
+        print(f"preprocess_goals: preprocessing {len(unsolved_problems)} unsolved problems.")
     for problem in unsolved_problems:
-        preprocessed_goals = []
+        preprocessed_goals = set()
         for proposed_goal in problem.proposed_pddl_goals:
             if verbose:
                 print("Trying to process...")
@@ -1263,17 +1188,20 @@ def preprocess_goals(
                 print(proposed_goal)
 
             if success:
-                preprocessed_goals.append(preprocessed_goal)
+                preprocessed_goals.add(preprocessed_goal)
                 if proposed_goal_match(preprocessed_goal, problem.ground_truth_pddl_problem.ground_truth_goal):
                     problem.correct_pddl_goal = True
             if verbose:
                 print(f"Preprocessed goal: {preprocessed_goal}")
                 print("====")
+        preprocessed_goals = list(preprocessed_goals)
         problem.codex_raw_goals = problem.proposed_pddl_goals
         problem.proposed_pddl_goals = preprocessed_goals
         output_json[problem.problem_id] = preprocessed_goals
-    
-    print(f"Preprocess goals top-K accuracy: {len([p for p in unsolved_problems if p.correct_pddl_goal])} / {len(unsolved_problems)} exact match to ground truth goal.")
+
+    print(
+        f"Preprocess goals top-K accuracy: {len([p for p in unsolved_problems if p.correct_pddl_goal])} / {len(unsolved_problems)} exact match to ground truth goal."
+    )
 
     experiment_name = command_args.experiment_name
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
@@ -1281,9 +1209,8 @@ def preprocess_goals(
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
-    log_preprocessed_goals(
-        problems, output_directory, command_args.experiment_name, verbose
-    )
+    log_preprocessed_goals(problems, output_directory, command_args.experiment_name, verbose)
+
 
 def proposed_goal_match(codex_goal_str, gt_goal_str):
     def parse_goal_pddl_list(pddl_goal_string):
@@ -1296,11 +1223,13 @@ def proposed_goal_match(codex_goal_str, gt_goal_str):
         )
         return preprocessed_predicates
 
-    if parse_goal_pddl_list(codex_goal_str) is None: return False
+    if parse_goal_pddl_list(codex_goal_str) is None:
+        return False
     codex_goal = goal_predicates_string_to_predicates_list(parse_goal_pddl_list(codex_goal_str))
     gt_goal = goal_predicates_string_to_predicates_list(parse_goal_pddl_list(gt_goal_str))
-    
-    if len(codex_goal) != len(gt_goal): return False
+
+    if len(codex_goal) != len(gt_goal):
+        return False
     for x in codex_goal:
         if x not in gt_goal:
             return False
@@ -1331,9 +1260,7 @@ def preprocess_goal(goal, pddl_domain, object_dict, use_ground_truth_predicates=
     all_constants.update(object_dict)
     # Extract the conjunction.
     try:
-        goal_conjunction = PDDLParser._find_labelled_expression(
-            preprocessed_goal, "and"
-        )
+        goal_conjunction = PDDLParser._find_labelled_expression(preprocessed_goal, "and")
     except:
         print(f"Failure, could not find goal_conjunction in {preprocessed_goal}.")
         return False, ""
@@ -1350,19 +1277,13 @@ def preprocess_goal(goal, pddl_domain, object_dict, use_ground_truth_predicates=
             debug=True,
         )
     except Exception as e:
-        print(
-            f"Failure, could not find extract ground truth predicates from conjunction in {goal_conjunction}."
-        )
+        print(f"Failure, could not find extract ground truth predicates from conjunction in {goal_conjunction}.")
         return False, ""
     if parameters is None:
-        print(
-            f"Failure, could not find extract ground truth predicates from conjunction in {goal_conjunction}."
-        )
+        print(f"Failure, could not find extract ground truth predicates from conjunction in {goal_conjunction}.")
         return False, ""
 
-    unground_parameters = sorted(
-        [p for p in parameters.items() if p[0].startswith("?")]
-    )
+    unground_parameters = sorted([p for p in parameters.items() if p[0].startswith("?")])
 
     # Conjunction
     predicate_string = "\n\t\t".join(preprocessed_predicates)
@@ -1370,9 +1291,7 @@ def preprocess_goal(goal, pddl_domain, object_dict, use_ground_truth_predicates=
 
     # Add exists.
     for variable_name, variable_type in unground_parameters:
-        preprocessed_goal = (
-            f"(exists ({variable_name} - {variable_type})\n{preprocessed_goal})"
-        )
+        preprocessed_goal = f"(exists ({variable_name} - {variable_type})\n{preprocessed_goal})"
     # Add goal.
     preprocessed_goal = f"(:goal\n\t{preprocessed_goal}\n)"
     return True, preprocessed_goal
@@ -1385,9 +1304,7 @@ def log_preprocessed_goals(problems, output_directory, experiment_name, verbose=
     output_filepath = f"{experiment_tag}preprocessed_goals.csv"
 
     if output_directory:
-        print(
-            f"Logging preprocessed goals: {os.path.join(output_directory, output_filepath)}"
-        )
+        print(f"Logging preprocessed goals: {os.path.join(output_directory, output_filepath)}")
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             fieldnames = [
                 "problem",
@@ -1427,12 +1344,10 @@ def preprocess_operators(
     logs = dict()
 
     if verbose:
-        print(
-            f"preprocess_operators: preprocessing {len(pddl_domain.proposed_operators)} operators."
-        )
+        print(f"preprocess_operators: preprocessing {len(pddl_domain.proposed_operators)} operators.")
         print(list(pddl_domain.proposed_operators.keys()))
     for o in list(pddl_domain.proposed_operators.keys()):
-        logs[0] = list()
+        logs[o] = list()
         pddl_domain.codex_raw_operators[o] = pddl_domain.proposed_operators[o]
         for i, proposed_operator_body in enumerate(pddl_domain.proposed_operators[o]):
             preprocessed_operator_name = f"{o}_{i}"
@@ -1448,12 +1363,12 @@ def preprocess_operators(
                 proposed_operator_name=o,
             )
             if success:
-                logs[0].append((proposed_operator_body, preprocessed_operator))
+                logs[o].append((proposed_operator_body, preprocessed_operator))
                 pddl_domain.proposed_operators[preprocessed_operator_name] = [preprocessed_operator]
                 output_json[preprocessed_operator_name] = preprocessed_operator
             else:
-                logs[0].append((proposed_operator_body, "FAILED"))
-            
+                logs[o].append((proposed_operator_body, "FAILED"))
+
             if verbose:
                 print(f"Preprocessed operator: {preprocessed_operator_name}")
                 print(f"Processed form: {preprocessed_operator}")
@@ -1477,18 +1392,14 @@ def preprocess_operators(
     )
 
 
-def log_preprocessed_operators(
-    pddl_domain, logs, output_directory, experiment_name, verbose=False
-):
+def log_preprocessed_operators(pddl_domain, logs, output_directory, experiment_name, verbose=False):
     # Human readable CSV.
     experiment_name = experiment_name
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
     output_filepath = f"{experiment_tag}preprocessed_operators.csv"
 
     if output_directory:
-        print(
-            f"Logging preprocessed operators: {os.path.join(output_directory, output_filepath)}"
-        )
+        print(f"Logging preprocessed operators: {os.path.join(output_directory, output_filepath)}")
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             fieldnames = [
                 "operator_name",
@@ -1505,9 +1416,7 @@ def log_preprocessed_operators(
                     writer.writerow(
                         {
                             "operator_name": operator_name,
-                            "gt_operator": pddl_domain.ground_truth_operators[
-                                operator_name
-                            ]
+                            "gt_operator": pddl_domain.ground_truth_operators[operator_name]
                             if operator_name in pddl_domain.ground_truth_operators
                             else "",
                             "codex_raw_operator": raw_operator,
@@ -1532,9 +1441,7 @@ def parse_operator_components(operator_body, pddl_domain, return_order=False):
 
     for match in matches:
         start_ind = match.start()
-        op = PDDLParser._find_balanced_expression(
-            preprocessed_operator, start_ind
-        ).strip()
+        op = PDDLParser._find_balanced_expression(preprocessed_operator, start_ind).strip()
         patt = r"\(:action(.*):parameters(.*):precondition(.*):effect(.*)\)"
         op_match = re.match(patt, op, re.DOTALL)
         if op_match is None:
@@ -1576,9 +1483,7 @@ def parse_operator_components(operator_body, pddl_domain, return_order=False):
             # parameters = {k[1:]: v for k, v in precond_parameters if k.startswith("?")}
 
             # NB(Lio W: remove the 'drop the leading?')
-            parameters = {
-                k: v for k, v in precond_parameters.items() if k.startswith("?")
-            }
+            parameters = {k: v for k, v in precond_parameters.items() if k.startswith("?")}
         else:
             parameters = precond_parameters
         if not return_order:
@@ -1604,22 +1509,21 @@ def preprocess_operator(
     # Purge comments.
     preprocessed_operator = PDDLParser._purge_comments(operator_body)
 
-    # Replace proposed name with preprocessed name
-    preprocessed_operator = preprocessed_operator.replace(proposed_operator_name, preprocessed_operator_name)
-
     matches = re.finditer(r"\(:action", preprocessed_operator)
 
     for match in matches:
         start_ind = match.start()
         try:
-            op = PDDLParser._find_balanced_expression(
-                preprocessed_operator, start_ind
-            ).strip()
+            op = PDDLParser._find_balanced_expression(preprocessed_operator, start_ind).strip()
         except IndexError:
             # NB(Jiayuan Mao @ 2023/02/04): sometimes when the length is too short, Codex may
             # propose only a partial operator, which will cause the parser to fail.
             print(f"Failure, operatror proposal is not valid {preprocessed_operator}.")
             return False, ""
+        # Replace current name with preprocessed name (which includes operator index).
+        patt = r"\(:action(.*)\n"
+        current_operator_name = re.findall("\(:action(.*?):parameters", op, re.DOTALL)[0].strip()
+        op = op.replace(current_operator_name, preprocessed_operator_name)
 
         patt = r"\(:action(.*):parameters(.*):precondition(.*):effect(.*)\)"
         op_match = re.match(patt, op, re.DOTALL)
@@ -1648,15 +1552,10 @@ def preprocess_operator(
 
         if not allow_partial_ground_predicates:
             # NB(Jiayuan Mao @ 2023/02/04): if we don't allow partial ground predicates, the parameters do not contain '?'.
-            unground_parameters = [
-                f"?{name} - {param_type}"
-                for (name, param_type) in precond_parameters.items()
-            ]
+            unground_parameters = [f"?{name} - {param_type}" for (name, param_type) in precond_parameters.items()]
         else:
             unground_parameters = [
-                f"{name} - {param_type}"
-                for (name, param_type) in precond_parameters.items()
-                if name.startswith("?")
+                f"{name} - {param_type}" for (name, param_type) in precond_parameters.items() if name.startswith("?")
             ]
         if len(unground_parameters) > maximum_operator_arity:
             return False, ""
@@ -1723,10 +1622,7 @@ def preprocess_conjunction_predicates(
     conjunction_predicates = op_match.groups()[0].strip()
     if len(conjunction_predicates) <= 0:
         return None, None, None
-    predicates_list = [
-        p.strip()
-        for p in PDDLParser._find_all_balanced_expressions(op_match.groups()[0].strip())
-    ]
+    predicates_list = [p.strip() for p in PDDLParser._find_all_balanced_expressions(op_match.groups()[0].strip())]
     preprocessed_predicates = []
     structured_predicates = []
     # print("predicates_list", predicates_list)
@@ -1748,17 +1644,13 @@ def preprocess_conjunction_predicates(
 
         if ground_truth_predicates is not None and (
             (parsed_predicate.name not in ground_truth_predicates)
-            or parsed_predicate.arguments
-            != ground_truth_predicates[parsed_predicate.name].arguments
+            or parsed_predicate.arguments != ground_truth_predicates[parsed_predicate.name].arguments
         ):
             continue
         else:
             valid = True
             if ground_truth_predicates is not None:
-                if (
-                    check_static
-                    and ground_truth_predicates[parsed_predicate.name].static
-                ):
+                if check_static and ground_truth_predicates[parsed_predicate.name].static:
                     continue
 
                 # NB(Jiayuan Mao @ 2023/04/07): if the new predicate is not valid, we restore the original parameters.
@@ -1776,10 +1668,7 @@ def preprocess_conjunction_predicates(
                                 break
                     else:
                         if ground_truth_constants is not None:
-                            if (
-                                argname not in ground_truth_constants
-                                or ground_truth_constants[argname] != argtype
-                            ):
+                            if argname not in ground_truth_constants or ground_truth_constants[argname] != argtype:
                                 valid = False
                                 break
             if valid:
@@ -1789,6 +1678,7 @@ def preprocess_conjunction_predicates(
                 parameters = parameters_backup
 
     return parameters, preprocessed_predicates, structured_predicates
+
 
 def goal_predicates_string_to_predicates_list(goal_predicates_list, allow_partial_ground_predicates=True):
     predicates = []
@@ -1810,11 +1700,12 @@ def goal_predicates_string_to_predicates_list(goal_predicates_list, allow_partia
         predicates.append(parsed_predicate)
     return predicates
 
-def get_goal_ground_arguments_map(goal_predicates_list, type_predicates=['objectType', 'receptacleType']):
+
+def get_goal_ground_arguments_map(goal_predicates_list, type_predicates=["objectType", "receptacleType"]):
     ground_arguments_map = {}
     for predicate in goal_predicates_list:
         if predicate.name in type_predicates:
-           ground_argument_var = predicate.argument_values[0]
-           ground_argument_type = PDDLPredicate.get_alfred_object_type(predicate.argument_values[1])
-           ground_arguments_map[ground_argument_var] = ground_argument_type
+            ground_argument_var = predicate.argument_values[0]
+            ground_argument_type = PDDLPredicate.get_alfred_object_type(predicate.argument_values[1])
+            ground_arguments_map[ground_argument_var] = ground_argument_type
     return ground_arguments_map
