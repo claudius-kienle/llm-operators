@@ -1,0 +1,3 @@
+;; Based on those examples, write an example for an operator called <OPERATOR>.
+;; As with the examples, consider whether we can use a tool object, a tool receptacle, and what types they could be if you use them, based on the list of objectTypes and receptacleTypes. Or, you may not need to use any tool objects or tool receptacles at all. Make sure to only use valid predicates that appear in the domain definition.
+;; Write <N_SAMPLES> different <OPERATOR> operators. Start each with <START> and end with <END>. 

@@ -1,0 +1,14 @@
+problem_id,attempt_id,sample_percent,goal,success,plan,sampled_operators
+train/pick_heat_then_place_in_recep-Apple-None-SideTable-28/trial_T20190906_180710_251060,0,1.0,"(:goal
+	(exists (?r - receptacle)
+(exists (?o - object)
+(and 
+		(objectType ?o AppleType)
+		(receptacleType ?r DiningTableType)
+		(inReceptacle ?o ?r)
+		(heatable ?o)
+		(isHot ?o))))
+)",True,"(gotolocation agent1 loc_bar__minus_16_bar__minus_9_bar_3_bar_30 loc_bar__minus_10_bar__minus_12_bar_2_bar_45)
+(gotolocation agent1 loc_bar__minus_10_bar__minus_12_bar_2_bar_45 loc_bar__minus_10_bar__minus_4_bar_0_bar_60)
+(takeobject_0 agent1 loc_bar__minus_10_bar__minus_4_bar_0_bar_60 apple__minus_10_dot_24330328_comma__minus_10_dot_24330328_comma__minus_2_dot_5353236_comma__minus_2_dot_5353236_comma_3_dot_824130536_comma_3_dot_824130536)
+(heatobject_2 agent1 loc_bar__minus_10_bar__minus_4_bar_0_bar_60 apple__minus_10_dot_24330328_comma__minus_10_dot_24330328_comma__minus_2_dot_5353236_comma__minus_2_dot_5353236_comma_3_dot_824130536_comma_3_dot_824130536)","['DropObject_0', 'HeatObject_0', 'ThrowObject_0', 'CloseObject_2', 'TakeObject_1', 'SliceObject_0', 'TurnOnObject_2', 'OpenObject_1', 'WashObject_1', 'ChillObject_1', 'WashObject_0', 'WarmObject_1', 'CloseObject_1', 'CutObject_1', 'DropObject_1', 'OpenObject_2', 'DropObject_2', 'WarmObject_0', 'TurnOnLamp_0', 'CloseObject_0', 'SliceObject_2', 'TurnOffObject_1', 'CoolObject_2', 'TurnOffObject_0', 'TakeObject_2', 'TurnOffObject_2', 'HeatObject_1', 'ThrowObject_1', 'ChillObject_0', 'HeatObject_2', 'ChillObject_2', 'OpenObject_0', 'PlaceObject_1', 'TurnOnLight_1', 'TurnOnObject_1', 'SliceObject_1', 'CutObject_2', 'WashObject_2', 'TurnOnLamp_1', 'TurnOnLight_0', 'TurnOnLamp_2', 'TurnOnObject_0', 'PlaceObject_2', 'ThrowObject_2', 'CutObject_0', 'TakeObject_0', 'CoolObject_0', 'CoolObject_1', 'ThrowAwayObject_1', 'PlaceObject_0', 'WarmObject_2', 'ThrowAwayObject_0']"

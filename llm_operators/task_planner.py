@@ -37,6 +37,8 @@ def attempt_task_plan_for_problem(
     task_plan_with_constants=False,
     plan_attempt_idx=0,
     max_task_samples=4,
+    score_threshold=-10,
+    goal_attempt_idx=None,
 ):
     """
     Evaluates planner to evaluate task plans for a single planning problems, given a PDDL domain.
@@ -47,17 +49,11 @@ def attempt_task_plan_for_problem(
             f"task_planner.attempt_task_plan_for_problem: attempt {plan_attempt_idx} : {problem_idx} / {len(problems)}"
         )
     else:
-        print(
-            f"\ttask_planner.attempt_task_plan_for_problem: attempt {plan_attempt_idx}"
-        )
+        print(f"\ttask_planner.attempt_task_plan_for_problem: attempt {plan_attempt_idx}")
     if debug_skip:
         print("\t...debug_skip.")
 
-    experiment_tag = (
-        ""
-        if len(command_args.experiment_name) < 1
-        else f"{command_args.experiment_name}_"
-    )
+    experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
 
     # NB(Jiayuan Mao @ 2023/04/07): this file is solved via pddl.checkpoint_and_reset_plans function.
     output_filepath = f"{experiment_tag}task_plans.json"
@@ -67,10 +63,7 @@ def attempt_task_plan_for_problem(
             unsolved_problems = mock_evaluate_task_plans_and_costs_for_problems(
                 output_filepath, output_directory, problems
             )
-            if (
-                problem_id in unsolved_problems
-                or len(problems[problem_id].evaluated_pddl_plans) > 0
-            ):
+            if problem_id in unsolved_problems or len(problems[problem_id].evaluated_pddl_plans) > 0:
                 print("Mock found for task plan, continuing...")
                 return
             else:
@@ -85,14 +78,15 @@ def attempt_task_plan_for_problem(
         proposed_operators = set()
         for operator_name in pddl_domain.proposed_operators:
             for operator_body in pddl_domain.proposed_operators[operator_name]:
-                if pddl_domain.operators_to_scores[(operator_name, operator_body)] >= 0:
+                if pddl_domain.operators_to_scores[(operator_name, operator_body)] >= score_threshold:
                     proposed_operators.add(operator_name)
 
     if command_args.debug_export_failed_pddl:
         # NB(Jiayuan Mao @ 2023/04/07): do a bit of hack here, because we don't have access to "current_iteration" here.
         debug_export_dir = os.path.join(
-            command_args.debug_export_failed_pddl, osp.basename(output_directory),
-            f'problem_{problem_idx}_attempt_{plan_attempt_idx}'
+            command_args.debug_export_failed_pddl,
+            osp.basename(output_directory),
+            f"problem_{problem_idx}_attempt_{plan_attempt_idx}",
         )
     else:
         debug_export_dir = None
@@ -110,6 +104,7 @@ def attempt_task_plan_for_problem(
         sample_operator_percent=sample_operator_percent,
         debug_export_dir=debug_export_dir,
         plan_attempt_idx=plan_attempt_idx,
+        goal_attempt_idx=goal_attempt_idx,
     )
     if any_success:
         problems[problem_id].update_evaluated_pddl_plans(new_evaluated_plans)
@@ -139,18 +134,12 @@ def evaluate_task_plans_and_costs_for_problems(
     print(f"evaluate_task_plans_and_costs_for_problems on {len(problems)}.")
 
     output_json = []
-    experiment_tag = (
-        ""
-        if len(command_args.experiment_name) < 1
-        else f"{command_args.experiment_name}_"
-    )
+    experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
 
     output_filepath = f"{experiment_tag}task_plans.json"
 
     if use_mock:
-        mock_evaluate_task_plans_and_costs_for_problems(
-            output_filepath, output_directory, problems
-        )
+        mock_evaluate_task_plans_and_costs_for_problems(output_filepath, output_directory, problems)
         return
 
     if verbose:
@@ -158,7 +147,6 @@ def evaluate_task_plans_and_costs_for_problems(
 
     total_solved_problems = 0
     for max_problems, problem_id in enumerate(problems):
-
         if verbose:
             print(
                 f"\nNow on problem {max_problems} / {len(problems)}. Total solved problems so far: {total_solved_problems}"
@@ -183,14 +171,10 @@ def evaluate_task_plans_and_costs_for_problems(
             json.dump(output_json, f)
 
 
-def generate_random_proposed_operator_samples(
-    proposed_operators, num_samples=4, sample_percent=0.5
-):
+def generate_random_proposed_operator_samples(proposed_operators, num_samples=4, sample_percent=0.5):
     # Sample some percentage of the operator
     num_to_sample = int(sample_percent * len(proposed_operators))
-    return [
-        random.sample(proposed_operators, num_to_sample) for _ in range(num_samples)
-    ]
+    return [random.sample(proposed_operators, num_to_sample) for _ in range(num_samples)]
 
 
 def generate_random_proposed_operator_sample(proposed_operators, sample_percent=0.5):
@@ -213,6 +197,7 @@ def sample_task_plans_for_problem(
     sample_operator_percent=1.0,
     debug_export_dir=None,
     plan_attempt_idx=0,
+    goal_attempt_idx=0,
 ):
     """
     Uses a task_planner to propose samples, so we attempt planning using random subsets of
@@ -230,9 +215,10 @@ def sample_task_plans_for_problem(
     any_success = False
     all_evaluated_plans = defaultdict(set)
 
-    # Sample a set of operators to try. Don't sample any operators with negative scores.
+    # Sample a set of operators to try. Don't sample any operators with negative scores below the negative scoring threshold.
     sampled_proposed_operators = generate_random_proposed_operator_sample(
-        proposed_operators, sample_percent=sample_operator_percent
+        proposed_operators,
+        sample_percent=sample_operator_percent,
     )
     success, evaluated_plans, _ = run_planner(
         pddl_domain=pddl_domain,
@@ -242,7 +228,9 @@ def sample_task_plans_for_problem(
         debug_ground_truth_goals=debug_ground_truth_goals,
         proposed_operators=sampled_proposed_operators,
         debug_export_dir=debug_export_dir,
+        goal_attempt_idx=goal_attempt_idx,
     )
+
     any_success = any_success or success
     for g in evaluated_plans:
         all_evaluated_plans[g].add(evaluated_plans[g])
@@ -259,7 +247,9 @@ def sample_task_plans_for_problem(
 
         if not osp.exists(output_filepath):
             with open(output_filepath, "w") as f:
-                csv.writer(f).writerow(['problem_id', 'attempt_id', 'sample_percent', 'goal', 'success', 'plan', 'sampled_operators'])
+                csv.writer(f).writerow(
+                    ["problem_id", "attempt_id", "sample_percent", "goal", "success", "plan", "sampled_operators"]
+                )
         with open(output_filepath, "a") as f:
             writer = csv.writer(f)
             if debug_ground_truth_goals:
@@ -267,20 +257,22 @@ def sample_task_plans_for_problem(
             else:
                 goals = problem.proposed_pddl_goals
             for goal in goals:
-                writer.writerow([
-                    problem.problem_id, plan_attempt_idx,
-                    sample_operator_percent,
-                    goal,
-                    goal in evaluated_plans, evaluated_plans[goal].plan_string if goal in evaluated_plans else None,
-                    str(list(sampled_proposed_operators)),
-                ])
+                writer.writerow(
+                    [
+                        problem.problem_id,
+                        plan_attempt_idx,
+                        sample_operator_percent,
+                        goal,
+                        goal in evaluated_plans,
+                        evaluated_plans[goal].plan_string if goal in evaluated_plans else None,
+                        str(list(sampled_proposed_operators)),
+                    ]
+                )
 
     return any_success, all_evaluated_plans, overall_problem_json
 
 
-def mock_evaluate_task_plans_and_costs_for_problems(
-    output_filepath, output_directory, problems
-):
+def mock_evaluate_task_plans_and_costs_for_problems(output_filepath, output_directory, problems):
     unsolved_problems = set()
     with open(os.path.join(output_directory, output_filepath), "r") as f:
         output_json = json.load(f)
@@ -294,9 +286,7 @@ def mock_evaluate_task_plans_and_costs_for_problems(
                 unsolved_problems.add(plan["file_name"])
             for plan_json in plan["plans"]:
                 # This updates the evaluated PDDL task plans that succeeded.
-                problem.evaluated_pddl_plans[plan_json["goal"]].add(
-                    PDDLPlan(plan=plan_json["plan"])
-                )
+                problem.evaluated_pddl_plans[plan_json["goal"]].add(PDDLPlan(plan=plan_json["plan"]))
     print(
         f"After initialization, there are {len([p for p in problems if len(problems[p].evaluated_pddl_plans) > 0])} problems with plans."
     )
@@ -311,6 +301,7 @@ def run_planner(
     debug_ground_truth_goals=False,
     proposed_operators: Optional[Sequence[str]] = None,
     debug_export_dir=None,
+    goal_attempt_idx=None,
 ):
     """
     pddl_domain: Domain object.
@@ -343,9 +334,7 @@ def run_planner(
 
     for goal_index, goal in enumerate(goals):
         if verbose:
-            print(
-                f"\tRunning planner with existing operators + {len(proposed_operators)} proposed operators: "
-            )
+            print(f"\tRunning planner with existing operators + {len(proposed_operators)} proposed operators: ")
             print(f"\t Initial Operators: {pddl_domain.operators.keys()}")
             print(f"\t Proposed Operators: {proposed_operators}")
         current_problem_string = problem.ground_truth_pddl_problem.get_pddl_string_with_proposed_goal(
@@ -407,16 +396,12 @@ def run_planner(
 
 
 def fd_plan_from_strings(domain_str, problem_str, timeout=10, verbose=False):
-    with NamedTemporaryFile(mode="w") as domain_file, NamedTemporaryFile(
-        mode="w"
-    ) as problem_file:
+    with NamedTemporaryFile(mode="w") as domain_file, NamedTemporaryFile(mode="w") as problem_file:
         domain_file.write(domain_str)
         problem_file.write(problem_str)
         domain_file.flush()
         problem_file.flush()
-        success, out = fd_plan_from_file(
-            domain_file.name, problem_file.name, timeout=timeout
-        )
+        success, out = fd_plan_from_file(domain_file.name, problem_file.name, timeout=timeout)
         return (success, out)
 
 
@@ -449,17 +434,19 @@ def pdsketch_onthefly_plan_from_strings(domain_str, problem_str, timeout=10, heu
 
     if heuristic is None:
         from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_search
-        plan = ogstrips_search(gproblem, timeout=timeout, initial_actions=[
-        ])
-    elif heuristic == 'hmax':
+
+        plan = ogstrips_search(gproblem, timeout=timeout, initial_actions=[])
+    elif heuristic == "hmax":
         from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_search_with_heuristics
+
         # plan = ['move-right(t1, t2)', 'move-right(t2, t3)', 'move-right(t3, t4)', 'move-right(t4, t5)', 'move-right(t5, t6)', 'move-right(t6, t7)', 'move-right(t7, t8)', 'move-right(t8, t9)', 'pick-up(t9, o5, i2)', 'move-right(t9, t10)', 'harvest-sugar-cane(i3, t10, t0, o5, o10, i2, o17)']
         # canonized_plan = _pdsketch_get_canonized_plan(gproblem, plan)
         # plan = ogstrips_search_with_heuristics(gproblem, initial_actions=canonized_plan, timeout=timeout, hfunc_name='hmax', verbose=True, hfunc_verbose=True)
-        plan = ogstrips_search_with_heuristics(gproblem, timeout=timeout, hfunc_name='hmax', g_weight=0.5)
-    elif heuristic == 'hff':
+        plan = ogstrips_search_with_heuristics(gproblem, timeout=timeout, hfunc_name="hmax", g_weight=0.5)
+    elif heuristic == "hff":
         from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_search_with_heuristics
-        plan = ogstrips_search_with_heuristics(gproblem, timeout=timeout, hfunc_name='hff', g_weight=0)
+
+        plan = ogstrips_search_with_heuristics(gproblem, timeout=timeout, hfunc_name="hff", g_weight=0)
     else:
         raise ValueError(f"Unknown heuristic: {heuristic}")
 
@@ -484,16 +471,16 @@ def pdsketch_onthefly_verify_plan_from_strings(domain_str, problem_str, plan):
     gproblem = OnTheFlyGStripsProblem.from_domain_and_problem(domain, problem)
 
     from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_verify
+
     ogstrips_verify(gproblem, [action.lower() for action in plan], from_fast_downward=True)
 
 
 def _pdsketch_get_canonized_plan(gproblem, plan_strings):
     canonized_plan = list()
     for action in plan_strings:
-        action_name = action.split('(')[0]
-        action_args = action.split('(')[1].split(')')[0].split(', ')
+        action_name = action.split("(")[0]
+        action_args = action.split("(")[1].split(")")[0].split(", ")
         operator = gproblem.operators[action_name]
         canonized_plan.append((operator, {arg.name: value for arg, value in zip(operator.arguments, action_args)}))
 
     return canonized_plan
-
