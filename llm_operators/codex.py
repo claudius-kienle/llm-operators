@@ -34,7 +34,7 @@ CODEX_OUTPUT = "codex_output"
 NLgoals_PDDLplans_prompt = "\n;; Natural language goals and PDDL plans\n\n"
 REMINDER = ";; Reminder: use ONLY predicates and object types listed in the above PDDL domain. If an English goal contains an object not in the domain, use the most similar available object. All problems are solvable. Propose just ONE goal.\n\n"
 
-DEFAULT_GOAL_TEMPERATURE = 0.0
+DEFAULT_GOAL_TEMPERATURE = 1.0
 DEFAULT_OPERATOR_TEMPERATURE = 1.0
 
 COT_OP_START = ";; Parameter Reasoning: We must have ALL objects, receptacles, and tools that would be used to execute the operator as paramaters to the operator."
