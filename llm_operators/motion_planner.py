@@ -109,9 +109,11 @@ def attempt_motion_plan_for_problem(
             print(f"Problem ID: {problem_id}")
             print(f"Motion plan result: task_success: {motion_plan_result.task_success}")
             print(f"Total Actions Taken: {motion_plan_result.total_trajs_sampled}")
-            print(
-                f"Failed at operator: {motion_plan_result.last_failed_operator + 1} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan."
-            )
+
+            if motion_plan_result.last_failed_operator:
+                print(
+                    f"Failed at operator: {motion_plan_result.last_failed_operator + 1} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan."
+                )
             print("=============================================")
 
 
@@ -215,9 +217,10 @@ def evaluate_alfred_motion_plans_and_costs_for_problems(
                     problems[problem_id].best_evaluated_plan_at_iteration = curr_iteration
                 if verbose:
                     print(f"Motion plan result: task_success: {motion_plan_result.task_success}")
-                    print(
-                        f"Successfully executed: {motion_plan_result.last_failed_operator + 1} / {len(motion_plan_result.pddl_plan)} operators in final task sequence.\n\n\n"
-                    )
+                    if motion_plan_result.last_failed_operator:
+                        print(
+                            f"Successfully executed: {motion_plan_result.last_failed_operator + 1} / {len(motion_plan_result.pddl_plan)} operators in final task sequence.\n\n\n"
+                        )
 
 
 def evaluate_alfred_motion_plans_and_costs_for_goal_plan(

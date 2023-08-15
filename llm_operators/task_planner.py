@@ -38,6 +38,7 @@ def attempt_task_plan_for_problem(
     plan_attempt_idx=0,
     max_task_samples=4,
     score_threshold=-10,
+    goal_attempt_idx=None,
 ):
     """
     Evaluates planner to evaluate task plans for a single planning problems, given a PDDL domain.
@@ -103,6 +104,7 @@ def attempt_task_plan_for_problem(
         sample_operator_percent=sample_operator_percent,
         debug_export_dir=debug_export_dir,
         plan_attempt_idx=plan_attempt_idx,
+        goal_attempt_idx=goal_attempt_idx,
     )
     if any_success:
         problems[problem_id].update_evaluated_pddl_plans(new_evaluated_plans)
@@ -195,6 +197,7 @@ def sample_task_plans_for_problem(
     sample_operator_percent=1.0,
     debug_export_dir=None,
     plan_attempt_idx=0,
+    goal_attempt_idx=0,
 ):
     """
     Uses a task_planner to propose samples, so we attempt planning using random subsets of
@@ -225,6 +228,7 @@ def sample_task_plans_for_problem(
         debug_ground_truth_goals=debug_ground_truth_goals,
         proposed_operators=sampled_proposed_operators,
         debug_export_dir=debug_export_dir,
+        goal_attempt_idx=goal_attempt_idx,
     )
 
     any_success = any_success or success
@@ -297,6 +301,7 @@ def run_planner(
     debug_ground_truth_goals=False,
     proposed_operators: Optional[Sequence[str]] = None,
     debug_export_dir=None,
+    goal_attempt_idx=None,
 ):
     """
     pddl_domain: Domain object.

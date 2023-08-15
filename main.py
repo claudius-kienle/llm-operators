@@ -407,6 +407,8 @@ def main():
             should_continue_attempts = True
             for plan_attempt_idx in range(args.n_attempts_to_plan):
                 if should_continue_attempts:
+                    # TODO: goal_attempt_idx = None
+                    goal_attempt_idx = None
                     # Task plan. Attempts to generate a task plan for each problem.
                     task_planner.attempt_task_plan_for_problem(
                         pddl_domain=pddl_domain,
@@ -419,6 +421,7 @@ def main():
                         debug_skip=args.debug_skip_task_plans,
                         use_mock=args.debug_mock_task_plans,
                         plan_attempt_idx=plan_attempt_idx,
+                        goal_attempt_idx=goal_attempt_idx,
                     )
                     # Motion plan. Attempts to generate a motion plan for a problem.
                     motion_planner.attempt_motion_plan_for_problem(

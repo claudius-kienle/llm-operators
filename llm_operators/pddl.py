@@ -288,7 +288,6 @@ def update_pddl_domain_and_problem(
     operator_success_score = 5  # Reward an operator if it could at least be executed.
     operator_failure_score = -10  # Penalize an operator heavily if it was the point of failure.
     task_success_score = 10
-    task_failure_score = -1  # Penalize an operator if it was unable to ultimately sovle the plan.
 
     any_success = False
     for goal, plan in problems[problem_id].evaluated_motion_planner_results:
@@ -317,10 +316,6 @@ def update_pddl_domain_and_problem(
                 pddl_domain.operators_to_scores[
                     (o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])
                 ] += task_success_score
-            else:
-                pddl_domain.operators_to_scores[
-                    (o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])
-                ] += task_failure_score
 
     if verbose:
         print("Top operators after success are:")
