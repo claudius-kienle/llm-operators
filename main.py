@@ -404,6 +404,14 @@ def main():
                     os.remove(output_filename)
 
         ###################### Refine operators.
+        if args.debug_mock_task_plans:
+            pddl.load_operator_checkpoint(
+                curr_iteration=curr_iteration,
+                pddl_domain=pddl_domain,
+                command_args=args,
+                output_directory=output_directory,
+            )
+
         for problem_idx, problem_id in enumerate(planning_problems["train"]):
             finished_epoch = problem_idx == len(planning_problems["train"]) - 1
             if problem_idx < args.debug_start_problem_idx or (
@@ -465,13 +473,13 @@ def main():
                                 any_success = True
 
             # Checkpoint operators, only reset if we're at the end of the iteration.
-            if problem_idx % args.checkpoint_every_n_problem_plans or finished_epoch:
+            if problem_idx % args.checkpoint_every_n_problem_plans == 0 or finished_epoch:
                 pddl.checkpoint_and_reset_operators(
                     curr_iteration=curr_iteration,
                     pddl_domain=pddl_domain,
                     command_args=args,
                     output_directory=output_directory,
-                    reset_plans=finished_epoch,
+                    reset_operators=finished_epoch,
                 )
                 pddl.checkpoint_and_reset_plans(
                     curr_iteration=curr_iteration,
@@ -481,15 +489,16 @@ def main():
                     output_directory=output_directory,
                     reset_plans=finished_epoch,
                 )
-
-        # Output a final iteration summary.
-        experiment_utils.output_iteration_summary(
-            curr_iteration=curr_iteration,
-            pddl_domain=pddl_domain,
-            problems=planning_problems["train"],
-            command_args=args,
-            output_directory=output_directory,
-        )
+                # Output the interim iteration summary to logs.
+                experiment_utils.output_iteration_summary(
+                    curr_iteration=curr_iteration,
+                    pddl_domain=pddl_domain,
+                    problems=planning_problems["train"],
+                    command_args=args,
+                    output_directory=output_directory,
+                    finished_epoch=finished_epoch,
+                )
+                sys.exit(0)
 
 
 if __name__ == "__main__":

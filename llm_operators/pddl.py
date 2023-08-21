@@ -357,52 +357,82 @@ def checkpoint_and_reset_plans(
 
 
 def checkpoint_and_reset_operators(pddl_domain, curr_iteration, command_args, output_directory, reset_operators=False):
-    # Set operators with final scores.
-    OPERATOR_SCORE_THRESHOLD = 0
-    for o_name, o_body in pddl_domain.operators_to_scores:
-        if pddl_domain.operators_to_scores[(o_name, o_body)] > OPERATOR_SCORE_THRESHOLD:
-            pddl_domain.add_operator(operator_name=o_name, operator_pddl=o_body)
-
-    # Log operators.
-    log_operators_and_scores(pddl_domain, output_directory, command_args.experiment_name)
     if reset_operators:
+        # Set operators with final scores.
+        OPERATOR_SCORE_THRESHOLD = 0
+        for o_name, o_body in pddl_domain.operators_to_scores:
+            if pddl_domain.operators_to_scores[(o_name, o_body)] > OPERATOR_SCORE_THRESHOLD:
+                pddl_domain.add_operator(operator_name=o_name, operator_pddl=o_body)
         print(f"Final operators after iteration {curr_iteration}: {pddl_domain.operators.keys()}")
         # Clear out the proposed operators.
         pddl_domain.reset_proposed_operators()
+    # Log operators.
+    log_operators_and_scores(pddl_domain, output_directory, command_args.experiment_name)
+
+
+def load_operator_checkpoint(pddl_domain, curr_iteration, command_args, output_directory):
+    experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
+    output_filepath = f"{experiment_tag}scored_operators.json"
+    with open(os.path.join(output_directory, output_filepath)) as f:
+        raw_json = json.load(f)
+    for str_operator_name_body in raw_json:
+        score = raw_json[str_operator_name_body]
+        (o_name, o_body) = eval(str_operator_name_body)  # Eval back to a tuple.
+        pddl_domain.operators_to_scores[(o_name, o_body)] = score
+
+    print(f"Loaded from checkpoint:{os.path.join(output_directory, output_filepath)}")
+    print("Loaded operator scores from checkpoint, operators are now:")
+    for o_name, o_body in sorted(
+        pddl_domain.operators_to_scores,
+        key=lambda k: pddl_domain.operators_to_scores[k],
+        reverse=True,
+    ):
+        print(o_name, pddl_domain.operators_to_scores[(o_name, o_body)])
 
 
 def log_operators_and_scores(pddl_domain, output_directory, experiment_name):
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
-    output_filepath = f"{experiment_tag}final_operators.json"
-    # JSON.
-    output_json = {o_name: pddl_domain.operators[o_name] for o_name in pddl_domain.operators}
+    output_filepath = f"{experiment_tag}scored_operators.json"
+    # First, log the current operator scores in the operators to scores.
+    output_json = {
+        str((o_name, o_body)): pddl_domain.operators_to_scores[(o_name, o_body)]
+        for (o_name, o_body) in sorted(
+            pddl_domain.operators_to_scores,
+            key=lambda k: pddl_domain.operators_to_scores[k],
+            reverse=True,
+        )
+    }
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
 
     # Human readable CSV.
-    output_filepath = f"{experiment_tag}final_operators.csv"
+    output_filepath = f"{experiment_tag}scored_operators.csv"
 
     if output_directory:
-        print(f"Logging final operators: {os.path.join(output_directory, output_filepath)}")
+        print(f"Logging scored operators: {os.path.join(output_directory, output_filepath)}")
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             fieldnames = [
                 "operator_name",
                 "gt_operator",
-                "final_operator",
-                "",
+                "operator_body",
+                "score" "",
             ]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
-
-            for operator_name, operator in pddl_domain.operators.items():
+            for o_name, o_body in sorted(
+                pddl_domain.operators_to_scores,
+                key=lambda k: pddl_domain.operators_to_scores[k],
+                reverse=True,
+            ):
                 writer.writerow(
                     {
-                        "operator_name": operator_name,
-                        "gt_operator": pddl_domain.ground_truth_operators[operator_name]
-                        if operator_name in pddl_domain.ground_truth_operators
+                        "operator_name": o_name,
+                        "gt_operator": pddl_domain.ground_truth_operators[o_name.split("_")[0]]
+                        if o_name.split("_")[0] in pddl_domain.ground_truth_operators
                         else "",
-                        "final_operator": operator,
+                        "operator_body": o_body,
+                        "score": pddl_domain.operators_to_scores[(o_name, o_body)],
                     }
                 )
 

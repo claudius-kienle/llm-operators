@@ -83,10 +83,11 @@ class Problem:
             "motion_plans": [
                 {
                     "goal": g,
-                    "plan": pddl_plan_string,
+                    "plan": result.pddl_plan.plan_string,
                     "task_success": result.task_success,
                     "last_failed_operator": result.last_failed_operator,
-                    "last_failed_predicate": result.last_failed_predicate,
+                    "max_satisfied_predicates": result.max_satisfied_predicates,
+                    "total_trajs_sampled": result.total_trajs_sampled,
                 }
                 for (
                     (g, pddl_plan_string),

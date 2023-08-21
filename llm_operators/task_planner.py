@@ -67,7 +67,9 @@ def attempt_task_plan_for_problem(
             )
             if problem_id in unsolved_problems or len(problems[problem_id].evaluated_pddl_plans) > 0:
                 print("Mock found for task plan, continuing...")
-                return
+                any_success = True
+                new_evaluated_plans = problems[problem_id].evaluated_pddl_plans
+                return new_evaluated_plans
             else:
                 print("Mock not found for task plan, continuing...")
         except:
@@ -305,7 +307,7 @@ def mock_evaluate_task_plans_and_costs_for_problems(output_filepath, output_dire
                 unsolved_problems.add(plan["file_name"])
             for plan_json in plan["plans"]:
                 # This updates the evaluated PDDL task plans that succeeded.
-                problem.evaluated_pddl_plans[plan_json["goal"]].add(PDDLPlan(plan=plan_json["plan"]))
+                problem.evaluated_pddl_plans[plan_json["goal"]].append(PDDLPlan(plan=plan_json["plan"]))
     print(
         f"After initialization, there are {len([p for p in problems if len(problems[p].evaluated_pddl_plans) > 0])} problems with plans."
     )
