@@ -14,6 +14,7 @@ Usage:
 import os
 import os.path as osp
 import sys
+import numpy as np
 
 ALL = "ALL"
 
@@ -299,11 +300,15 @@ parser.add_argument(
     default=0,
     help="Random seed for replication.",
 )
+parser.add_argument(
+    "--checkpoint_every_n_problem_plans", type=int, default=2, help="Write out results every n problems."
+)
 
 
 def main():
     args = parser.parse_args()
     random.seed(args.random_seed)
+    rng = np.random.default_rng(args.random_seed)
 
     ###### Initialization. This initializes a set of goals (planning dataset), and a planning domain (a set of predicates + a partial set of initial operators.)
     # Load planning dataset.
@@ -400,65 +405,82 @@ def main():
 
         ###################### Refine operators.
         for problem_idx, problem_id in enumerate(planning_problems["train"]):
+            finished_epoch = problem_idx == len(planning_problems["train"]) - 1
             if problem_idx < args.debug_start_problem_idx or (
                 args.debug_skip_problems is not None and problem_idx in args.debug_skip_problems
             ):
                 continue
-            should_continue_attempts = True
+            # Continue on a problem as long as we have not succeeded in finding a motion plan result.
+            any_success = False
             for plan_attempt_idx in range(args.n_attempts_to_plan):
-                if should_continue_attempts:
-                    # TODO: goal_attempt_idx = None
-                    goal_attempt_idx = None
-                    # Task plan. Attempts to generate a task plan for each problem.
-                    task_planner.attempt_task_plan_for_problem(
-                        pddl_domain=pddl_domain,
-                        problem_idx=problem_idx,
-                        problem_id=problem_id,
-                        problems=planning_problems["train"],
-                        verbose=args.verbose,
-                        command_args=args,
-                        output_directory=output_directory,
-                        debug_skip=args.debug_skip_task_plans,
-                        use_mock=args.debug_mock_task_plans,
-                        plan_attempt_idx=plan_attempt_idx,
-                        goal_attempt_idx=goal_attempt_idx,
-                    )
-                    # Motion plan. Attempts to generate a motion plan for a problem.
-                    motion_planner.attempt_motion_plan_for_problem(
-                        pddl_domain=pddl_domain,
-                        problem_idx=problem_idx,
-                        problem_id=problem_id,
-                        problems=planning_problems["train"],
-                        verbose=args.verbose,
-                        command_args=args,
-                        output_directory=output_directory,
-                        debug_skip=args.debug_skip_motion_plans,
-                        use_mock=args.debug_mock_motion_plans,
-                        plan_attempt_idx=plan_attempt_idx,
-                        dataset_name=args.dataset_name,
-                    )
-                    should_continue_attempts = pddl.update_pddl_domain_and_problem(
-                        pddl_domain=pddl_domain,
-                        problem_idx=problem_idx,
-                        problem_id=problem_id,
-                        problems=planning_problems["train"],
-                        verbose=args.verbose,
-                        command_args=args,
-                    )
-        ###################### Finalize and checkpoint iteration.
-        pddl.checkpoint_and_reset_operators(
-            curr_iteration=curr_iteration,
-            pddl_domain=pddl_domain,
-            command_args=args,
-            output_directory=output_directory,
-        )
-        pddl.checkpoint_and_reset_plans(
-            curr_iteration=curr_iteration,
-            pddl_domain=pddl_domain,
-            problems=planning_problems["train"],
-            command_args=args,
-            output_directory=output_directory,
-        )
+                for goal_idx in range(args.n_goal_samples):
+                    if any_success:
+                        continue
+                    else:
+                        # Task plan. Attempts to generate a task plan for each problem.
+                        found_new_task_plan, new_task_plans = task_planner.attempt_task_plan_for_problem(
+                            pddl_domain=pddl_domain,
+                            problem_idx=problem_idx,
+                            problem_id=problem_id,
+                            problems=planning_problems["train"],
+                            verbose=args.verbose,
+                            command_args=args,
+                            output_directory=output_directory,
+                            debug_skip=args.debug_skip_task_plans,
+                            use_mock=args.debug_mock_task_plans,
+                            plan_attempt_idx=plan_attempt_idx,
+                            goal_idx=goal_idx,
+                            random_generator=rng,
+                        )
+                        if found_new_task_plan:
+                            # Motion plan. Attempts to generate a motion plan for a problem.
+                            (
+                                any_motion_planner_success,
+                                new_motion_plan_keys,
+                            ) = motion_planner.attempt_motion_plan_for_problem(
+                                pddl_domain=pddl_domain,
+                                problem_idx=problem_idx,
+                                problem_id=problem_id,
+                                problems=planning_problems["train"],
+                                verbose=args.verbose,
+                                command_args=args,
+                                output_directory=output_directory,
+                                debug_skip=args.debug_skip_motion_plans,
+                                use_mock=args.debug_mock_motion_plans,
+                                plan_attempt_idx=plan_attempt_idx,
+                                dataset_name=args.dataset_name,
+                                new_task_plans=new_task_plans,
+                            )
+                            # Update the global operator scores from the problem.
+                            pddl.update_pddl_domain_and_problem(
+                                pddl_domain=pddl_domain,
+                                problem_idx=problem_idx,
+                                problem_id=problem_id,
+                                problems=planning_problems["train"],
+                                verbose=args.verbose,
+                                command_args=args,
+                                new_motion_plan_keys=new_motion_plan_keys,
+                            )
+                            if any_motion_planner_success:
+                                any_success = True
+
+            # Checkpoint operators, only reset if we're at the end of the iteration.
+            if problem_idx % args.checkpoint_every_n_problem_plans or finished_epoch:
+                pddl.checkpoint_and_reset_operators(
+                    curr_iteration=curr_iteration,
+                    pddl_domain=pddl_domain,
+                    command_args=args,
+                    output_directory=output_directory,
+                    reset_plans=finished_epoch,
+                )
+                pddl.checkpoint_and_reset_plans(
+                    curr_iteration=curr_iteration,
+                    pddl_domain=pddl_domain,
+                    problems=planning_problems["train"],
+                    command_args=args,
+                    output_directory=output_directory,
+                    reset_plans=finished_epoch,
+                )
 
         # Output a final iteration summary.
         experiment_utils.output_iteration_summary(

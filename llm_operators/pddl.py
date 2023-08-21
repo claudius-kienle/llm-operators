@@ -276,21 +276,16 @@ def save_learned_operators(curr_iteration, directory, dataset, train_domain, gt_
 
 
 def update_pddl_domain_and_problem(
-    pddl_domain,
-    problem_idx,
-    problem_id,
-    problems,
-    verbose,
-    command_args,
+    pddl_domain, problem_idx, problem_id, problems, verbose, command_args, new_motion_plan_keys
 ):
-    """Updates the PDDL domain and PDDL problem based on the motion planner results."""
+    """Updates the PDDL domain and PDDL problem based on the new motion planner results."""
     # Score if operator succeeds.
-    operator_success_score = 5  # Reward an operator if it could at least be executed.
-    operator_failure_score = -10  # Penalize an operator heavily if it was the point of failure.
-    task_success_score = 10
+    operator_success_score = 0.5  # Reward an operator if it could at least be executed.
+    operator_failure_score = -1  # Penalize an operator heavily if it was the point of failure.
+    task_success_score = 1.0  # We don't penalize an operator if the whole oracle fails, because this means that the goal was mis-specified.
 
     any_success = False
-    for goal, plan in problems[problem_id].evaluated_motion_planner_results:
+    for goal, plan in new_motion_plan_keys:
         motion_plan_result = problems[problem_id].evaluated_motion_planner_results[(goal, plan)]
         if motion_plan_result.task_success:
             any_success = True
@@ -330,7 +325,9 @@ def update_pddl_domain_and_problem(
     return should_continue_planner_attempts
 
 
-def checkpoint_and_reset_plans(pddl_domain, problems, curr_iteration, command_args, output_directory):
+def checkpoint_and_reset_plans(
+    pddl_domain, problems, curr_iteration, command_args, output_directory, reset_plans=False
+):
     experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
     # Checkpoint all of the task plans regardless of whether they succeeded.
     output_json = [problems[problem_id].get_evaluated_pddl_plan_json() for problem_id in problems]
@@ -338,6 +335,7 @@ def checkpoint_and_reset_plans(pddl_domain, problems, curr_iteration, command_ar
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
+    print(f"Logging all task plans out to: {os.path.join(output_directory, output_filepath)}")
 
     # Checkpoint all of the motion plans regardless of whether they succeeded.
     output_json = [problems[problem_id].get_evaluated_motion_plan_json() for problem_id in problems]
@@ -345,30 +343,35 @@ def checkpoint_and_reset_plans(pddl_domain, problems, curr_iteration, command_ar
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
+    print(f"Logging all motion plans out to: {os.path.join(output_directory, output_filepath)}")
     # Log the human readable motion planner results to a CSV.
     log_motion_planner_results(problems, command_args, output_directory)
 
     # Reset the plans.
-    for problem_id in problems:
-        problems[problem_id].update_solved_motion_plan_results()
-        problems[problem_id].reset_evaluated_pddl_plans()
-        problems[problem_id].reset_evaluated_motion_planner_results()
+    if reset_plans:
+        print("End of epoch, resetting all plans.")
+        for problem_id in problems:
+            problems[problem_id].update_solved_motion_plan_results()
+            problems[problem_id].reset_evaluated_pddl_plans()
+            problems[problem_id].reset_evaluated_motion_planner_results()
 
 
-def checkpoint_and_reset_operators(pddl_domain, curr_iteration, command_args, output_directory):
+def checkpoint_and_reset_operators(pddl_domain, curr_iteration, command_args, output_directory, reset_operators=False):
     # Set operators with final scores.
     OPERATOR_SCORE_THRESHOLD = 0
     for o_name, o_body in pddl_domain.operators_to_scores:
         if pddl_domain.operators_to_scores[(o_name, o_body)] > OPERATOR_SCORE_THRESHOLD:
             pddl_domain.add_operator(operator_name=o_name, operator_pddl=o_body)
-    # Clear out the proposed operators.
-    pddl_domain.reset_proposed_operators()
+
     # Log operators.
-    log_final_operators(pddl_domain, output_directory, command_args.experiment_name)
-    print(f"Final operators after iteration {curr_iteration}: {pddl_domain.operators.keys()}")
+    log_operators_and_scores(pddl_domain, output_directory, command_args.experiment_name)
+    if reset_operators:
+        print(f"Final operators after iteration {curr_iteration}: {pddl_domain.operators.keys()}")
+        # Clear out the proposed operators.
+        pddl_domain.reset_proposed_operators()
 
 
-def log_final_operators(pddl_domain, output_directory, experiment_name):
+def log_operators_and_scores(pddl_domain, output_directory, experiment_name):
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
     output_filepath = f"{experiment_tag}final_operators.json"
     # JSON.

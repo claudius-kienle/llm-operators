@@ -30,39 +30,35 @@ class Problem:
         self.chain_of_thought = chain_of_thought
 
         self.language = language  # An NL string describing the planning problem.
-        self.ground_truth_pddl_problem = (
-            ground_truth_pddl_problem  # Ground truth PDDL problem object.
+        self.ground_truth_pddl_problem = ground_truth_pddl_problem  # Ground truth PDDL problem object.
+        self.constants_in_problem_file = (
+            False  # Flag for only the ALFRED domain, which includes constants defined in the problem files not the
         )
-        self.constants_in_problem_file = False  # Flag for only the ALFRED domain, which includes constants defined in the problem files not the
 
         self.ground_truth_pddl_plan = None
-        self.correct_pddl_goal = False # True if at least one of the proposed PDDL goals is correct.
+        self.correct_pddl_goal = False  # True if at least one of the proposed PDDL goals is correct.
         if ground_truth_pddl_plan is not None:
             if isinstance(ground_truth_pddl_plan, PDDLPlan):
                 self.ground_truth_pddl_plan = ground_truth_pddl_plan
             elif isinstance(ground_truth_pddl_plan, str):
-                self.ground_truth_pddl_plan = PDDLPlan(
-                    plan_string=ground_truth_pddl_plan
-                )
+                self.ground_truth_pddl_plan = PDDLPlan(plan_string=ground_truth_pddl_plan)
             else:
-                self.ground_truth_pddl_plan = PDDLPlan(
-                    plan=ground_truth_pddl_plan
-                )  # A ground truth PDDLPlan object.
+                self.ground_truth_pddl_plan = PDDLPlan(plan=ground_truth_pddl_plan)  # A ground truth PDDLPlan object.
 
-        self.supervise_goal = supervise_goal # Whether to supervise specifically on ground truth information about the goal.
-
-        self.should_supervise_pddl = (
-            should_supervise_pddl  # Whether to include the PDDL in initial supervision
+        self.supervise_goal = (
+            supervise_goal  # Whether to supervise specifically on ground truth information about the goal.
         )
+
+        self.should_supervise_pddl = should_supervise_pddl  # Whether to include the PDDL in initial supervision
         # One or more proposed PDDL goals.
         self.codex_raw_goals = []
         self.proposed_pddl_goals = []
-        # One or more proposed plans. Array of PDDL {action, args} operator sequences.
+        # One or more proposed plans from an LLM. Array of PDDL {action, args} operator sequences.
         self.proposed_pddl_plans = []
 
         # Evaluated PDDL plans that solve proposed_pddl_goals, created by a task planner. This is reset at each iteration.
-        # This is a dict from {goal : set(PDDLPlan)}
-        self.evaluated_pddl_plans = defaultdict(set)
+        # This is a dict from {goal : list(PDDLPlan)} # But the list items are deduped.
+        self.evaluated_pddl_plans = defaultdict(list)
 
         # This is a dict to all of the {(goal, PDDLPlan) : MotionPlanResult}, created by a motion planner. These may be successful or failed.
         # This is reset at each iteration.
@@ -108,13 +104,18 @@ class Problem:
     def update_solved_motion_plan_results(self):
         for k in self.evaluated_motion_planner_results:
             if self.evaluated_motion_planner_results[k].task_success:
-                self.solved_motion_plan_results[
-                    k
-                ] = self.evaluated_motion_planner_results[k]
+                self.solved_motion_plan_results[k] = self.evaluated_motion_planner_results[k]
 
     def update_evaluated_pddl_plans(self, new_evaluated_pddl_plans):
+        # Return true if we really made an update -- that is, that we really added new plans.
+        updated_pddl_plans = False
         for g in new_evaluated_pddl_plans:
-            self.evaluated_pddl_plans[g].update(new_evaluated_pddl_plans[g])
+            current_pddl_plans = set(self.evaluated_pddl_plans[g])
+            new_pddl_plan_for_goal = new_evaluated_pddl_plans[g]
+            if new_pddl_plan_for_goal not in current_pddl_plans:
+                self.evaluated_pddl_plans[g].append(new_pddl_plan_for_goal)
+                updated_pddl_plans = True
+        return updated_pddl_plans
 
     def get_highest_likelihood_evaluated_pddl_plan(self):
         """Returns the best evaluated PDDL plan, or None if no plans have been evaluated."""
@@ -136,9 +137,7 @@ class Problem:
         )
 
 
-def load_pddl_supervision(
-    supervision_name: str, verbose: bool = False
-) -> Dict[str, str]:
+def load_pddl_supervision(supervision_name: str, verbose: bool = False) -> Dict[str, str]:
     """Supervision is a list of PDDL domains to teach Codex "basic grammar" of PDDL.
 
     Args:
@@ -158,17 +157,11 @@ def load_pddl_supervision(
         for nl_goal in json.load(f):
             if nl_goal["domain_file"] in pddl_supervision:
                 pddl_supervision[nl_goal["domain_file"]]["NL_goal"] = nl_goal["NL_goal"]
-                pddl_supervision[nl_goal["domain_file"]]["object_list"] = nl_goal[
-                    "object_list"
-                ]
+                pddl_supervision[nl_goal["domain_file"]]["object_list"] = nl_goal["object_list"]
                 with open(nl_goal["domain_file"]) as j:
-                    pddl_supervision[nl_goal["domain_file"]]["domain"] = OtherDomain(
-                        j.read()
-                    )
+                    pddl_supervision[nl_goal["domain_file"]]["domain"] = OtherDomain(j.read())
                 with open(pddl_supervision[nl_goal["domain_file"]]["file_name"]) as g:
-                    pddl_supervision[nl_goal["domain_file"]][
-                        "pddl_problem_string"
-                    ] = g.read()
+                    pddl_supervision[nl_goal["domain_file"]]["pddl_problem_string"] = g.read()
 
     for domain_file in list(pddl_supervision.keys()):
         if "NL_goal" not in pddl_supervision[domain_file]:
@@ -193,9 +186,7 @@ def register_planning_pddl_domain(name):
     return wrapper
 
 
-def load_pddl_domain(
-    pddl_domain_name: str, initial_pddl_operators: Sequence[str], verbose: bool = False
-) -> Domain:
+def load_pddl_domain(pddl_domain_name: str, initial_pddl_operators: Sequence[str], verbose: bool = False) -> Domain:
     """Main entry for loading a PDDL domain.
 
     Args:
@@ -226,9 +217,7 @@ def register_planning_domain_problems(name):
     return wrapper
 
 
-def get_problem_ids_with_ground_truth_operators(
-    initial_pddl_operators, planning_dataset, split="train"
-):
+def get_problem_ids_with_ground_truth_operators(initial_pddl_operators, planning_dataset, split="train"):
     """
     :ret: list of problem IDs where the ground truth plans contain these operators.
     """
@@ -237,22 +226,15 @@ def get_problem_ids_with_ground_truth_operators(
     for problem_id in planning_dataset[split]:
         problem = planning_dataset[split][problem_id]
         ground_truth_operators = set(
-            [
-                operator[PDDLPlan.PDDL_ACTION]
-                for operator in problem.ground_truth_pddl_plan.plan
-            ]
+            [operator[PDDLPlan.PDDL_ACTION] for operator in problem.ground_truth_pddl_plan.plan]
         )
         # Check that this plan doesn't contain any more operators than the initial ones.
-        if len(initial_pddl_operators.union(ground_truth_operators)) <= len(
-            initial_pddl_operators
-        ):
+        if len(initial_pddl_operators.union(ground_truth_operators)) <= len(initial_pddl_operators):
             problem_ids.append(problem_id)
     return problem_ids
 
 
-def get_problem_ids_with_initial_plans_prefix(
-    initial_plans_prefix, planning_dataset, split="train"
-):
+def get_problem_ids_with_initial_plans_prefix(initial_plans_prefix, planning_dataset, split="train"):
     """
     :ret: list of problem IDs where the ground truth plans contain these operators.
     """
@@ -264,6 +246,7 @@ def get_problem_ids_with_initial_plans_prefix(
             problem_ids.append(problem_id)
     return problem_ids
 
+
 def build_problem_prefix_to_problem_ids(planning_dataset, initial_goal_supervision_prefix, split="train"):
     """
     :ret: list of problem IDs grouped by their operator type.
@@ -274,16 +257,23 @@ def build_problem_prefix_to_problem_ids(planning_dataset, initial_goal_supervisi
         problem_prefix_to_problem_ids[problem.goal_prefix].append(problem_id)
     return problem_prefix_to_problem_ids
 
+
 def mark_goal_supervision_problems(planning_dataset, initial_goal_supervision_prefix, goal_supervision_fraction):
-    problem_prefix_to_problem_ids = build_problem_prefix_to_problem_ids(planning_dataset, initial_goal_supervision_prefix, split="train")
+    problem_prefix_to_problem_ids = build_problem_prefix_to_problem_ids(
+        planning_dataset, initial_goal_supervision_prefix, split="train"
+    )
     if initial_goal_supervision_prefix == ["ALL"]:
         initial_goal_supervision_prefix = list(problem_prefix_to_problem_ids.keys())
 
     print("Sampling problems for goal supervision: ")
     total_goal_supervision = 0
     for goal_supervision_type in initial_goal_supervision_prefix:
-        num_problems_to_supervise = max(1, int(goal_supervision_fraction * len(problem_prefix_to_problem_ids[goal_supervision_type])))
-        problems_to_supervise = random.sample(problem_prefix_to_problem_ids[goal_supervision_type], num_problems_to_supervise)
+        num_problems_to_supervise = max(
+            1, int(goal_supervision_fraction * len(problem_prefix_to_problem_ids[goal_supervision_type]))
+        )
+        problems_to_supervise = random.sample(
+            problem_prefix_to_problem_ids[goal_supervision_type], num_problems_to_supervise
+        )
         for problem_id in problems_to_supervise:
             planning_dataset["train"][problem_id].supervise_goal = True
         print(f"\t {goal_supervision_type} : {num_problems_to_supervise}")
@@ -315,4 +305,3 @@ def load_planning_problems_dataset(
     mark_goal_supervision_problems(planning_dataset, initial_goal_supervision_prefix, goal_supervision_fraction)
 
     return planning_dataset
-

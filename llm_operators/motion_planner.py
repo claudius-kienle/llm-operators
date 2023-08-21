@@ -54,6 +54,7 @@ def attempt_motion_plan_for_problem(
     debug_skip=False,
     plan_attempt_idx=0,
     dataset_name="",
+    new_task_plans=None,
 ):
     """Attempts to motion plan for a single problem. This attempts the planner on any proposed goals, and any proposed task plans for those goals."""
     if plan_attempt_idx == 0:
@@ -77,44 +78,51 @@ def attempt_motion_plan_for_problem(
                 print("Mock not found for motion plan, continuing...")
         except:
             print("Mock not found for motion plan, continuing...")
-    for pddl_goal in problems[problem_id].evaluated_pddl_plans:
-        for pddl_plan in problems[problem_id].evaluated_pddl_plans[pddl_goal]:
-            if "alfred" in dataset_name:
-                motion_plan_result = evaluate_alfred_motion_plans_and_costs_for_goal_plan(
-                    problem_id,
-                    problems,
-                    pddl_goal,
-                    pddl_plan,
-                    pddl_domain,
-                    verbose,
-                    debug_skip=debug_skip,
-                    motionplan_search_type=command_args.motionplan_search_type,
-                )
-            elif dataset_name == "crafting_world_20230204_minining_only":
-                motion_plan_result = evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
-                    problem_id,
-                    problems,
-                    pddl_goal,
-                    pddl_plan,
-                    pddl_domain,
-                    verbose,
-                    debug_skip=debug_skip,
-                )
-            problems[problem_id].evaluated_motion_planner_results[
-                (pddl_goal, motion_plan_result.pddl_plan.plan_string)
-            ] = motion_plan_result
 
-            print("=============================================")
-            print(f"Problem Number: {problem_idx}")
-            print(f"Problem ID: {problem_id}")
-            print(f"Motion plan result: task_success: {motion_plan_result.task_success}")
-            print(f"Total Actions Taken: {motion_plan_result.total_trajs_sampled}")
+    any_success = False
+    new_motion_plan_keys = []
+    for pddl_goal, pddl_plan in new_task_plans.items():
+        if "alfred" in dataset_name:
+            motion_plan_result = evaluate_alfred_motion_plans_and_costs_for_goal_plan(
+                problem_id,
+                problems,
+                pddl_goal,
+                pddl_plan,
+                pddl_domain,
+                verbose,
+                debug_skip=debug_skip,
+                motionplan_search_type=command_args.motionplan_search_type,
+            )
+        elif dataset_name == "crafting_world_20230204_minining_only":
+            motion_plan_result = evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
+                problem_id,
+                problems,
+                pddl_goal,
+                pddl_plan,
+                pddl_domain,
+                verbose,
+                debug_skip=debug_skip,
+            )
+        new_motion_plan_key = (pddl_goal, motion_plan_result.pddl_plan.plan_string)
+        problems[problem_id].evaluated_motion_planner_results[
+            new_motion_plan_key  # The actual goal and task plan that we planned for.
+        ] = motion_plan_result
+        new_motion_plan_keys.append(new_motion_plan_key)
+        if motion_plan_result.task_success:
+            any_success = True
 
-            if motion_plan_result.last_failed_operator:
-                print(
-                    f"Failed at operator: {motion_plan_result.last_failed_operator + 1} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan."
-                )
-            print("=============================================")
+        print("=============================================")
+        print(f"Problem Number: {problem_idx}")
+        print(f"Problem ID: {problem_id}")
+        print(f"Motion plan result: task_success: {motion_plan_result.task_success}")
+        print(f"Total Actions Taken: {motion_plan_result.total_trajs_sampled}")
+
+        if motion_plan_result.last_failed_operator:
+            print(
+                f"Failed at operator: {motion_plan_result.last_failed_operator + 1} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan."
+            )
+        print("=============================================")
+    return any_success, new_motion_plan_keys
 
 
 def evaluate_motion_plans_and_costs_for_problems(
