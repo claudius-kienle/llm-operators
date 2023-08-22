@@ -37,10 +37,10 @@ def attempt_task_plan_for_problem(
     task_plan_with_constants=False,
     plan_attempt_idx=0,
     max_task_samples=4,
-    score_threshold=-10,
     goal_idx=None,
     debug_proposed_operators: Optional[Sequence[str]] = None,  # Debugging only.
     random_generator=None,
+    minimum_n_operators=1,
 ):
     """
     Evaluates planner to evaluate task plans for a single planning problems, given a PDDL domain.
@@ -98,6 +98,7 @@ def attempt_task_plan_for_problem(
         plan_attempt_idx=plan_attempt_idx,
         goal_idx=goal_idx,
         random_generator=random_generator,
+        minimum_n_operators=minimum_n_operators,
     )
     if any_success:
         # Check that this isn't a duplicate of a plan we've already found for that same problem.
@@ -178,35 +179,26 @@ def get_top_k_operators_to_cover_operator_downsampling_percentage(
             return idx + 1
 
 
-def generate_random_proposed_operator_sample(pddl_domain, operator_downsampling_percentage, random_generator):
+def generate_random_proposed_operator_sample(pddl_domain, minimum_n_operators, random_generator, max_attempts=5):
     """
-    Samples a set of proposed operators relative to their current operator scores.
-    Chooses the number of operators to sample based on how many we'd need to cover operator_downsampling_percentage of the probability mass if we sampled greedily.
+    Samples a set of at least minimum_n_operators operators.
+    We choose to include each operator independently based on p(n_operator_successes / n_operator_attempts) in previous trials.
+    We make at most max passes through the operator set to do so.
     """
-
-    # Sample without replacement in proportion to the categorical defined by taking a softamx of the current operator scores.
+    sampled_operators = set()
     proposed_operators = pddl_domain.proposed_operators
-    operator_names, operator_scores = [], []
-    for operator_name in pddl_domain.proposed_operators:
-        for operator_body in pddl_domain.proposed_operators[operator_name]:
-            score = pddl_domain.operators_to_scores[(operator_name, operator_body)]
-            operator_names.append(operator_name)
-            operator_scores.append(score)
-    categorical_operator_sampling_scores = scipy.special.softmax(operator_scores)
-    # Sample the number of operators that covers some percentage of the probability mass.
-    total_operators = get_top_k_operators_to_cover_operator_downsampling_percentage(
-        categorical_operator_sampling_scores, operator_downsampling_percentage
-    )
-    print(
-        f"Sampling {total_operators}/{len(pddl_domain.proposed_operators)} operators with downsampling percentage: {operator_downsampling_percentage}"
-    )
-
-    print(
-        f"Current operator names and sampling scores: {sorted(list(zip(operator_names, categorical_operator_sampling_scores)), key=lambda os: -os[-1])}"
-    )
-    return random_generator.choice(
-        operator_names, size=total_operators, replace=False, p=categorical_operator_sampling_scores
-    )
+    for n_sampling_attempts in range(max_attempts):
+        for operator_name in pddl_domain.proposed_operators:
+            for operator_body in pddl_domain.proposed_operators[operator_name]:
+                (n_operator_successes, n_operator_attempts) = pddl_domain.operators_to_scores[
+                    (operator_name, operator_body)
+                ]
+                # Flip(p) where p(n_operator_successes / n_operator_attempts)
+                if random_generator.binomial(1, float(n_operator_successes / n_operator_attempts), 1)[0] > 0:
+                    sampled_operators.add(operator_name)
+        if len(sampled_operators) >= minimum_n_operators:
+            return sampled_operators
+    return sampled_operators
 
 
 def sample_task_plans_for_problem(
@@ -221,8 +213,8 @@ def sample_task_plans_for_problem(
     debug_export_dir=None,
     plan_attempt_idx=0,
     goal_idx=None,
-    operator_downsampling_percentage=0.5,
     random_generator=None,
+    minimum_n_operators=None,
 ):
     """
     Uses a task_planner to propose samples, so we attempt planning using random subsets of
@@ -242,7 +234,7 @@ def sample_task_plans_for_problem(
     else:
         sampled_proposed_operators = generate_random_proposed_operator_sample(
             pddl_domain=pddl_domain,
-            operator_downsampling_percentage=operator_downsampling_percentage,
+            minimum_n_operators=minimum_n_operators,
             random_generator=random_generator,
         )
     success, evaluated_plans, _ = run_planner(

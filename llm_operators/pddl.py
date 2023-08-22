@@ -46,7 +46,7 @@ class Domain:
         # One or more operators that have been proposed by Codex at the current iteration.
         self.proposed_operators = defaultdict(list)  # Operator name -> definitions
         self.codex_raw_operators = defaultdict(list)
-        self.operators_to_scores = defaultdict(float)  # (operator_name, body) -> scalar score.
+        self.operators_to_scores = None  # (operator_name, body) -> (# times the operator has been successful, # of times it has been used) -- this is used to estimate the Bernoulli probability that this operator should be included. This is initialized with self.initialize_operators_to_scores
         # Some operators have had standardized names.
         self.operator_canonicalization = {}
 
@@ -55,6 +55,9 @@ class Domain:
 
     def add_additional_constants(self, additional_constant_string):
         self.ground_truth_constants.update(PDDLParser._parse_constants(additional_constant_string))
+
+    def init_operators_to_scores(self, operator_pseudocounts):
+        self.operators_to_scores = defaultdict(lambda: (operator_pseudocounts, operator_pseudocounts))
 
     def init_pddl_domain(self, pddl_domain):
         if pddl_domain is not None:
@@ -278,12 +281,13 @@ def save_learned_operators(curr_iteration, directory, dataset, train_domain, gt_
 def update_pddl_domain_and_problem(
     pddl_domain, problem_idx, problem_id, problems, verbose, command_args, new_motion_plan_keys
 ):
-    """Updates the PDDL domain and PDDL problem based on the new motion planner results."""
-    # Score if operator succeeds.
-    operator_success_score = 1  # Reward an operator if it could at least be executed.
-    operator_failure_score = -2  # Penalize an operator heavily if it was the point of failure.
-    task_success_score = 1  # We don't penalize an operator if the whole oracle fails, because this means that the goal was mis-specified.
+    """Updates the PDDL domain and PDDL problem based on the new motion planner results.
+    pddl_domain.operators_to_scores[
+                    (o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])
+                ] = (n_operator_successes, n_operator_attempts)
 
+    Which is used to estimate the Bernoulli probability p(n_operator_successes / n_operator_attempts) of whether an operator is 'working' and therefore should be included in the library. Operators are independent.
+    """
     any_success = False
     for goal, plan in new_motion_plan_keys:
         motion_plan_result = problems[problem_id].evaluated_motion_planner_results[(goal, plan)]
@@ -292,34 +296,42 @@ def update_pddl_domain_and_problem(
 
         # These are the operators that were actually executed by the motion planner.
         for operator_idx, o in enumerate(motion_plan_result.pddl_plan.plan):
-            # The operator was successfully executed -- its on the path..
+            (n_operator_successes, n_operator_attempts) = pddl_domain.operators_to_scores[
+                (o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])
+            ]
+            # The operator was successfully executed -- its on the path.
             if (
                 motion_plan_result.task_success
                 or motion_plan_result.last_failed_operator is None
                 or operator_idx < motion_plan_result.last_failed_operator
             ):
-                pddl_domain.operators_to_scores[
-                    (o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])
-                ] += operator_success_score
+                # +1 success, +1 attempt
+                pddl_domain.operators_to_scores[(o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])] = (
+                    n_operator_successes + 1,
+                    n_operator_attempts + 1,
+                )
             # The operator was the actual one that failed.
             if operator_idx == motion_plan_result.last_failed_operator:
-                pddl_domain.operators_to_scores[
-                    (o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])
-                ] += operator_failure_score
-            # Score the operator for the overall task success.
-            if motion_plan_result.task_success:
-                pddl_domain.operators_to_scores[
-                    (o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])
-                ] += task_success_score
+                # +0 success, +1 attempt
+                pddl_domain.operators_to_scores[(o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])] += (
+                    n_operator_successes,
+                    n_operator_attempts + 1,
+                )
 
     if verbose:
         print("Top operators after success are:")
         for o_name, o_body in sorted(
             pddl_domain.operators_to_scores,
-            key=lambda k: pddl_domain.operators_to_scores[k],
+            key=lambda k: float(pddl_domain.operators_to_scores[k][0] / pddl_domain.operators_to_scores[k][1]),
             reverse=True,
         ):
-            print(o_name, pddl_domain.operators_to_scores[(o_name, o_body)])
+            print(
+                o_name,
+                float(
+                    pddl_domain.operators_to_scores[(o_name, o_body)][0]
+                    / pddl_domain.operators_to_scores[(o_name, o_body)][1]
+                ),
+            )
 
     should_continue_planner_attempts = not any_success
     return should_continue_planner_attempts
@@ -356,12 +368,15 @@ def checkpoint_and_reset_plans(
             problems[problem_id].reset_evaluated_motion_planner_results()
 
 
-def checkpoint_and_reset_operators(pddl_domain, curr_iteration, command_args, output_directory, reset_operators=False):
+def checkpoint_and_reset_operators(
+    pddl_domain, curr_iteration, command_args, output_directory, reset_operators=False, operator_acceptance_threshold=0
+):
     if reset_operators:
         # Set operators with final scores.
-        OPERATOR_SCORE_THRESHOLD = 0
         for o_name, o_body in pddl_domain.operators_to_scores:
-            if pddl_domain.operators_to_scores[(o_name, o_body)] > OPERATOR_SCORE_THRESHOLD:
+            (o_success, o_attempts) = pddl_domain.operators_to_scores[(o_name, o_body)]
+            p_success = float(o_success / o_attempts)
+            if p_success > operator_acceptance_threshold:
                 pddl_domain.add_operator(operator_name=o_name, operator_pddl=o_body)
         print(f"Final operators after iteration {curr_iteration}: {pddl_domain.operators.keys()}")
         # Clear out the proposed operators.
@@ -376,18 +391,24 @@ def load_operator_checkpoint(pddl_domain, curr_iteration, command_args, output_d
     with open(os.path.join(output_directory, output_filepath)) as f:
         raw_json = json.load(f)
     for str_operator_name_body in raw_json:
-        score = raw_json[str_operator_name_body]
+        (n_operator_uses, n_successes) = raw_json[str_operator_name_body]
         (o_name, o_body) = eval(str_operator_name_body)  # Eval back to a tuple.
-        pddl_domain.operators_to_scores[(o_name, o_body)] = score
+        pddl_domain.operators_to_scores[(o_name, o_body)] = (n_operator_uses, n_successes)
 
     print(f"Loaded from checkpoint:{os.path.join(output_directory, output_filepath)}")
     print("Loaded operator scores from checkpoint, operators are now:")
     for o_name, o_body in sorted(
         pddl_domain.operators_to_scores,
-        key=lambda k: pddl_domain.operators_to_scores[k],
+        key=lambda k: float(pddl_domain.operators_to_scores[k][0] / pddl_domain.operators_to_scores[k][1]),
         reverse=True,
     ):
-        print(o_name, pddl_domain.operators_to_scores[(o_name, o_body)])
+        print(
+            o_name,
+            float(
+                pddl_domain.operators_to_scores[(o_name, o_body)][0]
+                / pddl_domain.operators_to_scores[(o_name, o_body)][1]
+            ),
+        )
 
 
 def log_operators_and_scores(pddl_domain, output_directory, experiment_name):
@@ -398,7 +419,7 @@ def log_operators_and_scores(pddl_domain, output_directory, experiment_name):
         str((o_name, o_body)): pddl_domain.operators_to_scores[(o_name, o_body)]
         for (o_name, o_body) in sorted(
             pddl_domain.operators_to_scores,
-            key=lambda k: pddl_domain.operators_to_scores[k],
+            key=lambda k: float(pddl_domain.operators_to_scores[k][0] / pddl_domain.operators_to_scores[k][1]),
             reverse=True,
         )
     }
@@ -416,13 +437,16 @@ def log_operators_and_scores(pddl_domain, output_directory, experiment_name):
                 "operator_name",
                 "gt_operator",
                 "operator_body",
-                "score" "",
+                "n_operator_successes",
+                "n_operator_attempts",
+                "score",
+                "",
             ]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             for o_name, o_body in sorted(
                 pddl_domain.operators_to_scores,
-                key=lambda k: pddl_domain.operators_to_scores[k],
+                key=lambda k: float(pddl_domain.operators_to_scores[k][0] / pddl_domain.operators_to_scores[k][1]),
                 reverse=True,
             ):
                 writer.writerow(
@@ -432,7 +456,12 @@ def log_operators_and_scores(pddl_domain, output_directory, experiment_name):
                         if o_name.split("_")[0] in pddl_domain.ground_truth_operators
                         else "",
                         "operator_body": o_body,
-                        "score": pddl_domain.operators_to_scores[(o_name, o_body)],
+                        "n_operator_successes": pddl_domain.operators_to_scores[(o_name, o_body)][0],
+                        "n_operator_attempts": pddl_domain.operators_to_scores[(o_name, o_body)][1],
+                        "score": float(
+                            pddl_domain.operators_to_scores[(o_name, o_body)][0]
+                            / pddl_domain.operators_to_scores[(o_name, o_body)][1]
+                        ),  # Bernoulli: n_successes / n_attempts
                     }
                 )
 

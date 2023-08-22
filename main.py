@@ -315,12 +315,20 @@ parser.add_argument(
     default=1,
     help="Assume each operator succeeded at least this many times (MAP smoothing)",
 )
+parser.add_argument(
+    "--operator_acceptance_threshold",
+    type=float,
+    default=0.1,
+    help="After each iteration, we prune out operators that have less than this probability of success.",
+)
 
 
 def main():
     args = parser.parse_args()
     random.seed(args.random_seed)
     rng = np.random.default_rng(args.random_seed)
+    ###### Log all of the arguments that we ran this experiment with and the experiment date.
+    experiment_utils.output_experiment_parameters(args)
 
     ###### Initialization. This initializes a set of goals (planning dataset), and a planning domain (a set of predicates + a partial set of initial operators.)
     # Load planning dataset.
@@ -336,6 +344,7 @@ def main():
     )
 
     pddl_domain = datasets.load_pddl_domain(args.pddl_domain_name, args.initial_pddl_operators, args.verbose)
+    pddl_domain.init_operators_to_scores(args.operator_pseudocounts)
 
     # Load any external supervision on PDDL domains.
     if args.supervision_name != "None":
@@ -451,6 +460,7 @@ def main():
                             plan_attempt_idx=plan_attempt_idx,
                             goal_idx=goal_idx,
                             random_generator=rng,
+                            minimum_n_operators=args.minimum_n_operators,
                         )
                         if found_new_task_plan:
                             # Motion plan. Attempts to generate a motion plan for a problem.
@@ -492,6 +502,7 @@ def main():
                     command_args=args,
                     output_directory=output_directory,
                     reset_operators=finished_epoch,
+                    operator_acceptance_threshold=args.operator_acceptance_threshold,
                 )
                 pddl.checkpoint_and_reset_plans(
                     curr_iteration=curr_iteration,
@@ -509,6 +520,8 @@ def main():
                     command_args=args,
                     output_directory=output_directory,
                     finished_epoch=finished_epoch,
+                    problem_idx=problem_idx,
+                    total_problems=len(planning_problems["train"]),
                 )
 
 
