@@ -280,9 +280,9 @@ def update_pddl_domain_and_problem(
 ):
     """Updates the PDDL domain and PDDL problem based on the new motion planner results."""
     # Score if operator succeeds.
-    operator_success_score = 0.5  # Reward an operator if it could at least be executed.
-    operator_failure_score = -1  # Penalize an operator heavily if it was the point of failure.
-    task_success_score = 1.0  # We don't penalize an operator if the whole oracle fails, because this means that the goal was mis-specified.
+    operator_success_score = 1  # Reward an operator if it could at least be executed.
+    operator_failure_score = -2  # Penalize an operator heavily if it was the point of failure.
+    task_success_score = 1  # We don't penalize an operator if the whole oracle fails, because this means that the goal was mis-specified.
 
     any_success = False
     for goal, plan in new_motion_plan_keys:

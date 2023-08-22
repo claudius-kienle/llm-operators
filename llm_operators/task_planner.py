@@ -69,7 +69,7 @@ def attempt_task_plan_for_problem(
                 print("Mock found for task plan, continuing...")
                 any_success = True
                 new_evaluated_plans = problems[problem_id].evaluated_pddl_plans
-                return new_evaluated_plans
+                return any_success, new_evaluated_plans
             else:
                 print("Mock not found for task plan, continuing...")
         except:

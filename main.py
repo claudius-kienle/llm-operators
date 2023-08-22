@@ -303,6 +303,18 @@ parser.add_argument(
 parser.add_argument(
     "--checkpoint_every_n_problem_plans", type=int, default=2, help="Write out results every n problems."
 )
+parser.add_argument(
+    "--minimum_n_operators",
+    type=int,
+    default=10,
+    help="Minimum number of operators we can sample in a proposed library at any point.",
+)
+parser.add_argument(
+    "--operator_pseudocounts",
+    type=int,
+    default=1,
+    help="Assume each operator succeeded at least this many times (MAP smoothing)",
+)
 
 
 def main():
@@ -498,7 +510,6 @@ def main():
                     output_directory=output_directory,
                     finished_epoch=finished_epoch,
                 )
-                sys.exit(0)
 
 
 if __name__ == "__main__":
