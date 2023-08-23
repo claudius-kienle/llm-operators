@@ -313,7 +313,7 @@ def update_pddl_domain_and_problem(
             # The operator was the actual one that failed.
             if operator_idx == motion_plan_result.last_failed_operator:
                 # +0 success, +1 attempt
-                pddl_domain.operators_to_scores[(o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])] += (
+                pddl_domain.operators_to_scores[(o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])] = (
                     n_operator_successes,
                     n_operator_attempts + 1,
                 )
@@ -322,7 +322,10 @@ def update_pddl_domain_and_problem(
         print("Top operators after success are:")
         for o_name, o_body in sorted(
             pddl_domain.operators_to_scores,
-            key=lambda k: float(pddl_domain.operators_to_scores[k][0] / pddl_domain.operators_to_scores[k][1]),
+            key=lambda k: (
+                float(pddl_domain.operators_to_scores[k][0] / pddl_domain.operators_to_scores[k][1]),
+                pddl_domain.operators_to_scores[k][1],
+            ),
             reverse=True,
         ):
             print(
@@ -331,6 +334,7 @@ def update_pddl_domain_and_problem(
                     pddl_domain.operators_to_scores[(o_name, o_body)][0]
                     / pddl_domain.operators_to_scores[(o_name, o_body)][1]
                 ),
+                f"{pddl_domain.operators_to_scores[(o_name, o_body)][0]} / {pddl_domain.operators_to_scores[(o_name, o_body)][1]}",
             )
 
     should_continue_planner_attempts = not any_success
@@ -369,14 +373,22 @@ def checkpoint_and_reset_plans(
 
 
 def checkpoint_and_reset_operators(
-    pddl_domain, curr_iteration, command_args, output_directory, reset_operators=False, operator_acceptance_threshold=0
+    pddl_domain,
+    curr_iteration,
+    command_args,
+    output_directory,
+    reset_operators=False,
+    operator_acceptance_threshold=0,
+    operator_pseudocounts=0,
 ):
     if reset_operators:
         # Set operators with final scores.
         for o_name, o_body in pddl_domain.operators_to_scores:
             (o_success, o_attempts) = pddl_domain.operators_to_scores[(o_name, o_body)]
             p_success = float(o_success / o_attempts)
-            if p_success > operator_acceptance_threshold:
+            if (
+                p_success > operator_acceptance_threshold and o_attempts > operator_pseudocounts
+            ):  # And we've used it at least once beyond the pseduocounts.
                 pddl_domain.add_operator(operator_name=o_name, operator_pddl=o_body)
         print(f"Final operators after iteration {curr_iteration}: {pddl_domain.operators.keys()}")
         # Clear out the proposed operators.

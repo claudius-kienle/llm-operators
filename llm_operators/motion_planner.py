@@ -110,6 +110,9 @@ def attempt_motion_plan_for_problem(
         new_motion_plan_keys.append(new_motion_plan_key)
         if motion_plan_result.task_success:
             any_success = True
+            problems[problem_id].solved_motion_plan_results[
+                new_motion_plan_key  # The actual goal and task plan that we planned for.
+            ] = motion_plan_result
 
         print("=============================================")
         print(f"Problem Number: {problem_idx}")

@@ -312,7 +312,7 @@ parser.add_argument(
 parser.add_argument(
     "--operator_pseudocounts",
     type=int,
-    default=1,
+    default=0.1,
     help="Assume each operator succeeded at least this many times (MAP smoothing)",
 )
 parser.add_argument(
@@ -503,6 +503,7 @@ def main():
                     output_directory=output_directory,
                     reset_operators=finished_epoch,
                     operator_acceptance_threshold=args.operator_acceptance_threshold,
+                    operator_pseudocounts=args.operator_pseudocounts,
                 )
                 pddl.checkpoint_and_reset_plans(
                     curr_iteration=curr_iteration,

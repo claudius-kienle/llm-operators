@@ -261,7 +261,7 @@ def sample_task_plans_for_problem(
         if not osp.exists(output_filepath):
             with open(output_filepath, "w") as f:
                 csv.writer(f).writerow(
-                    ["problem_id", "attempt_id", "sample_percent", "goal", "success", "plan", "sampled_operators"]
+                    ["problem_id", "attempt_id", "minimum_n_operators", "goal", "success", "plan", "sampled_operators"]
                 )
         with open(output_filepath, "a") as f:
             writer = csv.writer(f)
@@ -274,7 +274,7 @@ def sample_task_plans_for_problem(
                     [
                         problem.problem_id,
                         plan_attempt_idx,
-                        operator_downsampling_percentage,
+                        minimum_n_operators,
                         goal,
                         goal in evaluated_plans,
                         evaluated_plans[goal].plan_string if goal in evaluated_plans else None,
