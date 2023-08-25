@@ -9,6 +9,7 @@ import random
 import time
 import json
 from collections import Counter, defaultdict
+import llm_operators.experiment_utils as experiment_utils
 
 import openai
 from openai.error import APIConnectionError, InvalidRequestError, RateLimitError
@@ -238,6 +239,11 @@ def propose_plans_operators_for_problems(
     external_operator_supervision=None,
     external_operator_sample_with_prompt=True,
     external_operator_names=None,
+    resume_from_iteration=None,
+    resume_from_problem_idx=None,
+    curr_iteration=None,
+    debug_skip_propose_operators_after=None,
+    debug_skip_propose_plans_after=None,
 ):
     unsolved_problems, solved_problems = get_solved_unsolved_problems(problems)
     if use_gt:
@@ -257,6 +263,10 @@ def propose_plans_operators_for_problems(
         experiment_name=command_args.experiment_name,
         use_mock=command_args.debug_mock_propose_plans,
         external_plan_supervision=external_plan_supervision,
+        resume_from_iteration=resume_from_iteration,
+        resume_from_problem_idx=resume_from_problem_idx,
+        curr_iteration=curr_iteration,
+        debug_skip_propose_plans_after=debug_skip_propose_plans_after,
     )
     # Condition on: new operator names. Propose: PDDL operator definitions.
     propose_operators_for_problems(
@@ -274,6 +284,10 @@ def propose_plans_operators_for_problems(
         external_operator_supervision=external_operator_supervision,
         external_operator_sample_with_prompt=external_operator_sample_with_prompt,
         external_operator_names=external_operator_names,
+        resume_from_iteration=resume_from_iteration,
+        resume_from_problem_idx=resume_from_problem_idx,
+        curr_iteration=curr_iteration,
+        debug_skip_propose_operators_after=debug_skip_propose_operators_after,
     )
 
 
@@ -297,7 +311,15 @@ def propose_operators_for_problems(
     external_operator_supervision=None,
     external_operator_sample_with_prompt=True,
     external_operator_names=None,
+    resume_from_iteration=None,
+    resume_from_problem_idx=None,
+    curr_iteration=None,
+    debug_skip_propose_operators_after=None,
 ):
+    if debug_skip_propose_operators_after <= curr_iteration:
+        print(f"debug_skip_propose_operators_after after current iteration, skipping: {curr_iteration}")
+        return
+
     output_json = {}
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
 
@@ -319,7 +341,12 @@ def propose_operators_for_problems(
         print(proposed_operators)
 
     # Get valid operators, and use a standardized operator mapping.
-    if use_mock:
+    if use_mock and experiment_utils.should_use_checkpoint(
+        curr_iteration=curr_iteration,
+        curr_problem_idx=None,
+        resume_from_iteration=resume_from_iteration,
+        resume_from_problem_idx=resume_from_problem_idx,
+    ):
         try:
             mock_propose_operators_for_problems(output_filepath, proposed_operators, output_directory, current_domain)
             return
@@ -634,6 +661,10 @@ def propose_plans_for_problems(
     experiment_name="",
     use_mock=False,
     external_plan_supervision=None,
+    resume_from_iteration=None,
+    resume_from_problem_idx=None,
+    curr_iteration=None,
+    debug_skip_propose_plans_after=None,
 ):
     """
     Proposes PDDL plans given NL goals.
@@ -653,10 +684,19 @@ def propose_plans_for_problems(
 
     Edits the unsolved problem objects - adds plans to the problem.proposed_pddl_plan list
     """
+    if debug_skip_propose_plans_after >= curr_iteration:
+        print(f"debug_skip_propose_plans_after, skipping this for iteration {curr_iteration}")
+        return
+
     output_json = {}
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
     output_filepath = f"{experiment_tag}codex_plans.json"
-    if use_mock:
+    if use_mock and experiment_utils.should_use_checkpoint(
+        curr_iteration=curr_iteration,
+        curr_problem_idx=None,
+        resume_from_iteration=resume_from_iteration,
+        resume_from_problem_idx=resume_from_problem_idx,
+    ):
         try:
             mock_propose_plans_for_problems(
                 output_filepath,
@@ -886,6 +926,9 @@ def propose_goals_for_problems(
     use_gt=False,
     print_every=1,
     args=None,
+    resume_from_iteration=None,
+    resume_from_problem_idx=None,
+    curr_iteration=None,
 ):
     random.seed(args.random_seed)
 
@@ -902,7 +945,6 @@ def propose_goals_for_problems(
         prompt += get_domain_string(current_domain, solved_to_prompt[0])
         for solved_problem in solved_to_prompt:  # constructing the input prompt
             prompt += get_solved_goal_prompt(current_domain, solved_problem)
-
         prompt += get_unsolved_goal_prompt(
             current_domain,
             problem,
@@ -928,13 +970,14 @@ def propose_goals_for_problems(
     output_json = {}
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
     output_filepath = f"{experiment_tag}codex_goals_{'_'.join(initial_pddl_predicates)}.json"
-    if use_mock:
-        try:
-            mock_propose_goals_for_problems(output_filepath, unsolved_problems, output_directory, current_domain)
-            return
-        except:
-            print("mock for propose_goals_for_problems not found, continuing.")
-            pass
+    if use_mock and experiment_utils.should_use_checkpoint(
+        curr_iteration=curr_iteration,
+        curr_problem_idx=None,
+        resume_from_iteration=resume_from_iteration,
+        resume_from_problem_idx=resume_from_problem_idx,
+    ):
+        mock_propose_goals_for_problems(output_filepath, unsolved_problems, output_directory, current_domain)
+        return
 
     if verbose:
         print(f"propose_goals_for_problems:: proposing for {len(unsolved_problems)} unsolved problems.")
@@ -942,6 +985,8 @@ def propose_goals_for_problems(
     nl_header = "\n;; Natural language goals and PDDL goals\n\n"
 
     for idx, problem in enumerate(unsolved_problems):
+        # For now, we completely reset the goals if we're proposing.
+        problem.proposed_pddl_goals = []
         if verbose and idx % print_every == 0:
             print(f"propose_goals_for_problems:: now on {idx} / {len(unsolved_problems)}")
         try:

@@ -7,6 +7,14 @@ import datetime
 RANDOM_SEED = 0
 
 
+def should_use_checkpoint(curr_iteration, curr_problem_idx, resume_from_iteration, resume_from_problem_idx):
+    # Should we attempt to load from a checkpoint?
+    if curr_iteration <= resume_from_iteration:
+        if curr_problem_idx is None or curr_problem_idx <= resume_from_problem_idx:
+            return True
+    return False
+
+
 def get_output_directory(curr_iteration, command_args, experiment_name_to_load):
     output_directory = command_args.output_directory
 
