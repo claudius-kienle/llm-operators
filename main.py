@@ -105,7 +105,6 @@ parser.add_argument(
     type=float,
     help="Randomly selected fraction of the dataset to supervise with ground truth PDDL goals.",
 )
-
 parser.add_argument(
     "--initial_plans_prefix",
     type=str,
@@ -559,6 +558,12 @@ def main():
                     problem_idx=problem_idx,
                     total_problems=len(planning_problems["train"]),
                 )
+
+        # Compute the number of unsolved problems
+        unsolved, _ = codex.get_solved_unsolved_problems(planning_problems["train"])
+        if len(unsolved) == 0:
+            print("All problems solved! You should open a bottle of champagne and the Overleaf website.")
+            break
 
 
 if __name__ == "__main__":

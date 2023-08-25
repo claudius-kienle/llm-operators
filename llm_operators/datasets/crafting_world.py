@@ -79,7 +79,8 @@ def load_crafting_world_20230204_minining_only(dataset_pddl_directory: str, data
 
     assert len(dataset['train']) > 3
     for problem in itertools.islice(dataset['train'].values(), 3):
-        problem.should_supervise_pddl = True
+        problem.should_supervise_pddl_plan = True
+        problem.should_supervise_pddl_goal = True
 
     return dataset
 

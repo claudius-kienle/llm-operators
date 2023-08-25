@@ -1237,7 +1237,7 @@ def preprocess_goals(problems, pddl_domain, output_directory, command_args=None,
     unsolved_problems = [
         problems[p]
         for p in problems
-        if len(problems[p].solved_motion_plan_results) < 1 and not problems[p].supervise_goal
+        if len(problems[p].solved_motion_plan_results) < 1 and not problems[p].should_supervise_pddl_goal
     ]
     output_json = dict()
     if verbose:

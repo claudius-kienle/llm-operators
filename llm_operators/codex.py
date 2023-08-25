@@ -122,23 +122,37 @@ def get_completions(
 
 
 def get_solved_unsolved_problems_or_supervision(problems):
+    raise RuntimeError("get_solved_unsolved_problems_or_supervision should not be called. Use get_solved_unsolved_problems.")
+
+    # keep this for now, but should be removed.
     unsolved_problems = [
         problems[p]
         for p in problems
-        if len(problems[p].solved_motion_plan_results) < 1 and not problems[p].supervise_goal
+        if len(problems[p].solved_motion_plan_results) < 1 and not problems[p].should_supervise_pddl_goal
     ]
     solved_problems = [
         problems[p]
         for p in problems
-        if (len(problems[p].solved_motion_plan_results) > 0) or problems[p].supervise_goal
+        if (len(problems[p].solved_motion_plan_results) > 0) or problems[p].should_supervise_pddl_goal
     ]
     return unsolved_problems, solved_problems
 
 
-def get_solved_unsolved_problems(problems):
-    unsolved_problems = [problems[p] for p in problems if len(problems[p].solved_motion_plan_results) < 1]
-    solved_problems = [problems[p] for p in problems if (len(problems[p].solved_motion_plan_results) > 0)]
-    return unsolved_problems, solved_problems
+def get_solved_unsolved_problems(problems, context=None):
+    if context == 'pddl_goal':
+        unsolved_problems = [problems[p] for p in problems if len(problems[p].solved_motion_plan_results) < 1 and not problems[p].should_supervise_pddl_goal]
+        solved_problems = [problems[p] for p in problems if (len(problems[p].solved_motion_plan_results) > 0) or problems[p].should_supervise_pddl_goal]
+        return unsolved_problems, solved_problems
+    elif context == 'pddl_plan':
+        unsolved_problems = [problems[p] for p in problems if len(problems[p].solved_motion_plan_results) < 1 and not problems[p].should_supervise_pddl_plan]
+        solved_problems = [problems[p] for p in problems if (len(problems[p].solved_motion_plan_results) > 0) or problems[p].should_supervise_pddl_plan]
+        return unsolved_problems, solved_problems
+    elif context is None:
+        unsolved_problems = [problems[p] for p in problems if len(problems[p].solved_motion_plan_results) < 1]
+        solved_problems = [problems[p] for p in problems if (len(problems[p].solved_motion_plan_results) > 0)]
+        return unsolved_problems, solved_problems
+    else:
+        raise ValueError("Context must be either 'pddl_goal' or 'pddl_plan' or None.")
 
 
 def propose_plans_operators_goals_for_problems(
@@ -159,7 +173,7 @@ def propose_plans_operators_goals_for_problems(
     ret:
         proposed_codex_operators: PDDL operators proposed by Codex.
     """
-    unsolved_problems, solved_problems = get_solved_unsolved_problems(problems)
+    unsolved_problems, solved_problems = get_solved_unsolved_problems(problems, context='pddl_plan')
     if verbose:
         print("Now in: propose_plans_operators_goals_for_problems: ")
         print(f"\t{len(unsolved_problems)} unsolved problems / {len(solved_problems)} solved problems")
@@ -245,7 +259,7 @@ def propose_plans_operators_for_problems(
     debug_skip_propose_operators_after=None,
     debug_skip_propose_plans_after=None,
 ):
-    unsolved_problems, solved_problems = get_solved_unsolved_problems(problems)
+    unsolved_problems, solved_problems = get_solved_unsolved_problems(problems, context='pddl_plan')
     if use_gt:
         use_ground_truth_operators(current_domain, verbose)
         return
@@ -401,7 +415,7 @@ def mock_propose_operators_for_problems(output_filepath, proposed_operators, out
 def get_operators_to_propose(
     current_domain, operator_uses, operator_use_counts, minimum_usage, external_operator_names
 ):
-    external_operator_names = [o.lower() for o in external_operator_names]
+    external_operator_names = [o.lower() for o in external_operator_names] if external_operator_names else []
     existing_operators = set(
         [
             o.lower()
@@ -425,7 +439,7 @@ def get_operator_uses(problems):
     existing_operator_uses = defaultdict(list)
     for problem in problems.values():
         plans = []
-        if problem.should_supervise_pddl:
+        if problem.should_supervise_pddl_plan:
             plans.append(problem.ground_truth_pddl_plan)
         if len(problem.evaluated_pddl_plans) > 0:
             plans.append(problem.get_highest_likelihood_evaluated_pddl_plan())
@@ -623,7 +637,10 @@ def load_external_plan_supervision_strings(external_plan_file):
 
 def build_plan_prompt(unsolved_problem, solved_problems, external_plan_file, max_solved_problem_examples=3):
     # Builds a prompt containing external plan examples and a sample set of solved problems.
-    external_plan_strings = load_external_plan_supervision_strings(external_plan_file)
+    if external_plan_file is not None:
+        external_plan_strings = load_external_plan_supervision_strings(external_plan_file)
+    else:
+        external_plan_strings = []
     solved_problem_examples = random.sample(
         solved_problems,
         min(len(solved_problems), max_solved_problem_examples),
@@ -824,7 +841,7 @@ def get_plan_string_from_solved_problem(problem):
     return:
         string to add to the codex input prompt
     """
-    plan = problem.ground_truth_pddl_plan if problem.should_supervise_pddl else problem.get_best_evaluated_pddl_plan()
+    plan = problem.ground_truth_pddl_plan if problem.should_supervise_pddl_plan else problem.get_best_evaluated_pddl_plan()
     return plan.plan_to_string(plan.plan)
 
 
@@ -963,7 +980,7 @@ def propose_goals_for_problems(
 
     Edits the unsolved problem objects - adds PDDL proposed goals to the problem.proposed_pddl_goals list
     """
-    unsolved_problems, solved_problems = get_solved_unsolved_problems_or_supervision(problems)
+    unsolved_problems, solved_problems = get_solved_unsolved_problems(problems, context='pddl_goal')
     if use_gt:
         print("Using ground truth goals, skipping: propose_goals_for_problems")
         return

@@ -19,10 +19,10 @@ class Problem:
         language=None,
         ground_truth_pddl_plan=None,
         ground_truth_pddl_problem=None,
-        should_supervise_pddl=False,
+        should_supervise_pddl_goal=False,
+        should_supervise_pddl_plan=False,
         goal_prefix=None,
         chain_of_thought=None,
-        supervise_goal=False,
     ):
         self.problem_id = problem_id
         self.dataset_split = dataset_split
@@ -45,11 +45,11 @@ class Problem:
             else:
                 self.ground_truth_pddl_plan = PDDLPlan(plan=ground_truth_pddl_plan)  # A ground truth PDDLPlan object.
 
-        self.supervise_goal = (
-            supervise_goal  # Whether to supervise specifically on ground truth information about the goal.
+        self.should_supervise_pddl_goal = (
+            should_supervise_pddl_goal  # Whether to supervise specifically on ground truth information about the goal.
         )
 
-        self.should_supervise_pddl = should_supervise_pddl  # Whether to include the PDDL in initial supervision
+        self.should_supervise_pddl_plan = should_supervise_pddl_plan  # Whether to include the PDDL in initial supervision
         # One or more proposed PDDL goals.
         self.codex_raw_goals = []
         self.proposed_pddl_goals = []
@@ -132,7 +132,7 @@ class Problem:
             f'language="{self.language}",\n'
             f'goal_prefix="{self.goal_prefix}",\n'
             f"ground_truth_pddl_plan={self.ground_truth_pddl_plan},\n"
-            f"should_supervise_pddl={self.should_supervise_pddl}\n"
+            f"should_supervise_pddl_plan={self.should_supervise_pddl_plan}\n"
             f"proposed_pddl_goals = {self.proposed_pddl_goals}\n"
             f"proposed_pddl_plans = {self.proposed_pddl_plans}\n)"
         )
@@ -260,6 +260,8 @@ def build_problem_prefix_to_problem_ids(planning_dataset, initial_goal_supervisi
 
 
 def mark_goal_supervision_problems(planning_dataset, initial_goal_supervision_prefix, goal_supervision_fraction):
+    if initial_goal_supervision_prefix == ["SKIP"]:
+        return
     problem_prefix_to_problem_ids = build_problem_prefix_to_problem_ids(
         planning_dataset, initial_goal_supervision_prefix, split="train"
     )
@@ -276,7 +278,7 @@ def mark_goal_supervision_problems(planning_dataset, initial_goal_supervision_pr
             problem_prefix_to_problem_ids[goal_supervision_type], num_problems_to_supervise
         )
         for problem_id in problems_to_supervise:
-            planning_dataset["train"][problem_id].supervise_goal = True
+            planning_dataset["train"][problem_id].should_supervise_pddl_goal = True
         print(f"\t {goal_supervision_type} : {num_problems_to_supervise}")
         total_goal_supervision += num_problems_to_supervise
     print(f"Total goal supervision problems: {total_goal_supervision}")
