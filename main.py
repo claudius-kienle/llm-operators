@@ -196,6 +196,18 @@ parser.add_argument(
     help="debug: mock out operator_proposal.",
 )
 parser.add_argument(
+    "--debug_skip_propose_operators_after",
+    type=int,
+    default=-1,
+    help="debug: don't propose operators again after this iteration. If -1, invalid.",
+)
+parser.add_argument(
+    "--debug_skip_propose_plans_after",
+    type=int,
+    default=-1,
+    help="debug: don't propose operators again after this iteration. If -1, invalid.",
+)
+parser.add_argument(
     "--debug_skip_task_plans",
     action="store_true",
     help="debug: skip task plan grounded search and assume that all of the task plans succeeded.",
@@ -227,7 +239,6 @@ parser.add_argument(
     nargs="+",
     help="debug: skip these problems.",
 )
-
 parser.add_argument(
     "--debug_ground_truth_operators",
     action="store_true",
@@ -243,6 +254,8 @@ parser.add_argument(
     action="store_true",
     help="debug: stop after the first proposal for goals, plans, and operators (no evaluation).",
 )
+parser.add_argument("--resume_from_iteration", type=int, default=0, help="Resume from checkpoint at this iteration")
+parser.add_argument("--resume_from_problem_idx", type=int, default=0, help="Resume from checkpoint at this problem")
 
 parser.add_argument(
     "--codex_goal_temperature",
@@ -319,7 +332,7 @@ parser.add_argument(
     "--operator_acceptance_threshold",
     type=float,
     default=0.1,
-    help="After each iteration, we prune out operators that have less than this probability of success.",
+    help="After each iteration, we prune out operators that have less than this probability of success. We should remove the pseudocounted probabilities.",
 )
 
 
@@ -379,6 +392,9 @@ def main():
                 use_mock=args.debug_mock_propose_goals,
                 use_gt=args.debug_ground_truth_goals,
                 args=args,
+                resume_from_iteration=args.resume_from_iteration,
+                resume_from_problem_idx=args.resume_from_problem_idx,
+                curr_iteration=curr_iteration,
             )
             pddl.preprocess_goals(
                 problems=planning_problems["train"],
@@ -403,6 +419,9 @@ def main():
                 external_operator_sample_with_prompt=args.external_operator_sample_with_prompt,
                 operator_temperature=args.codex_operator_temperature,
                 external_operator_names=args.external_operator_names,
+                curr_iteration=curr_iteration,
+                debug_skip_propose_operators_after=args.debug_skip_propose_operators_after,
+                debug_skip_propose_plans_after=args.debug_skip_propose_operators_after,
             )
             pddl.preprocess_operators(
                 pddl_domain,
@@ -425,7 +444,12 @@ def main():
                     os.remove(output_filename)
 
         ###################### Refine operators.
-        if args.debug_mock_task_plans:
+        if args.debug_mock_task_plans and experiment_utils.should_use_checkpoint(
+            curr_iteration=curr_iteration,
+            curr_problem_idx=None,
+            resume_from_iteration=args.resume_from_iteration,
+            resume_from_problem_idx=args.resume_from_problem_idx,
+        ):
             pddl.load_operator_checkpoint(
                 curr_iteration=curr_iteration,
                 pddl_domain=pddl_domain,
@@ -441,9 +465,10 @@ def main():
                 continue
             # Continue on a problem as long as we have not succeeded in finding a motion plan result.
             any_success = False
+            used_motion_mock = False
             for plan_attempt_idx in range(args.n_attempts_to_plan):
                 for goal_idx in range(args.n_goal_samples):
-                    if any_success:
+                    if any_success or used_motion_mock:
                         continue
                     else:
                         # Task plan. Attempts to generate a task plan for each problem.
@@ -461,12 +486,16 @@ def main():
                             goal_idx=goal_idx,
                             random_generator=rng,
                             minimum_n_operators=args.minimum_n_operators,
+                            resume_from_iteration=args.resume_from_iteration,
+                            resume_from_problem_idx=args.resume_from_problem_idx,
+                            curr_iteration=curr_iteration,
                         )
                         if found_new_task_plan:
                             # Motion plan. Attempts to generate a motion plan for a problem.
                             (
                                 any_motion_planner_success,
                                 new_motion_plan_keys,
+                                used_motion_mock,
                             ) = motion_planner.attempt_motion_plan_for_problem(
                                 pddl_domain=pddl_domain,
                                 problem_idx=problem_idx,
@@ -480,22 +509,28 @@ def main():
                                 plan_attempt_idx=plan_attempt_idx,
                                 dataset_name=args.dataset_name,
                                 new_task_plans=new_task_plans,
+                                resume_from_iteration=args.resume_from_iteration,
+                                resume_from_problem_idx=args.resume_from_problem_idx,
+                                curr_iteration=curr_iteration,
                             )
                             # Update the global operator scores from the problem.
-                            pddl.update_pddl_domain_and_problem(
-                                pddl_domain=pddl_domain,
-                                problem_idx=problem_idx,
-                                problem_id=problem_id,
-                                problems=planning_problems["train"],
-                                verbose=args.verbose,
-                                command_args=args,
-                                new_motion_plan_keys=new_motion_plan_keys,
-                            )
+                            if (
+                                not used_motion_mock
+                            ):  # Don't update if we loaded this from a mock, because the operator scores already reflect this.
+                                pddl.update_pddl_domain_and_problem(
+                                    pddl_domain=pddl_domain,
+                                    problem_idx=problem_idx,
+                                    problem_id=problem_id,
+                                    problems=planning_problems["train"],
+                                    verbose=args.verbose,
+                                    command_args=args,
+                                    new_motion_plan_keys=new_motion_plan_keys,
+                                )
                             if any_motion_planner_success:
                                 any_success = True
 
             # Checkpoint operators, only reset if we're at the end of the iteration.
-            if problem_idx % args.checkpoint_every_n_problem_plans == 0 or finished_epoch:
+            if (problem_idx % args.checkpoint_every_n_problem_plans == 0 and not used_motion_mock) or finished_epoch:
                 pddl.checkpoint_and_reset_operators(
                     curr_iteration=curr_iteration,
                     pddl_domain=pddl_domain,

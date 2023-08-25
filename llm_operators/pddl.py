@@ -767,6 +767,8 @@ class PDDLPlan:
     def string_to_plan(self, plan_string, pddl_domain=None):
         action_strings = plan_string.strip().split("\n")
         actions = []
+        if len(plan_string) == 0:
+            return actions
         for a in action_strings:
             assert a.startswith("(") and a.endswith(")")
             tokens = a.strip("()").split(" ")

@@ -32,6 +32,7 @@ class MotionPlanResult:
         self.max_satisfied_predicates = max_satisfied_predicates
         self.total_trajs_sampled = total_trajs_sampled
 
+    @classmethod
     def from_json(cls, json):
         return MotionPlanResult(
             pddl_plan=PDDLPlan(plan_string=json["plan"]),
@@ -55,6 +56,9 @@ def attempt_motion_plan_for_problem(
     plan_attempt_idx=0,
     dataset_name="",
     new_task_plans=None,
+    resume_from_iteration=0,
+    resume_from_problem_idx=0,
+    curr_iteration=0,
 ):
     """Attempts to motion plan for a single problem. This attempts the planner on any proposed goals, and any proposed task plans for those goals."""
     if plan_attempt_idx == 0:
@@ -66,21 +70,28 @@ def attempt_motion_plan_for_problem(
     experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
 
     output_filepath = f"{experiment_tag}motion_plans.json"
-    if use_mock:
-        try:
-            unsolved_problems = mock_evaluate_motion_plans_and_costs_for_problems(
-                output_filepath, output_directory, problems
-            )
-            if problem_id in unsolved_problems or len(problems[problem_id].evaluated_motion_planner_results) > 0:
-                print("Mock found for motion plan, continuing...")
-                return
-            else:
-                print("Mock not found for motion plan, continuing...")
-        except:
+    if use_mock and curr_iteration <= resume_from_iteration and problem_idx <= resume_from_problem_idx:
+        unsolved_problems = mock_evaluate_motion_plans_and_costs_for_problems(
+            output_filepath, output_directory, problems
+        )
+        # Did we find a solution?
+        any_success = False
+        new_motion_plan_keys = []
+        used_mock = True
+        if problem_id in unsolved_problems:
+            print("Mock found for motion plan but no successful motion plan, continuing...")
+            return any_success, new_motion_plan_keys, used_mock
+        if len(problems[problem_id].evaluated_motion_planner_results) > 0:
+            any_success = True
+            new_motion_plan_keys = problems[problem_id].evaluated_motion_planner_results.keys()
+            print("Mock found for motion plan, continuing...")
+            return any_success, new_motion_plan_keys, used_mock
+        else:
             print("Mock not found for motion plan, continuing...")
 
     any_success = False
     new_motion_plan_keys = []
+    used_mock = False
     for pddl_goal, pddl_plan in new_task_plans.items():
         if "alfred" in dataset_name:
             motion_plan_result = evaluate_alfred_motion_plans_and_costs_for_goal_plan(
@@ -125,7 +136,7 @@ def attempt_motion_plan_for_problem(
                 f"Failed at operator: {motion_plan_result.last_failed_operator + 1} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan."
             )
         print("=============================================")
-    return any_success, new_motion_plan_keys
+    return any_success, new_motion_plan_keys, used_mock
 
 
 def evaluate_motion_plans_and_costs_for_problems(
@@ -181,12 +192,15 @@ def mock_evaluate_motion_plans_and_costs_for_problems(output_filepath, output_di
             problem = problems[plan["file_name"]]
             if len(plan["motion_plans"]) == 0:
                 unsolved_problems.add(plan["file_name"])
-
             for plan_json in plan["motion_plans"]:
                 # This updates the evaluated PDDL task plans that succeeded.
-                problem.evaluated_motion_planner_results[
-                    (plan_json["goal"], plan_json["plan"])
-                ] = MotionPlanResult.from_json(plan_json)
+                motion_plan_result = MotionPlanResult.from_json(plan_json)
+                problem.evaluated_motion_planner_results[(plan_json["goal"], plan_json["plan"])] = motion_plan_result
+                if motion_plan_result.task_success:
+                    any_success = True
+                    problem.solved_motion_plan_results[
+                        (plan_json["goal"], plan_json["plan"])  # The actual goal and task plan that we planned for.
+                    ] = motion_plan_result
 
     print(
         f"After initialization, there are {len([p for p in problems if len(problems[p].evaluated_pddl_plans) > 0])} problems with plans."

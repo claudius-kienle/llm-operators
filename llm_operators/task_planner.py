@@ -41,6 +41,9 @@ def attempt_task_plan_for_problem(
     debug_proposed_operators: Optional[Sequence[str]] = None,  # Debugging only.
     random_generator=None,
     minimum_n_operators=1,
+    resume_from_iteration=0,
+    resume_from_problem_idx=0,
+    curr_iteration=0,
 ):
     """
     Evaluates planner to evaluate task plans for a single planning problems, given a PDDL domain.
@@ -60,19 +63,16 @@ def attempt_task_plan_for_problem(
     # NB(Jiayuan Mao @ 2023/04/07): this file is solved via pddl.checkpoint_and_reset_plans function.
     output_filepath = f"{experiment_tag}task_plans.json"
 
-    if use_mock:
-        try:
-            unsolved_problems = mock_evaluate_task_plans_and_costs_for_problems(
-                output_filepath, output_directory, problems
-            )
-            if problem_id in unsolved_problems or len(problems[problem_id].evaluated_pddl_plans) > 0:
-                print("Mock found for task plan, continuing...")
-                any_success = True
-                new_evaluated_plans = problems[problem_id].evaluated_pddl_plans
-                return any_success, new_evaluated_plans
-            else:
-                print("Mock not found for task plan, continuing...")
-        except:
+    if use_mock and curr_iteration <= resume_from_iteration and problem_idx <= resume_from_problem_idx:
+        unsolved_problems = mock_evaluate_task_plans_and_costs_for_problems(
+            output_filepath, output_directory, problems
+        )
+        if problem_id in unsolved_problems or len(problems[problem_id].evaluated_pddl_plans) > 0:
+            print("Mock found for task plan, continuing...")
+            any_success = True
+            new_evaluated_plans = problems[problem_id].evaluated_pddl_plans
+            return any_success, new_evaluated_plans
+        else:
             print("Mock not found for task plan, continuing...")
 
     if command_args.debug_export_failed_pddl:
@@ -297,9 +297,13 @@ def mock_evaluate_task_plans_and_costs_for_problems(output_filepath, output_dire
             problem = problems[plan["file_name"]]
             if len(plan["plans"]) == 0:
                 unsolved_problems.add(plan["file_name"])
-            for plan_json in plan["plans"]:
-                # This updates the evaluated PDDL task plans that succeeded.
-                problem.evaluated_pddl_plans[plan_json["goal"]].append(PDDLPlan(plan=plan_json["plan"]))
+            else:
+                # Set each goal to the set of plans, not a list.
+                for plan_json in plan["plans"]:
+                    # This updates the evaluated PDDL task plans that succeeded.
+                    plan = PDDLPlan(plan=plan_json["plan"])
+                    if plan not in set(problem.evaluated_pddl_plans[plan_json["goal"]]):
+                        problem.evaluated_pddl_plans[plan_json["goal"]].append(plan)
     print(
         f"After initialization, there are {len([p for p in problems if len(problems[p].evaluated_pddl_plans) > 0])} problems with plans."
     )
