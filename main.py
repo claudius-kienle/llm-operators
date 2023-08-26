@@ -253,6 +253,7 @@ parser.add_argument(
     action="store_true",
     help="debug: stop after the first proposal for goals, plans, and operators (no evaluation).",
 )
+parser.add_argument('--resume', action='store_true', help='resume from whatever was last saved')
 parser.add_argument("--resume_from_iteration", type=int, default=0, help="Resume from checkpoint at this iteration")
 parser.add_argument("--resume_from_problem_idx", type=int, default=0, help="Resume from checkpoint at this problem")
 
@@ -391,6 +392,7 @@ def main():
                 use_mock=args.debug_mock_propose_goals,
                 use_gt=args.debug_ground_truth_goals,
                 args=args,
+                resume=args.resume,
                 resume_from_iteration=args.resume_from_iteration,
                 resume_from_problem_idx=args.resume_from_problem_idx,
                 curr_iteration=curr_iteration,
@@ -420,7 +422,8 @@ def main():
                 external_operator_names=args.external_operator_names,
                 curr_iteration=curr_iteration,
                 debug_skip_propose_operators_after=args.debug_skip_propose_operators_after,
-                debug_skip_propose_plans_after=args.debug_skip_propose_operators_after,
+                debug_skip_propose_plans_after=args.debug_skip_propose_plans_after,
+                resume=args.resume,
             )
             pddl.preprocess_operators(
                 pddl_domain,

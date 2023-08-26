@@ -12,7 +12,7 @@ from collections import Counter, defaultdict
 import llm_operators.experiment_utils as experiment_utils
 
 import openai
-from openai.error import APIConnectionError, InvalidRequestError, RateLimitError
+from openai.error import APIError, APIConnectionError, InvalidRequestError, RateLimitError, ServiceUnavailableError, Timeout
 
 from llm_operators.pddl import PDDLPlan
 
@@ -116,6 +116,18 @@ def get_completions(
             pause_for_rate_limit = True
             completion = e
         except APIConnectionError as e:
+            print(e)
+            pause_for_rate_limit = True
+            completion = e
+        except APIError as e:
+            print(e)
+            pause_for_rate_limit = True
+            return e
+        except ServiceUnavailableError as e:
+            print(e)
+            pause_for_rate_limit = True
+            completion = e
+        except Timeout as e:
             print(e)
             pause_for_rate_limit = True
             completion = e
@@ -253,6 +265,7 @@ def propose_plans_operators_for_problems(
     external_operator_supervision=None,
     external_operator_sample_with_prompt=True,
     external_operator_names=None,
+    resume=False,
     resume_from_iteration=None,
     resume_from_problem_idx=None,
     curr_iteration=None,
@@ -277,6 +290,7 @@ def propose_plans_operators_for_problems(
         experiment_name=command_args.experiment_name,
         use_mock=command_args.debug_mock_propose_plans,
         external_plan_supervision=external_plan_supervision,
+        resume=resume,
         resume_from_iteration=resume_from_iteration,
         resume_from_problem_idx=resume_from_problem_idx,
         curr_iteration=curr_iteration,
@@ -298,6 +312,7 @@ def propose_plans_operators_for_problems(
         external_operator_supervision=external_operator_supervision,
         external_operator_sample_with_prompt=external_operator_sample_with_prompt,
         external_operator_names=external_operator_names,
+        resume=resume,
         resume_from_iteration=resume_from_iteration,
         resume_from_problem_idx=resume_from_problem_idx,
         curr_iteration=curr_iteration,
@@ -325,12 +340,13 @@ def propose_operators_for_problems(
     external_operator_supervision=None,
     external_operator_sample_with_prompt=True,
     external_operator_names=None,
+    resume=False,
     resume_from_iteration=None,
     resume_from_problem_idx=None,
     curr_iteration=None,
     debug_skip_propose_operators_after=None,
 ):
-    if debug_skip_propose_operators_after <= curr_iteration:
+    if debug_skip_propose_operators_after >= curr_iteration:
         print(f"debug_skip_propose_operators_after after current iteration, skipping: {curr_iteration}")
         return
 
@@ -353,6 +369,9 @@ def propose_operators_for_problems(
     if verbose:
         print(f"propose_operators_for_problems:: proposing for {len(proposed_operators)} operators.")
         print(proposed_operators)
+
+    if resume and os.path.exists(os.path.join(output_directory, output_filepath)):
+        mock_propose_operators_for_problems(output_filepath, proposed_operators, output_directory, current_domain)
 
     # Get valid operators, and use a standardized operator mapping.
     if use_mock and experiment_utils.should_use_checkpoint(
@@ -678,6 +697,7 @@ def propose_plans_for_problems(
     experiment_name="",
     use_mock=False,
     external_plan_supervision=None,
+    resume=False,
     resume_from_iteration=None,
     resume_from_problem_idx=None,
     curr_iteration=None,
@@ -708,6 +728,14 @@ def propose_plans_for_problems(
     output_json = {}
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
     output_filepath = f"{experiment_tag}codex_plans.json"
+    if resume and os.path.exists(os.path.join(output_directory, output_filepath)):
+        mock_propose_plans_for_problems(
+            output_filepath,
+            unsolved_problems,
+            output_directory,
+            experiment_name=experiment_name,
+        )
+        return
     if use_mock and experiment_utils.should_use_checkpoint(
         curr_iteration=curr_iteration,
         curr_problem_idx=None,
@@ -943,6 +971,7 @@ def propose_goals_for_problems(
     use_gt=False,
     print_every=1,
     args=None,
+    resume=False,
     resume_from_iteration=None,
     resume_from_problem_idx=None,
     curr_iteration=None,
@@ -987,6 +1016,9 @@ def propose_goals_for_problems(
     output_json = {}
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
     output_filepath = f"{experiment_tag}codex_goals_{'_'.join(initial_pddl_predicates)}.json"
+    if resume and os.path.exists(os.path.join(output_directory, output_filepath)):
+        mock_propose_goals_for_problems(output_filepath, unsolved_problems, output_directory, current_domain)
+        return
     if use_mock and experiment_utils.should_use_checkpoint(
         curr_iteration=curr_iteration,
         curr_problem_idx=None,
