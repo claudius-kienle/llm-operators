@@ -869,8 +869,11 @@ def get_plan_string_from_solved_problem(problem):
     return:
         string to add to the codex input prompt
     """
-    plan = problem.ground_truth_pddl_plan if problem.should_supervise_pddl_plan else problem.get_best_evaluated_pddl_plan()
-    return plan.plan_to_string(plan.plan)
+    if problem.should_supervise_pddl_plan:
+        plan = problem.ground_truth_pddl_plan
+        return plan.plan_to_string(plan.plan)
+    else:
+        return problem.get_solved_pddl_plan_string()
 
 
 def get_domain_string(domain, problem):

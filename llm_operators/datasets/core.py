@@ -118,6 +118,12 @@ class Problem:
                 updated_pddl_plans = True
         return updated_pddl_plans
 
+    def get_solved_pddl_plan_string(self):
+        """Returns one of the solved PDDL plan, or None if no plans have been solved."""
+        for goal, pddl_plan in self.solved_motion_plan_results:
+            return pddl_plan  # already a string
+        raise RuntimeError('No solved PDDL plan found.')
+
     def get_highest_likelihood_evaluated_pddl_plan(self):
         """Returns the best evaluated PDDL plan, or None if no plans have been evaluated."""
         # TODO: right now we only propose one plan anyway, so just return it.
