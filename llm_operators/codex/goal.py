@@ -1,8 +1,3 @@
-"""
-codex.py
-Utilities that call a large language-code model.
-"""
-
 import os
 import random
 import json
@@ -39,6 +34,17 @@ def propose_goals_for_problems(
     resume_from_problem_idx=None,
     curr_iteration=None,
 ):
+    """
+    unsolved_problems:
+        list of Problem objects to be solved
+    solved_problems:
+        list of Problem objects with ground truth plans
+    current_domain:
+        Domain object describing the domain
+
+    Edits the unsolved problem objects - adds PDDL proposed goals to the problem.proposed_pddl_goals list
+    """
+
     random.seed(args.random_seed)
 
     def get_prompt(max_goal_examples=max_goal_examples):
@@ -62,16 +68,6 @@ def propose_goals_for_problems(
         )
         return prompt
 
-    """
-    unsolved_problems:
-        list of Problem objects to be solved
-    solved_problems:
-        list of Problem objects with ground truth plans
-    current_domain:
-        Domain object describing the domain
-
-    Edits the unsolved problem objects - adds PDDL proposed goals to the problem.proposed_pddl_goals list
-    """
     unsolved_problems, solved_problems = get_solved_unsolved_problems(problems, context='pddl_goal')
     if use_gt:
         print("Using ground truth goals, skipping: propose_goals_for_problems")

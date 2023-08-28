@@ -127,9 +127,9 @@ class Problem:
     def get_highest_likelihood_evaluated_pddl_plan(self):
         """Returns the best evaluated PDDL plan, or None if no plans have been evaluated."""
         # TODO: right now we only propose one plan anyway, so just return it.
-        print("TODO: LCW - implement this for choosing plans.")
+        # print("TODO: LCW - implement this for choosing plans.")
         for goal in self.evaluated_pddl_plans:
-            return self.evaluated_pddl_plans[goal]
+            return self.evaluated_pddl_plans[goal][0]
 
     def __repr__(self):
         return (

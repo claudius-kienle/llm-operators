@@ -167,6 +167,16 @@ def _get_operators_to_propose(
         ]
     )
 
+    # TODO(Jiayuan Mao @ 2023/08/28): remove this hack. This is intended to handle multiple proposals for the same operator, in
+    # which case the operator name is appended with a number. This is a hack to handle this case.
+    # In the future, we shuold use a "canonical_operator_name" to handle this.
+    # Actually this is already implemented in the "canonicalize_operator_name" function, but we don't use it here.
+    for o in current_domain.operators:
+        if '_' in o:
+            parts = o.split('_')
+            canonical_name = '_'.join(parts[:-1])
+            existing_operators.add(canonical_name)
+
     # Don't match any that have the same characters.
     proposed_operators = [
         p for p in operator_uses if p.lower() not in existing_operators and p.lower() not in external_operator_names
@@ -180,11 +190,16 @@ def _get_operator_uses(problems):
     operator_use_counts = Counter()
     existing_operator_uses = defaultdict(list)
     for problem in problems.values():
+        if len(problem.solved_motion_plan_results) > 0:
+            continue
+
         plans = []
-        if problem.should_supervise_pddl_plan:
-            plans.append(problem.ground_truth_pddl_plan)
         if len(problem.evaluated_pddl_plans) > 0:
             plans.append(problem.get_highest_likelihood_evaluated_pddl_plan())
+        else:
+            if problem.should_supervise_pddl_plan:
+                plans.append(problem.ground_truth_pddl_plan)
+
         if len(problem.proposed_pddl_plans) > 0:
             plans += problem.proposed_pddl_plans
         for plan in plans:

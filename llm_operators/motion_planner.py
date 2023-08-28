@@ -467,12 +467,15 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
                     target_object,
                     tool_inventory,
                 )
-            simulator.mine(
+            rv = simulator.mine(
                 target_object,
                 empty_inventory,
                 hypothetical_object,
                 tool_inventory=tool_inventory[0] if len(tool_inventory) > 0 else None,
             )
+
+            if not rv:
+                last_failed_operator = i
 
     if last_failed_operator is not None:
         return MotionPlanResult(

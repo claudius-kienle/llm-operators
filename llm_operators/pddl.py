@@ -368,8 +368,8 @@ def checkpoint_and_reset_plans(
         print("End of epoch, resetting all plans.")
         for problem_id in problems:
             problems[problem_id].update_solved_motion_plan_results()
-            problems[problem_id].reset_evaluated_pddl_plans()
-            problems[problem_id].reset_evaluated_motion_planner_results()
+            # problems[problem_id].reset_evaluated_pddl_plans()
+            # problems[problem_id].reset_evaluated_motion_planner_results()
 
 
 def checkpoint_and_reset_operators(
@@ -1245,9 +1245,9 @@ def preprocess_goals(problems, pddl_domain, output_directory, command_args=None,
     for problem in unsolved_problems:
         preprocessed_goals = set()
         for proposed_goal in problem.proposed_pddl_goals:
-            if verbose:
-                print("Trying to process...")
-                print(proposed_goal)
+            # if verbose:
+            #     print("Trying to process...")
+            #     print(proposed_goal)
             success, preprocessed_goal = preprocess_goal(
                 proposed_goal,
                 pddl_domain,
@@ -1262,9 +1262,9 @@ def preprocess_goals(problems, pddl_domain, output_directory, command_args=None,
                 preprocessed_goals.add(preprocessed_goal)
                 if proposed_goal_match(preprocessed_goal, problem.ground_truth_pddl_problem.ground_truth_goal):
                     problem.correct_pddl_goal = True
-            if verbose:
-                print(f"Preprocessed goal: {preprocessed_goal}")
-                print("====")
+            # if verbose:
+            #     print(f"Preprocessed goal: {preprocessed_goal}")
+            #     print("====")
         preprocessed_goals = list(preprocessed_goals)
         problem.codex_raw_goals = problem.proposed_pddl_goals
         problem.proposed_pddl_goals = preprocessed_goals
@@ -1609,6 +1609,12 @@ def preprocess_operator(
             return False, ""
         # Replace current name with preprocessed name (which includes operator index).
         patt = r"\(:action(.*)\n"
+
+        current_operator_name_re = re.findall("\(:action(.*?):parameters", op, re.DOTALL)
+        if len(current_operator_name_re) < 1:
+            print(f'Failure, could not find operator name in {op}.')
+            return False, ""
+
         current_operator_name = re.findall("\(:action(.*?):parameters", op, re.DOTALL)[0].strip()
         op = op.replace(current_operator_name, preprocessed_operator_name)
 
