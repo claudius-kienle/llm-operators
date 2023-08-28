@@ -51,6 +51,9 @@ import llm_operators.motion_planner as motion_planner
 import llm_operators.pddl as pddl
 import llm_operators.experiment_utils as experiment_utils
 
+from llm_operators.codex.operator import DEFAULT_OPERATOR_TEMPERATURE
+from llm_operators.codex.goal import DEFAULT_GOAL_TEMPERATURE
+
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "--experiment_name",
@@ -260,13 +263,13 @@ parser.add_argument("--resume_from_problem_idx", type=int, default=0, help="Resu
 parser.add_argument(
     "--codex_goal_temperature",
     type=float,
-    default=codex.DEFAULT_GOAL_TEMPERATURE,
+    default=DEFAULT_GOAL_TEMPERATURE,
     help="OpenAI temperature for goal proposal.",
 )
 parser.add_argument(
     "--codex_operator_temperature",
     type=float,
-    default=codex.DEFAULT_OPERATOR_TEMPERATURE,
+    default=DEFAULT_OPERATOR_TEMPERATURE,
     help="OpenAI temperature for goal proposal.",
 )
 parser.add_argument(
@@ -459,6 +462,8 @@ def main():
                 output_directory=output_directory,
             )
 
+        if curr_iteration == 1:
+            import ipdb; ipdb.set_trace()
         for problem_idx, problem_id in enumerate(planning_problems["train"]):
             finished_epoch = problem_idx == len(planning_problems["train"]) - 1
             if problem_idx < args.debug_start_problem_idx or (

@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 import pathlib
 import datetime
@@ -18,7 +19,10 @@ def should_use_checkpoint(curr_iteration, curr_problem_idx, resume_from_iteratio
 def get_output_directory(curr_iteration, command_args, experiment_name_to_load):
     output_directory = command_args.output_directory
 
-    full_output_directory = os.path.join(output_directory, experiment_name_to_load, str(curr_iteration))
+    if curr_iteration is None:
+        full_output_directory = os.path.join(output_directory, experiment_name_to_load)
+    else:
+        full_output_directory = os.path.join(output_directory, experiment_name_to_load, str(curr_iteration))
     pathlib.Path(full_output_directory).mkdir(parents=True, exist_ok=True)
     return full_output_directory
 
@@ -57,3 +61,14 @@ def output_experiment_parameters(command_args):
     print(f"Timestamp: {datetime.datetime.now()}")
     print(f"Command to replicate: python main.py {command_args_string}")
     print("=========EXPERIMENT PARAMETERS=================")
+
+    directory = get_output_directory(None, command_args, command_args.experiment_name)
+    filename = os.path.join(directory, "command_args.json")
+    if not os.path.exists(filename):
+        with open(filename, "w") as f:
+            json.dump(vars(command_args), f, indent=4)
+    filename = os.path.join(directory, "command_args.txt")
+    if not os.path.exists(filename):
+        with open(filename, "w") as f:
+            f.write(' '.join(sys.argv))
+            f.write(command_args_string)

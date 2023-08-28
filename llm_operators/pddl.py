@@ -1270,6 +1270,22 @@ def preprocess_goals(problems, pddl_domain, output_directory, command_args=None,
         problem.proposed_pddl_goals = preprocessed_goals
         output_json[problem.problem_id] = preprocessed_goals
 
+    for p in problems:
+        if len(problems[p].solved_motion_plan_results) < 1 and problems[p].should_supervise_pddl_goal:
+            success, preprocessed_goal = preprocess_goal(
+                problems[p].ground_truth_pddl_problem.ground_truth_goal,
+                pddl_domain,
+                problems[p].ground_truth_pddl_problem.ground_truth_objects_dict,
+                use_ground_truth_predicates=True,
+            )
+            if not success:
+                print("Failed to preprocess goal.")
+                print(problems[p].ground_truth_pddl_problem.ground_truth_goal)
+
+            if success:
+                problems[p].proposed_pddl_goals= [preprocessed_goal]
+                problems[p].correct_pddl_goal = True
+
     print(
         f"Preprocess goals top-K accuracy: {len([p for p in unsolved_problems if p.correct_pddl_goal])} / {len(unsolved_problems)} exact match to ground truth goal."
     )
