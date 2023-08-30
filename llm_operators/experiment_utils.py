@@ -2,10 +2,51 @@ import os
 import sys
 import json
 import pathlib
+import contextlib
+import time
 import datetime
 
 # TODO(Jiayuan Mao @ 2023/02/04): use a principled way to control the random seed.
 RANDOM_SEED = 0
+
+
+class Unbuffered:
+    def __init__(self, stream, txt_file):
+        self.stream = stream
+        self.txt_file = txt_file
+
+    def write(self, data):
+        self.stream.write(data)
+        self.stream.flush()
+        self.txt_file.write(data)
+        self.txt_file.flush()
+
+
+def _custom_exception_hook(type, value, tb):
+    with temporarily_release_print():
+        if hasattr(sys, 'ps1') or not sys.stderr.isatty():
+            # we are in interactive mode or we don't have a tty-like
+            # device, so we call the default hook
+            sys.__excepthook__(type, value, tb)
+        else:
+            import traceback, ipdb
+            # we are NOT in interactive mode, print the exception...
+            traceback.print_exception(type, value, tb)
+            # ...then start the debugger in post-mortem mode.
+            ipdb.post_mortem(tb)
+
+
+def hook_exception_ipdb():
+    """Add a hook to ipdb when an exception is raised."""
+    if not hasattr(_custom_exception_hook, 'origin_hook'):
+        _custom_exception_hook.origin_hook = sys.excepthook
+        sys.excepthook = _custom_exception_hook
+
+
+def run_ipdb():
+    import ipdb
+    with temporarily_release_print():
+        ipdb.set_trace()
 
 
 def should_use_checkpoint(curr_iteration, curr_problem_idx, resume_from_iteration, resume_from_problem_idx):
@@ -27,22 +68,38 @@ def get_output_directory(curr_iteration, command_args, experiment_name_to_load):
     return full_output_directory
 
 
+def redirect_print(command_args, experiment_name_to_load):
+    output_directory = get_output_directory(None, command_args, experiment_name_to_load)
+    filename = os.path.join(output_directory, time.strftime("%Y%m%d-%H%M%S") + ".log")
+    print('Redirecting print to', filename)
+    sys.stdout = Unbuffered(sys.stdout, open(filename, "w"))
+
+
+@contextlib.contextmanager
+def temporarily_release_print():
+    backup = sys.stdout
+    sys.stdout = sys.__stdout__
+    yield
+    sys.stdout = backup
+
+
 def output_iteration_summary(
     curr_iteration, pddl_domain, problems, command_args, output_directory, finished_epoch, problem_idx, total_problems
 ):
     # Print the total experiment progress.
     print('Experiment Summary')
     print("=" * 80)
-    print(f"iteration: {curr_iteration}")
-    print(f"evaluated successful motion plans: {len([p for p in problems.values() if len(p.solved_motion_plan_results) > 0])} / {problem_idx + 1} problems so far of {total_problems} total problems in this iteration.")
+    print(f"Iteration: {curr_iteration}")
+    print(f"Evaluated successful motion plans: {len([p for p in list(problems.values())[:problem_idx + 1] if len(p.solved_motion_plan_results) > 0])} / {problem_idx + 1} problems so far.")
+    print(f'Overall successful motion plans: {len([p for p in list(problems.values()) if len(p.solved_motion_plan_results) > 0])} / {len(problems)} problems.')
     if finished_epoch:
         for p in problems.values():
             if len(p.solved_motion_plan_results) > 0:
                 plan_string = list(p.solved_motion_plan_results.values())[0].pddl_plan.plan_string.replace('\n', ' ')
                 print(f"  SOLVED - {p.language}")
                 print(f"  {plan_string}")
-    print(f"total problems: {len(problems)}")
-    print(f"current operators: {len(problems)}")
+    print(f"Total problems: {len(problems)}")
+    print(f"Current operators: {len(problems)}")
     print('')
 
 

@@ -2060,3 +2060,76 @@ smelt-gold-ingot_1,,"(:action smelt-gold-ingot_1
 		(object-of-type ?gold Hypothetical)
 		)
 )",0.1,0.1,1.0,
+move-to,"(:action move-to
+  :parameters (?t1 - tile ?t2 - tile)
+  :precondition (and (agent-at ?t1))
+  :effect (and (agent-at ?t2) (not (agent-at ?t1)))
+ )","(:action move-to
+  :parameters (?t1 - tile ?t2 - tile)
+  :precondition (and (agent-at ?t1))
+  :effect (and (agent-at ?t2) (not (agent-at ?t1)))
+ )",35.1,35.1,1.0,
+pick-up,"(:action pick-up
+  :parameters (?i - inventory ?x - object ?t - tile)
+  :precondition (and (agent-at ?t) (object-at ?x ?t) (inventory-empty ?i))
+  :effect (and (inventory-holding ?i ?x) (not (object-at ?x ?t)) (not (inventory-empty ?i)))
+ )","(:action pick-up
+  :parameters (?i - inventory ?x - object ?t - tile)
+  :precondition (and (agent-at ?t) (object-at ?x ?t) (inventory-empty ?i))
+  :effect (and (inventory-holding ?i ?x) (not (object-at ?x ?t)) (not (inventory-empty ?i)))
+ )",24.1,24.1,1.0,
+craft-arrow,"(:action craft-arrow
+  :parameters (?ingredientinv1 - inventory ?ingredientinv2 - inventory ?targetinv - inventory ?station - object ?ingredient1 - object ?ingredient2 - object ?target - object ?t - tile)
+  :precondition (and
+    (agent-at ?t)
+    (object-at ?station ?t)
+    (object-of-type ?station WeaponStation)
+    (inventory-holding ?ingredientinv1 ?ingredient1)
+    (object-of-type ?ingredient1 Stick)
+    (inventory-holding ?ingredientinv2 ?ingredient2)
+    (object-of-type ?ingredient2 Feather)
+    (inventory-empty ?targetinv)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and
+    (not (inventory-empty ?targetinv))
+    (inventory-holding ?targetinv ?target)
+    (not (object-of-type ?target Hypothetical))
+    (object-of-type ?target Arrow)
+    (not (inventory-holding ?ingredientinv1 ?ingredient1))
+    (inventory-empty ?ingredientinv1)
+    (not (object-of-type ?ingredient1 Stick))
+    (object-of-type ?ingredient1 Hypothetical)
+    (not (inventory-holding ?ingredientinv2 ?ingredient2))
+    (inventory-empty ?ingredientinv2)
+    (not (object-of-type ?ingredient2 Feather))
+    (object-of-type ?ingredient2 Hypothetical)
+  )
+ )","(:action craft-arrow
+  :parameters (?ingredientinv1 - inventory ?ingredientinv2 - inventory ?targetinv - inventory ?station - object ?ingredient1 - object ?ingredient2 - object ?target - object ?t - tile)
+  :precondition (and
+    (agent-at ?t)
+    (object-at ?station ?t)
+    (object-of-type ?station WeaponStation)
+    (inventory-holding ?ingredientinv1 ?ingredient1)
+    (object-of-type ?ingredient1 Stick)
+    (inventory-holding ?ingredientinv2 ?ingredient2)
+    (object-of-type ?ingredient2 Feather)
+    (inventory-empty ?targetinv)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and
+    (not (inventory-empty ?targetinv))
+    (inventory-holding ?targetinv ?target)
+    (not (object-of-type ?target Hypothetical))
+    (object-of-type ?target Arrow)
+    (not (inventory-holding ?ingredientinv1 ?ingredient1))
+    (inventory-empty ?ingredientinv1)
+    (not (object-of-type ?ingredient1 Stick))
+    (object-of-type ?ingredient1 Hypothetical)
+    (not (inventory-holding ?ingredientinv2 ?ingredient2))
+    (inventory-empty ?ingredientinv2)
+    (not (object-of-type ?ingredient2 Feather))
+    (object-of-type ?ingredient2 Hypothetical)
+  )
+ )",12.1,12.1,1.0,

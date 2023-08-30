@@ -11,6 +11,7 @@ from typing import Optional, Sequence
 
 from llm_operators.pddl import PDDLPlan
 from llm_operators.task_planner_impl import fd_plan_from_strings, pdsketch_onthefly_plan_from_strings
+from llm_operators.experiment_utils import run_ipdb
 
 TASK_PLANNER_FD = "task_planner_fd"
 TASK_PLANNER_PDSKETCH_ONTHEFLY = "task_planner_pdsketch_onthefly"
@@ -42,10 +43,7 @@ def attempt_task_plan_for_problem(
     :ret: TRUE if we've added a new PDDL plan for a goal. Updates problem for task plan.
     """
     if verbose:
-        if plan_attempt_idx == 0:
-            print(f"task_planner.attempt_task_plan_for_problem: attempt {plan_attempt_idx} : {problem_idx} / {len(problems)} ID={problem_id}")
-        else:
-            print(f"task_planner.attempt_task_plan_for_problem: attempt {plan_attempt_idx} : {problem_idx} / {len(problems)} ID={problem_id}")
+        print(f"task_planner.attempt_task_plan_for_problem: attempt {problem_idx} / {len(problems)} ID={problem_id} AttemptIdx={plan_attempt_idx} GoalIdx={goal_idx}")
     if debug_skip:
         if verbose:
             print("  ...debug_skip.")
@@ -266,63 +264,63 @@ def run_planner(
     for current_goal_idx, goal in enumerate(sorted_goals):
         if goal_idx is not None and current_goal_idx != goal_idx:
             continue
-        else:
-            print(f"  Now attempting to plan for goal: {goal_idx} / {len(sorted_goals)}")
-            if verbose:
-                print(f"    Running planner with existing operators + {len(proposed_operators)} proposed operators: ")
-                print(f"    Initial Operators: {pddl_domain.operators.keys()}")
-                print(f"    Proposed Operators: {proposed_operators}")
-            current_problem_string = problem.ground_truth_pddl_problem.get_pddl_string_with_proposed_goal(
-                proposed_goal=goal
+
+        print(f"  Now attempting to plan for goal: {goal_idx} / {len(sorted_goals)}")
+        if verbose:
+            print(f"    Running planner with existing operators + {len(proposed_operators)} proposed operators: ")
+            print(f"    Initial Operators: {pddl_domain.operators.keys()}")
+            print(f"    Proposed Operators: {proposed_operators}")
+        current_problem_string = problem.ground_truth_pddl_problem.get_pddl_string_with_proposed_goal(
+            proposed_goal=goal
+        )
+        if verbose:
+            print("    Language:", problem.language)
+            print("    Ground truth goal:", trim_white_spaces(problem.ground_truth_pddl_problem.ground_truth_goal))
+            print("    Proposed goal:", trim_white_spaces(goal))
+        if planner_type == TASK_PLANNER_FD:
+            success, plan_string = fd_plan_from_strings(
+                domain_str=current_domain_string,
+                problem_str=current_problem_string,
+                verbose=verbose,
             )
-            if verbose:
-                print("    Language:", problem.language)
-                print("    Ground truth goal:", trim_white_spaces(problem.ground_truth_pddl_problem.ground_truth_goal))
-                print("    Proposed goal:", trim_white_spaces(goal))
-            if planner_type == TASK_PLANNER_FD:
-                success, plan_string = fd_plan_from_strings(
-                    domain_str=current_domain_string,
-                    problem_str=current_problem_string,
-                    verbose=verbose,
-                )
-            elif planner_type == TASK_PLANNER_PDSKETCH_ONTHEFLY:
-                success, plan_string = pdsketch_onthefly_plan_from_strings(
-                    domain_str=current_domain_string, problem_str=current_problem_string
-                )
-            elif planner_type == TASK_PLANNER_PDSKETCH_ONTHEFLY_HMAX:
-                success, plan_string = pdsketch_onthefly_plan_from_strings(
-                    domain_str=current_domain_string,
-                    problem_str=current_problem_string,
-                    heuristic="hmax",
-                )
-            elif planner_type == TASK_PLANNER_PDSKETCH_ONTHEFLY_HFF:
-                success, plan_string = pdsketch_onthefly_plan_from_strings(
-                    domain_str=current_domain_string,
-                    problem_str=current_problem_string,
-                    heuristic="hff",
-                )
-            else:
-                raise ValueError(f"Unknown planner type: {planner_type}")
-            # Convert the planner into a plan object.
-            if verbose:
-                print(f"    Plan success: {success}")
-                print(f"    Plan string: ", trim_white_spaces(plan_string))
-            if success:
-                try:
-                    pddl_plan = PDDLPlan(plan_string=plan_string, pddl_domain=pddl_domain)
-                    evaluated_plans[goal] = pddl_plan
-                    output_json["plans"].append({"goal": goal, "plan": pddl_plan.plan})
-                    any_success = True
-                except:
-                    print(f"    !!!Failed to parse plan string: {plan_string}")
-            else:
-                if debug_export_dir is not None:
-                    os.makedirs(debug_export_dir, exist_ok=True)
-                    with open(osp.join(debug_export_dir, f"goal_{current_goal_idx}_domain.pddl"), "w") as f:
-                        f.write(current_domain_string)
-                    with open(osp.join(debug_export_dir, f"goal_{current_goal_idx}_problem.pddl"), "w") as f:
-                        f.write(current_problem_string)
-                    print(f"    !!!Exported domain and problem to {debug_export_dir}")
+        elif planner_type == TASK_PLANNER_PDSKETCH_ONTHEFLY:
+            success, plan_string = pdsketch_onthefly_plan_from_strings(
+                domain_str=current_domain_string, problem_str=current_problem_string
+            )
+        elif planner_type == TASK_PLANNER_PDSKETCH_ONTHEFLY_HMAX:
+            success, plan_string = pdsketch_onthefly_plan_from_strings(
+                domain_str=current_domain_string,
+                problem_str=current_problem_string,
+                heuristic="hmax",
+            )
+        elif planner_type == TASK_PLANNER_PDSKETCH_ONTHEFLY_HFF:
+            success, plan_string = pdsketch_onthefly_plan_from_strings(
+                domain_str=current_domain_string,
+                problem_str=current_problem_string,
+                heuristic="hff",
+            )
+        else:
+            raise ValueError(f"Unknown planner type: {planner_type}")
+        # Convert the planner into a plan object.
+        if verbose:
+            print(f"    Plan success: {success}")
+            print(f"    Plan string: ", trim_white_spaces(plan_string))
+        if success:
+            try:
+                pddl_plan = PDDLPlan(plan_string=plan_string, pddl_domain=pddl_domain)
+                evaluated_plans[goal] = pddl_plan
+                output_json["plans"].append({"goal": goal, "plan": pddl_plan.plan})
+                any_success = True
+            except:
+                print(f"    !!!Failed to parse plan string: {plan_string}")
+        else:
+            if debug_export_dir is not None:
+                os.makedirs(debug_export_dir, exist_ok=True)
+                with open(osp.join(debug_export_dir, f"goal_{current_goal_idx}_domain.pddl"), "w") as f:
+                    f.write(current_domain_string)
+                with open(osp.join(debug_export_dir, f"goal_{current_goal_idx}_problem.pddl"), "w") as f:
+                    f.write(current_problem_string)
+                print(f"    !!!Exported domain and problem to {debug_export_dir}")
 
     return any_success, evaluated_plans, output_json
 

@@ -1267,7 +1267,8 @@ def preprocess_goals(problems, pddl_domain, output_directory, command_args=None,
                 print(problems[p].ground_truth_pddl_problem.ground_truth_goal)
 
             if success:
-                problems[p].proposed_pddl_goals= [preprocessed_goal]
+                # TODO(Jiayuan Mao @ 2023/08/30): should we keep all the goals?
+                problems[p].proposed_pddl_goals = [preprocessed_goal]
                 problems[p].correct_pddl_goal = True
 
     print(f"preprocess_goals: Preprocess goals top-K accuracy: {len([p for p in unsolved_problems if p.correct_pddl_goal])} / {len(unsolved_problems)} exact match to ground truth goal.")

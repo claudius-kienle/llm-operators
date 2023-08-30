@@ -31,13 +31,6 @@ CONCEPTS_PATH = osp.join(osp.dirname(osp.abspath(__file__)), "../concepts")
 print("Adding concepts path: {}".format(CONCEPTS_PATH))
 sys.path.insert(0, CONCEPTS_PATH)
 
-try:
-    import jacinle
-    jacinle.hook_exception_ipdb()
-except ImportError:
-    # If Jacinle is not installed, that's fine.
-    pass
-
 import argparse
 import random
 import llm_operators.codex as codex
@@ -153,6 +146,8 @@ def main():
         print('Setting planner timeout to {}'.format(args.planner_timeout))
 
     # Log all of the arguments that we ran this experiment with and the experiment date.
+    experiment_utils.hook_exception_ipdb()
+    experiment_utils.redirect_print(args, args.experiment_name)
     experiment_utils.output_experiment_parameters(args)
 
     # Initialization. This initializes a set of goals (planning dataset), and a planning domain (a set of predicates + a partial set of initial operators.)
@@ -293,7 +288,7 @@ def run_iteration(args, planning_problems, pddl_domain, supervision_pddl, curr_i
         # TODO(Jiayuan Mao @ 2023/08/30): optionally, we should decide the behavior for multi-round goal sampling. One possible option is to keep all historically proposed goals, and evaluate them.
         #     Another option is to only evaluate the most recent goal (so reset past goal proposals).
         for plan_attempt_idx in range(args.n_attempts_to_plan):
-            for goal_idx in range(args.n_goal_samples):
+            for goal_idx in range(len(planning_problems['train'][problem_id].proposed_pddl_goals)):
                 any_motion_plan_success = _run_task_and_motion_plan(
                     pddl_domain, problem_idx, problem_id, planning_problems,
                     args=args, curr_iteration=curr_iteration, output_directory=output_directory,
@@ -383,7 +378,7 @@ def _run_task_and_motion_plan(pddl_domain, problem_idx, problem_id, planning_pro
             verbose=args.verbose,
         )
         # Update the global operator scores from the problem.
-        if used_motion_mock:
+        if not used_motion_mock and any_motion_planner_success:
             pddl.update_pddl_domain_and_problem(
                 pddl_domain=pddl_domain,
                 problem_idx=problem_idx,

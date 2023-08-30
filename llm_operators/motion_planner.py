@@ -60,10 +60,8 @@ def attempt_motion_plan_for_problem(
 ):
     from llm_operators.motion_planner_impl import evaluate_alfred_motion_plans_and_costs_for_goal_plan, evaluate_cw_motion_plans_and_costs_for_goal_plan
     """Attempts to motion plan for a single problem. This attempts the planner on any proposed goals, and any proposed task plans for those goals."""
-    if plan_attempt_idx == 0:
-        print(f"motion_planner.attempt_motion_plan_for_problem: attempt {plan_attempt_idx}: {problem_idx} / {len(problems)} ID={problem_id}")
-    else:
-        print(f"motion_planner.attempt_motion_plan_for_problem: attempt {plan_attempt_idx}: {problem_idx} / {len(problems)} ID={problem_id}")
+    if verbose:
+        print(f"motion_planner.attempt_motion_plan_for_problem: attempt {problem_idx} / {len(problems)} ID={problem_id} AttemptIdx={plan_attempt_idx}")
     experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
 
     output_filepath = f"{experiment_tag}motion_plans.json"
