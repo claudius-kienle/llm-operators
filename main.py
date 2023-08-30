@@ -135,6 +135,7 @@ parser.add_argument("--debug_stop_after_first_proposal", action="store_true", he
 
 ########################################
 
+
 def main():
     args = parser.parse_args()
 
@@ -151,10 +152,10 @@ def main():
         task_planner_impl.TASK_PLANNER_PDSKETCH_ONTHEFLY_DEFAULT_TIMEOUT = args.planner_timeout
         print('Setting planner timeout to {}'.format(args.planner_timeout))
 
-    ###### Log all of the arguments that we ran this experiment with and the experiment date.
+    # Log all of the arguments that we ran this experiment with and the experiment date.
     experiment_utils.output_experiment_parameters(args)
 
-    ###### Initialization. This initializes a set of goals (planning dataset), and a planning domain (a set of predicates + a partial set of initial operators.)
+    # Initialization. This initializes a set of goals (planning dataset), and a planning domain (a set of predicates + a partial set of initial operators.)
     # Load planning dataset.
     planning_problems = datasets.load_planning_problems_dataset(
         dataset_name=args.dataset_name,

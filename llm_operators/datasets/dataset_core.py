@@ -126,6 +126,8 @@ class Problem:
 
     def get_highest_likelihood_evaluated_pddl_plan(self):
         """Returns the best evaluated PDDL plan, or None if no plans have been evaluated."""
+        # TODO(Jiayuan Mao @ 2023/08/30): I don't quite understand the purpose of this function. Maybe we should remove this todo note.
+        # Right now I think we are consider all proposed plans? Or should we?
         # TODO: right now we only propose one plan anyway, so just return it.
         # print("TODO: LCW - implement this for choosing plans.")
         for goal in self.evaluated_pddl_plans:
