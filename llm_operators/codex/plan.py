@@ -8,6 +8,7 @@ from llm_operators.codex.codex_core import CODEX_PROMPT, CODEX_OUTPUT, STOP_TOKE
 from llm_operators.pddl import PDDLPlan
 from llm_operators.codex.goal import NATURAL_LANGUAGE_GOAL_START
 
+DEFAULT_PLAN_TEMPERATURE = 1.0
 PDDL_PLAN_START = ";; PDDL Plan: "
 
 def propose_plans_for_problems(
@@ -16,18 +17,18 @@ def propose_plans_for_problems(
     current_domain,
     supervision_pddl,
     max_solved_problem_examples=3,
-    temperature=0.0,
     n_samples=4,
-    verbose=False,
-    output_directory=None,
-    experiment_name="",
-    use_mock=False,
+    temperature=DEFAULT_PLAN_TEMPERATURE,
     external_plan_supervision=None,
+    use_mock=False,
+    experiment_name="",
+    curr_iteration=None,
+    output_directory=None,
     resume=False,
     resume_from_iteration=None,
     resume_from_problem_idx=None,
-    curr_iteration=None,
     debug_skip_propose_plans_after=None,
+    verbose=False,
 ):
     """
     Proposes PDDL plans given NL goals.
@@ -152,6 +153,7 @@ def log_proposed_plans_for_problems(unsolved_problems, output_json, output_direc
                         "gt_plan": problem.ground_truth_pddl_plan.plan_string,
                         "proposed_plan": proposed_plan.plan_string,
                     })
+    print('')
 
 
 ############################################################################################################

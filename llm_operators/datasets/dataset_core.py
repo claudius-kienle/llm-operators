@@ -174,9 +174,12 @@ def load_pddl_supervision(supervision_name: str, verbose: bool = False) -> Dict[
         if "NL_goal" not in pddl_supervision[domain_file]:
             del pddl_supervision[domain_file]
     if verbose:
-        print("load_pddl_supervision from the following domain files:")
+        print('Loaded PDDL supervision')
+        print('=' * 80)
+        print("Loaded additional PDDL supervision from the following domain files:")
         for domain_file in pddl_supervision:
-            print(domain_file)
+            print(' ', domain_file)
+        print('')
 
     return pddl_supervision
 
@@ -206,9 +209,10 @@ def load_pddl_domain(pddl_domain_name: str, initial_pddl_operators: Sequence[str
         if o not in initial_pddl_operators:
             pddl_domain.remove_operator(o)
     if verbose:
-        print("\nInitializing with operators: ")
+        print("Initializing with operators: ")
         for o in list(pddl_domain.operators.keys()):
-            print(o)
+            print(' ', o)
+    print('')
     return pddl_domain
 
 
@@ -292,12 +296,13 @@ def mark_goal_supervision_problems(planning_dataset, initial_goal_supervision_pr
 
 def load_planning_problems_dataset(
     dataset_name,
-    dataset_fraction,
-    goal_supervision_fraction,
-    initial_goal_supervision_prefix,
     dataset_pddl_directory,
+    dataset_fraction,
+    initial_goal_supervision_fraction,
+    initial_goal_supervision_prefix,
+    initial_plan_supervision_fraction,
+    initial_plan_supervision_prefix,
     initial_pddl_operators,
-    initial_plans_prefix=None,
     verbose=False,
 ):
     planning_domain_loader = PLANNING_PROBLEMS_REGISTRY[dataset_name]
@@ -308,9 +313,16 @@ def load_planning_problems_dataset(
         dataset_fraction=dataset_fraction,
         verbose=verbose,
     )
+
     print(f"Loaded initial dataset: {dataset_name}")
+    print('=' * 80)
     print(f"Initial train problems: {len(planning_dataset['train'])}")
 
-    mark_goal_supervision_problems(planning_dataset, initial_goal_supervision_prefix, goal_supervision_fraction)
+    print(f'Marking problems for goal supervision: fraction={initial_goal_supervision_fraction}, prefix={initial_goal_supervision_prefix}')
+    mark_goal_supervision_problems(planning_dataset, initial_goal_supervision_prefix, initial_goal_supervision_fraction)
+
+    print(f'Marking problems for plan supervision: fraction={initial_plan_supervision_fraction}, prefix={initial_plan_supervision_prefix}')
+    print('This is not implemented yet. (!!!)')
+    print('')
 
     return planning_dataset

@@ -43,23 +43,23 @@ def propose_operators_for_problems(
     problems,
     current_domain,
     supervision_pddl,
-    verbose,
-    temperature,
-    n_samples,
-    output_directory,
     initial_pddl_predicates,
-    experiment_name,
-    use_mock,
+    use_cot=True,
     minimum_usage=2,  # Minimum time the operator was used.
+    temperature=DEFAULT_OPERATOR_TEMPERATURE,
+    n_samples=1,
     external_operator_supervision=None,
     external_operator_sample_with_prompt=True,
     external_operator_names=None,
-    use_cot=True,
+    use_mock=False,
+    experiment_name='',
+    curr_iteration=None,
+    output_directory=None,
     resume=False,
     resume_from_iteration=None,
     resume_from_problem_idx=None,
-    curr_iteration=None,
     debug_skip_propose_operators_after=None,
+    verbose=False,
 ):
     if debug_skip_propose_operators_after >= curr_iteration:
         print(f"debug_skip_propose_operators_after after current iteration, skipping: {curr_iteration}")
@@ -138,14 +138,12 @@ def propose_operators_for_problems(
 def mock_propose_operators_for_problems(output_filepath, proposed_operators, output_directory, current_domain):
     with open(os.path.join(output_directory, output_filepath), "r") as f:
         output_json = json.load(f)
-    print(f"Now in: mock_propose_operators_for_problems: from {os.path.join(output_directory, output_filepath)}")
+    print(f"mock_propose_operators_for_problems:: from {os.path.join(output_directory, output_filepath)}")
     for o in proposed_operators:
         if o in output_json:
             current_domain.proposed_operators[o] = output_json[o][CODEX_OUTPUT]
-    print(
-        f"\tLoaded {len(current_domain.proposed_operators)} mock operators: \n\t"
-        + "\n\t".join(current_domain.proposed_operators.keys())
-    )
+    print(f"Loaded {len(current_domain.proposed_operators)} mock operators:")
+    print(list(current_domain.proposed_operators.keys()))
 
 
 ############################################################################################################

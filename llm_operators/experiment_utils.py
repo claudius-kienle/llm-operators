@@ -31,19 +31,19 @@ def output_iteration_summary(
     curr_iteration, pddl_domain, problems, command_args, output_directory, finished_epoch, problem_idx, total_problems
 ):
     # Print the total experiment progress.
-    print("=========EXPERIMENT SUMMARY=================")
-    print(f"\titeration: {curr_iteration}")
-    print(
-        f"\tevaluated successful motion plans: {len([p for p in problems.values() if len(p.solved_motion_plan_results) > 0])} / {problem_idx + 1} problems so far of {total_problems} total problems in this iteration."
-    )
+    print('Experiment Summary')
+    print("=" * 80)
+    print(f"iteration: {curr_iteration}")
+    print(f"evaluated successful motion plans: {len([p for p in problems.values() if len(p.solved_motion_plan_results) > 0])} / {problem_idx + 1} problems so far of {total_problems} total problems in this iteration.")
     if finished_epoch:
         for p in problems.values():
             if len(p.solved_motion_plan_results) > 0:
-                print(f"\t\tSOLVED - {p.language}")
-                print(f"\t\t{list(p.solved_motion_plan_results.values())[0].pddl_plan.plan_string}")
-    print(f"\ttotal problems: {len(problems)}")
-    print(f"\tcurrent operators: {len(problems)}")
-    print("=========EXPERIMENT SUMMARY=================")
+                plan_string = list(p.solved_motion_plan_results.values())[0].pddl_plan.plan_string.replace('\n', ' ')
+                print(f"  SOLVED - {p.language}")
+                print(f"  {plan_string}")
+    print(f"total problems: {len(problems)}")
+    print(f"current operators: {len(problems)}")
+    print('')
 
 
 def output_experiment_parameters(command_args):
@@ -57,10 +57,11 @@ def output_experiment_parameters(command_args):
             args_str = args
         command_args_string += f"--{command} {args_str} "
 
-    print("=========EXPERIMENT PARAMETERS=================")
+    print('Experiment Parameters')
+    print('=' * 80)
     print(f"Timestamp: {datetime.datetime.now()}")
     print(f"Command to replicate: python main.py {command_args_string}")
-    print("=========EXPERIMENT PARAMETERS=================")
+    print('')
 
     directory = get_output_directory(None, command_args, command_args.experiment_name)
     filename = os.path.join(directory, "command_args.json")

@@ -15,39 +15,28 @@ DEFAULT_GOAL_TEMPERATURE = 1.0
 
 def propose_goals_for_problems(
     problems,
-    current_domain,
+    domain,
     initial_pddl_predicates,
     supervision_pddl,
-    experiment_name,
-    temperature=DEFAULT_GOAL_TEMPERATURE,
     include_codex_types=False,
-    use_mock=False,
-    max_goal_examples=20,
+    temperature=DEFAULT_GOAL_TEMPERATURE,
     n_samples=4,
-    verbose=False,
-    output_directory=None,
+    max_samples=20,
+    use_mock=False,
     use_gt=False,
     print_every=1,
-    args=None,
+    command_args=None,
+    experiment_name='',
+    curr_iteration=None,
+    output_directory=None,
     resume=False,
     resume_from_iteration=None,
     resume_from_problem_idx=None,
-    curr_iteration=None,
+    verbose=False,
 ):
-    """
-    unsolved_problems:
-        list of Problem objects to be solved
-    solved_problems:
-        list of Problem objects with ground truth plans
-    current_domain:
-        Domain object describing the domain
+    random.seed(command_args.random_seed)
 
-    Edits the unsolved problem objects - adds PDDL proposed goals to the problem.proposed_pddl_goals list
-    """
-
-    random.seed(args.random_seed)
-
-    def get_prompt(max_goal_examples=max_goal_examples):
+    def get_prompt(max_goal_examples=max_samples):
         # Generate unique prompt for each sample
         prompt = nl_header
         if supervision_pddl:  # Add supervision from external prompts.
@@ -57,15 +46,10 @@ def propose_goals_for_problems(
         solved_to_prompt = random.sample(solved_problems, max_goal_examples)
 
         # domains for all alfred problems should be the same.
-        prompt += _get_domain_string(current_domain, solved_to_prompt[0])
+        prompt += _get_domain_string(domain, solved_to_prompt[0])
         for solved_problem in solved_to_prompt:  # constructing the input prompt
-            prompt += _get_solved_goal_prompt(current_domain, solved_problem)
-        prompt += _get_unsolved_goal_prompt(
-            current_domain,
-            problem,
-            include_codex_types=include_codex_types,
-            include_domain_string=False,
-        )
+            prompt += _get_solved_goal_prompt(domain, solved_problem)
+        prompt += _get_unsolved_goal_prompt(domain, problem, include_codex_types=include_codex_types, include_domain_string=False)
         return prompt
 
     unsolved_problems, solved_problems = get_solved_unsolved_problems(problems, context='pddl_goal')
@@ -76,7 +60,7 @@ def propose_goals_for_problems(
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
     output_filepath = f"{experiment_tag}codex_goals_{'_'.join(initial_pddl_predicates)}.json"
     if resume and os.path.exists(os.path.join(output_directory, output_filepath)):
-        mock_propose_goals_for_problems(output_filepath, unsolved_problems, output_directory, current_domain)
+        mock_propose_goals_for_problems(output_filepath, unsolved_problems, output_directory, domain)
         return
     if use_mock and experiment_utils.should_use_checkpoint(
         curr_iteration=curr_iteration,
@@ -84,7 +68,7 @@ def propose_goals_for_problems(
         resume_from_iteration=resume_from_iteration,
         resume_from_problem_idx=resume_from_problem_idx,
     ):
-        mock_propose_goals_for_problems(output_filepath, unsolved_problems, output_directory, current_domain)
+        mock_propose_goals_for_problems(output_filepath, unsolved_problems, output_directory, domain)
         return
 
     if verbose:
@@ -101,14 +85,7 @@ def propose_goals_for_problems(
             goal_strings = []
             for i in range(n_samples):
                 prompt = get_prompt()
-                goal_strings.append(
-                    get_completions(
-                        prompt,
-                        temperature=temperature,
-                        stop=STOP_TOKEN,
-                        n_samples=1,
-                    )[0]
-                )
+                goal_strings.append(get_completions( prompt, temperature=temperature, stop=STOP_TOKEN, n_samples=1)[0])
             output_json[problem.problem_id] = {
                 CODEX_PROMPT: prompt,
                 CODEX_OUTPUT: goal_strings,

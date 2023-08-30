@@ -6,25 +6,16 @@ Utilities for generating task level plans.
 import os
 import os.path as osp
 import json
-import random
 import csv
-from collections import defaultdict
-from tempfile import NamedTemporaryFile
 from typing import Optional, Sequence
-import scipy as scipy
-
-from pddlgym_planners.fd import FD
-from pddlgym_planners.planner import PlanningFailure, PlanningTimeout
 
 from llm_operators.pddl import PDDLPlan
+from llm_operators.task_planner_impl import fd_plan_from_strings, pdsketch_onthefly_plan_from_strings
 
 TASK_PLANNER_FD = "task_planner_fd"
 TASK_PLANNER_PDSKETCH_ONTHEFLY = "task_planner_pdsketch_onthefly"
 TASK_PLANNER_PDSKETCH_ONTHEFLY_HMAX = "task_planner_pdsketch_onthefly_hmax"
 TASK_PLANNER_PDSKETCH_ONTHEFLY_HFF = "task_planner_pdsketch_onthefly_hff"
-
-TASK_PLANNER_FD_DEFAULT_TIMEOUT = 10
-TASK_PLANNER_PDSKETCH_ONTHEFLY_DEFAULT_TIMEOUT = 10
 
 
 def attempt_task_plan_for_problem(
@@ -32,34 +23,43 @@ def attempt_task_plan_for_problem(
     problem_idx,
     problem_id,
     problems,
-    command_args,
-    verbose=False,
-    output_directory=None,
-    use_mock=False,
-    debug_skip=False,
-    task_plan_with_constants=False,
-    plan_attempt_idx=0,
-    max_task_samples=4,
-    goal_idx=None,
-    debug_proposed_operators: Optional[Sequence[str]] = None,  # Debugging only.
-    random_generator=None,
     minimum_n_operators=1,
+    random_generator=None,
+    use_mock=False,
+    command_args=None,
+    curr_iteration=0,
+    output_directory=None,
+    plan_attempt_idx=0,
+    goal_idx=None,
     resume_from_iteration=0,
     resume_from_problem_idx=0,
-    curr_iteration=0,
+    debug_skip=False,
+    debug_proposed_operators: Optional[Sequence[str]] = None,  # Debugging only.
+    verbose=False,
 ):
     """
     Evaluates planner to evaluate task plans for a single planning problems, given a PDDL domain.
     :ret: TRUE if we've added a new PDDL plan for a goal. Updates problem for task plan.
     """
-    if plan_attempt_idx == 0:
-        print(
-            f"task_planner.attempt_task_plan_for_problem: attempt {plan_attempt_idx} : {problem_idx} / {len(problems)}, {problem_id}"
+    if verbose:
+        if plan_attempt_idx == 0:
+            print(f"task_planner.attempt_task_plan_for_problem: attempt {plan_attempt_idx} : {problem_idx} / {len(problems)} ID={problem_id}")
+        else:
+            print(f"task_planner.attempt_task_plan_for_problem: attempt {plan_attempt_idx} : {problem_idx} / {len(problems)} ID={problem_id}")
+    if debug_skip:
+        if verbose:
+            print("  ...debug_skip.")
+        return False, None
+
+    if command_args.debug_export_failed_pddl:
+        # NB(Jiayuan Mao @ 2023/04/07): do a bit of hack here, because we don't have access to "current_iteration" here.
+        debug_export_dir = os.path.join(
+            command_args.debug_export_failed_pddl,
+            osp.basename(output_directory),
+            f"problem_{problem_idx}_attempt_{plan_attempt_idx}",
         )
     else:
-        print(f"\ttask_planner.attempt_task_plan_for_problem: attempt {plan_attempt_idx}, {problem_id}")
-    if debug_skip:
-        print("\t...debug_skip.")
+        debug_export_dir = None
 
     experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
 
@@ -78,30 +78,20 @@ def attempt_task_plan_for_problem(
         else:
             print("Mock not found for task plan, continuing...")
 
-    if command_args.debug_export_failed_pddl:
-        # NB(Jiayuan Mao @ 2023/04/07): do a bit of hack here, because we don't have access to "current_iteration" here.
-        debug_export_dir = os.path.join(
-            command_args.debug_export_failed_pddl,
-            osp.basename(output_directory),
-            f"problem_{problem_idx}_attempt_{plan_attempt_idx}",
-        )
-    else:
-        debug_export_dir = None
-
     any_success, new_evaluated_plans, problem_json = sample_task_plans_for_problem(
         pddl_domain=pddl_domain,
         problem=problems[problem_id],
+        minimum_n_operators=minimum_n_operators,
+        random_generator=random_generator,
         planner_type=command_args.planner,
         command_args=command_args,
-        verbose=verbose,
         output_directory=output_directory,
+        plan_attempt_idx=plan_attempt_idx,
+        goal_idx=goal_idx,
         debug_ground_truth_goals=command_args.debug_ground_truth_goals,
         debug_proposed_operators=debug_proposed_operators,
         debug_export_dir=debug_export_dir,
-        plan_attempt_idx=plan_attempt_idx,
-        goal_idx=goal_idx,
-        random_generator=random_generator,
-        minimum_n_operators=minimum_n_operators,
+        verbose=verbose,
     )
     if any_success:
         # Check that this isn't a duplicate of a plan we've already found for that same problem.
@@ -109,43 +99,20 @@ def attempt_task_plan_for_problem(
     return any_success, new_evaluated_plans
 
 
-
-def generate_random_proposed_operator_sample(pddl_domain, minimum_n_operators, random_generator, max_attempts=5):
-    """
-    Samples a set of at least minimum_n_operators operators.
-    We choose to include each operator independently based on p(n_operator_successes / n_operator_attempts) in previous trials.
-    We make at most max passes through the operator set to do so.
-    """
-    sampled_operators = set()
-    proposed_operators = pddl_domain.proposed_operators
-    for n_sampling_attempts in range(max_attempts):
-        for operator_name in pddl_domain.proposed_operators:
-            for operator_body in pddl_domain.proposed_operators[operator_name]:
-                (n_operator_successes, n_operator_attempts) = pddl_domain.operators_to_scores[
-                    (operator_name, operator_body)
-                ]
-                # Flip(p) where p(n_operator_successes / n_operator_attempts)
-                if random_generator.binomial(1, float(n_operator_successes / n_operator_attempts), 1)[0] > 0:
-                    sampled_operators.add(operator_name)
-        if len(sampled_operators) >= minimum_n_operators:
-            return sampled_operators
-    return sampled_operators
-
-
 def sample_task_plans_for_problem(
     pddl_domain,
     problem,
     planner_type=TASK_PLANNER_FD,
+    minimum_n_operators=None,
+    random_generator=None,
     command_args=None,
-    verbose=False,
     output_directory=None,
+    plan_attempt_idx=0,
+    goal_idx=None,
     debug_ground_truth_goals=False,
     debug_proposed_operators: Optional[Sequence[str]] = None,
     debug_export_dir=None,
-    plan_attempt_idx=0,
-    goal_idx=None,
-    random_generator=None,
-    minimum_n_operators=None,
+    verbose=False,
 ):
     """
     Uses a task_planner to propose samples, so we attempt planning using random subsets of
@@ -163,7 +130,7 @@ def sample_task_plans_for_problem(
     if debug_proposed_operators:
         sampled_proposed_operators = debug_proposed_operators
     else:
-        sampled_proposed_operators = generate_random_proposed_operator_sample(
+        sampled_proposed_operators = _generate_random_proposed_operator_sample(
             pddl_domain=pddl_domain,
             minimum_n_operators=minimum_n_operators,
             random_generator=random_generator,
@@ -171,18 +138,18 @@ def sample_task_plans_for_problem(
     success, evaluated_plans, _ = run_planner(
         pddl_domain=pddl_domain,
         problem=problem,
-        planner_type=planner_type,
-        verbose=verbose,
-        debug_ground_truth_goals=debug_ground_truth_goals,
-        proposed_operators=sampled_proposed_operators,
-        debug_export_dir=debug_export_dir,
         goal_idx=goal_idx,
+        proposed_operators=sampled_proposed_operators,
+        planner_type=planner_type,
+        debug_ground_truth_goals=debug_ground_truth_goals,
+        debug_export_dir=debug_export_dir,
+        verbose=verbose,
     )
 
     any_success = any_success or success
     for g in evaluated_plans:
         overall_problem_json["plans"].append({"goal": g, "plan": evaluated_plans[g].plan})
-    print(f"Successfully found {len(evaluated_plans)} plans for goals.")
+    # print(f"Successfully found {len(evaluated_plans)} plans for goals.")
 
     if output_directory:
         experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
@@ -191,9 +158,7 @@ def sample_task_plans_for_problem(
 
         if not osp.exists(output_filepath):
             with open(output_filepath, "w") as f:
-                csv.writer(f).writerow(
-                    ["problem_id", "attempt_id", "minimum_n_operators", "goal", "success", "plan", "sampled_operators"]
-                )
+                csv.writer(f).writerow(["problem_id", "attempt_id", "minimum_n_operators", "goal", "success", "plan", "sampled_operators"])
         with open(output_filepath, "a") as f:
             writer = csv.writer(f)
             if debug_ground_truth_goals:
@@ -201,17 +166,15 @@ def sample_task_plans_for_problem(
             else:
                 goals = problem.proposed_pddl_goals
             for goal in goals:
-                writer.writerow(
-                    [
-                        problem.problem_id,
-                        plan_attempt_idx,
-                        minimum_n_operators,
-                        goal,
-                        goal in evaluated_plans,
-                        evaluated_plans[goal].plan_string if goal in evaluated_plans else None,
-                        str(list(sampled_proposed_operators)),
-                    ]
-                )
+                writer.writerow([
+                    problem.problem_id,
+                    plan_attempt_idx,
+                    minimum_n_operators,
+                    goal,
+                    goal in evaluated_plans,
+                    evaluated_plans[goal].plan_string if goal in evaluated_plans else None,
+                    str(list(sampled_proposed_operators)),
+                ])
 
     return any_success, evaluated_plans, overall_problem_json
 
@@ -220,9 +183,7 @@ def mock_evaluate_task_plans_and_costs_for_problems(output_filepath, output_dire
     unsolved_problems = set()
     with open(os.path.join(output_directory, output_filepath), "r") as f:
         output_json = json.load(f)
-        print(
-            f"Now in: mock_evaluate_task_plans_and_costs_for_problems: from {os.path.join(output_directory, output_filepath)}"
-        )
+        print(f"Now in: mock_evaluate_task_plans_and_costs_for_problems: from {os.path.join(output_directory, output_filepath)}")
     for plan in output_json:
         if plan["file_name"] in problems:
             problem = problems[plan["file_name"]]
@@ -235,21 +196,41 @@ def mock_evaluate_task_plans_and_costs_for_problems(output_filepath, output_dire
                     plan = PDDLPlan(plan=plan_json["plan"])
                     if plan not in set(problem.evaluated_pddl_plans[plan_json["goal"]]):
                         problem.evaluated_pddl_plans[plan_json["goal"]].append(plan)
-    print(
-        f"After initialization, there are {len([p for p in problems if len(problems[p].evaluated_pddl_plans) > 0])} problems with plans."
-    )
+    print(f"After initialization, there are {len([p for p in problems if len(problems[p].evaluated_pddl_plans) > 0])} problems with plans.")
     return unsolved_problems
+
+
+
+def _generate_random_proposed_operator_sample(pddl_domain, minimum_n_operators, random_generator, max_attempts=5):
+    """
+    Samples a set of at least minimum_n_operators operators.
+    We choose to include each operator independently based on p(n_operator_successes / n_operator_attempts) in previous trials.
+    We make at most max passes through the operator set to do so.
+    """
+    sampled_operators = set()
+    for n_sampling_attempts in range(max_attempts):
+        for operator_name in pddl_domain.proposed_operators:
+            for operator_body in pddl_domain.proposed_operators[operator_name]:
+                (n_operator_successes, n_operator_attempts) = pddl_domain.operators_to_scores[
+                    (operator_name, operator_body)
+                ]
+                # Flip(p) where p(n_operator_successes / n_operator_attempts)
+                if random_generator.binomial(1, float(n_operator_successes / n_operator_attempts), 1)[0] > 0:
+                    sampled_operators.add(operator_name)
+        if len(sampled_operators) >= minimum_n_operators:
+            return sampled_operators
+    return sampled_operators
 
 
 def run_planner(
     pddl_domain,
     problem,
-    planner_type=TASK_PLANNER_FD,
-    verbose=False,
-    debug_ground_truth_goals=False,
-    proposed_operators: Optional[Sequence[str]] = None,
-    debug_export_dir=None,
     goal_idx=None,
+    proposed_operators: Optional[Sequence[str]] = None,
+    planner_type=TASK_PLANNER_FD,
+    debug_ground_truth_goals=False,
+    debug_export_dir=None,
+    verbose=False,
 ):
     """
     pddl_domain: Domain object.
@@ -286,21 +267,18 @@ def run_planner(
         if goal_idx is not None and current_goal_idx != goal_idx:
             continue
         else:
-            print(f"Now attempting to plan for goal: {goal_idx} / {len(sorted_goals)}")
+            print(f"  Now attempting to plan for goal: {goal_idx} / {len(sorted_goals)}")
             if verbose:
-                print(f"\tRunning planner with existing operators + {len(proposed_operators)} proposed operators: ")
-                print(f"\t Initial Operators: {pddl_domain.operators.keys()}")
-                print(f"\t Proposed Operators: {proposed_operators}")
+                print(f"    Running planner with existing operators + {len(proposed_operators)} proposed operators: ")
+                print(f"    Initial Operators: {pddl_domain.operators.keys()}")
+                print(f"    Proposed Operators: {proposed_operators}")
             current_problem_string = problem.ground_truth_pddl_problem.get_pddl_string_with_proposed_goal(
                 proposed_goal=goal
             )
             if verbose:
-                print("\t Language:")
-                print("\t" + problem.language)
-                print("\t Ground truth goal: ")
-                print("\t" + problem.ground_truth_pddl_problem.ground_truth_goal)
-                print("\t Proposed goal:")
-                print("\t" + goal)
+                print("    Language:", problem.language)
+                print("    Ground truth goal:", trim_white_spaces(problem.ground_truth_pddl_problem.ground_truth_goal))
+                print("    Proposed goal:", trim_white_spaces(goal))
             if planner_type == TASK_PLANNER_FD:
                 success, plan_string = fd_plan_from_strings(
                     domain_str=current_domain_string,
@@ -327,8 +305,8 @@ def run_planner(
                 raise ValueError(f"Unknown planner type: {planner_type}")
             # Convert the planner into a plan object.
             if verbose:
-                print(f"\tPlan success: {success}")
-                print(f"\t Plan string: {plan_string}")
+                print(f"    Plan success: {success}")
+                print(f"    Plan string: ", trim_white_spaces(plan_string))
             if success:
                 try:
                     pddl_plan = PDDLPlan(plan_string=plan_string, pddl_domain=pddl_domain)
@@ -336,7 +314,7 @@ def run_planner(
                     output_json["plans"].append({"goal": goal, "plan": pddl_plan.plan})
                     any_success = True
                 except:
-                    print(f"\t\tFailed to parse plan string: {plan_string}")
+                    print(f"    !!!Failed to parse plan string: {plan_string}")
             else:
                 if debug_export_dir is not None:
                     os.makedirs(debug_export_dir, exist_ok=True)
@@ -344,106 +322,12 @@ def run_planner(
                         f.write(current_domain_string)
                     with open(osp.join(debug_export_dir, f"goal_{current_goal_idx}_problem.pddl"), "w") as f:
                         f.write(current_problem_string)
-                    print(f"Exported domain and problem to {debug_export_dir}")
+                    print(f"    !!!Exported domain and problem to {debug_export_dir}")
 
     return any_success, evaluated_plans, output_json
 
 
-def fd_plan_from_strings(domain_str, problem_str, timeout=None, verbose=False):
-    if timeout is None:
-        timeout = TASK_PLANNER_FD_DEFAULT_TIMEOUT
-
-    with NamedTemporaryFile(mode="w") as domain_file, NamedTemporaryFile(mode="w") as problem_file:
-        domain_file.write(domain_str)
-        problem_file.write(problem_str)
-        domain_file.flush()
-        problem_file.flush()
-        success, out = fd_plan_from_file(domain_file.name, problem_file.name, timeout=timeout)
-        return (success, out)
-
-
-def fd_plan_from_file(domain_fname, problem_fname, timeout=None):
-    if timeout is None:
-        timeout = TASK_PLANNER_FD_DEFAULT_TIMEOUT
-
-    # TBD: don't use PDDL gym planner, use original FD.
-    fd_planner = FD(alias_flag='--alias "lama-first"')
-    try:
-        plan = fd_planner.plan_from_pddl(domain_fname, problem_fname, timeout=timeout)
-        plan_string = "\n".join(["(" + a + ")" for a in plan])
-    except PlanningFailure as pf:
-        return False, pf
-    except PlanningTimeout as pt:
-        print("Time out")
-        return False, pt
-    return True, plan_string
-
-
-def pdsketch_onthefly_plan_from_strings(domain_str, problem_str, timeout=None, heuristic=None):
-    if timeout is None:
-        timeout = TASK_PLANNER_PDSKETCH_ONTHEFLY_DEFAULT_TIMEOUT
-
-    import concepts.pdsketch as pds
-
-    domain = pds.load_domain_string(domain_str)
-    problem = pds.load_problem_string(problem_str, domain, return_tensor_state=False)
-
-    from concepts.pdsketch.strips.strips_grounding_onthefly import (
-        OnTheFlyGStripsProblem,
-    )
-
-    gproblem = OnTheFlyGStripsProblem.from_domain_and_problem(domain, problem)
-    # import ipdb; ipdb.set_trace()
-
-    if heuristic is None:
-        from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_search
-
-        plan = ogstrips_search(gproblem, timeout=timeout, initial_actions=[])
-    elif heuristic == "hmax":
-        from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_search_with_heuristics
-
-        # plan = ['move-right(t1, t2)', 'move-right(t2, t3)', 'move-right(t3, t4)', 'move-right(t4, t5)', 'move-right(t5, t6)', 'move-right(t6, t7)', 'move-right(t7, t8)', 'move-right(t8, t9)', 'pick-up(t9, o5, i2)', 'move-right(t9, t10)', 'harvest-sugar-cane(i3, t10, t0, o5, o10, i2, o17)']
-        # canonized_plan = _pdsketch_get_canonized_plan(gproblem, plan)
-        # plan = ogstrips_search_with_heuristics(gproblem, initial_actions=canonized_plan, timeout=timeout, hfunc_name='hmax', verbose=True, hfunc_verbose=True)
-        plan = ogstrips_search_with_heuristics(gproblem, timeout=timeout, hfunc_name="hmax", g_weight=0.5)
-    elif heuristic == "hff":
-        from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_search_with_heuristics
-
-        plan = ogstrips_search_with_heuristics(gproblem, timeout=timeout, hfunc_name="hff", g_weight=0)
-    else:
-        raise ValueError(f"Unknown heuristic: {heuristic}")
-
-    if plan is None:
-        return False, None
-    return (
-        True,
-        "\n".join([op.to_applier_pddl_str(arguments) for op, arguments in plan]),
-    )
-
-
-def pdsketch_onthefly_verify_plan_from_strings(domain_str, problem_str, plan):
-    import concepts.pdsketch as pds
-
-    domain = pds.load_domain_string(domain_str)
-    problem = pds.load_problem_string(problem_str, domain, return_tensor_state=False)
-
-    from concepts.pdsketch.strips.strips_grounding_onthefly import (
-        OnTheFlyGStripsProblem,
-    )
-
-    gproblem = OnTheFlyGStripsProblem.from_domain_and_problem(domain, problem)
-
-    from concepts.pdsketch.strips.strips_grounding_onthefly import ogstrips_verify
-
-    ogstrips_verify(gproblem, [action.lower() for action in plan], from_fast_downward=True)
-
-
-def _pdsketch_get_canonized_plan(gproblem, plan_strings):
-    canonized_plan = list()
-    for action in plan_strings:
-        action_name = action.split("(")[0]
-        action_args = action.split("(")[1].split(")")[0].split(", ")
-        operator = gproblem.operators[action_name]
-        canonized_plan.append((operator, {arg.name: value for arg, value in zip(operator.arguments, action_args)}))
-
-    return canonized_plan
+def trim_white_spaces(s):
+    s = str(s)
+    s = s.replace('\n', ' ')
+    return " ".join(s.split())

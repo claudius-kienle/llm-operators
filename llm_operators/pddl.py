@@ -279,7 +279,7 @@ def save_learned_operators(curr_iteration, directory, dataset, train_domain, gt_
 
 
 def update_pddl_domain_and_problem(
-    pddl_domain, problem_idx, problem_id, problems, verbose, command_args, new_motion_plan_keys
+    pddl_domain, problem_idx, problem_id, problems, new_motion_plan_keys, command_args, verbose=False
 ):
     """Updates the PDDL domain and PDDL problem based on the new motion planner results.
     pddl_domain.operators_to_scores[
@@ -370,6 +370,7 @@ def checkpoint_and_reset_plans(
             problems[problem_id].update_solved_motion_plan_results()
             # problems[problem_id].reset_evaluated_pddl_plans()
             # problems[problem_id].reset_evaluated_motion_planner_results()
+    print('')
 
 
 def checkpoint_and_reset_operators(
@@ -414,13 +415,8 @@ def load_operator_checkpoint(pddl_domain, curr_iteration, command_args, output_d
         key=lambda k: float(pddl_domain.operators_to_scores[k][0] / pddl_domain.operators_to_scores[k][1]),
         reverse=True,
     ):
-        print(
-            o_name,
-            float(
-                pddl_domain.operators_to_scores[(o_name, o_body)][0]
-                / pddl_domain.operators_to_scores[(o_name, o_body)][1]
-            ),
-        )
+        print(o_name, float(pddl_domain.operators_to_scores[(o_name, o_body)][0] / pddl_domain.operators_to_scores[(o_name, o_body)][1]))
+    print('')
 
 
 def log_operators_and_scores(pddl_domain, output_directory, experiment_name):
@@ -540,11 +536,6 @@ def log_motion_planner_results(problems, command_args, output_directory):
     output_filepath = f"{experiment_tag}motion_planner_results.csv"
 
     if output_directory:
-        print(
-            "Logging motion planner results to",
-            os.path.join(output_directory, output_filepath),
-        )
-
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             fieldnames = [
                 "problem_id",
@@ -1279,16 +1270,14 @@ def preprocess_goals(problems, pddl_domain, output_directory, command_args=None,
                 use_ground_truth_predicates=True,
             )
             if not success:
-                print("Failed to preprocess goal.")
+                print("preprocess_goals: Failed to preprocess goal.")
                 print(problems[p].ground_truth_pddl_problem.ground_truth_goal)
 
             if success:
                 problems[p].proposed_pddl_goals= [preprocessed_goal]
                 problems[p].correct_pddl_goal = True
 
-    print(
-        f"Preprocess goals top-K accuracy: {len([p for p in unsolved_problems if p.correct_pddl_goal])} / {len(unsolved_problems)} exact match to ground truth goal."
-    )
+    print(f"preprocess_goals: Preprocess goals top-K accuracy: {len([p for p in unsolved_problems if p.correct_pddl_goal])} / {len(unsolved_problems)} exact match to ground truth goal.")
 
     experiment_name = command_args.experiment_name
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
@@ -1297,6 +1286,7 @@ def preprocess_goals(problems, pddl_domain, output_directory, command_args=None,
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
     log_preprocessed_goals(problems, output_directory, command_args.experiment_name, verbose)
+    print('')
 
 
 def proposed_goal_match(codex_goal_str, gt_goal_str):
@@ -1417,6 +1407,7 @@ def log_preprocessed_goals(problems, output_directory, experiment_name, verbose=
                             "correct_pddl_goal": problem.correct_pddl_goal,
                         }
                     )
+    print('')
 
 
 def preprocess_operators(
@@ -1431,16 +1422,16 @@ def preprocess_operators(
     logs = dict()
 
     if verbose:
-        print(f"preprocess_operators: preprocessing {len(pddl_domain.proposed_operators)} operators.")
+        print(f"preprocess_operators:: preprocessing {len(pddl_domain.proposed_operators)} operators.")
         print(list(pddl_domain.proposed_operators.keys()))
     for o in list(pddl_domain.proposed_operators.keys()):
         logs[o] = list()
         pddl_domain.codex_raw_operators[o] = pddl_domain.proposed_operators[o]
         for i, proposed_operator_body in enumerate(pddl_domain.proposed_operators[o]):
             preprocessed_operator_name = f"{o}_{i}"
-            if verbose:
-                print("Trying to process...")
-                print(proposed_operator_body)
+            # if verbose:
+            #     print("Trying to process...")
+            #     print(proposed_operator_body)
             success, preprocessed_operator = preprocess_operator(
                 preprocessed_operator_name,
                 proposed_operator_body,
@@ -1456,12 +1447,12 @@ def preprocess_operators(
             else:
                 logs[o].append((proposed_operator_body, "FAILED"))
 
-            if verbose:
-                print(f"Preprocessed operator: {preprocessed_operator_name}")
-                print(f"Processed form: {preprocessed_operator}")
+            # if verbose:
+            #     print(f"Preprocessed operator: {preprocessed_operator_name}")
+            #     print(f"Processed form: {preprocessed_operator}")
         del pddl_domain.proposed_operators[o]
-        if verbose:
-            print("====")
+        # if verbose:
+        #     print("====")
 
     # Write out to an output JSON.
     experiment_name = command_args.experiment_name
@@ -1510,6 +1501,7 @@ def log_preprocessed_operators(pddl_domain, logs, output_directory, experiment_n
                             "codex_preprocessed_operator": preprocessed_operator,
                         }
                     )
+    print('')
 
 
 def parse_parameter_keys(parameter_string):

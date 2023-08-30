@@ -60,7 +60,7 @@ def propose_plans_operators_goals_for_problems(
     # Condition on: NL goals. Propose: PDDL goals.
     propose_goals_for_problems(
         problems=problems,
-        current_domain=current_domain,
+        domain=current_domain,
         output_directory=output_directory,
         supervision_pddl=supervision_pddl,
         verbose=verbose,

@@ -1297,3 +1297,1721 @@ train_63,0,10,"(:goal
 		(inventory-holding i3 o24)
 		(object-of-type o24 IronIngot))
 )",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_64,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_64,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_64,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_64,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_65,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 WoodPlank))
+)",True,"(move-to t1 t6)
+(pick-up i1 o8 t6)
+(move-to t6 t9)
+(craft-wood-plank i1 i3 o1 o8 o24 t9)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_66,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 WoodPlank))
+)",True,"(move-to t1 t6)
+(pick-up i1 o8 t6)
+(move-to t6 t7)
+(craft-wood-plank i1 i3 o1 o8 o24 t7)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_67,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",True,"(pick-up i1 o14 t1)
+(move-to t1 t6)
+(smelt-iron_1 t6 o4 i1 o14 i2 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_67,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_67,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_67,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_68,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",True,"(move-to t1 t2)
+(pick-up i1 o16 t2)
+(smelt-gold-ore_0 t2 o4 i1 o16 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_68,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_68,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_68,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_69,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_69,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_69,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_69,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_70,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",True,"(move-to t1 t8)
+(pick-up i1 o16 t8)
+(move-to t8 t6)
+(smelt-gold-ore_0 t6 o4 i1 o16 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_70,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_70,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_70,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_71,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",True,"(move-to t1 t5)
+(pick-up i1 o9 t5)
+(move-to t5 t3)
+(craft-stick_0 t3 o1 i1 o9 i1 o9 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_72,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Shears))
+)",True,"(move-to t1 t9)
+(pick-up i1 o12 t9)
+(move-to t9 t8)
+(craft-shears_2 t8 o3 i1 o12 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_73,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_73,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_73,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_73,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_74,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",True,"(move-to t1 t8)
+(pick-up i1 o14 t8)
+(move-to t8 t5)
+(smelt-iron_1 t5 o4 i1 o14 i2 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_74,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_74,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_74,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_75,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_75,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_75,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_75,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_76,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_76,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_76,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_76,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_77,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_77,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_77,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_77,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_78,0,10,"(:goal
+	(and 
+		(inventory-holding i2 o23)
+		(object-of-type o23 Stick))
+)",True,"(move-to t1 t14)
+(pick-up i1 o8 t14)
+(move-to t14 t11)
+(craft-stick1_2 t11 o1 i1 o8 i1 o8 i2 o23)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_78,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_78,0,10,"(:goal
+	(and 
+		(inventory-holding i2 o23)
+		(object-of-type o23 Stick))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_78,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",True,"(move-to t1 t14)
+(pick-up i1 o8 t14)
+(move-to t14 t11)
+(craft-stick1_2 t11 o1 i1 o8 i1 o8 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_78,0,10,"(:goal
+	(and 
+		(inventory-holding i2 o23)
+		(object-of-type o23 Stick))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_78,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_78,0,10,"(:goal
+	(and 
+		(inventory-holding i2 o23)
+		(object-of-type o23 Stick))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_78,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_79,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_79,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_79,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_79,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_80,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",True,"(move-to t1 t15)
+(pick-up i1 o16 t15)
+(move-to t15 t12)
+(smelt-gold-ore_0 t12 o4 i1 o16 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_80,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_80,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_80,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_81,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",True,"(move-to t1 t11)
+(pick-up i1 o9 t11)
+(move-to t11 t3)
+(craft-bowl2_1 t3 o7 i1 o9 i1 o9 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_82,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",True,"(move-to t1 t10)
+(pick-up i1 o14 t10)
+(smelt-iron_1 t10 o4 i1 o14 i2 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_82,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_82,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_82,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_83,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",True,"(move-to t1 t14)
+(pick-up i1 o8 t14)
+(move-to t14 t5)
+(craft-bowl_0 t5 o1 i1 o8 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_83,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_83,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_83,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_84,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",True,"(move-to t1 t5)
+(pick-up i1 o8 t5)
+(move-to t5 t1)
+(craft-stick1_2 t1 o1 i1 o8 i1 o8 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_84,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_84,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_84,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_85,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_85,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_85,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_85,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_86,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",True,"(move-to t1 t12)
+(pick-up i1 o18 t12)
+(move-to t12 t13)
+(cook-item_2 t13 o7 i1 o18 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_86,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_86,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_86,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_87,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",True,"(pick-up i1 o9 t1)
+(move-to t1 t2)
+(craft-stick_0 t2 o1 i1 o9 i1 o9 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_88,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_88,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_88,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_88,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_89,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",True,"(move-to t1 t9)
+(pick-up i1 o14 t9)
+(move-to t9 t14)
+(smelt-iron_1 t14 o4 i1 o14 i2 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_89,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_89,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_89,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_90,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_90,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_90,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_90,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_91,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 WoodPlank))
+)",True,"(move-to t1 t14)
+(pick-up i1 o8 t14)
+(move-to t14 t9)
+(craft-wood-plank i1 i3 o1 o8 o24 t9)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_92,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 WoodPlank))
+)",True,"(move-to t1 t9)
+(pick-up i1 o8 t9)
+(move-to t9 t6)
+(craft-wood-plank i1 i3 o1 o8 o24 t6)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_93,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",True,"(move-to t1 t5)
+(pick-up i1 o18 t5)
+(move-to t5 t3)
+(cook-item_2 t3 o7 i1 o18 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_93,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_93,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_93,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_94,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",True,"(move-to t1 t11)
+(pick-up i1 o9 t11)
+(craft-bowl2_1 t11 o7 i1 o9 i1 o9 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_95,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",True,"(move-to t1 t11)
+(pick-up i1 o18 t11)
+(move-to t11 t4)
+(cook-item_2 t4 o7 i1 o18 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_95,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_95,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_95,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_96,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_96,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_96,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_96,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_97,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_97,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_97,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_97,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_98,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_98,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_98,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_98,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_99,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",True,"(move-to t1 t2)
+(pick-up i1 o16 t2)
+(move-to t2 t15)
+(smelt-gold-ore_0 t15 o4 i1 o16 i3 o24)","['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_99,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_99,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_99,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,"['craft-bowl_0', 'smelt-item_2', 'craft-shears_0', 'smelt-gold-ore_0', 'craft-shears_2', 'craft-stick1_2', 'craft-wood-plank1_0', 'organize_1', 'craft-iron-ingot_1', 'craft-boat_2', 'craft-stick1_0', 'craft-bowl2_0', 'craft-bowl2_1', 'smelt-gold_0', 'craft-bowl_2', 'craft-paper_0', 'craft-iron-ingot_0', 'cook-item_2', 'mine-o-ore_2', 'smelt-gold-ore_2', 'cook-item_0', 'smelt_0', 'craft-bowl_1', 'craft-cooked-potato_2', 'craft-shears_1', 'smelt-iron_1', 'smelt-iron-ingot_0', 'chop_0', 'smelt-iron-ore_1', 'mine-o-ore_0', 'smelt-gold-ore_1', 'craft-stick_0', 'chop_2', 'craft-stick1_1', 'smelt-iron-ore_2', 'mine-o-ore_1', 'craft-wood-plank1_2', 'smelt-item_1', 'smelt-gold-ingot_1', 'craft-bowl1_0', 'smelt_1', 'cook-potato_1', 'cook-potato_0', 'craft-bowl1_2', 'smelt-iron-ore_0', 'smelt-iron-ingot_1', 'smelt-item_0', 'craft-bowl2_2', 'smelt-iron_0', 'craft-bowl1_1', 'cook_1', 'chop_1', 'craft-gold-ingot_2', 'craft-cooked-potato_0', 'craft-iron-ingot_2', 'craft-wood-plank1_1', 'smelt-iron-ingot_2', 'craft-boat_1', 'craft-stick_1', 'craft-paper_2', 'craft-stick_2', 'craft-paper_1', 'craft-boat_0']"
+train_0,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",True,"(move-to t1 t7)
+(pick-up i1 o10 t7)
+(move-to t7 t15)
+(pick-up i2 o11 t15)
+(move-to t15 t3)
+(craft-arrow i1 i2 i3 o2 o10 o11 o24 t3)",[]
+train_1,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_1,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_1,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_1,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_2,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_2,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_2,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_2,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_3,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_3,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_3,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_3,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_4,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_4,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_4,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_4,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_5,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_5,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_5,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_5,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_6,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_6,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_6,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_6,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_7,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_7,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_7,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_7,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_8,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Paper))
+)",False,,[]
+train_8,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Paper))
+)",False,,[]
+train_8,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Paper))
+)",False,,[]
+train_8,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Paper))
+)",False,,[]
+train_10,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_10,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_10,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_10,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_11,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_11,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_11,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_11,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_12,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_12,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_12,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_12,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_13,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",True,"(move-to t1 t7)
+(pick-up i1 o11 t7)
+(move-to t7 t11)
+(pick-up i2 o10 t11)
+(move-to t11 t1)
+(craft-arrow i2 i1 i3 o2 o10 o11 o24 t1)",[]
+train_14,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_14,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_14,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_14,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_15,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_15,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_15,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_15,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_16,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_16,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_16,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_16,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_17,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_17,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_17,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_17,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_18,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",False,,[]
+train_18,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o23)
+		(object-of-type o23 Arrow))
+)",True,"(move-to t1 t14)
+(pick-up i1 o10 t14)
+(move-to t14 t15)
+(pick-up i2 o11 t15)
+(move-to t15 t3)
+(craft-arrow i1 i2 i3 o2 o10 o11 o23 t3)",[]
+train_18,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",True,"(move-to t1 t14)
+(pick-up i1 o10 t14)
+(move-to t14 t15)
+(pick-up i2 o11 t15)
+(move-to t15 t3)
+(craft-arrow i1 i2 i3 o2 o10 o11 o24 t3)",[]
+train_18,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o23)
+		(object-of-type o23 Arrow))
+)",False,,[]
+train_19,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",True,"(move-to t1 t7)
+(pick-up i1 o11 t7)
+(move-to t7 t12)
+(pick-up i2 o10 t12)
+(move-to t12 t1)
+(craft-arrow i2 i1 i3 o2 o10 o11 o24 t1)",[]
+train_20,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_20,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_20,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_20,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_24,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_24,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_24,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_24,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_25,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_25,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_25,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_25,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_26,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_26,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_26,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_26,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_28,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",True,"(move-to t1 t3)
+(pick-up i1 o11 t3)
+(move-to t3 t9)
+(pick-up i2 o10 t9)
+(move-to t9 t7)
+(craft-arrow i2 i1 i3 o2 o10 o11 o24 t7)",[]
+train_29,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_29,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_29,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_29,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_30,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_30,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_30,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_30,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_31,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",True,"(move-to t1 t12)
+(pick-up i1 o11 t12)
+(move-to t12 t14)
+(pick-up i2 o10 t14)
+(move-to t14 t11)
+(craft-arrow i2 i1 i3 o2 o10 o11 o24 t11)",[]
+train_34,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o23)
+		(object-of-type o23 Boat))
+)",False,,[]
+train_34,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_34,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o23)
+		(object-of-type o23 Boat))
+)",False,,[]
+train_34,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_34,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o23)
+		(object-of-type o23 Boat))
+)",False,,[]
+train_34,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_34,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o23)
+		(object-of-type o23 Boat))
+)",False,,[]
+train_34,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_35,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_35,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_35,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_35,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_36,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_36,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_36,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_36,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_37,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_37,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_37,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_37,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_38,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_38,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_38,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_38,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
+)",False,,[]
+train_39,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_39,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_39,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_39,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_40,0,10,"(:goal
+	(and 
+		(inventory-holding i1 o2)
+		(inventory-holding i2 o5)
+		(inventory-holding i3 o24)
+		(object-of-type o2 Beetroot)
+		(object-of-type o5 Bowl)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_40,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_40,0,10,"(:goal
+	(and 
+		(inventory-holding i1 o2)
+		(inventory-holding i2 o5)
+		(inventory-holding i3 o24)
+		(object-of-type o2 Beetroot)
+		(object-of-type o5 Bowl)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_40,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_40,0,10,"(:goal
+	(and 
+		(inventory-holding i1 o2)
+		(inventory-holding i2 o5)
+		(inventory-holding i3 o24)
+		(object-of-type o2 Beetroot)
+		(object-of-type o5 Bowl)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_40,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_40,0,10,"(:goal
+	(and 
+		(inventory-holding i1 o2)
+		(inventory-holding i2 o5)
+		(inventory-holding i3 o24)
+		(object-of-type o2 Beetroot)
+		(object-of-type o5 Bowl)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_40,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_42,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_42,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_42,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_42,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_43,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_43,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_43,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_43,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_44,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_44,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_44,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_44,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_45,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_45,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_45,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_45,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_46,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",True,"(move-to t1 t7)
+(pick-up i1 o11 t7)
+(move-to t7 t11)
+(pick-up i2 o10 t11)
+(move-to t11 t8)
+(craft-arrow i2 i1 i3 o2 o10 o11 o24 t8)",[]
+train_47,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_47,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_47,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_47,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_48,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_48,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_48,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_48,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_50,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_50,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_50,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_50,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_51,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_51,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_51,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_51,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_52,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_52,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_52,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_52,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_55,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_55,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_55,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_55,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_56,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_56,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_56,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_56,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_57,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_57,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_57,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_57,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_59,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_59,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_59,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_59,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_61,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_61,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_61,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_61,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_62,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",True,"(move-to t1 t13)
+(pick-up i1 o10 t13)
+(move-to t13 t14)
+(pick-up i2 o11 t14)
+(move-to t14 t7)
+(craft-arrow i1 i2 i3 o2 o10 o11 o24 t7)",[]
+train_63,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_63,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_63,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_63,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_64,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",True,"(move-to t1 t10)
+(pick-up i1 o11 t10)
+(move-to t10 t13)
+(pick-up i2 o10 t13)
+(move-to t13 t1)
+(craft-arrow i2 i1 i3 o2 o10 o11 o24 t1)",[]
+train_67,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_67,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_67,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_67,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
