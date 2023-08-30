@@ -80,18 +80,19 @@ def propose_plans_for_problems(
 
         if verbose:
             print(f"propose_plans_for_problems:: Now on problem {idx} / {len(unsolved_problems)} ... ")
+            print(f'propose_plans_for_problems:: "{unsolved_problem.language}":')
         # Resample a new prompt with new examples for each plan string.
         plan_strings = []
         for _ in range(n_samples):
             codex_prompt = _build_plan_prompt(unsolved_problem, solved_problems, external_plan_supervision, max_solved_problem_examples=max_solved_problem_examples)
             plan_strings.append(get_completions(codex_prompt, temperature=temperature, stop=STOP_TOKEN, n_samples=1)[0])
 
-        for plan_string in plan_strings:
+        for i, plan_string in enumerate(plan_strings):
             try:
                 plan_string_split = plan_string.split("<END>")[0]
                 if verbose:
-                    print(unsolved_problem.language + "\n")
-                    print(plan_string_split)
+                    print(f'[Plan {i} / {len(plan_strings)}]')
+                    print(' ', plan_string_split.replace('\n', '; '))
                 unsolved_problem.proposed_pddl_plans.append(PDDLPlan(plan_string=plan_string_split))  # editing the problem
             except Exception as e:
                 print(e)
@@ -103,7 +104,7 @@ def propose_plans_for_problems(
 
     if verbose:
         num_proposed = [p for p in unsolved_problems if len(p.proposed_pddl_plans) >= 1]
-        print(f"\npropose_plans_for_problems:: proposed plans for {len(num_proposed)} / {len(unsolved_problems)}")
+        print(f"propose_plans_for_problems:: proposed plans for {len(num_proposed)} / {len(unsolved_problems)}")
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)

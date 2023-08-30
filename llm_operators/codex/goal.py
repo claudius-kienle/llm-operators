@@ -91,7 +91,7 @@ def propose_goals_for_problems(
                 CODEX_OUTPUT: goal_strings,
             }
             if verbose:
-                print(f'propose_goals_for_problems:: proposed goals for "{problem.language}"::')
+                print(f'propose_goals_for_problems:: "{problem.language}":')
                 for i, goal_string in enumerate(goal_strings):
                     print(f"[Goal {i+1}/{len(goal_strings)}]")
                     print(goal_string)

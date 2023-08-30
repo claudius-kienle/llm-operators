@@ -266,7 +266,7 @@ def _propose_operator_definition_external_supervision(
         if verbose:
             print(f"propose_operator_definition:: completion for {operator_name_to_define}")
             for i in range(len(operator_matches)):
-                print(f"[{i+1}/{len(operator_matches)}]")
+                print(f"[Operator {operator_name_to_define} {i+1}/{len(operator_matches)}]")
                 print(operator_matches[i])
         return codex_prompt, operator_matches
     except:

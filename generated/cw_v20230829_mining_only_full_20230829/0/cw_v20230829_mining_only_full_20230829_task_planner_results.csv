@@ -3015,3 +3015,313 @@ train_67,0,10,"(:goal
 		(inventory-holding i3 o24)
 		(object-of-type o24 IronIngot))
 )",False,,[]
+train_68,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_68,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_68,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_68,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_69,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_69,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_69,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_69,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_70,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_70,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_70,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_70,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_73,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_73,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_73,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_73,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_74,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_74,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_74,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_74,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_75,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_75,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_75,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_75,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_76,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_76,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_76,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_76,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bed))
+)",False,,[]
+train_77,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_77,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_77,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_77,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_78,0,10,"(:goal
+	(and 
+		(inventory-holding i2 o23)
+		(object-of-type o23 Stick))
+)",False,,[]
+train_78,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_78,0,10,"(:goal
+	(and 
+		(inventory-holding i2 o23)
+		(object-of-type o23 Stick))
+)",False,,[]
+train_78,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_78,0,10,"(:goal
+	(and 
+		(inventory-holding i2 o23)
+		(object-of-type o23 Stick))
+)",False,,[]
+train_78,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_78,0,10,"(:goal
+	(and 
+		(inventory-holding i2 o23)
+		(object-of-type o23 Stick))
+)",False,,[]
+train_78,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_79,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",True,"(move-to t1 t4)
+(pick-up i1 o10 t4)
+(move-to t4 t14)
+(pick-up i2 o11 t14)
+(move-to t14 t5)
+(craft-arrow i1 i2 i3 o2 o10 o11 o24 t5)",[]
+train_80,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_80,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_80,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_80,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 GoldIngot))
+)",False,,[]
+train_82,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_82,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_82,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_82,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_83,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_83,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_83,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_83,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Bowl))
+)",False,,[]
+train_84,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_84,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_84,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_84,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Stick))
+)",False,,[]
+train_85,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_85,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_85,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]
+train_85,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 BeetrootSoup))
+)",False,,[]

@@ -283,8 +283,8 @@ def update_pddl_domain_and_problem(
 ):
     """Updates the PDDL domain and PDDL problem based on the new motion planner results.
     pddl_domain.operators_to_scores[
-                    (o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])
-                ] = (n_operator_successes, n_operator_attempts)
+        (o[PDDLPlan.PDDL_ACTION], o[PDDLPlan.PDDL_OPERATOR_BODY])
+    ] = (n_operator_successes, n_operator_attempts)
 
     Which is used to estimate the Bernoulli probability p(n_operator_successes / n_operator_attempts) of whether an operator is 'working' and therefore should be included in the library. Operators are independent.
     """
@@ -328,14 +328,7 @@ def update_pddl_domain_and_problem(
             ),
             reverse=True,
         ):
-            print(
-                o_name,
-                float(
-                    pddl_domain.operators_to_scores[(o_name, o_body)][0]
-                    / pddl_domain.operators_to_scores[(o_name, o_body)][1]
-                ),
-                f"{pddl_domain.operators_to_scores[(o_name, o_body)][0]} / {pddl_domain.operators_to_scores[(o_name, o_body)][1]}",
-            )
+            print(' ', o_name, float(pddl_domain.operators_to_scores[(o_name, o_body)][0] / pddl_domain.operators_to_scores[(o_name, o_body)][1]))
 
     should_continue_planner_attempts = not any_success
     return should_continue_planner_attempts
@@ -398,7 +391,7 @@ def checkpoint_and_reset_operators(
     log_operators_and_scores(pddl_domain, output_directory, command_args.experiment_name)
 
 
-def load_operator_checkpoint(pddl_domain, curr_iteration, command_args, output_directory):
+def load_operator_checkpoint(pddl_domain, command_args, curr_iteration, output_directory):
     experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
     output_filepath = f"{experiment_tag}scored_operators.json"
     with open(os.path.join(output_directory, output_filepath)) as f:
@@ -1286,7 +1279,6 @@ def preprocess_goals(problems, pddl_domain, output_directory, command_args=None,
         with open(os.path.join(output_directory, output_filepath), "w") as f:
             json.dump(output_json, f)
     log_preprocessed_goals(problems, output_directory, command_args.experiment_name, verbose)
-    print('')
 
 
 def proposed_goal_match(codex_goal_str, gt_goal_str):
