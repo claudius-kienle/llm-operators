@@ -157,17 +157,9 @@ parser.add_argument(
     default=2,
     help="Minimum number of times an operator must be used to be considered for proposal.",
 )
-parser.add_argument(
-    "--goal_propose_include_codex_types",
-    action="store_true",
-    help="Whether to include Codex types in the prompts for goal proposal.",
-)
-parser.add_argument(
-    "--planner",
-    type=str,
-    default="task_planner_fd",
-    help="Which planner to use.",
-)
+parser.add_argument("--goal_propose_include_codex_types", action="store_true", help="Whether to include Codex types in the prompts for goal proposal.")
+parser.add_argument("--planner", type=str, default="task_planner_fd", help="Which planner to use.")
+parser.add_argument('--planner-timeout', type=int, default=None, help='timeout for the planner')
 parser.add_argument(
     "--output_directory",
     type=str,
@@ -341,8 +333,17 @@ parser.add_argument(
 
 def main():
     args = parser.parse_args()
+
     random.seed(args.random_seed)
     rng = np.random.default_rng(args.random_seed)
+    print('Setting random seed to {}'.format(args.random_seed))
+
+    if args.planner_timeout is not None:
+        import llm_operators.task_planner as task_planner
+        task_planner.TASK_PLANNER_FD_DEFAULT_TIMEOUT = args.planner_timeout
+        task_planner.TASK_PLANNER_PDSKETCH_ONTHEFLY_DEFAULT_TIMEOUT = args.planner_timeout
+        print('Setting planner timeout to {}'.format(args.planner_timeout))
+
     ###### Log all of the arguments that we ran this experiment with and the experiment date.
     experiment_utils.output_experiment_parameters(args)
 

@@ -23,6 +23,9 @@ TASK_PLANNER_PDSKETCH_ONTHEFLY = "task_planner_pdsketch_onthefly"
 TASK_PLANNER_PDSKETCH_ONTHEFLY_HMAX = "task_planner_pdsketch_onthefly_hmax"
 TASK_PLANNER_PDSKETCH_ONTHEFLY_HFF = "task_planner_pdsketch_onthefly_hff"
 
+TASK_PLANNER_FD_DEFAULT_TIMEOUT = 10
+TASK_PLANNER_PDSKETCH_ONTHEFLY_DEFAULT_TIMEOUT = 10
+
 
 def attempt_task_plan_for_problem(
     pddl_domain,
@@ -346,7 +349,10 @@ def run_planner(
     return any_success, evaluated_plans, output_json
 
 
-def fd_plan_from_strings(domain_str, problem_str, timeout=10, verbose=False):
+def fd_plan_from_strings(domain_str, problem_str, timeout=None, verbose=False):
+    if timeout is None:
+        timeout = TASK_PLANNER_FD_DEFAULT_TIMEOUT
+
     with NamedTemporaryFile(mode="w") as domain_file, NamedTemporaryFile(mode="w") as problem_file:
         domain_file.write(domain_str)
         problem_file.write(problem_str)
@@ -356,7 +362,10 @@ def fd_plan_from_strings(domain_str, problem_str, timeout=10, verbose=False):
         return (success, out)
 
 
-def fd_plan_from_file(domain_fname, problem_fname, timeout=5):
+def fd_plan_from_file(domain_fname, problem_fname, timeout=None):
+    if timeout is None:
+        timeout = TASK_PLANNER_FD_DEFAULT_TIMEOUT
+
     # TBD: don't use PDDL gym planner, use original FD.
     fd_planner = FD(alias_flag='--alias "lama-first"')
     try:
@@ -370,7 +379,10 @@ def fd_plan_from_file(domain_fname, problem_fname, timeout=5):
     return True, plan_string
 
 
-def pdsketch_onthefly_plan_from_strings(domain_str, problem_str, timeout=10, heuristic=None):
+def pdsketch_onthefly_plan_from_strings(domain_str, problem_str, timeout=None, heuristic=None):
+    if timeout is None:
+        timeout = TASK_PLANNER_PDSKETCH_ONTHEFLY_DEFAULT_TIMEOUT
+
     import concepts.pdsketch as pds
 
     domain = pds.load_domain_string(domain_str)

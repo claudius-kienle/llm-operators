@@ -104,8 +104,8 @@ def attempt_motion_plan_for_problem(
                 debug_skip=debug_skip,
                 motionplan_search_type=command_args.motionplan_search_type,
             )
-        elif dataset_name == "crafting_world_20230204_minining_only":
-            motion_plan_result = evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
+        elif dataset_name == "crafting_world_20230204_minining_only" or dataset_name == "crafting_world_20230829_crafting_only":
+            motion_plan_result = evaluate_cw_motion_plans_and_costs_for_goal_plan(
                 problem_id,
                 problems,
                 pddl_goal,
@@ -164,8 +164,8 @@ def evaluate_motion_plans_and_costs_for_problems(
             use_mock=use_mock,
             debug_skip=debug_skip,
         )
-    elif dataset_name == "crafting_world_20230204_minining_only":
-        evaluate_cw_20230204_motion_plans_and_costs_for_problems(
+    elif dataset_name == "crafting_world_20230204_minining_only" or dataset_name == "crafting_world_20230829_crafting_only":
+        evaluate_cw_motion_plans_and_costs_for_problems(
             curr_iteration,
             pddl_domain,
             problems,
@@ -319,7 +319,7 @@ def evaluate_alfred_motion_plans_and_costs_for_goal_plan(
         )
 
 
-def evaluate_cw_20230204_motion_plans_and_costs_for_problems(
+def evaluate_cw_motion_plans_and_costs_for_problems(
     curr_iteration,
     pddl_domain,
     problems,
@@ -341,7 +341,7 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_problems(
         for pddl_goal in problems[problem_id].evaluated_pddl_plans:
             pddl_plan = problems[problem_id].evaluated_pddl_plans[pddl_goal]
             if pddl_plan is not None and pddl_plan != {} and pddl_plan.plan is not None:
-                motion_plan_result = evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
+                motion_plan_result = evaluate_cw_motion_plans_and_costs_for_goal_plan(
                     # current_domain_string, current_problem_string, pddl_goal, pddl_plan
                     problem_id,
                     problems,
@@ -361,7 +361,7 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_problems(
                     )
 
 
-def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
+def evaluate_cw_motion_plans_and_costs_for_goal_plan(
     problem_id,
     problems,
     pddl_goal,
@@ -402,31 +402,21 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
         action_args = action[PDDLPlan.PDDL_ARGUMENTS]
 
         if action_name == "move-right":
-            if verbose:
-                print("move-right")
             simulator.move_right()
         elif action_name == "move-left":
-            if verbose:
-                print("move-left")
             simulator.move_left()
         elif action_name == "move-to":
-            if verbose:
-                print("move-to")
             simulator.move_to(int(action_args[1][1:]))
         elif action_name == "pick-up":
-            if verbose:
-                print("pick-up")
             simulator.pick_up(
                 int(_find_string_start_with(action_args, "i", first=True)[1:]),
                 _find_string_start_with(action_args, "o", first=True),
             )
         elif action_name == "place-down":
-            if verbose:
-                print("place-down")
             simulator.place_down(
                 int(_find_string_start_with(action_args, "i", first=True)[1:]),
             )
-        else:
+        elif action_name.startswith('mine'):
             # Trying mining.
             inventory_indices = [int(x[1:]) for x in _find_string_start_with(action_args, "i")]
             object_indices = _find_string_start_with(action_args, "o")
@@ -476,6 +466,56 @@ def evaluate_cw_20230204_motion_plans_and_costs_for_goal_plan(
 
             if not rv:
                 last_failed_operator = i
+        elif action_name.startswith('craft'):
+            inventory_indices = [int(x[1:]) for x in _find_string_start_with(action_args, "i")]
+            object_indices = _find_string_start_with(action_args, "o")
+
+            hypothetical_object = [x for x in object_indices if x in simulator.hypothetical]
+            if len(hypothetical_object) != 1:
+                if verbose:
+                    print("Hypothetical object not found.", object_indices)
+                last_failed_operator = i
+                break
+            hypothetical_object = hypothetical_object[0]
+
+            empty_inventory = [x for x in inventory_indices if simulator.inventory[x] is None]
+            if len(empty_inventory) != 1:
+                if verbose:
+                    print("Empty inventory not found.", inventory_indices)
+                last_failed_operator = i
+                break
+            empty_inventory = empty_inventory[0]
+
+            target_object = [ x for x in object_indices if x in simulator.objects and simulator.objects[x][1] == simulator.agent_pos ]
+            if len(target_object) != 1:
+                if verbose:
+                    print("Target object not found.", object_indices)
+                last_failed_operator = i
+                break
+            target_object = target_object[0]
+
+            ingredients = list(set(inventory_indices) - set([empty_inventory]))
+
+            if verbose:
+                print(
+                    "Crafting",
+                    empty_inventory,
+                    hypothetical_object,
+                    target_object,
+                    ingredients,
+                )
+
+            rv = simulator.craft(
+                target_object,
+                empty_inventory,
+                hypothetical_object,
+                ingredients_inventory=ingredients
+            )
+
+            if not rv:
+                last_failed_operator = i
+        else:
+            last_failed_operator = i
 
     if last_failed_operator is not None:
         return MotionPlanResult(

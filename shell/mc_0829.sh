@@ -38,10 +38,11 @@ fi
 set -x
 
 python main.py --experiment_name $EXPR_NAME \
-  --dataset_name crafting_world_20230204_minining_only --dataset_pddl_directory data/dataset/crafting_world_v20230204_mining_only \
-  --pddl_domain_name crafting_world_teleport --initial_pddl_operators move-to pick-up place-down mine-iron-ore \
+  --dataset_name crafting_world_20230829_crafting_only --dataset_pddl_directory data/dataset/crafting_world_v20230829_crafting_only \
+  --pddl_domain_name crafting_world_teleport --initial_pddl_operators move-to pick-up place-down craft-wood-plank craft-arrow \
   --supervision_name supervision \
   --initial_goal_supervision_prefix SKIP \
   --train_iterations 5 --output_directory generated \
-  --goal_propose_include_codex_types --operator_propose_minimum_usage 1 --planner task_planner_pdsketch_onthefly --maximum_operator_arity 7 --n_attempts_to_plan 1 \
+  --goal_propose_include_codex_types --operator_propose_minimum_usage 1 --planner task_planner_pdsketch_onthefly --maximum_operator_arity 9 --n_attempts_to_plan 1 \
+  --planner-timeout 120 \
   --verbose $@
