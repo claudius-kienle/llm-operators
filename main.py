@@ -195,11 +195,8 @@ def main():
 
 
 def run_iteration(args, planning_problems, pddl_domain, supervision_pddl, curr_iteration, output_directory, rng):
-    ###################### Operator sampling.
-    # Given a domain and a set of goals, this uses Codex + preprocessing to sample
-    # a set of operator definitions for goals.
+    # Given a domain and a set of goals, this uses Codex + preprocessing to sample a set of operator definitions for goals.
     if not args.debug_no_propose_plans_operators_goals:
-        #### Goal proposal and preprocessing.
         codex.propose_goals_for_problems(
             problems=planning_problems["train"],
             domain=pddl_domain,
@@ -271,7 +268,6 @@ def run_iteration(args, planning_problems, pddl_domain, supervision_pddl, curr_i
 
     # TODO(Jiayuan Mao @ 2023/08/28): better checkpointing for task planning and motion planning...
 
-    ###################### Refine operators.
     if args.debug_mock_task_plans and experiment_utils.should_use_checkpoint(
         curr_iteration=curr_iteration,
         curr_problem_idx=None,
@@ -292,6 +288,9 @@ def run_iteration(args, planning_problems, pddl_domain, supervision_pddl, curr_i
         ):
             continue
 
+        # TODO(Jiayuan Mao @ 2023/08/30): when we have found a solution to a problem, we should only evaluate the goal associated with that solution.
+        # TODO(Jiayuan Mao @ 2023/08/30): optionally, we should decide the behavior for multi-round goal sampling. One possible option is to keep all historically proposed goals, and evaluate them.
+        #     Another option is to only evaluate the most recent goal (so reset past goal proposals).
         for plan_attempt_idx in range(args.n_attempts_to_plan):
             for goal_idx in range(args.n_goal_samples):
                 any_motion_plan_success = _run_task_and_motion_plan(

@@ -3325,3 +3325,92 @@ train_85,0,10,"(:goal
 		(inventory-holding i3 o24)
 		(object-of-type o24 BeetrootSoup))
 )",False,,[]
+train_86,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_86,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_86,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_86,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_88,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_88,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_88,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_88,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Sword))
+)",False,,[]
+train_89,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_89,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_89,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_89,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 IronIngot))
+)",False,,[]
+train_90,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 Arrow))
+)",True,"(pick-up i1 o11 t1)
+(move-to t1 t5)
+(pick-up i2 o10 t5)
+(move-to t5 t2)
+(craft-arrow i2 i1 i3 o2 o10 o11 o24 t2)",[]
+train_93,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_93,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_93,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
+train_93,0,10,"(:goal
+	(and 
+		(inventory-holding i3 o24)
+		(object-of-type o24 CookedPotato))
+)",False,,[]
