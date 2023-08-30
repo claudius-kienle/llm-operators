@@ -314,7 +314,7 @@ def run_iteration(args, planning_problems, pddl_domain, supervision_pddl, curr_i
             continue
 
         for plan_attempt_idx in range(1):
-            for goal_idx in range(args.n_goal_samples):
+            for goal_idx in range(len(planning_problems['train'][problem_id].proposed_pddl_goals)):
                 any_motion_plan_success = _run_task_and_motion_plan(
                     pddl_domain, problem_idx, problem_id, planning_problems,
                     args=args, curr_iteration=curr_iteration, output_directory=output_directory,
