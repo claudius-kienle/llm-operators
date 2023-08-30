@@ -55,12 +55,7 @@ def propose_plans_for_problems(
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
     output_filepath = f"{experiment_tag}codex_plans.json"
     if resume and os.path.exists(os.path.join(output_directory, output_filepath)):
-        mock_propose_plans_for_problems(
-            output_filepath,
-            unsolved_problems,
-            output_directory,
-            experiment_name=experiment_name,
-        )
+        mock_propose_plans_for_problems(output_filepath, unsolved_problems, output_directory, experiment_name=experiment_name)
         return
     if use_mock and experiment_utils.should_use_checkpoint(
         curr_iteration=curr_iteration,
@@ -69,12 +64,7 @@ def propose_plans_for_problems(
         resume_from_problem_idx=resume_from_problem_idx,
     ):
         try:
-            mock_propose_plans_for_problems(
-                output_filepath,
-                unsolved_problems,
-                output_directory,
-                experiment_name=experiment_name,
-            )
+            mock_propose_plans_for_problems(output_filepath, unsolved_problems, output_directory, experiment_name=experiment_name)
             return
         except:
             print("mock for propose_plans_for_problems not found, continuing.")
@@ -92,15 +82,8 @@ def propose_plans_for_problems(
         # Resample a new prompt with new examples for each plan string.
         plan_strings = []
         for _ in range(n_samples):
-            codex_prompt = _build_plan_prompt(
-                unsolved_problem,
-                solved_problems,
-                external_plan_supervision,
-                max_solved_problem_examples=max_solved_problem_examples,
-            )
-            plan_strings.append(
-                get_completions(codex_prompt, temperature=temperature, stop=STOP_TOKEN, n_samples=1)[0]
-            )
+            codex_prompt = _build_plan_prompt(unsolved_problem, solved_problems, external_plan_supervision, max_solved_problem_examples=max_solved_problem_examples)
+            plan_strings.append(get_completions(codex_prompt, temperature=temperature, stop=STOP_TOKEN, n_samples=1)[0])
 
         for plan_string in plan_strings:
             try:
@@ -108,9 +91,7 @@ def propose_plans_for_problems(
                 if verbose:
                     print(unsolved_problem.language + "\n")
                     print(plan_string_split)
-                unsolved_problem.proposed_pddl_plans.append(
-                    PDDLPlan(plan_string=plan_string_split)
-                )  # editing the problem
+                unsolved_problem.proposed_pddl_plans.append(PDDLPlan(plan_string=plan_string_split))  # editing the problem
             except Exception as e:
                 print(e)
             continue
@@ -142,9 +123,7 @@ def mock_propose_plans_for_problems(output_filepath, unsolved_problems, output_d
             for plan_string in output_json[unsolved_problem.problem_id][CODEX_OUTPUT]:
                 try:
                     plan_string_split = plan_string.split("<END>")[0]
-                    unsolved_problem.proposed_pddl_plans.append(
-                        PDDLPlan(plan_string=plan_string_split)
-                    )  # editing the problem
+                    unsolved_problem.proposed_pddl_plans.append(PDDLPlan(plan_string=plan_string_split))  # editing the problem
                 except Exception as e:
                     print(e)
                 continue
@@ -161,26 +140,18 @@ def log_proposed_plans_for_problems(unsolved_problems, output_json, output_direc
     if output_directory:
         print(f"Logging proposed plans: {os.path.join(output_directory, output_filepath)}")
         with open(os.path.join(output_directory, output_filepath), "w") as f:
-            fieldnames = [
-                "problem",
-                "nl_goal",
-                "gt_pddl_goal",
-                "gt_plan",
-                "proposed_plan",
-            ]
+            fieldnames = ["problem", "nl_goal", "gt_pddl_goal", "gt_plan", "proposed_plan"]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             for problem in unsolved_problems:
                 for proposed_plan in problem.proposed_pddl_plans:
-                    writer.writerow(
-                        {
-                            "problem": problem.problem_id,
-                            "nl_goal": problem.language,
-                            "gt_pddl_goal": problem.ground_truth_pddl_problem.ground_truth_goal,
-                            "gt_plan": problem.ground_truth_pddl_plan.plan_string,
-                            "proposed_plan": proposed_plan.plan_string,
-                        }
-                    )
+                    writer.writerow({
+                        "problem": problem.problem_id,
+                        "nl_goal": problem.language,
+                        "gt_pddl_goal": problem.ground_truth_pddl_problem.ground_truth_goal,
+                        "gt_plan": problem.ground_truth_pddl_plan.plan_string,
+                        "proposed_plan": proposed_plan.plan_string,
+                    })
 
 
 ############################################################################################################

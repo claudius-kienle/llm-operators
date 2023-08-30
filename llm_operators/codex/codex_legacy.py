@@ -104,3 +104,8 @@ def get_solved_unsolved_problems_or_supervision(problems):
     #     if (len(problems[p].solved_motion_plan_results) > 0) or problems[p].should_supervise_pddl_goal
     # ]
     # return unsolved_problems, solved_problems
+
+
+def propose_predicates_for_problems(problems, current_domain, use_mock):
+    # TBD: to be implemented.
+    pass

@@ -39,11 +39,6 @@ def use_ground_truth_operators(current_domain, verbose):
             print(o)
 
 
-def propose_predicates_for_problems(problems, current_domain, use_mock):
-    # TBD: to be implemented.
-    pass
-
-
 def propose_operators_for_problems(
     problems,
     current_domain,
