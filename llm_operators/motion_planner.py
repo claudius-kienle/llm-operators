@@ -397,6 +397,10 @@ def evaluate_cw_motion_plans_and_costs_for_goal_plan(
 
     last_failed_operator = None
 
+    if verbose:
+        print('Evaluating motion plan.')
+        print('=' * 80)
+
     for i, action in enumerate(pddl_plan.plan):
         action_name = action[PDDLPlan.PDDL_ACTION]
         action_args = action[PDDLPlan.PDDL_ARGUMENTS]
