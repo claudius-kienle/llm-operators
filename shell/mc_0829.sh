@@ -42,7 +42,7 @@ python main.py --experiment_name $EXPR_NAME \
   --pddl_domain_name crafting_world_teleport --initial_pddl_operators move-to pick-up place-down craft-wood-plank craft-arrow \
   --supervision_name supervision \
   --initial_goal_supervision_prefix SKIP \
-  --train_iterations 5 --output_directory generated \
+  --train_iterations 5 --output_directory generated --operator-use-cot 0 \
   --goal_propose_include_codex_types --operator_propose_minimum_usage 1 --planner task_planner_pdsketch_onthefly --maximum_operator_arity 9 --n_attempts_to_plan 1 \
   --planner-timeout 120 \
   --verbose $@

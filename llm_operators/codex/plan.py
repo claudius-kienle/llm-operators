@@ -3,8 +3,8 @@ import os
 import json
 import csv
 import llm_operators.experiment_utils as experiment_utils
-from llm_operators.codex.common import get_completions
-from llm_operators.codex.common import CODEX_PROMPT, CODEX_OUTPUT, STOP_TOKEN
+from llm_operators.codex.codex_core import get_completions
+from llm_operators.codex.codex_core import CODEX_PROMPT, CODEX_OUTPUT, STOP_TOKEN
 from llm_operators.pddl import PDDLPlan
 from llm_operators.codex.goal import NATURAL_LANGUAGE_GOAL_START
 

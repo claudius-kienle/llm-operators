@@ -55,30 +55,11 @@ from llm_operators.codex.operator import DEFAULT_OPERATOR_TEMPERATURE
 from llm_operators.codex.goal import DEFAULT_GOAL_TEMPERATURE
 
 parser = argparse.ArgumentParser()
-parser.add_argument(
-    "--experiment_name",
-    type=str,
-    default="",
-    help="Experiment name tag. This will be appended to any checkpointed data.",
-)
+parser.add_argument("--experiment_name", type=str, default="", help="Experiment name tag. This will be appended to any checkpointed data.")
 parser.add_argument("--dataset_name", type=str, help="Name of the dataset of planning problems to load.")
-parser.add_argument(
-    "--dataset_fraction",
-    default=1.0,
-    type=float,
-    help="Fraction of the overall dataset to work with. Lower than 1.0 for debugging purposes only.",
-)
-parser.add_argument(
-    "--dataset_pddl_directory",
-    type=str,
-    help="Location of the top level PDDL directory.",
-)
-parser.add_argument(
-    "--pddl_domain_name",
-    type=str,
-    help="Name of the PDDL domain to load.",
-)
-
+parser.add_argument("--dataset_fraction", default=1.0, type=float, help="Fraction of the overall dataset to work with. Lower than 1.0 for debugging purposes only.")
+parser.add_argument("--dataset_pddl_directory", type=str, help="Location of the top level PDDL directory.")
+parser.add_argument("--pddl_domain_name", type=str, help="Name of the PDDL domain to load.")
 parser.add_argument("--train_iterations", type=int, help="How many training iterations to run.")
 parser.add_argument(
     "--supervision_name",
@@ -157,6 +138,7 @@ parser.add_argument(
     default=2,
     help="Minimum number of times an operator must be used to be considered for proposal.",
 )
+parser.add_argument('--operator-use-cot', type=int, default=1, help='whether to use cot for operator proposal: 1 for yes, 0 for no')
 parser.add_argument("--goal_propose_include_codex_types", action="store_true", help="Whether to include Codex types in the prompts for goal proposal.")
 parser.add_argument("--planner", type=str, default="task_planner_fd", help="Which planner to use.")
 parser.add_argument('--planner-timeout', type=int, default=None, help='timeout for the planner')
@@ -165,6 +147,9 @@ parser.add_argument(
     type=str,
     help="Location of the directory for writing outputs.",
 )
+
+########################################
+
 parser.add_argument("--verbose", action="store_true", help="Run on verbose.")
 parser.add_argument(
     "--debug_export_failed_pddl", type=str, default=None, help="Export failed PDDL problems to this directory."
@@ -424,6 +409,7 @@ def main():
                 external_operator_sample_with_prompt=args.external_operator_sample_with_prompt,
                 operator_temperature=args.codex_operator_temperature,
                 external_operator_names=args.external_operator_names,
+                operator_use_cot=bool(args.operator_use_cot),
                 curr_iteration=curr_iteration,
                 debug_skip_propose_operators_after=args.debug_skip_propose_operators_after,
                 debug_skip_propose_plans_after=args.debug_skip_propose_plans_after,

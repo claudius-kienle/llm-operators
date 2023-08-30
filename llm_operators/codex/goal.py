@@ -2,8 +2,8 @@ import os
 import random
 import json
 import llm_operators.experiment_utils as experiment_utils
-from llm_operators.codex.common import get_solved_unsolved_problems, get_completions
-from llm_operators.codex.common import NONE, STOP_TOKEN, CODEX_PROMPT, CODEX_OUTPUT
+from llm_operators.codex.codex_core import get_solved_unsolved_problems, get_completions
+from llm_operators.codex.codex_core import NONE, STOP_TOKEN, CODEX_PROMPT, CODEX_OUTPUT
 
 NATURAL_LANGUAGE_GOAL_START = ";; Goal: "
 COT_GOAL_START = ";; Simplified Goal: "

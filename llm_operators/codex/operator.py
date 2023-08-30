@@ -2,8 +2,8 @@ import random
 import os
 import json
 import llm_operators.experiment_utils as experiment_utils
-from llm_operators.codex.common import get_completions
-from llm_operators.codex.common import CODEX_PROMPT, CODEX_OUTPUT, STOP_TOKEN
+from llm_operators.codex.codex_core import get_completions
+from llm_operators.codex.codex_core import CODEX_PROMPT, CODEX_OUTPUT, STOP_TOKEN
 from llm_operators.pddl import PDDLPlan
 from collections import Counter, defaultdict
 
@@ -59,6 +59,7 @@ def propose_operators_for_problems(
     external_operator_supervision=None,
     external_operator_sample_with_prompt=True,
     external_operator_names=None,
+    use_cot=True,
     resume=False,
     resume_from_iteration=None,
     resume_from_problem_idx=None,
@@ -121,6 +122,7 @@ def propose_operators_for_problems(
             supervision_pddl=supervision_pddl,
             external_operator_supervision=external_operator_supervision,
             external_operator_sample_with_prompt=external_operator_sample_with_prompt,
+            use_cot=use_cot,
         )
         current_domain.proposed_operators[o] += proposed_operator_definitions
         output_json[o] = {
@@ -292,6 +294,7 @@ def _propose_operator_definition(
     initial_pddl_predicates=[],
     external_operator_supervision=None,
     external_operator_sample_with_prompt=True,
+    use_cot=True
 ):
     """
     Proposes an operator definition for a given domain, and optionally with examples of operator usages.
@@ -310,6 +313,7 @@ def _propose_operator_definition(
     if external_operator_supervision is not None:
         # For now, we also only support sampling with the prompt.
         assert external_operator_sample_with_prompt
+        assert use_cot, 'External supervision only works with COT.'
         return _propose_operator_definition_external_supervision(
             current_domain=current_domain,
             operator_name_to_define=operator_name_to_define,
@@ -355,9 +359,11 @@ def _propose_operator_definition(
                 operator_str += f"{EXAMPLE_START}{use_example}\n"
             codex_prompt.append({"role": "user", "content": operator_str})
 
-            operator_str = f"{COT_OP_START}\n"
-            if o in COT_DICT:
-                operator_str += f";;{COT_DICT[o]}\n"
+            if use_cot:
+                operator_str = f"{COT_OP_START}\n"
+                if o in COT_DICT:
+                    operator_str += f";;{COT_DICT[o]}\n"
+
             operator_str += f"{current_domain.operators[o]}\n{STOP_TOKEN}\n"
             codex_prompt.append({"role": "assistant", "content": operator_str})
 

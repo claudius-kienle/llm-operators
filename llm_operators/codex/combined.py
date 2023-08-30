@@ -1,4 +1,4 @@
-from llm_operators.codex.common import get_solved_unsolved_problems
+from llm_operators.codex.codex_core import get_solved_unsolved_problems
 from llm_operators.codex.operator import DEFAULT_OPERATOR_TEMPERATURE, propose_operators_for_problems, use_ground_truth_operators
 from llm_operators.codex.plan import propose_plans_for_problems
 
@@ -20,6 +20,7 @@ def propose_plans_operators_for_problems(
     external_operator_supervision=None,
     external_operator_sample_with_prompt=True,
     external_operator_names=None,
+    operator_use_cot=True,
     resume=False,
     resume_from_iteration=None,
     resume_from_problem_idx=None,
@@ -67,6 +68,7 @@ def propose_plans_operators_for_problems(
         external_operator_supervision=external_operator_supervision,
         external_operator_sample_with_prompt=external_operator_sample_with_prompt,
         external_operator_names=external_operator_names,
+        use_cot=operator_use_cot,
         resume=resume,
         resume_from_iteration=resume_from_iteration,
         resume_from_problem_idx=resume_from_problem_idx,

@@ -35,7 +35,7 @@ def main():
     if args.embed:
         import IPython
         from llm_operators.motion_planner import evaluate_cw_motion_plans_and_costs_for_goal_plan
-        from llm_operators.datasets.core import PLANNING_PDDL_DOMAINS_REGISTRY
+        from llm_operators.datasets.dataset_core import PLANNING_PDDL_DOMAINS_REGISTRY
         domain = PLANNING_PDDL_DOMAINS_REGISTRY['crafting_world_teleport']()
         p = output_problems['train'][2]
         r = evaluate_cw_motion_plans_and_costs_for_goal_plan(2, output_problems['train'], p.ground_truth_pddl_problem.ground_truth_goal, p.ground_truth_pddl_plan, domain, True)

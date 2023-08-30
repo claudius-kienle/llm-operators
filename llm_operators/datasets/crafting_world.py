@@ -5,9 +5,8 @@ import os.path as osp
 import itertools
 import json
 
-from llm_operators.datasets.core import register_planning_pddl_domain, register_planning_domain_problems
+from llm_operators.datasets.dataset_core import register_planning_pddl_domain, register_planning_domain_problems
 from llm_operators.datasets.dataset_utils import load_pddl_file_with_operators
-from llm_operators.datasets.crafting_world_gen.cw_20230204_minining_only import problem_from_raw_record, gen_v20230204_solution
 from llm_operators.datasets.crafting_world_gen.utils import underline_to_pascal
 from llm_operators.datasets.crafting_world_gen.crafting_world_rules import MINING_RULES, CRAFTING_RULES
 
@@ -68,6 +67,8 @@ def load_crafting_world_20230204_minining_only(dataset_pddl_directory: str, data
     Note that since the task planner will timeout on this domain, we need to implement a new task planner (skipped for now, only testing for proposals).
     See generated/cw_v20230204_mining_only_full/0/cw_v20230204_mining_only_full_preprocessed_operators.csv for results.
     """
+    from llm_operators.datasets.crafting_world_gen.cw_20230204_minining_only import problem_from_raw_record
+
     with open(osp.join(dataset_pddl_directory, 'dataset.json')) as f:
         dataset = json.load(f)
 
@@ -87,8 +88,11 @@ def load_crafting_world_20230204_minining_only(dataset_pddl_directory: str, data
 
 CRAFTING_WORLD_20230829_DATASET_NAME = 'crafting_world_20230829_crafting_only'
 
+
 @register_planning_domain_problems(CRAFTING_WORLD_20230829_DATASET_NAME)
 def load_crafting_world_20230829_crafting_only(dataset_pddl_directory: str, dataset_fraction: float, verbose=False):
+    from llm_operators.datasets.crafting_world_gen.cw_20230829_crafting_only import problem_from_raw_record
+
     with open(osp.join(dataset_pddl_directory, 'dataset.json')) as f:
         dataset = json.load(f)
 

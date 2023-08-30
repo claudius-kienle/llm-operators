@@ -1641,6 +1641,9 @@ def preprocess_operator(
         )
         if not effect_parameters:
             return False, ""
+        for k, v in effect_parameters.items():
+            if k in precond_parameters and precond_parameters[k] != v:
+                return False, ""
         precond_parameters.update(effect_parameters)
 
         if not allow_partial_ground_predicates:
@@ -1707,9 +1710,7 @@ def preprocess_conjunction_predicates(
         return None, None, None
 
     if len(op_match.groups()) != 1 and debug:
-        import pdb
-
-        pdb.set_trace()
+        import pdb; pdb.set_trace()
 
     parameters = dict()
     conjunction_predicates = op_match.groups()[0].strip()
@@ -1742,12 +1743,14 @@ def preprocess_conjunction_predicates(
             continue
         else:
             valid = True
+            parameters_backup = parameters.copy()
             if ground_truth_predicates is not None:
+                if parsed_predicate.name not in ground_truth_predicates:
+                    continue
                 if check_static and ground_truth_predicates[parsed_predicate.name].static:
                     continue
 
                 # NB(Jiayuan Mao @ 2023/04/07): if the new predicate is not valid, we restore the original parameters.
-                parameters_backup = parameters.copy()
                 for argname, argtype in zip(
                     parsed_predicate.argument_values,
                     ground_truth_predicates[parsed_predicate.name].arg_types,
