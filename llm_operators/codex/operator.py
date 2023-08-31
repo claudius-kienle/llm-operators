@@ -156,21 +156,11 @@ def _get_operators_to_propose(
     existing_operators = set(
         [
             o.lower()
-            if o not in current_domain.operator_canonicalization
-            else current_domain.operator_canonicalization[o]
+            if o not in current_domain.operator_canonical_name_map
+            else current_domain.operator_canonical_name_map[o]
             for o in current_domain.operators
         ]
     )
-
-    # TODO(Jiayuan Mao @ 2023/08/28): remove this hack. This is intended to handle multiple proposals for the same operator, in
-    # which case the operator name is appended with a number. This is a hack to handle this case.
-    # In the future, we shuold use a "canonical_operator_name" to handle this.
-    # Actually this is already implemented in the "canonicalize_operator_name" function, but we don't use it here.
-    for o in current_domain.operators:
-        if '_' in o:
-            parts = o.split('_')
-            canonical_name = '_'.join(parts[:-1])
-            existing_operators.add(canonical_name)
 
     # Don't match any that have the same characters.
     proposed_operators = [
@@ -356,8 +346,14 @@ def _propose_operator_definition(
                 operator_str = f"{COT_OP_START}\n"
                 if o in COT_DICT:
                     operator_str += f";;{COT_DICT[o]}\n"
+            else:
+                operator_str = ''
 
-            operator_str += f"{current_domain.operators[o]}\n{STOP_TOKEN}\n"
+            operator_definition = current_domain.operators[o]
+            if o in current_domain.operator_canonical_name_map:
+                operator_definition = operator_definition.replace('(:action ' + o, '(:action ' + current_domain.operator_canonical_name_map[o])
+
+            operator_str += f"{operator_definition}\n{STOP_TOKEN}\n"
             codex_prompt.append({"role": "assistant", "content": operator_str})
 
         # Codex prompt for operator definition.
@@ -379,7 +375,7 @@ def _propose_operator_definition(
             if verbose:
                 print(f"propose_operator_definition:: completion for {operator_name_to_define}")
                 for i in range(len(completions)):
-                    print(f"[{i+1}/{len(completions)}]")
+                    print(f"[Operator {operator_name_to_define} {i+1}/{len(completions)}]")
                     print(completions[i])
             return codex_prompt, [o for o in completions]
         except Exception as e:

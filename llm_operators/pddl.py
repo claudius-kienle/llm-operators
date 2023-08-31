@@ -36,6 +36,7 @@ class Domain:
         self.predicates = self.init_simple_pddl(predicates, "predicates")
         self.functions = self.init_simple_pddl(functions, "functions")
         self.operators = self.init_operators(operators)  # Evaluated operators.
+        self.operator_canonical_name_map = {}
         self.ground_truth_operators = None
         self.ground_truth_predicates = PDDLParser._parse_domain_predicates(self.pddl_domain)
         self.ground_truth_constants = PDDLParser._parse_constants(self.constants[len("(:constants") : -1])
@@ -48,7 +49,6 @@ class Domain:
         self.codex_raw_operators = defaultdict(list)
         self.operators_to_scores = None  # (operator_name, body) -> (# times the operator has been successful, # of times it has been used) -- this is used to estimate the Bernoulli probability that this operator should be included. This is initialized with self.initialize_operators_to_scores
         # Some operators have had standardized names.
-        self.operator_canonicalization = {}
 
         # Additional object types necessary to prompt codex.
         self.codex_types = ""
@@ -742,12 +742,15 @@ class PDDLPlan:
         if self.plan is None and self.plan_string is not None:
             self.plan = self.string_to_plan(self.plan_string, pddl_domain=pddl_domain)
         if self.plan_string is None and self.plan is not None:
-            self.plan_string = self.plan_to_string(self.plan)
+            self.plan_string = self.plan_to_string()
 
         self.overall_plan_cost = overall_plan_cost
 
-    def plan_to_string(self, plan):
-        return "\n".join([f"({a[PDDLPlan.PDDL_ACTION]} {' '.join(a[PDDLPlan.PDDL_ARGUMENTS])})" for a in self.plan])
+    def plan_to_string(self, operator_name_map=None):
+        if operator_name_map is not None:
+            return "\n".join([f"({operator_name_map.get(a[PDDLPlan.PDDL_ACTION], a[PDDLPlan.PDDL_ACTION])} {' '.join(a[PDDLPlan.PDDL_ARGUMENTS])})" for a in self.plan])
+        else:
+            return "\n".join([f"({a[PDDLPlan.PDDL_ACTION]} {' '.join(a[PDDLPlan.PDDL_ARGUMENTS])})" for a in self.plan])
 
     def string_to_plan(self, plan_string, pddl_domain=None):
         action_strings = plan_string.strip().split("\n")
@@ -1422,6 +1425,7 @@ def preprocess_operators(
         pddl_domain.codex_raw_operators[o] = pddl_domain.proposed_operators[o]
         for i, proposed_operator_body in enumerate(pddl_domain.proposed_operators[o]):
             preprocessed_operator_name = f"{o}_{i}"
+            canonical_operator_name = o
             # if verbose:
             #     print("Trying to process...")
             #     print(proposed_operator_body)
@@ -1436,6 +1440,7 @@ def preprocess_operators(
             if success:
                 logs[o].append((proposed_operator_body, preprocessed_operator))
                 pddl_domain.proposed_operators[preprocessed_operator_name] = [preprocessed_operator]
+                pddl_domain.operator_canonical_name_map[preprocessed_operator_name] = canonical_operator_name
                 output_json[preprocessed_operator_name] = preprocessed_operator
             else:
                 logs[o].append((proposed_operator_body, "FAILED"))

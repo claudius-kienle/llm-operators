@@ -263,8 +263,6 @@ def run_iteration(args, planning_problems, pddl_domain, supervision_pddl, curr_i
             if osp.exists(output_filename):
                 os.remove(output_filename)
 
-    # TODO(Jiayuan Mao @ 2023/08/28): better checkpointing for task planning and motion planning...
-
     if args.debug_mock_task_plans and experiment_utils.should_use_checkpoint(
         curr_iteration=curr_iteration,
         curr_problem_idx=None,
