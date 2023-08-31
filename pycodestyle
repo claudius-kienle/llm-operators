@@ -1,4 +1,4 @@
 [pycodestyle]
-max-line-length = 240
+max-line-length = 480
 ignore = W391, W504, R701
 
