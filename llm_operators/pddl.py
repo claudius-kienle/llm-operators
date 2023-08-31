@@ -329,6 +329,8 @@ def update_pddl_domain_and_problem(
             reverse=True,
         ):
             score, total_usage = pddl_domain.operators_to_scores[(o_name, o_body)]
+            if total_usage < command_args.operator_pseudocounts:
+                break
             print(' ', o_name, f'{score} / {total_usage} =', float(score / total_usage))
 
     should_continue_planner_attempts = not any_success
@@ -1268,7 +1270,6 @@ def preprocess_goals(problems, pddl_domain, output_directory, command_args=None,
                 print(problems[p].ground_truth_pddl_problem.ground_truth_goal)
 
             if success:
-                # TODO(Jiayuan Mao @ 2023/08/30): should we keep all the goals?
                 problems[p].proposed_pddl_goals = [preprocessed_goal]
                 problems[p].correct_pddl_goal = True
 

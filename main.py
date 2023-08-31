@@ -356,6 +356,7 @@ def _run_task_and_motion_plan(pddl_domain, problem_idx, problem_id, planning_pro
         plan_pass_identifier=plan_pass_identifier,
         plan_attempt_idx=plan_attempt_idx,
         goal_idx=goal_idx,
+        resume=args.resume,
         resume_from_iteration=args.resume_from_iteration,
         resume_from_problem_idx=args.resume_from_problem_idx,
         debug_skip=args.debug_skip_task_plans,

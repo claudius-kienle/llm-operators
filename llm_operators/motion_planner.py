@@ -92,7 +92,7 @@ def attempt_motion_plan_for_problem(
     used_mock = False
     for pddl_goal, pddl_plan in new_task_plans.items():
         rv = None
-        if resume and output_directory:
+        if resume and output_directory is not None:
             rv = mock_motion_plan_for_problem_single(problem_id, pddl_goal, pddl_plan, output_directory, plan_pass_identifier)
 
         if rv is None:
@@ -105,6 +105,7 @@ def attempt_motion_plan_for_problem(
             if output_directory is not None:
                 checkpoint_motion_plan_for_problem_single(problem_id, pddl_goal, pddl_plan, output_directory, plan_pass_identifier, motion_plan_result)
         else:
+            print('  Using mock motion plan result.')
             motion_plan_result = rv
 
         new_motion_plan_key = (pddl_goal, motion_plan_result.pddl_plan.plan_string)
@@ -164,7 +165,7 @@ def mock_motion_plan_for_problem_single(problem_id, pddl_goal, pddl_plan, output
 
 
 def checkpoint_motion_plan_for_problem_single(problem_id, pddl_goal, pddl_plan, output_directory, plan_pass_identifier, motion_plan_result):
-    filepath = os.path.join(output_directory, f"mocked_task_plans_{plan_pass_identifier}.pkl")
+    filepath = os.path.join(output_directory, f"mocked_motion_plan_{plan_pass_identifier}.pkl")
 
     plans = get_mocked_motion_plan_file(output_directory, plan_pass_identifier)
     identifier = (problem_id, pddl_goal, pddl_plan.plan_string)

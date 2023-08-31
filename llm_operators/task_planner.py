@@ -103,6 +103,7 @@ def attempt_task_plan_for_problem(
                 any_success=any_success, evaluated_plans=new_evaluated_plans
             )
     else:
+        print('  Using mock task plan result.')
         any_success, new_evaluated_plans = rv
 
     if any_success:
