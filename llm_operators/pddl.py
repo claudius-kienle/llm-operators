@@ -328,7 +328,8 @@ def update_pddl_domain_and_problem(
             ),
             reverse=True,
         ):
-            print(' ', o_name, float(pddl_domain.operators_to_scores[(o_name, o_body)][0] / pddl_domain.operators_to_scores[(o_name, o_body)][1]))
+            score, total_usage = pddl_domain.operators_to_scores[(o_name, o_body)]
+            print(' ', o_name, f'{score} / {total_usage} =', float(score / total_usage))
 
     should_continue_planner_attempts = not any_success
     return should_continue_planner_attempts

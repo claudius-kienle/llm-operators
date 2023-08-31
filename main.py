@@ -219,6 +219,7 @@ def run_iteration(args, planning_problems, pddl_domain, supervision_pddl, curr_i
             command_args=args,
             verbose=args.verbose,
         )
+        # TODO(Jiayuan Mao @ 2023/08/30): when we propose new operator names, use the "canonical name" of old operators (removec _0, _1, etc.)
         codex.propose_plans_operators_for_problems(
             problems=planning_problems["train"],
             domain=pddl_domain,

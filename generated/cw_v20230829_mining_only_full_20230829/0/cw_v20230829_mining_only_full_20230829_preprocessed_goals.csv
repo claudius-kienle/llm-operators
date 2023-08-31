@@ -284,16 +284,16 @@ train_34,Craft a boat.,"(:goal (and
    (object-of-type o24 Boat)
  ))","[';; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o24)\n   (object-of-type o24 Boat)\n ))', ';; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o24)\n   (object-of-type o24 Boat)\n ))', ';; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o24)\n   (object-of-type o24 Boat)\n ))', ';; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o23)\n   (object-of-type o23 Boat)\n ))']","(:goal
 	(and 
-		(inventory-holding i3 o23)
-		(object-of-type o23 Boat))
+		(inventory-holding i3 o24)
+		(object-of-type o24 Boat))
 )",True
 train_34,Craft a boat.,"(:goal (and
    (inventory-holding i3 o24)
    (object-of-type o24 Boat)
  ))","[';; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o24)\n   (object-of-type o24 Boat)\n ))', ';; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o24)\n   (object-of-type o24 Boat)\n ))', ';; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o24)\n   (object-of-type o24 Boat)\n ))', ';; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o23)\n   (object-of-type o23 Boat)\n ))']","(:goal
 	(and 
-		(inventory-holding i3 o24)
-		(object-of-type o24 Boat))
+		(inventory-holding i3 o23)
+		(object-of-type o23 Boat))
 )",True
 train_35,Craft a bowl.,"(:goal (and
    (inventory-holding i3 o24)
@@ -340,7 +340,11 @@ train_40,Craft a beetroot soup.,"(:goal (and
    (object-of-type o24 BeetrootSoup)
  ))","[';; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o24)\n   (object-of-type o24 BeetrootSoup)\n ))', ';; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o24)\n   (object-of-type o24 BeetrootSoup)\n ))', 'PDDL Goal:\n(:goal (and\n   (inventory-holding i1 o2)\n   (inventory-holding i2 o5)\n   (inventory-holding i3 o24)\n   (object-of-type o2 Beetroot)\n   (object-of-type o5 Bowl)\n   (object-of-type o24 BeetrootSoup)\n ))', 'PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o24)\n   (object-of-type o24 BeetrootSoup)\n ))']","(:goal
 	(and 
+		(inventory-holding i1 o2)
+		(inventory-holding i2 o5)
 		(inventory-holding i3 o24)
+		(object-of-type o2 Beetroot)
+		(object-of-type o5 Bowl)
 		(object-of-type o24 BeetrootSoup))
 )",True
 train_40,Craft a beetroot soup.,"(:goal (and
@@ -348,11 +352,7 @@ train_40,Craft a beetroot soup.,"(:goal (and
    (object-of-type o24 BeetrootSoup)
  ))","[';; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o24)\n   (object-of-type o24 BeetrootSoup)\n ))', ';; PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o24)\n   (object-of-type o24 BeetrootSoup)\n ))', 'PDDL Goal:\n(:goal (and\n   (inventory-holding i1 o2)\n   (inventory-holding i2 o5)\n   (inventory-holding i3 o24)\n   (object-of-type o2 Beetroot)\n   (object-of-type o5 Bowl)\n   (object-of-type o24 BeetrootSoup)\n ))', 'PDDL Goal: \n(:goal (and\n   (inventory-holding i3 o24)\n   (object-of-type o24 BeetrootSoup)\n ))']","(:goal
 	(and 
-		(inventory-holding i1 o2)
-		(inventory-holding i2 o5)
 		(inventory-holding i3 o24)
-		(object-of-type o2 Beetroot)
-		(object-of-type o5 Bowl)
 		(object-of-type o24 BeetrootSoup))
 )",True
 train_41,Craft a bowl.,"(:goal (and

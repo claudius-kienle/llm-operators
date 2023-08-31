@@ -108,7 +108,7 @@ def get_completions(
         except APIError as e:
             print(e)
             pause_for_rate_limit = True
-            return e
+            completion = e
         except ServiceUnavailableError as e:
             print(e)
             pause_for_rate_limit = True

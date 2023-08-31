@@ -355,7 +355,7 @@ craft-stick_2,"(:action craft-stick
 		(not (object-of-type ?ingredient1 WoodPlank))
 		(object-of-type ?ingredient1 Hypothetical)
 		)
-)",0.1,0.1,1.0,
+)",9.1,9.1,1.0,
 chop_0,,"(:action chop_0
         :parameters (?t - tile ?x - object ?i - inventory)
 
@@ -1384,7 +1384,7 @@ craft-shears_2,,"(:action craft-shears_2
 		(not (object-of-type ?ingredient1 IronIngot))
 		(object-of-type ?ingredient1 Hypothetical)
 		)
-)",0.1,0.1,1.0,
+)",4.1,4.1,1.0,
 craft-bowl2_0,"(:action craft-bowl2
   :parameters (?ingredientinv1 - inventory ?targetinv - inventory ?station - object ?ingredient1 - object ?target - object ?t - tile)
   :precondition (and
@@ -1484,7 +1484,7 @@ craft-bowl2_1,"(:action craft-bowl2
 		(not (object-of-type ?ingredient2 WoodPlank))
 		(object-of-type ?ingredient2 Hypothetical)
 		)
-)",0.1,0.1,1.0,
+)",10.1,10.1,1.0,
 craft-bowl2_2,"(:action craft-bowl2
   :parameters (?ingredientinv1 - inventory ?targetinv - inventory ?station - object ?ingredient1 - object ?target - object ?t - tile)
   :precondition (and
@@ -2068,7 +2068,7 @@ move-to,"(:action move-to
   :parameters (?t1 - tile ?t2 - tile)
   :precondition (and (agent-at ?t1))
   :effect (and (agent-at ?t2) (not (agent-at ?t1)))
- )",35.1,35.1,1.0,
+ )",93.1,93.1,1.0,
 pick-up,"(:action pick-up
   :parameters (?i - inventory ?x - object ?t - tile)
   :precondition (and (agent-at ?t) (object-at ?x ?t) (inventory-empty ?i))
@@ -2077,7 +2077,50 @@ pick-up,"(:action pick-up
   :parameters (?i - inventory ?x - object ?t - tile)
   :precondition (and (agent-at ?t) (object-at ?x ?t) (inventory-empty ?i))
   :effect (and (inventory-holding ?i ?x) (not (object-at ?x ?t)) (not (inventory-empty ?i)))
- )",24.1,24.1,1.0,
+ )",56.1,56.1,1.0,
+craft-wood-plank,"(:action craft-wood-plank
+  :parameters (?ingredientinv1 - inventory ?targetinv - inventory ?station - object ?ingredient1 - object ?target - object ?t - tile)
+  :precondition (and
+    (agent-at ?t)
+    (object-at ?station ?t)
+    (object-of-type ?station WorkStation)
+    (inventory-holding ?ingredientinv1 ?ingredient1)
+    (object-of-type ?ingredient1 Wood)
+    (inventory-empty ?targetinv)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and
+    (not (inventory-empty ?targetinv))
+    (inventory-holding ?targetinv ?target)
+    (not (object-of-type ?target Hypothetical))
+    (object-of-type ?target WoodPlank)
+    (not (inventory-holding ?ingredientinv1 ?ingredient1))
+    (inventory-empty ?ingredientinv1)
+    (not (object-of-type ?ingredient1 Wood))
+    (object-of-type ?ingredient1 Hypothetical)
+  )
+ )","(:action craft-wood-plank
+  :parameters (?ingredientinv1 - inventory ?targetinv - inventory ?station - object ?ingredient1 - object ?target - object ?t - tile)
+  :precondition (and
+    (agent-at ?t)
+    (object-at ?station ?t)
+    (object-of-type ?station WorkStation)
+    (inventory-holding ?ingredientinv1 ?ingredient1)
+    (object-of-type ?ingredient1 Wood)
+    (inventory-empty ?targetinv)
+    (object-of-type ?target Hypothetical)
+  )
+  :effect (and
+    (not (inventory-empty ?targetinv))
+    (inventory-holding ?targetinv ?target)
+    (not (object-of-type ?target Hypothetical))
+    (object-of-type ?target WoodPlank)
+    (not (inventory-holding ?ingredientinv1 ?ingredient1))
+    (inventory-empty ?ingredientinv1)
+    (not (object-of-type ?ingredient1 Wood))
+    (object-of-type ?ingredient1 Hypothetical)
+  )
+ )",9.1,9.1,1.0,
 craft-arrow,"(:action craft-arrow
   :parameters (?ingredientinv1 - inventory ?ingredientinv2 - inventory ?targetinv - inventory ?station - object ?ingredient1 - object ?ingredient2 - object ?target - object ?t - tile)
   :precondition (and
