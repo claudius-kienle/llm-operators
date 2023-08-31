@@ -219,4 +219,4 @@ def _get_plan_string_from_solved_problem(problem, domain):
     else:
         string = problem.get_solved_pddl_plan_string()
         plan = PDDLPlan(plan_string=string)
-        return PDDLPlan.plan_to_string(domain.operator_canonical_name_map)
+        return plan.plan_to_string(domain.operator_canonical_name_map)
