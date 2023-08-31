@@ -687,9 +687,7 @@ class PDDLParser:
         starting from the beginning.
         """
         if not string[0] == "(" and string[-1] == ")":
-            import pdb
-
-            pdb.set_trace()
+            return []
         assert string[0] == "("
         assert string[-1] == ")"
         exprs = []
