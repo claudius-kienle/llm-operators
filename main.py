@@ -151,6 +151,9 @@ def main():
     experiment_utils.output_experiment_parameters(args)
 
     # Initialization. This initializes a set of goals (planning dataset), and a planning domain (a set of predicates + a partial set of initial operators.)
+    pddl_domain = datasets.load_pddl_domain(args.pddl_domain_name, args.initial_pddl_operators, args.verbose)
+    pddl_domain.init_operators_to_scores(args.operator_pseudocounts)
+
     # Load planning dataset.
     planning_problems = datasets.load_planning_problems_dataset(
         dataset_name=args.dataset_name,
@@ -161,11 +164,9 @@ def main():
         initial_plan_supervision_fraction=args.plan_supervision_fraction,
         initial_plan_supervision_prefix=args.initial_plans_prefix,
         initial_pddl_operators=args.initial_pddl_operators,
+        domain=pddl_domain,
         verbose=args.verbose,
     )
-
-    pddl_domain = datasets.load_pddl_domain(args.pddl_domain_name, args.initial_pddl_operators, args.verbose)
-    pddl_domain.init_operators_to_scores(args.operator_pseudocounts)
 
     # Load any external supervision on PDDL domains.
     if args.supervision_name != "None":

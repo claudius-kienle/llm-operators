@@ -72,9 +72,15 @@ def load_crafting_world_20230204_minining_only(dataset_pddl_directory: str, data
     with open(osp.join(dataset_pddl_directory, 'dataset.json')) as f:
         dataset = json.load(f)
 
+    has_teleport = False
+    if hasattr(load_crafting_world_20230204_minining_only, 'domain'):
+        has_teleport = 'teleport' in load_crafting_world_20230204_minining_only.domain.domain_name
+        print('!!! domain name', load_crafting_world_20230204_minining_only.domain.domain_name)
+        print('!!! has_teleport', has_teleport)
+
     for split, split_problems in dataset.items():
         dataset[split] = {
-            problem['problem_id']: problem_from_raw_record(problem)
+            problem['problem_id']: problem_from_raw_record(problem, has_teleport)
             for problem in split_problems[:int(len(split_problems) * dataset_fraction)]
         }
 
