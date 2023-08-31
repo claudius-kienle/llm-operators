@@ -91,8 +91,9 @@ parser.add_argument("--external_operator_names", type=str, nargs="+", help="Init
 
 # Planner.
 parser.add_argument("--planner", type=str, default="task_planner_fd", help="Which planner to use.")
-parser.add_argument('--planner-timeout', type=int, default=None, help='timeout for the planner')
+parser.add_argument('--planner_timeout', type=int, default=None, help='timeout for the planner')
 parser.add_argument("--planner_minimum_n_operators", type=int, default=10, help="Minimum number of operators we can sample in a proposed library at any point.")
+parser.add_argument('--planner_run_second_pass', type=int, default=1, help='whether to run a second pass of the planner: 1 for yes, 0 for no')
 parser.add_argument("--motionplan_search_type", type=str, default="bfs", help="Which search type to use for motion planning: supports bfs or counter")
 
 
@@ -305,24 +306,25 @@ def run_iteration(args, planning_problems, pddl_domain, supervision_pddl, curr_i
                 args=args, curr_iteration=curr_iteration, output_directory=output_directory
             )
 
-    print('Running a second-pass to task and motion planning on unsolved problems.')
-    for problem_idx, problem_id in enumerate(planning_problems["train"]):
-        if len(planning_problems['train'][problem_id].solved_motion_plan_results) > 0:
-            continue
-
-        for plan_attempt_idx in range(1):
-            for goal_idx in range(len(planning_problems['train'][problem_id].proposed_pddl_goals)):
-                any_motion_plan_success = _run_task_and_motion_plan(
-                    pddl_domain, problem_idx, problem_id, planning_problems,
-                    args=args, curr_iteration=curr_iteration, output_directory=output_directory,
-                    plan_pass_identifier='second',
-                    plan_attempt_idx=plan_attempt_idx, goal_idx=goal_idx, rng=rng
-                )
-                if any_motion_plan_success:
-                    break
+    if bool(args.planner_run_second_pass):
+        print('Running a second-pass to task and motion planning on unsolved problems.')
+        for problem_idx, problem_id in enumerate(planning_problems["train"]):
             if len(planning_problems['train'][problem_id].solved_motion_plan_results) > 0:
-                # If we have already found a motion plan, then we don't need to try to replan.
-                break
+                continue
+
+            for plan_attempt_idx in range(1):
+                for goal_idx in range(len(planning_problems['train'][problem_id].proposed_pddl_goals)):
+                    any_motion_plan_success = _run_task_and_motion_plan(
+                        pddl_domain, problem_idx, problem_id, planning_problems,
+                        args=args, curr_iteration=curr_iteration, output_directory=output_directory,
+                        plan_pass_identifier='second',
+                        plan_attempt_idx=plan_attempt_idx, goal_idx=goal_idx, rng=rng
+                    )
+                    if any_motion_plan_success:
+                        break
+                if len(planning_problems['train'][problem_id].solved_motion_plan_results) > 0:
+                    # If we have already found a motion plan, then we don't need to try to replan.
+                    break
 
     _checkpoint_and_log_tamp(pddl_domain, 0, planning_problems, True, args=args, curr_iteration=curr_iteration, output_directory=output_directory)
 
