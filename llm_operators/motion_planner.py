@@ -4,6 +4,7 @@ Utilities for generating motion plans.
 """
 
 import json
+import time
 import functools
 import pickle
 import os
@@ -92,16 +93,19 @@ def attempt_motion_plan_for_problem(
     used_mock = False
     for pddl_goal, pddl_plan in new_task_plans.items():
         rv = None
+        start_time, end_time = 0, 0
         if resume and output_directory is not None:
             rv = mock_motion_plan_for_problem_single(problem_id, pddl_goal, pddl_plan, output_directory, plan_pass_identifier)
 
         if rv is None:
+            start_time = time.time()
             if "alfred" in dataset_name:
                 motion_plan_result = evaluate_alfred_motion_plans_and_costs_for_goal_plan(problem_id, problems, pddl_goal, pddl_plan, pddl_domain, motionplan_search_type=command_args.motionplan_search_type, debug_skip=debug_skip, verbose=verbose)
             elif dataset_name == "crafting_world_20230204_minining_only" or dataset_name == "crafting_world_20230829_crafting_only":
                 motion_plan_result = evaluate_cw_motion_plans_and_costs_for_goal_plan(problem_id, problems, pddl_goal, pddl_plan, pddl_domain, debug_skip=debug_skip, verbose=verbose)
             else:
                 raise ValueError(f'Unknown dataset_name: {dataset_name}.')
+            end_time = time.time()
             if output_directory is not None:
                 checkpoint_motion_plan_for_problem_single(problem_id, pddl_goal, pddl_plan, output_directory, plan_pass_identifier, motion_plan_result)
         else:
@@ -117,6 +121,7 @@ def attempt_motion_plan_for_problem(
 
         print(f"  Motion plan result: task_success: {motion_plan_result.task_success}")
         print(f"  Total Actions Taken: {motion_plan_result.total_trajs_sampled}")
+        print(f"  Total Time Taken: {end_time - start_time:.3f}s")
 
         if motion_plan_result.last_failed_operator:
             print(f"  Failed at operator: {motion_plan_result.last_failed_operator + 1} / {len(motion_plan_result.pddl_plan.plan)} operators in task plan.")
