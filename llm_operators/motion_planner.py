@@ -109,11 +109,11 @@ def attempt_motion_plan_for_problem(
             motion_plan_result = rv
 
         new_motion_plan_key = (pddl_goal, motion_plan_result.pddl_plan.plan_string)
-        problems[problem_id].evaluated_motion_planner_results[new_motion_plan_key] = motion_plan_result  # The actual goal and task plan that we planned for.
+        problems[problem_id].evaluated_motion_planner_results[new_motion_plan_key] = motion_plan_result
         new_motion_plan_keys.append(new_motion_plan_key)
         if motion_plan_result.task_success:
             any_success = True
-            problems[problem_id].solved_motion_plan_results[new_motion_plan_key] = motion_plan_result # The actual goal and task plan that we planned for.
+            problems[problem_id].solved_motion_plan_results[new_motion_plan_key] = motion_plan_result
 
         print(f"  Motion plan result: task_success: {motion_plan_result.task_success}")
         print(f"  Total Actions Taken: {motion_plan_result.total_trajs_sampled}")

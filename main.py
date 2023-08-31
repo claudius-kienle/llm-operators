@@ -219,7 +219,6 @@ def run_iteration(args, planning_problems, pddl_domain, supervision_pddl, curr_i
             command_args=args,
             verbose=args.verbose,
         )
-        # TODO(Jiayuan Mao @ 2023/08/30): when we propose new operator names, use the "canonical name" of old operators (removec _0, _1, etc.)
         codex.propose_plans_operators_for_problems(
             problems=planning_problems["train"],
             domain=pddl_domain,
@@ -283,9 +282,6 @@ def run_iteration(args, planning_problems, pddl_domain, supervision_pddl, curr_i
         ):
             continue
 
-        # TODO(Jiayuan Mao @ 2023/08/30): when we have found a solution to a problem, we should only evaluate the goal associated with that solution.
-        # TODO(Jiayuan Mao @ 2023/08/30): optionally, we should decide the behavior for multi-round goal sampling. One possible option is to keep all historically proposed goals, and evaluate them.
-        #     Another option is to only evaluate the most recent goal (so reset past goal proposals).
         for plan_attempt_idx in range(args.n_attempts_to_plan):
             for goal_idx in range(len(planning_problems['train'][problem_id].proposed_pddl_goals)):
                 any_motion_plan_success = _run_task_and_motion_plan(

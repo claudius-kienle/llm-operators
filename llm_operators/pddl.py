@@ -292,6 +292,7 @@ def update_pddl_domain_and_problem(
     for goal, plan in new_motion_plan_keys:
         motion_plan_result = problems[problem_id].evaluated_motion_planner_results[(goal, plan)]
         if motion_plan_result.task_success:
+            problems[problem_id].proposed_pddl_goals = [goal]  # only keep this goal for future planning
             any_success = True
 
         # These are the operators that were actually executed by the motion planner.
@@ -319,7 +320,7 @@ def update_pddl_domain_and_problem(
                 )
 
     if verbose:
-        print("Top operators after success are:")
+        print("update_pddl_domain_and_problem::re-scored operators:")
         for o_name, o_body in sorted(
             pddl_domain.operators_to_scores,
             key=lambda k: (
@@ -437,15 +438,7 @@ def log_operators_and_scores(pddl_domain, output_directory, experiment_name):
     if output_directory:
         print(f"Logging scored operators: {os.path.join(output_directory, output_filepath)}")
         with open(os.path.join(output_directory, output_filepath), "w") as f:
-            fieldnames = [
-                "operator_name",
-                "gt_operator",
-                "operator_body",
-                "n_operator_successes",
-                "n_operator_attempts",
-                "score",
-                "",
-            ]
+            fieldnames = ["operator_name", "gt_operator", "operator_body", "n_operator_successes", "n_operator_attempts", "score", ""]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             for o_name, o_body in sorted(
@@ -453,21 +446,14 @@ def log_operators_and_scores(pddl_domain, output_directory, experiment_name):
                 key=lambda k: float(pddl_domain.operators_to_scores[k][0] / pddl_domain.operators_to_scores[k][1]),
                 reverse=True,
             ):
-                writer.writerow(
-                    {
-                        "operator_name": o_name,
-                        "gt_operator": pddl_domain.ground_truth_operators[o_name.split("_")[0]]
-                        if o_name.split("_")[0] in pddl_domain.ground_truth_operators
-                        else "",
-                        "operator_body": o_body,
-                        "n_operator_successes": pddl_domain.operators_to_scores[(o_name, o_body)][0],
-                        "n_operator_attempts": pddl_domain.operators_to_scores[(o_name, o_body)][1],
-                        "score": float(
-                            pddl_domain.operators_to_scores[(o_name, o_body)][0]
-                            / pddl_domain.operators_to_scores[(o_name, o_body)][1]
-                        ),  # Bernoulli: n_successes / n_attempts
-                    }
-                )
+                writer.writerow({
+                    "operator_name": o_name,
+                    "gt_operator": pddl_domain.ground_truth_operators[o_name.split("_")[0]] if o_name.split("_")[0] in pddl_domain.ground_truth_operators else "",
+                    "operator_body": o_body,
+                    "n_operator_successes": pddl_domain.operators_to_scores[(o_name, o_body)][0],
+                    "n_operator_attempts": pddl_domain.operators_to_scores[(o_name, o_body)][1],
+                    "score": float(pddl_domain.operators_to_scores[(o_name, o_body)][0] / pddl_domain.operators_to_scores[(o_name, o_body)][1]), # Bernoulli: n_successes / n_attempts
+                })
 
 
 def update_pddl_domain_from_planner_results(
@@ -533,13 +519,7 @@ def log_motion_planner_results(problems, command_args, output_directory):
 
     if output_directory:
         with open(os.path.join(output_directory, output_filepath), "w") as f:
-            fieldnames = [
-                "problem_id",
-                "goal",
-                "task_success",
-                "task_plan",
-                "task_plan_success_prefix",
-            ]
+            fieldnames = ["problem_id", "goal", "task_success", "task_plan", "task_plan_success_prefix"]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             for problem in problems.values():
@@ -548,15 +528,13 @@ def log_motion_planner_results(problems, command_args, output_directory):
                     task_plan_success_prefix = ", ".join(
                         [x["action"] for x in r.pddl_plan.plan[: r.last_failed_operator]]
                     )
-                    writer.writerow(
-                        {
-                            "problem_id": problem.problem_id,
-                            "goal": goal,
-                            "task_success": r.task_success,
-                            "task_plan": task_plan,
-                            "task_plan_success_prefix": task_plan_success_prefix,
-                        }
-                    )
+                    writer.writerow({
+                        "problem_id": problem.problem_id,
+                        "goal": goal,
+                        "task_success": r.task_success,
+                        "task_plan": task_plan,
+                        "task_plan_success_prefix": task_plan_success_prefix,
+                    })
 
 
 @contextmanager
@@ -1379,30 +1357,21 @@ def log_preprocessed_goals(problems, output_directory, experiment_name, verbose=
     if output_directory:
         print(f"Logging preprocessed goals: {os.path.join(output_directory, output_filepath)}")
         with open(os.path.join(output_directory, output_filepath), "w") as f:
-            fieldnames = [
-                "problem",
-                "nl_goal",
-                "gt_pddl_goal",
-                "codex_raw_goals",
-                "codex_preprocessed_goal",
-                "correct_pddl_goal",
-            ]
+            fieldnames = ["problem", "nl_goal", "gt_pddl_goal", "codex_raw_goals", "codex_preprocessed_goal", "correct_pddl_goal"]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
 
             writer.writeheader()
             for p_id in problems:
                 problem = problems[p_id]
                 for goal in problem.proposed_pddl_goals:
-                    writer.writerow(
-                        {
-                            "problem": problem.problem_id,
-                            "nl_goal": problem.language,
-                            "gt_pddl_goal": problem.ground_truth_pddl_problem.ground_truth_goal,
-                            "codex_preprocessed_goal": goal,
-                            "codex_raw_goals": problem.codex_raw_goals,
-                            "correct_pddl_goal": problem.correct_pddl_goal,
-                        }
-                    )
+                    writer.writerow({
+                        "problem": problem.problem_id,
+                        "nl_goal": problem.language,
+                        "gt_pddl_goal": problem.ground_truth_pddl_problem.ground_truth_goal,
+                        "codex_preprocessed_goal": goal,
+                        "codex_raw_goals": problem.codex_raw_goals,
+                        "correct_pddl_goal": problem.correct_pddl_goal,
+                    })
     print('')
 
 
@@ -1419,7 +1388,7 @@ def preprocess_operators(
 
     if verbose:
         print(f"preprocess_operators:: preprocessing {len(pddl_domain.proposed_operators)} operators.")
-        print(list(pddl_domain.proposed_operators.keys()))
+    print(list(pddl_domain.proposed_operators.keys()))
     for o in list(pddl_domain.proposed_operators.keys()):
         logs[o] = list()
         pddl_domain.codex_raw_operators[o] = pddl_domain.proposed_operators[o]
@@ -1477,28 +1446,18 @@ def log_preprocessed_operators(pddl_domain, logs, output_directory, experiment_n
     if output_directory:
         print(f"Logging preprocessed operators: {os.path.join(output_directory, output_filepath)}")
         with open(os.path.join(output_directory, output_filepath), "w") as f:
-            fieldnames = [
-                "operator_name",
-                "gt_operator",
-                "codex_raw_operator",
-                "codex_preprocessed_operator",
-                "",
-            ]
+            fieldnames = ["operator_name", "gt_operator", "codex_raw_operator", "codex_preprocessed_operator", ""]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
 
             for operator_name, operator in logs.items():
                 for raw_operator, preprocessed_operator in operator:
-                    writer.writerow(
-                        {
-                            "operator_name": operator_name,
-                            "gt_operator": pddl_domain.ground_truth_operators[operator_name]
-                            if operator_name in pddl_domain.ground_truth_operators
-                            else "",
-                            "codex_raw_operator": raw_operator,
-                            "codex_preprocessed_operator": preprocessed_operator,
-                        }
-                    )
+                    writer.writerow({
+                        "operator_name": operator_name,
+                        "gt_operator": pddl_domain.ground_truth_operators[operator_name] if operator_name in pddl_domain.ground_truth_operators else "",
+                        "codex_raw_operator": raw_operator,
+                        "codex_preprocessed_operator": preprocessed_operator,
+                    })
     print('')
 
 
