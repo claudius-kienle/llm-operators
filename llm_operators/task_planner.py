@@ -2,12 +2,14 @@
 task_planner.py
 Utilities for generating task level plans.
 """
-import functools
+
 import os
+import time
 import os.path as osp
 import json
 import csv
 import pickle
+import functools
 from typing import Optional, Sequence
 
 from llm_operators.pddl import PDDLPlan
@@ -323,6 +325,7 @@ def run_planner(
             print("    Language:", problem.language)
             print("    Ground truth goal:", trim_white_spaces(problem.ground_truth_pddl_problem.ground_truth_goal))
             print("    Proposed goal:", trim_white_spaces(goal))
+        start_time = time.time()
         if planner_type == TASK_PLANNER_FD:
             success, plan_string = fd_plan_from_strings(
                 domain_str=current_domain_string,
@@ -347,10 +350,12 @@ def run_planner(
             )
         else:
             raise ValueError(f"Unknown planner type: {planner_type}")
+        end_time = time.time()
         # Convert the planner into a plan object.
         if verbose:
             print(f"    Plan success: {success}")
             print(f"    Plan string: ", trim_white_spaces(plan_string))
+            print(f"    Plan time: {end_time - start_time:.3f}s")
         if success:
             try:
                 pddl_plan = PDDLPlan(plan_string=plan_string, pddl_domain=pddl_domain)
