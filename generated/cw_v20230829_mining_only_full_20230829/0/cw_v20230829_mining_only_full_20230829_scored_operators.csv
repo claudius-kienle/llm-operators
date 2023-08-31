@@ -86,7 +86,7 @@ craft-bowl1_1,"(:action craft-bowl1
 		(not (object-of-type ?ingredient1 WoodPlank))
 		(object-of-type ?ingredient1 Hypothetical)
 		)
-)",0.1,0.1,1.0,
+)",10.1,10.1,1.0,
 craft-bowl1_2,"(:action craft-bowl1
   :parameters (?ingredientinv1 - inventory ?targetinv - inventory ?station - object ?ingredient1 - object ?target - object ?t - tile)
   :precondition (and
@@ -1484,7 +1484,7 @@ craft-bowl2_1,"(:action craft-bowl2
 		(not (object-of-type ?ingredient2 WoodPlank))
 		(object-of-type ?ingredient2 Hypothetical)
 		)
-)",10.1,10.1,1.0,
+)",0.1,0.1,1.0,
 craft-bowl2_2,"(:action craft-bowl2
   :parameters (?ingredientinv1 - inventory ?targetinv - inventory ?station - object ?ingredient1 - object ?target - object ?t - tile)
   :precondition (and

@@ -4,6 +4,8 @@ Utilities for generating motion plans.
 """
 
 import json
+import functools
+import pickle
 import os
 
 from llm_operators.pddl import PDDLPlan
@@ -52,7 +54,9 @@ def attempt_motion_plan_for_problem(
     command_args=None,
     curr_iteration=0,
     output_directory=None,
+    plan_pass_identifier=None,
     plan_attempt_idx=0,
+    resume=False,
     resume_from_iteration=0,
     resume_from_problem_idx=0,
     debug_skip=False,
@@ -64,35 +68,44 @@ def attempt_motion_plan_for_problem(
         print(f"motion_planner.attempt_motion_plan_for_problem: attempt {problem_idx} / {len(problems)} ID={problem_id} AttemptIdx={plan_attempt_idx}")
     experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
 
-    output_filepath = f"{experiment_tag}motion_plans.json"
-    if use_mock and curr_iteration <= resume_from_iteration and problem_idx <= resume_from_problem_idx:
-        unsolved_problems = mock_evaluate_motion_plans_and_costs_for_problems(output_filepath, output_directory, problems)
+    # output_filepath = f"{experiment_tag}motion_plans.json"
+    # if use_mock and curr_iteration <= resume_from_iteration and problem_idx <= resume_from_problem_idx:
+    #     unsolved_problems = mock_evaluate_motion_plans_and_costs_for_problems(output_filepath, output_directory, problems)
 
-        # Did we find a solution?
-        any_success = False
-        new_motion_plan_keys = []
-        used_mock = True
-        if problem_id in unsolved_problems:
-            print("Mock found for motion plan but no successful motion plan, continuing...")
-            return any_success, new_motion_plan_keys, used_mock
-        if len(problems[problem_id].evaluated_motion_planner_results) > 0:
-            any_success = True
-            new_motion_plan_keys = problems[problem_id].evaluated_motion_planner_results.keys()
-            print("Mock found for motion plan, continuing...")
-            return any_success, new_motion_plan_keys, used_mock
-        else:
-            print("Mock not found for motion plan, continuing...")
+    #     # Did we find a solution?
+    #     any_success = False
+    #     new_motion_plan_keys = []
+    #     used_mock = True
+    #     if problem_id in unsolved_problems:
+    #         print("Mock found for motion plan but no successful motion plan, continuing...")
+    #         return any_success, new_motion_plan_keys, used_mock
+    #     if len(problems[problem_id].evaluated_motion_planner_results) > 0:
+    #         any_success = True
+    #         new_motion_plan_keys = problems[problem_id].evaluated_motion_planner_results.keys()
+    #         print("Mock found for motion plan, continuing...")
+    #         return any_success, new_motion_plan_keys, used_mock
+    #     else:
+    #         print("Mock not found for motion plan, continuing...")
 
     any_success = False
     new_motion_plan_keys = []
     used_mock = False
     for pddl_goal, pddl_plan in new_task_plans.items():
-        if "alfred" in dataset_name:
-            motion_plan_result = evaluate_alfred_motion_plans_and_costs_for_goal_plan(problem_id, problems, pddl_goal, pddl_plan, pddl_domain, motionplan_search_type=command_args.motionplan_search_type, debug_skip=debug_skip, verbose=verbose)
-        elif dataset_name == "crafting_world_20230204_minining_only" or dataset_name == "crafting_world_20230829_crafting_only":
-            motion_plan_result = evaluate_cw_motion_plans_and_costs_for_goal_plan(problem_id, problems, pddl_goal, pddl_plan, pddl_domain, debug_skip=debug_skip, verbose=verbose)
+        rv = None
+        if resume and output_directory:
+            rv = mock_motion_plan_for_problem_single(problem_id, pddl_goal, pddl_plan, output_directory, plan_pass_identifier)
+
+        if rv is None:
+            if "alfred" in dataset_name:
+                motion_plan_result = evaluate_alfred_motion_plans_and_costs_for_goal_plan(problem_id, problems, pddl_goal, pddl_plan, pddl_domain, motionplan_search_type=command_args.motionplan_search_type, debug_skip=debug_skip, verbose=verbose)
+            elif dataset_name == "crafting_world_20230204_minining_only" or dataset_name == "crafting_world_20230829_crafting_only":
+                motion_plan_result = evaluate_cw_motion_plans_and_costs_for_goal_plan(problem_id, problems, pddl_goal, pddl_plan, pddl_domain, debug_skip=debug_skip, verbose=verbose)
+            else:
+                raise ValueError(f'Unknown dataset_name: {dataset_name}.')
+            if output_directory is not None:
+                checkpoint_motion_plan_for_problem_single(problem_id, pddl_goal, pddl_plan, output_directory, plan_pass_identifier, motion_plan_result)
         else:
-            raise ValueError(f'Unknown dataset_name: {dataset_name}.')
+            motion_plan_result = rv
 
         new_motion_plan_key = (pddl_goal, motion_plan_result.pddl_plan.plan_string)
         problems[problem_id].evaluated_motion_planner_results[new_motion_plan_key] = motion_plan_result  # The actual goal and task plan that we planned for.
@@ -131,3 +144,30 @@ def mock_evaluate_motion_plans_and_costs_for_problems(output_filepath, output_di
 
     print(f"After initialization, there are {len([p for p in problems if len(problems[p].evaluated_pddl_plans) > 0])} problems with plans.")
     return unsolved_problems
+
+
+@functools.lru_cache()
+def get_mocked_motion_plan_file(output_directory, plan_pass_identifier):
+    filepath = os.path.join(output_directory, f"mocked_motion_plan_{plan_pass_identifier}.pkl")
+    if not os.path.exists(filepath):
+        return dict()
+    with open(filepath, "rb") as f:
+        return pickle.load(f)
+
+
+def mock_motion_plan_for_problem_single(problem_id, pddl_goal, pddl_plan, output_directory, plan_pass_identifier):
+    plans = get_mocked_motion_plan_file(output_directory, plan_pass_identifier)
+    identifier = (problem_id, pddl_goal, pddl_plan.plan_string)
+    if identifier in plans:
+        return plans[identifier]
+    return None
+
+
+def checkpoint_motion_plan_for_problem_single(problem_id, pddl_goal, pddl_plan, output_directory, plan_pass_identifier, motion_plan_result):
+    filepath = os.path.join(output_directory, f"mocked_task_plans_{plan_pass_identifier}.pkl")
+
+    plans = get_mocked_motion_plan_file(output_directory, plan_pass_identifier)
+    identifier = (problem_id, pddl_goal, pddl_plan.plan_string)
+    plans[identifier] = motion_plan_result
+    with open(filepath, "wb") as f:
+        pickle.dump(plans, f)

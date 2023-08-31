@@ -293,6 +293,7 @@ def run_iteration(args, planning_problems, pddl_domain, supervision_pddl, curr_i
                 any_motion_plan_success = _run_task_and_motion_plan(
                     pddl_domain, problem_idx, problem_id, planning_problems,
                     args=args, curr_iteration=curr_iteration, output_directory=output_directory,
+                    plan_pass_identifier='first',
                     plan_attempt_idx=plan_attempt_idx, goal_idx=goal_idx, rng=rng
                 )
                 if any_motion_plan_success:
@@ -319,6 +320,7 @@ def run_iteration(args, planning_problems, pddl_domain, supervision_pddl, curr_i
                 any_motion_plan_success = _run_task_and_motion_plan(
                     pddl_domain, problem_idx, problem_id, planning_problems,
                     args=args, curr_iteration=curr_iteration, output_directory=output_directory,
+                    plan_pass_identifier='second',
                     plan_attempt_idx=plan_attempt_idx, goal_idx=goal_idx, rng=rng
                 )
                 if any_motion_plan_success:
@@ -338,7 +340,7 @@ def run_iteration(args, planning_problems, pddl_domain, supervision_pddl, curr_i
     return False
 
 
-def _run_task_and_motion_plan(pddl_domain, problem_idx, problem_id, planning_problems, args, curr_iteration, output_directory, plan_attempt_idx, goal_idx, rng):
+def _run_task_and_motion_plan(pddl_domain, problem_idx, problem_id, planning_problems, args, curr_iteration, output_directory, plan_pass_identifier, plan_attempt_idx, goal_idx, rng):
     # Task plan. Attempts to generate a task plan for each problem.
     found_new_task_plan, new_task_plans = task_planner.attempt_task_plan_for_problem(
         pddl_domain=pddl_domain,
@@ -351,6 +353,7 @@ def _run_task_and_motion_plan(pddl_domain, problem_idx, problem_id, planning_pro
         command_args=args,
         curr_iteration=curr_iteration,
         output_directory=output_directory,
+        plan_pass_identifier=plan_pass_identifier,
         plan_attempt_idx=plan_attempt_idx,
         goal_idx=goal_idx,
         resume_from_iteration=args.resume_from_iteration,
@@ -368,18 +371,20 @@ def _run_task_and_motion_plan(pddl_domain, problem_idx, problem_id, planning_pro
             problems=planning_problems["train"],
             dataset_name=args.dataset_name,
             new_task_plans=new_task_plans,
+            use_mock=args.debug_mock_motion_plans,
             command_args=args,
             curr_iteration=curr_iteration,
             output_directory=output_directory,
-            use_mock=args.debug_mock_motion_plans,
+            plan_pass_identifier=plan_pass_identifier,
             plan_attempt_idx=plan_attempt_idx,
+            resume=args.resume,
             resume_from_iteration=args.resume_from_iteration,
             resume_from_problem_idx=args.resume_from_problem_idx,
             debug_skip=args.debug_skip_motion_plans,
             verbose=args.verbose,
         )
         # Update the global operator scores from the problem.
-        if not used_motion_mock and any_motion_planner_success:
+        if any_motion_planner_success:
             pddl.update_pddl_domain_and_problem(
                 pddl_domain=pddl_domain,
                 problem_idx=problem_idx,
@@ -389,7 +394,6 @@ def _run_task_and_motion_plan(pddl_domain, problem_idx, problem_id, planning_pro
                 command_args=args,
                 verbose=args.verbose,
             )
-        if any_motion_planner_success:
             return True
     return False
 

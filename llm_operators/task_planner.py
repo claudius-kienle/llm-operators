@@ -2,15 +2,17 @@
 task_planner.py
 Utilities for generating task level plans.
 """
-
+import functools
 import os
 import os.path as osp
 import json
 import csv
+import pickle
 from typing import Optional, Sequence
 
 from llm_operators.pddl import PDDLPlan
 from llm_operators.task_planner_impl import fd_plan_from_strings, pdsketch_onthefly_plan_from_strings
+from llm_operators.datasets.dataset_core import Problem
 from llm_operators.experiment_utils import run_ipdb
 
 TASK_PLANNER_FD = "task_planner_fd"
@@ -30,8 +32,10 @@ def attempt_task_plan_for_problem(
     command_args=None,
     curr_iteration=0,
     output_directory=None,
+    plan_pass_identifier=None,
     plan_attempt_idx=0,
     goal_idx=None,
+    resume=False,
     resume_from_iteration=0,
     resume_from_problem_idx=0,
     debug_skip=False,
@@ -59,38 +63,48 @@ def attempt_task_plan_for_problem(
     else:
         debug_export_dir = None
 
-    experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
+    # experiment_tag = "" if len(command_args.experiment_name) < 1 else f"{command_args.experiment_name}_"
+    # output_filepath = f"{experiment_tag}task_plans.json"
+    # if use_mock and curr_iteration <= resume_from_iteration and problem_idx <= resume_from_problem_idx:
+    #     unsolved_problems = mock_evaluate_task_plans_and_costs_for_problems(
+    #         output_filepath, output_directory, problems
+    #     )
+    #     if problem_id in unsolved_problems or len(problems[problem_id].evaluated_pddl_plans) > 0:
+    #         print("Mock found for task plan, continuing...")
+    #         any_success = True
+    #         new_evaluated_plans = problems[problem_id].evaluated_pddl_plans
+    #         return any_success, new_evaluated_plans
+    #     else:
+    #         print("Mock not found for task plan, continuing...")
 
-    # NB(Jiayuan Mao @ 2023/04/07): this file is solved via pddl.checkpoint_and_reset_plans function.
-    output_filepath = f"{experiment_tag}task_plans.json"
+    rv = None
+    if resume and output_directory is not None:
+        rv = mock_task_plan_for_problem_single(problem_id, problems, plan_attempt_idx, goal_idx, output_directory, plan_pass_identifier=plan_pass_identifier)
 
-    if use_mock and curr_iteration <= resume_from_iteration and problem_idx <= resume_from_problem_idx:
-        unsolved_problems = mock_evaluate_task_plans_and_costs_for_problems(
-            output_filepath, output_directory, problems
+    if rv is None:
+        any_success, new_evaluated_plans, problem_json = sample_task_plans_for_problem(
+            pddl_domain=pddl_domain,
+            problem=problems[problem_id],
+            minimum_n_operators=minimum_n_operators,
+            random_generator=random_generator,
+            planner_type=command_args.planner,
+            command_args=command_args,
+            output_directory=output_directory,
+            plan_attempt_idx=plan_attempt_idx,
+            goal_idx=goal_idx,
+            debug_ground_truth_goals=command_args.debug_ground_truth_goals,
+            debug_proposed_operators=debug_proposed_operators,
+            debug_export_dir=debug_export_dir,
+            verbose=verbose,
         )
-        if problem_id in unsolved_problems or len(problems[problem_id].evaluated_pddl_plans) > 0:
-            print("Mock found for task plan, continuing...")
-            any_success = True
-            new_evaluated_plans = problems[problem_id].evaluated_pddl_plans
-            return any_success, new_evaluated_plans
-        else:
-            print("Mock not found for task plan, continuing...")
+        if output_directory is not None:
+            checkpoint_mock_task_plan_for_problem_single(
+                problem_id, problems, plan_attempt_idx, goal_idx, output_directory, plan_pass_identifier=plan_pass_identifier,
+                any_success=any_success, evaluated_plans=new_evaluated_plans
+            )
+    else:
+        any_success, new_evaluated_plans = rv
 
-    any_success, new_evaluated_plans, problem_json = sample_task_plans_for_problem(
-        pddl_domain=pddl_domain,
-        problem=problems[problem_id],
-        minimum_n_operators=minimum_n_operators,
-        random_generator=random_generator,
-        planner_type=command_args.planner,
-        command_args=command_args,
-        output_directory=output_directory,
-        plan_attempt_idx=plan_attempt_idx,
-        goal_idx=goal_idx,
-        debug_ground_truth_goals=command_args.debug_ground_truth_goals,
-        debug_proposed_operators=debug_proposed_operators,
-        debug_export_dir=debug_export_dir,
-        verbose=verbose,
-    )
     if any_success:
         # Check that this isn't a duplicate of a plan we've already found for that same problem.
         any_success = problems[problem_id].update_evaluated_pddl_plans(new_evaluated_plans)
@@ -197,6 +211,37 @@ def mock_evaluate_task_plans_and_costs_for_problems(output_filepath, output_dire
     print(f"After initialization, there are {len([p for p in problems if len(problems[p].evaluated_pddl_plans) > 0])} problems with plans.")
     return unsolved_problems
 
+
+@functools.lru_cache()
+def get_mocked_task_plan_file(output_directory, plan_pass_identifier):
+    filepath = os.path.join(output_directory, f"mocked_task_plans_{plan_pass_identifier}.pkl")
+    if not os.path.exists(filepath):
+        return dict()
+    with open(filepath, "rb") as f:
+        return pickle.load(f)
+
+
+def mock_task_plan_for_problem_single(problem_id, problems, plan_attempt_idx, goal_idx, output_directory, plan_pass_identifier):
+    problem: Problem = problems[problem_id]
+    goal = sorted(problem.proposed_pddl_goals)[goal_idx]
+
+    mocked_task_plans = get_mocked_task_plan_file(output_directory, plan_pass_identifier)
+    identifier = (problem_id, plan_attempt_idx, goal)
+    if identifier in mocked_task_plans:
+        return mocked_task_plans[identifier]
+    return None
+
+
+def checkpoint_mock_task_plan_for_problem_single(problem_id, problems, plan_attempt_idx, goal_idx, output_directory, plan_pass_identifier, any_success, evaluated_plans):
+    problem: Problem = problems[problem_id]
+    goal = sorted(problem.proposed_pddl_goals)[goal_idx]
+
+    mocked_task_plans = get_mocked_task_plan_file(output_directory, plan_pass_identifier)
+    identifier = (problem_id, plan_attempt_idx, goal)
+    mocked_task_plans[identifier] = (any_success, evaluated_plans)
+    filepath = os.path.join(output_directory, f"mocked_task_plans_{plan_pass_identifier}.pkl")
+    with open(filepath, 'wb') as f:
+        pickle.dump(mocked_task_plans, f)
 
 
 def _generate_random_proposed_operator_sample(pddl_domain, minimum_n_operators, random_generator, max_attempts=5):
