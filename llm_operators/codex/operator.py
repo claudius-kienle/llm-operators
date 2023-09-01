@@ -69,7 +69,7 @@ def propose_operators_for_problems(
     experiment_tag = "" if len(experiment_name) < 1 else f"{experiment_name}_"
 
     # What operators were proposed across the problems? Rank by usage.
-    operator_uses, operator_use_counts = _get_operator_uses(problems)
+    operator_uses, operator_use_counts = _get_operator_uses(problems, current_domain)
     # Propose definitions for any operators we haven't implemented.
     proposed_operators = _get_operators_to_propose(
         current_domain, operator_uses, operator_use_counts, minimum_usage, external_operator_names
@@ -157,7 +157,7 @@ def _get_operators_to_propose(
         [
             o.lower()
             if o not in current_domain.operator_canonical_name_map
-            else current_domain.operator_canonical_name_map[o]
+            else current_domain.operator_canonical_name_map[o].lower()
             for o in current_domain.operators
         ]
     )
@@ -171,7 +171,7 @@ def _get_operators_to_propose(
     return proposed_operators
 
 
-def _get_operator_uses(problems):
+def _get_operator_uses(problems, domain):
     operator_use_counts = Counter()
     existing_operator_uses = defaultdict(list)
     for problem in problems.values():
@@ -189,8 +189,14 @@ def _get_operator_uses(problems):
             plans += problem.proposed_pddl_plans
         for plan in plans:
             for action_usage in plan.plan:
-                existing_operator_uses[action_usage[PDDLPlan.PDDL_ACTION]].append(action_usage)
-                operator_use_counts[action_usage[PDDLPlan.PDDL_ACTION]] += 1
+                action_name = action_usage[PDDLPlan.PDDL_ACTION]
+                if action_name in domain.operator_canonical_name_map:
+                    action_name = domain.operator_canonical_name_map[action_name]
+                action_usage = action_usage.copy()
+                action_usage[PDDLPlan.PDDL_ACTION] = action_name
+
+                existing_operator_uses[action_name].append(action_usage)
+                operator_use_counts[action_name] += 1
     return existing_operator_uses, operator_use_counts
 
 
