@@ -85,6 +85,7 @@ def propose_goals_for_problems(
             goal_strings = []
             for i in range(n_samples):
                 prompt = get_prompt()
+                import pdb; pdb.set_trace()
                 goal_strings.append(get_completions( prompt, temperature=temperature, stop=STOP_TOKEN, n_samples=1)[0])
             output_json[problem.problem_id] = {
                 CODEX_PROMPT: prompt,

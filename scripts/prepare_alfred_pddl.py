@@ -432,7 +432,7 @@ def main():
         json.dump(not_sucessfully_parsed, f)"""
 
     # Take a subset of the problems for a shorter debug set.
-    MAX_SET = 250
+    MAX_SET = 300
     dataset_name = f"data/dataset/alfred-cot-{MAX_SET}-NLgoals-operators.json"
     dataset_subset = {}
     for split in alfred_nl_goals:
