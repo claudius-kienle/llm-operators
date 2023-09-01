@@ -331,11 +331,9 @@ def update_pddl_domain_and_problem(
         ):
             score, total_usage = pddl_domain.operators_to_scores[(o_name, o_body)]
             if total_usage <= command_args.operator_pseudocounts:
-                break
+                continue
             print(' ', o_name, f'{score} / {total_usage} =', float(score / total_usage))
 
-    should_continue_planner_attempts = not any_success
-    return should_continue_planner_attempts
 
 
 def checkpoint_and_reset_plans(

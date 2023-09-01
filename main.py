@@ -382,17 +382,16 @@ def _run_task_and_motion_plan(pddl_domain, problem_idx, problem_id, planning_pro
             verbose=args.verbose,
         )
         # Update the global operator scores from the problem.
-        if any_motion_planner_success:
-            pddl.update_pddl_domain_and_problem(
-                pddl_domain=pddl_domain,
-                problem_idx=problem_idx,
-                problem_id=problem_id,
-                problems=planning_problems["train"],
-                new_motion_plan_keys=new_motion_plan_keys,
-                command_args=args,
-                verbose=args.verbose,
-            )
-            return True
+        pddl.update_pddl_domain_and_problem(
+            pddl_domain=pddl_domain,
+            problem_idx=problem_idx,
+            problem_id=problem_id,
+            problems=planning_problems["train"],
+            new_motion_plan_keys=new_motion_plan_keys,
+            command_args=args,
+            verbose=args.verbose,
+        )
+        return any_motion_planner_success
     return False
 
 
