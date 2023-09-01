@@ -20,6 +20,8 @@ CRAFTING_WORLD_STATIC_PREDICATES = [
     'tile-up', 'tile-down', 'tile-left', 'tile-right',
 ]
 
+SKIP_CRAFTING_LOCATION_CHECK = False
+
 
 @register_planning_pddl_domain(CRAFTING_WORLD_PDDL_DOMAIN_NAME)
 def load_crafting_world_pddl_domain(verbose=False):
@@ -212,7 +214,7 @@ class CraftingWorld20230204Simulator(object):
 
         return False
 
-    def craft(self, obj_name, inventory, hypothetical_object_name, ingredients_inventory):
+    def craft(self, obj_name, inventory, hypothetical_object_name, ingredients_inventory, target_type=None):
         if self.objects[obj_name][1] != self.agent_pos:
             return False
         if self.inventory[inventory] is not None:
@@ -226,7 +228,12 @@ class CraftingWorld20230204Simulator(object):
         obj_type, _ = self.objects[obj_name]
 
         for rule in CRAFTING_RULES:
-            if underline_to_pascal(rule['location']) == obj_type:
+            if target_type is not None and underline_to_pascal(rule['create']) != target_type:
+                continue
+            print('  checking crafting rule', rule['location'], rule['recipe'], rule['create'])
+            if not SKIP_CRAFTING_LOCATION_CHECK:
+                print(f'    matching crafting location', underline_to_pascal(rule['location']), obj_type)
+            if underline_to_pascal(rule['location']) == obj_type or SKIP_CRAFTING_LOCATION_CHECK:
                 if len(rule['recipe']) == len(ingredients_inventory):
                     current_holding_types = set()
                     for ingredient_inventory in ingredients_inventory:
@@ -235,10 +242,12 @@ class CraftingWorld20230204Simulator(object):
                     target_holding_types = set()
                     for ingredient_type in rule['recipe']:
                         target_holding_types.add(underline_to_pascal(ingredient_type))
+                    print(f'    matching crafting recipe current={current_holding_types}, target={target_holding_types}')
                     if current_holding_types == target_holding_types:
                         new_obj_type = underline_to_pascal(rule['create'])
                         self.inventory[inventory] = (new_obj_type, hypothetical_object_name)
                         self.hypothetical.remove(hypothetical_object_name)
+                        print('    crafting success')
                         return True
         return False
 

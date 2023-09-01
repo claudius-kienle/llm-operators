@@ -107,6 +107,9 @@ def attempt_task_plan_for_problem(
     else:
         print('  Using mock task plan result.')
         any_success, new_evaluated_plans = rv
+        print(f"  Plan success: {any_success}")
+        for value in new_evaluated_plans.values():
+            print(f"  Plan string: ", trim_white_spaces(value.plan_string))
 
     if any_success:
         # Check that this isn't a duplicate of a plan we've already found for that same problem.

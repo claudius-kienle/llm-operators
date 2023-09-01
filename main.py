@@ -127,6 +127,8 @@ parser.add_argument("--debug_ground_truth_operators", action="store_true", help=
 parser.add_argument("--debug_ground_truth_goals", action="store_true", help="debug: use ground_truth_goals.")
 parser.add_argument("--debug_stop_after_first_proposal", action="store_true", help="debug: stop after the first proposal for goals, plans, and operators (no evaluation).")
 
+parser.add_argument("--debug_cw_skip_location_check", action="store_true", help="debug: skip location check in Crafting World")
+
 ########################################
 
 
@@ -145,6 +147,11 @@ def main():
         task_planner_impl.TASK_PLANNER_FD_DEFAULT_TIMEOUT = args.planner_timeout
         task_planner_impl.TASK_PLANNER_PDSKETCH_ONTHEFLY_DEFAULT_TIMEOUT = args.planner_timeout
         print('Setting planner timeout to {}'.format(args.planner_timeout))
+
+    if args.debug_cw_skip_location_check:
+        import llm_operators.datasets.crafting_world as crafting_world
+        crafting_world.SKIP_CRAFTING_LOCATION_CHECK = True
+        print('Skipping location check in Crafting World.')
 
     # Log all of the arguments that we ran this experiment with and the experiment date.
     experiment_utils.hook_exception_ipdb()
