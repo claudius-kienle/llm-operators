@@ -22,6 +22,7 @@ import os
 import sys
 from pathlib import Path
 from collections import defaultdict
+import numpy as np
 
 import random
 
@@ -41,6 +42,11 @@ parser.add_argument(
     default="data/dataset/alfred-cot-250-filtered-NLgoals-operators.json",
     help="Original ALFRED file.",
 )
+parser.add_argument(
+    "--filter", action="store_true", help="Run filtering.",
+)
+
+rng = np.random.default_rng(0)
 
 def load_alfred_raw_goals_file(args):
     with open(args.raw_alfred_goal_file) as f:
@@ -74,10 +80,31 @@ def manually_filter_goals(args, goal_type_to_goals):
                         "rejected" : rejected_goal_type_to_goals
                     }, f)
 
+def downsample_goals(args, original_goal_type_to_goals):
+    MAX_GOALS = 250
+    with open(args.output_alfred_goal_file + "_temp.json") as f:
+        filtered_goals = json.load(f)
+        accepted = filtered_goals['accepted']
+    
+    downsampled_goal_type_to_goals = defaultdict(lambda: defaultdict())
+    for split in original_goal_type_to_goals:
+        total_goals = np.sum([len(original_goal_type_to_goals[split][g]) for g in original_goal_type_to_goals[split]])
+        for goal_type in original_goal_type_to_goals[split]:
+            total_to_sample = int(float(len(original_goal_type_to_goals[split][goal_type]) / total_goals) * MAX_GOALS)
+            print(f"Sampling {split} {goal_type}: {total_to_sample} of possible {len(accepted[split][goal_type])}")
+            sampled = rng.choice(original_goal_type_to_goals[split][goal_type], min(len(accepted[split][goal_type]), total_to_sample))
+            downsampled_goal_type_to_goals[split][goal_type] = list(sampled)      
+        print(f"Total downsampled: {np.sum([len(downsampled_goal_type_to_goals[split][g]) for g in downsampled_goal_type_to_goals[split]])}")     
+    with open(args.output_alfred_goal_file, "w") as f:
+        json.dump(downsampled_goal_type_to_goals, f)
+
 def main():
     args = parser.parse_args()
     alfred_nl_goal_type_to_goals = load_alfred_raw_goals_file(args)
-    manually_filter_goals(args, alfred_nl_goal_type_to_goals)
+    if args.filter:
+        manually_filter_goals(args, alfred_nl_goal_type_to_goals)
+    downsample_goals(args, alfred_nl_goal_type_to_goals)
+
 
 
 
