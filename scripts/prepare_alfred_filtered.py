@@ -94,9 +94,14 @@ def downsample_goals(args, original_goal_type_to_goals):
             print(f"Sampling {split} {goal_type}: {total_to_sample} of possible {len(accepted[split][goal_type])}")
             sampled = rng.choice(original_goal_type_to_goals[split][goal_type], min(len(accepted[split][goal_type]), total_to_sample))
             downsampled_goal_type_to_goals[split][goal_type] = list(sampled)      
-        print(f"Total downsampled: {np.sum([len(downsampled_goal_type_to_goals[split][g]) for g in downsampled_goal_type_to_goals[split]])}")     
+        print(f"Total downsampled: {np.sum([len(downsampled_goal_type_to_goals[split][g]) for g in downsampled_goal_type_to_goals[split]])}")  
+    # Flatten
+    flattened_down_sampled_goals = defaultdict(list)
+    for split in downsampled_goal_type_to_goals:
+        for goal_type in downsampled_goal_type_to_goals[split]:
+            flattened_down_sampled_goals[split] += downsampled_goal_type_to_goals[split][goal_type]
     with open(args.output_alfred_goal_file, "w") as f:
-        json.dump(downsampled_goal_type_to_goals, f)
+        json.dump(flattened_down_sampled_goals, f)
 
 def main():
     args = parser.parse_args()
