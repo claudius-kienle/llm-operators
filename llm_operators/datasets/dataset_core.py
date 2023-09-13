@@ -1,7 +1,7 @@
 from collections import defaultdict
 import random
 import json
-from typing import Sequence, Dict
+from typing import Optional, Sequence, Dict
 
 import numpy as np
 from llm_operators.pddl import Domain, OtherDomain, PDDLPlan
@@ -198,7 +198,7 @@ def register_planning_pddl_domain(name):
     return wrapper
 
 
-def load_pddl_domain(pddl_domain_name: str, initial_pddl_operators: Sequence[str], verbose: bool = False) -> Domain:
+def load_pddl_domain(pddl_domain_name: str, initial_pddl_operators: Optional[Sequence[str]], verbose: bool = False) -> Domain:
     """Main entry for loading a PDDL domain.
 
     Args:
@@ -207,9 +207,10 @@ def load_pddl_domain(pddl_domain_name: str, initial_pddl_operators: Sequence[str
     planning_domain_loader = PLANNING_PDDL_DOMAINS_REGISTRY[pddl_domain_name]
     pddl_domain = planning_domain_loader(verbose)
     # Only keep the designated initial operators.
-    for o in list(pddl_domain.operators.keys()):
-        if o not in initial_pddl_operators:
-            pddl_domain.remove_operator(o)
+    if initial_pddl_operators is not None:
+        for o in list(pddl_domain.operators.keys()):
+            if o not in initial_pddl_operators:
+                pddl_domain.remove_operator(o)
     if verbose:
         print("Initializing with operators: ")
         for o in list(pddl_domain.operators.keys()):

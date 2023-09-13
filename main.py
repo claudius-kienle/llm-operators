@@ -333,6 +333,12 @@ def run_iteration(args, planning_problems, pddl_domain, supervision_pddl, curr_i
                     # If we have already found a motion plan, then we don't need to try to replan.
                     break
 
+    if output_directory is not None:
+        output_filename = osp.join(output_directory, 'domain.pddl')
+        with open(output_filename, 'w') as f:
+            f.write(pddl_domain.to_string())
+        print('Saved domain to {}'.format(output_filename))
+
     _checkpoint_and_log_tamp(pddl_domain, 0, planning_problems, True, args=args, curr_iteration=curr_iteration, output_directory=output_directory)
 
     # Compute the number of unsolved problems
