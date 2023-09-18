@@ -1,7 +1,6 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import os.path as osp
 import sys
 import argparse
@@ -9,6 +8,7 @@ import argparse
 import llm_operators.datasets as datasets
 import llm_operators.experiment_utils as experiment_utils
 import llm_operators.datasets.crafting_world as crafting_world
+from llm_operators.datasets.crafting_world_gen.utils import pascal_to_underline
 from llm_operators.datasets.crafting_world import CraftingWorld20230204Simulator, local_search_for_subgoal, SimpleConjunction
 
 # Import Jacinle.
@@ -82,7 +82,8 @@ def main():
 
     # run_manual_solution_primitive(pds_domain, planning_problems['train'])
     # run_manual_solution_subgoal(pds_domain, planning_problems['train'])
-    run_brute_force_search(pds_domain, planning_problems['train'])
+    # run_brute_force_search(pds_domain, planning_problems['train'])
+    run_policy(pds_domain, planning_problems['train'])
 
 
 def load_state_from_problem(pds_domain, problem_record, pddl_goal=None):
@@ -164,6 +165,52 @@ def run_brute_force_search(pds_domain, problems):
             simulator, _ = rv
             succ = simulator.goal_satisfied(gt_goal)
             print('Success: {}'.format(succ))
+
+
+def run_policy(pds_domain, problems):
+    import llm_operators.datasets.crafting_world_skill_lib as skill_lib
+
+    for problem_key, problem in problems.items():
+        print('Now solving problem: {}'.format(problem_key))
+        simulator, gt_goal = load_state_from_problem(pds_domain, problem)
+
+        # compute the policy
+        target_inventory = None
+        target_object = None
+        target_object_type = None
+        for item in gt_goal:
+            parts = item.split()
+            if parts[0] == 'inventory-holding':
+                target_inventory = int(parts[1][1:])
+                target_object = parts[2]
+            elif parts[0] == 'object-of-type':
+                target_object_type = pascal_to_underline(parts[2])
+
+        if target_inventory is None:
+            raise ValueError('Could not find target inventory in goal: {}'.format(gt_goal))
+        if target_object is None:
+            raise ValueError('Could not find target object in goal: {}'.format(gt_goal))
+        if target_object_type is None:
+            raise ValueError('Could not find target object type in goal: {}'.format(gt_goal))
+
+        # NB(Jiayuan Mao @ 2023/09/18): here I am generating the "high-level policy" by hand. In practice, we should
+        #   use LLM to generate this policy given the NL too.
+        if target_object_type == 'wood':
+            skill_lib.mine_wood(simulator, target_inventory, target_object)
+        elif target_object_type == 'potato':
+            skill_lib.mine_potato(simulator, target_inventory, target_object)
+        else:
+            print('SKIP: not implemented for goal {}'.format(gt_goal))
+            continue
+
+        rv = simulator.goal_satisfied(gt_goal)
+        if not rv:
+            print('  Failed to solve problem: {}'.format(problem_key))
+            print('  Goal: {}'.format(gt_goal))
+            from IPython import embed; embed();
+            raise ValueError()
+        else:
+            print('Success: {}'.format(rv))
 
 
 if __name__ == '__main__':
