@@ -21,6 +21,8 @@ class Problem:
         ground_truth_pddl_problem=None,
         should_supervise_pddl_goal=False,
         should_supervise_pddl_plan=False,
+        ground_truth_primitive_plan=None,
+        ground_truth_subgoal_sequence=None,
         goal_prefix=None,
         chain_of_thought=None,
     ):
@@ -44,6 +46,9 @@ class Problem:
                 self.ground_truth_pddl_plan = PDDLPlan(plan_string=ground_truth_pddl_plan)
             else:
                 self.ground_truth_pddl_plan = PDDLPlan(plan=ground_truth_pddl_plan)  # A ground truth PDDLPlan object.
+
+        self.ground_truth_primitive_plan = ground_truth_primitive_plan  # A list of dictionaries.
+        self.ground_truth_subgoal_sequence = ground_truth_subgoal_sequence  # A list of [subgoal_items]
 
         self.should_supervise_pddl_goal = (
             should_supervise_pddl_goal  # Whether to supervise specifically on ground truth information about the goal.
