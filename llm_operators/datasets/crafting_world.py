@@ -240,9 +240,9 @@ class CraftingWorld20230204Simulator(object):
         for rule in CRAFTING_RULES:
             if target_type is not None and underline_to_pascal(rule['create']) != target_type:
                 continue
-            print('  checking crafting rule', rule['location'], rule['recipe'], rule['create'])
-            if not SKIP_CRAFTING_LOCATION_CHECK:
-                print(f'    matching crafting location', underline_to_pascal(rule['location']), obj_type)
+            # print('  checking crafting rule', rule['location'], rule['recipe'], rule['create'])
+            # if not SKIP_CRAFTING_LOCATION_CHECK:
+            #     print(f'    matching crafting location', underline_to_pascal(rule['location']), obj_type)
             if underline_to_pascal(rule['location']) == obj_type or SKIP_CRAFTING_LOCATION_CHECK:
                 if len(rule['recipe']) == len(ingredients_inventory):
                     current_holding_types = set()
@@ -252,12 +252,12 @@ class CraftingWorld20230204Simulator(object):
                     target_holding_types = set()
                     for ingredient_type in rule['recipe']:
                         target_holding_types.add(underline_to_pascal(ingredient_type))
-                    print(f'    matching crafting recipe current={current_holding_types}, target={target_holding_types}')
+                    # print(f'    matching crafting recipe current={current_holding_types}, target={target_holding_types}')
                     if current_holding_types == target_holding_types:
                         new_obj_type = underline_to_pascal(rule['create'])
                         self.inventory[inventory] = (new_obj_type, hypothetical_object_name)
                         self.hypothetical.remove(hypothetical_object_name)
-                        print('    crafting success')
+                        # print('    crafting success')
                         return True
         return False
 
