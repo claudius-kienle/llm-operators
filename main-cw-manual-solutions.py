@@ -81,7 +81,8 @@ def main():
     pds_domain = pds.load_domain_string(current_domain_string)
 
     # run_manual_solution_primitive(pds_domain, planning_problems['train'])
-    run_manual_solution_subgoal(pds_domain, planning_problems['train'])
+    # run_manual_solution_subgoal(pds_domain, planning_problems['train'])
+    run_brute_force_search(pds_domain, planning_problems['train'])
 
 
 def load_state_from_problem(pds_domain, problem_record, pddl_goal=None):
@@ -149,6 +150,20 @@ def run_manual_solution_subgoal(pds_domain, problems):
             raise ValueError()
 
         print('Success: {}'.format(succ))
+
+
+def run_brute_force_search(pds_domain, problems):
+    for problem_key, problem in problems.items():
+        print('Now solving problem: {}'.format(problem_key))
+        simulator, gt_goal = load_state_from_problem(pds_domain, problem)
+        rv = local_search_for_subgoal(simulator, SimpleConjunction(gt_goal))
+        if rv is None:
+            print('  Failed to solve problem: {}'.format(problem_key))
+            print('  Goal: {}'.format(gt_goal))
+        else:
+            simulator, _ = rv
+            succ = simulator.goal_satisfied(gt_goal)
+            print('Success: {}'.format(succ))
 
 
 if __name__ == '__main__':
