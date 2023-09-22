@@ -204,6 +204,10 @@ def run_policy(pds_domain, problems):
             skill_lib.mine_wood(simulator, target_inventory, target_object)
         elif target_object_type == 'potato':
             skill_lib.mine_potato(simulator, target_inventory, target_object)
+        elif target_object_type == 'arrow':
+            skill_lib.craft_arrow(simulator, target_inventory, target_object)
+        elif target_object_type == 'wood_plank':
+            skill_lib.craft_wood_plank(simulator, target_inventory, target_object)
         else:
             print('SKIP: not implemented for goal {}'.format(gt_goal))
             continue
