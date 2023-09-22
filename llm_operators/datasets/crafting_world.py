@@ -120,6 +120,30 @@ def load_crafting_world_20230829_crafting_only(dataset_pddl_directory: str, data
     return dataset
 
 
+CRAFTING_WORLD_20230913_DATASET_NAME = 'crafting_world_20230913_mixed'
+
+
+@register_planning_domain_problems(CRAFTING_WORLD_20230913_DATASET_NAME)
+def load_crafting_world_20230829_crafting_only(dataset_pddl_directory: str, dataset_fraction: float, verbose=False):
+    from llm_operators.datasets.crafting_world_gen.cw_20230913_mixed import problem_from_raw_record
+
+    with open(osp.join(dataset_pddl_directory, 'dataset.json')) as f:
+        dataset = json.load(f)
+
+    for split, split_problems in dataset.items():
+        dataset[split] = {
+            problem['problem_id']: problem_from_raw_record(problem)
+            for problem in split_problems[:int(len(split_problems) * dataset_fraction)]
+        }
+
+    assert len(dataset['train']) > 3
+    for problem in itertools.islice(dataset['train'].values(), 3):
+        problem.should_supervise_pddl_plan = True
+        problem.should_supervise_pddl_goal = True
+
+    return dataset
+
+
 class SimpleConjunction(object):
     def __init__(self, conjuncts: list[str]):
         self.conjuncts = conjuncts
