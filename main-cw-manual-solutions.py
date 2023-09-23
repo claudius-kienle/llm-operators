@@ -78,13 +78,13 @@ def main():
     pds_domain = pds.load_domain_string(current_domain_string)
 
     # Baseline 0: LLM(nl_goal) -> pddl_goal; motion_planner(pddl_goal) -> primitive_plan
-    # run_brute_force_search(pds_domain, planning_problems['train'])
+    run_brute_force_search(pds_domain, planning_problems['train'])
     # Baseline 1: LLM(nl_goal) -> primitive_plan
     # run_manual_solution_primitive(pds_domain, planning_problems['train'])
     # Baseline 2: LLM(nl_goal) -> subgoal_sequence; motion_planner(subgoal_sequence) -> primitive_plan
     # run_manual_solution_subgoal(pds_domain, planning_problems['train'])
     # Baseline 3 (Voyager): LLM(nl_goal) -> high_level_policy; LLM(high_level_policy) -> low_level_policy
-    run_policy(pds_domain, planning_problems['train'])
+    # run_policy(pds_domain, planning_problems['train'])
 
 
 def load_state_from_problem(pds_domain, problem_record, pddl_goal=None):
@@ -157,12 +157,13 @@ def run_manual_solution_subgoal(pds_domain, problems):
 
 
 def run_brute_force_search(pds_domain, problems):
+    nr_success = 0
     for problem_key, problem in problems.items():
         print('Now solving problem: {}'.format(problem_key))
         simulator, gt_goal = load_state_from_problem(pds_domain, problem)
 
         # NB(Jiayuan Mao @ 2023/09/18): gt_goal should be proposed by LLM given the NL goal.
-        rv = local_search_for_subgoal(simulator, SimpleConjunction(gt_goal))
+        rv = local_search_for_subgoal(simulator, SimpleConjunction(gt_goal), max_steps=int(1e4))
         if rv is None:
             print('  Failed to solve problem: {}'.format(problem_key))
             print('  Goal: {}'.format(gt_goal))
@@ -170,6 +171,10 @@ def run_brute_force_search(pds_domain, problems):
             simulator, _ = rv
             succ = simulator.goal_satisfied(gt_goal)
             print('Success: {}'.format(succ))
+            if succ:
+                nr_success += 1
+
+        print('Success rate: {}'.format(nr_success / len(problems)))
 
 
 def run_policy(pds_domain, problems):

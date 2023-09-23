@@ -64,13 +64,16 @@
    (object-of-type ?x - object ?ot - object-type)
  )
 
-;;;; Only use predicates and functions available in the PDDL domain. each mining rule requires 0 or 1 tools that the agent should be currently holding (in its inventory). Each crafting rule requires max 2 ingredients that should be in the agent's inventory. You can guess different tools to be used or different ingredients to be used for the same operator. For example:
+;;;; Only use predicates and functions available in the PDDL domain.
+;;;; Each mining rule requires 0 or 1 tools that the agent should be currently holding (in its inventory).
+;;;; Each crafting rule requires 1 or 2 ingredients that should be in the agent's inventory.
+;;;; You can guess different tools to be used or different ingredients to be used for the same operator. For example:
 
 ;; Operator: craft-wood-plank
 
 <START>
 ;; Guess number 1
-;; To craft a wood plank, you need 1 wood in your inventory.
+;; ingredients = ['wood']
 (:action craft-wood-plank
   :parameters (?ingredientinv1 - inventory ?targetinv - inventory ?station - object ?ingredient1 - object ?target - object ?t - tile)
   :precondition (and
@@ -102,7 +105,7 @@
 
 <START>
 ;; Guess number 2
-;; To craft a wood plank, you need 2 wood in your inventory
+;; ingredients = ['wood', 'Coal']
 (:action craft-wood-plank
   :parameters (?ingredientinv1 - inventory ?ingredientinv2 - inventory ?targetinv - inventory ?station - object ?ingredient1 - object ?ingredient2 - object ?target - object ?t - tile)
   :precondition (and
@@ -113,9 +116,9 @@
     ;; the first ingredient is a Wood
     (inventory-holding ?ingredientinv1 ?ingredient1)
     (object-of-type ?ingredient1 Wood)
-    ;; the second ingredient is a Wood
+    ;; the second ingredient is a Coal
     (inventory-holding ?ingredientinv2 ?ingredient2)
-    (object-of-type ?ingredient2 Wood)
+    (object-of-type ?ingredient2 Coal)
     ;; the target inventory is empty
     (inventory-empty ?targetinv)
     (object-of-type ?target Hypothetical)
@@ -134,7 +137,7 @@
     ;; the second ingredient will be removed
     (not (inventory-holding ?ingredientinv2 ?ingredient2))
     (inventory-empty ?ingredientinv2)
-    (not (object-of-type ?ingredient2 Wood))
+    (not (object-of-type ?ingredient2 Coal))
     (object-of-type ?ingredient2 Hypothetical)
   )
  )
@@ -142,7 +145,7 @@
 
 <START>
 ;; Guess number 3
-;; To craft a wood plank, you need 1 wood and 1 coal in your inventory.
+;; ingredients = ['wood', 'Coal']
 (:action craft-wood-plank
   :parameters (?ingredientinv1 - inventory ?ingredientinv2 - inventory ?targetinv - inventory ?station - object ?ingredient1 - object ?ingredient2 - object ?target - object ?t - tile)
   :precondition (and
@@ -184,7 +187,7 @@
 
 <START>
 ;; Guess number 1
-;; To craft an arrow, you need 1 stick and 1 feather in your inventory.
+;; ingredients = ['stick', 'feather']
 (:action craft-arrow
   :parameters (?ingredientinv1 - inventory ?ingredientinv2 - inventory ?targetinv - inventory ?station - object ?ingredient1 - object ?ingredient2 - object ?target - object ?t - tile)
   :precondition (and
@@ -224,7 +227,7 @@
 
 <START>
 ;; Guess number 2
-;; To craft an arrow, you need 1 stick and 1 GoldOre in your inventory.
+;; ingredients = ['stick', 'gold_ore']
 (:action craft-arrow
   :parameters (?ingredientinv1 - inventory ?ingredientinv2 - inventory ?targetinv - inventory ?station - object ?ingredient1 - object ?ingredient2 - object ?target - object ?t - tile)
   :precondition (and
@@ -264,7 +267,7 @@
 
 <START>
 ;; Guess number 3
-;; To craft an arrow, you need 1 stick and 1 iron ingot in your inventory.
+;; ingredients = ['stick', 'iron_ingot']
 (:action craft-arrow
   :parameters (?ingredientinv1 - inventory ?ingredientinv2 - inventory ?targetinv - inventory ?station - object ?ingredient1 - object ?ingredient2 - object ?target - object ?t - tile)
   :precondition (and
@@ -303,4 +306,5 @@
 <END>
 
 ;; Operator: <OPERATOR>
-;; Make <N_SAMPLES> guesses. Note that each crafting rule can have at most two ingredient items, counting all ingredients of the same type.
+;; Make <N_SAMPLES> guesses. Note that each crafting rule can have only 1 or 2 ingredients. And if you think you need
+;; multiple copies of the same ingredient, you only need to specify that ingredient once in the definition.
