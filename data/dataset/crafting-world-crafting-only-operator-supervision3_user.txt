@@ -303,4 +303,6 @@
 <END>
 
 ;; Operator: <OPERATOR>
-;; Make <N_SAMPLES> guesses. Note that each crafting rule can have at most two ingredient items, counting all ingredients of the same type.
+;; Make <N_SAMPLES> guesses. Note that each crafting rule can have only 1 or 2 ingredients. And if you think you need
+;; multiple copies of the same ingredient, you only need to specify that ingredient once in the definition.
+
