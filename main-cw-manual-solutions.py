@@ -78,9 +78,10 @@ def main():
     pds_domain = pds.load_domain_string(current_domain_string)
 
     # Baseline 0: LLM(nl_goal) -> pddl_goal; motion_planner(pddl_goal) -> primitive_plan
-    run_brute_force_search(pds_domain, planning_problems['train'])
+    # run_brute_force_search(pds_domain, planning_problems['train'])
     # Baseline 1: LLM(nl_goal) -> primitive_plan
     # run_manual_solution_primitive(pds_domain, planning_problems['train'])
+    run_manual_solution_primitive_visualize(pds_domain, planning_problems['train'])
     # Baseline 2: LLM(nl_goal) -> subgoal_sequence; motion_planner(subgoal_sequence) -> primitive_plan
     # run_manual_solution_subgoal(pds_domain, planning_problems['train'])
     # Baseline 3 (Voyager): LLM(nl_goal) -> high_level_policy; LLM(high_level_policy) -> low_level_policy
@@ -126,6 +127,41 @@ def run_manual_solution_primitive(pds_domain, problems):
             raise ValueError()
 
         print('Success: {}'.format(succ))
+
+
+def run_manual_solution_primitive_visualize(pds_domain, problems):
+    import matplotlib.pyplot as plt
+    from concepts.benchmark.gridworld.crafting_world.crafting_world_env import CraftingWorldRenderer
+    renderer = CraftingWorldRenderer(5, 5, 5)
+    plt.axis('off')
+
+    for problem_key, problem in problems.items():
+        print('Now solving problem: {}'.format(problem_key))
+        simulator, gt_goal = load_state_from_problem(pds_domain, problem)
+        plt.imshow(renderer.render(simulator)); plt.pause(0.5)
+
+        succ = True
+        # NB(Jiayuan Mao @ 2023/09/18): problem.ground_truth_primitive_plan should be proposed by LLM given the NL goal.
+        for action in problem.ground_truth_primitive_plan if problem.ground_truth_primitive_plan is not None else []:
+            print('  Action: {}'.format(action))
+            rv = getattr(simulator, action['action'])(*action['args'])
+            if not rv:
+                print('    Failed to execute action: {}'.format(action))
+                succ = False
+                break
+            plt.imshow(renderer.render(simulator)); plt.pause(0.5)
+
+        if succ:
+            succ = simulator.goal_satisfied(gt_goal)
+
+        if not succ and problem.ground_truth_primitive_plan is not None:
+            print('  Failed to solve problem: {}'.format(problem_key))
+            print('  Goal: {}'.format(gt_goal))
+            from IPython import embed; embed();
+            raise ValueError()
+
+        print('Success: {}'.format(succ))
+        input('Press any key to continue.')
 
 
 def run_manual_solution_subgoal(pds_domain, problems):
