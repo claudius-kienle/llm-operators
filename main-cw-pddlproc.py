@@ -120,10 +120,15 @@ def main():
     executor = pds.PDSketchExecutor(domain)
     problem_func = gen_v20230913_instance_record
 
+    nr_total = 0
+    nr_succ = 0
     for i in range(23):
         record = problem_func(f'test-{i}', 'train', goal_index=i)
-        plan(executor, record)
-    from IPython import embed; embed()
+        succ = plan(executor, record)
+        nr_total += 1
+        nr_succ += int(succ)
+
+    print(f'Success rate: {nr_succ} / {nr_total} = {nr_succ / nr_total}')
 
 
 def plan(executor, record):
@@ -139,7 +144,7 @@ def plan(executor, record):
 
     if len(rv) == 0:
         print(f'!!!No plan found for goal {goal}.')
-        return
+        return False
 
     table = list()
     plan = rv[0][0]
@@ -149,6 +154,8 @@ def plan(executor, record):
     table.append(('time', f'{time.time() - start_time:.3f}s'))
     table.extend(stat.items())
     print(jacinle.tabulate(table, tablefmt='simple'))
+    return True
+
 
 CW_BASE_REGRESSION_RULES = r"""
  (:regression move [always]
@@ -229,7 +236,7 @@ CW_REGRESSION_RULE_2 = r"""
  """
 
 
-def _patch_cw_regression_rules(domain):
+def _patch_cw_regression_rules(domain, verbose=False):
     import concepts.dsl.expression as E
 
     domain.incremental_define(CW_BASE_REGRESSION_RULES)
@@ -252,10 +259,11 @@ def _patch_cw_regression_rules(domain):
         object_to_type = {v: None for v in object_varnames}
         is_location_object = {v: False for v in object_varnames}
 
-        print(op_name)
-        print('  inventory_varnames:', inventory_varnames)
-        print('  object_varnames:', object_varnames)
-        print('  tile_varnames:', tile_varnames)
+        if verbose:
+            print(op_name)
+            print('  inventory_varnames:', inventory_varnames)
+            print('  object_varnames:', object_varnames)
+            print('  tile_varnames:', tile_varnames)
 
         for pre in op.preconditions:
             if isinstance(pre.bool_expr, E.FunctionApplicationExpression):
@@ -312,12 +320,13 @@ def _patch_cw_regression_rules(domain):
             ):
                 object_to_inventory[hypothetical_object] = effect.assign_expr.predicate.arguments[0].name
 
-        print('  location_object:', location_object)
-        print('  hypothetical_object:', hypothetical_object)
-        print('  ingredient_objects:', ingredient_objects)
-        print('  target_type:', target_type)
-        print('  object_to_inventory:', object_to_inventory)
-        print('  object_to_type', object_to_type)
+        if verbose:
+            print('  location_object:', location_object)
+            print('  hypothetical_object:', hypothetical_object)
+            print('  ingredient_objects:', ingredient_objects)
+            print('  target_type:', target_type)
+            print('  object_to_inventory:', object_to_inventory)
+            print('  object_to_type', object_to_type)
 
         if target_type is None:
             continue
@@ -331,7 +340,8 @@ def _patch_cw_regression_rules(domain):
         if None in object_to_type.values():
             continue
 
-        print(' !!Start definition')
+        if verbose:
+            print(' !!Start definition')
 
         try:
             if len(ingredient_objects) == 0:
