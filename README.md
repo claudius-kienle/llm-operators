@@ -1,6 +1,8 @@
 ### LLM-Operators
 Learning planning domain models from natural language and grounding.
 
+Note from the maintainer (Lio Wong): this is a pre-released version of the full model and branch for https://arxiv.org/pdf/2312.08566 as a reference implementation. Parts of this model currently reference internal, user-specific code (eg. the Jacinle library). This is also best set up to run each domain in the paper (ALFRED, crafting world) separately, as unfortunately these domains have conflicting Python requirements due to background compatability with ALFRED's AI2Thor installation. Please contact the main paper author if you run into problems!
+
 ### ALFRED experiment quickstart. This sets up the repository to run experiments with the ALFRED dataset.
 The lab notebook for these experiments is located at `alfred_experiments_README.md`.
 The following setup has been tested on an M1 Mac.
