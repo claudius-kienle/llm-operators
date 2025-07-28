@@ -11,7 +11,7 @@ The following setup has been tested on an M1 Mac.
 ```
 git clone git@github.com:CatherineWong/llm_operators_datasets.git 
 unzip llm_operators_datasets/alfred_linearized_pddl.zip
-mv -R llm_operators_datasets/alfred_linearized_pddl llm_operators/data/dataset/alfred_linearized_pddl
+mv -R alfred_linearized_pddl data/dataset/alfred_linearized_pddl
 ```
 - Developer notes: this is a preprocessed dataset of ALFRED problem files that contains the PDDL paths referenced in `dataset/alfred-linearized-100-NLgoals-operators.json`. To prepare this from scratch, use the raw PDDL files hosted [here](https://drive.google.com/file/d/1sg8v1hf40Eu1K7hLGZ_LP5I-9N4zwLCU/view?usp=sharing), and is originally copied from the MIT internal version at `/data/vision/torralba/datasets/ALFRED/data/full_2.1.0/`. We extract this to `dataset/alfred_pddl`; you should see three internal folders (train, valid_seen, valid_unseen). This provides the PDDL paths referenced in `dataset/alfred-NLgoal-operators.json`.
    - Prepare the ALFRED PDDL files. We modify the ALFRED domain to support simple fast downward planning. Run `prepare_alfred_pddl.py` to do so.

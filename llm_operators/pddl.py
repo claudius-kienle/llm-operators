@@ -593,6 +593,7 @@ class PDDLParser:
             pred = pred.strip()[1:-1].split()
         else:
             pred = pred.strip()[1:-1].split("?")
+            pred = [pred[0]] + [f"?{p}" for p in pred[1:]]
 
         pred_name = pred[0].strip()
         # arg_types = [self.types[arg.strip().split("-")[1].strip()]
@@ -1267,6 +1268,9 @@ def preprocess_goals(problems, pddl_domain, output_directory, command_args=None,
 def proposed_goal_match(codex_goal_str, gt_goal_str):
     def parse_goal_pddl_list(pddl_goal_string):
         goal_conjunction = PDDLParser._find_labelled_expression(pddl_goal_string, "and")
+        if len(goal_conjunction) == 0:
+            goal_conjunction = "".join((pddl_goal_string.split("(:goal")[1][:-1])).strip()
+            goal_conjunction = f"(and {goal_conjunction})"
         _, preprocessed_predicates, _ = preprocess_conjunction_predicates(
             goal_conjunction,
             ground_truth_predicates=None,
@@ -1316,6 +1320,8 @@ def preprocess_goal(goal, pddl_domain, object_dict, use_ground_truth_predicates=
     except:
         print(f"Failure, could not find goal_conjunction in {preprocessed_goal}.")
         return False, ""
+
+    return True, goal
     try:
         (
             parameters,
@@ -1598,7 +1604,7 @@ def preprocess_operator(
 
         if not allow_partial_ground_predicates:
             # NB(Jiayuan Mao @ 2023/02/04): if we don't allow partial ground predicates, the parameters do not contain '?'.
-            unground_parameters = [f"?{name} - {param_type}" for (name, param_type) in precond_parameters.items()]
+            unground_parameters = [f"{name} - {param_type}" for (name, param_type) in precond_parameters.items()]
         else:
             unground_parameters = [
                 f"{name} - {param_type}" for (name, param_type) in precond_parameters.items() if name.startswith("?")

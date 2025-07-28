@@ -1,0 +1,87 @@
+{
+    "go-to-a-furniture-piece-or-an-appliance": {
+        "name": "go_to_a_furniture_piece_or_an_appliance",
+        "arg_mapping": [null, null, 0]
+    },
+    "pick-up-an-object-on-or-in-a-furniture-piece-or-an-appliance": {
+        "name": "pick_up_an_object_on_or_in_a_furniture_piece_or_an_appliance",
+        "arg_mapping": [null, 0, 1]
+    },
+    "put-an-object-on-or-in-a-furniture-piece-or-an-appliance": {
+        "name": "put_an_object_on_or_in_a_furniture_piece_or_an_appliance",
+        "arg_mapping": [null, 0, 1]
+    },
+    "stack-objects": {
+        "name": "stack_objects",
+        "arg_mapping": [null, 0, 1, null]
+    },
+    "unstack-objects": {
+        "name": "unstack_objects",
+        "arg_mapping": [null, 0, 1, null]
+    },
+    "open-a-furniture-piece-or-an-appliance": {
+        "name": "open_a_furniture_piece_or_an_appliance",
+        "arg_mapping": [null, 0]
+    },
+    "close-a-furniture-piece-or-an-appliance": {
+        "name": "close_a_furniture_piece_or_an_appliance",
+        "arg_mapping": [null, 0]
+    },
+    "toggle-a-small-appliance-on": {
+        "name": "toggle_a_small_appliance_on",
+        "arg_mapping": [null, 0]
+    },
+    "toggle-a-small-appliance-off": {
+        "name": "toggle_a_small_appliance_off",
+        "arg_mapping": [null, 0]
+    },
+    "slice-objects": {
+        "name": "slice_objects",
+        "arg_mapping": [null, 0, null, 1]
+    },
+    "heat-food-with-a-microwave": {
+        "name": "heat_food_with_a_microwave",
+        "arg_mapping": [null, 0, 1, null]
+    },
+    "heat-food-with-pan": {
+        "name": "heat_food_with_pan",
+        "arg_mapping": [null, 0, 1, null]
+    },
+    "transfer-food-from-one-small-receptacle-to-another": {
+        "name": "transfer_food_from_one_small_receptacle_to_another",
+        "arg_mapping": [null, 0, 1, 2, null]
+    },
+    "puts-an-object-onto-or-into-a-small-receptacle": {
+        "name": "put_an_object_onto_or_into_a_small_receptacle",
+        "arg_mapping": [null, 0, null, 1]
+    },
+    "pick-up-an-object-on-or-in-a-small-receptacle": {
+        "name": "pick_up_an_object_on_or_in_a_small_receptacle",
+        "arg_mapping": [null, 0, null, 1]
+    },
+    "open-a-small-receptacle": {
+        "name": "open_a_small_receptacle",
+        "arg_mapping": [null, 0]
+    },
+    "close-a-small-receptacle": {
+        "name": "close_a_small_receptacle",
+        "arg_mapping": [null, 0]
+    },
+    "mash-food-with-a-blender": {
+        "name": "mash_food_with_a_blender",
+        "arg_mapping": [null, 0, 1, null]
+    },
+    "wash-an-object": {
+        "name": "wash_an_object",
+        "arg_mapping": [null, 0, null]
+    },
+    "wipe-a-surface": { "name": "wipe_a_surface", "arg_mapping": [null, 0, 1] },
+    "vacuum-a-carpet": {
+        "name": "vacuum_a_carpet",
+        "arg_mapping": [null, 0, 1]
+    },
+    "empty-a-vacuum-cleaner": {
+        "name": "empty_a_vacuum_cleaner",
+        "arg_mapping": [null, 0, 1]
+    }
+}

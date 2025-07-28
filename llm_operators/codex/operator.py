@@ -350,6 +350,16 @@ def _propose_operator_definition(
 
             codex_prompt.append({"role": "user", "content": pddl_domain + translation_header})
 
+        from pathlib import Path
+        import ast
+        household_func_info = Path("data/dataset/household/function_stubs.py").read_text()
+
+        operator_details = {}
+        for call in ast.parse(household_func_info).body:
+            operator_details[call.name.replace("_", "-")] = call.body[0].value.s
+        OPERATOR_PROPOSAL_COT_MAP['ai_domain'] = operator_details
+        OPERATOR_PROPOSAL_COT_MESSAGE['ai_domain'] = Path("data/dataset/household/domain_knowledge.md").read_text()
+
         # Codex prompt exampler operators.
         operator_examples = random.sample(
             list(current_domain.operators.keys()),
@@ -388,21 +398,32 @@ def _propose_operator_definition(
             for use_example in usage_examples:
             # for use_example in operator_uses[operator_name_to_define]:
                 operator_str += f"{EXAMPLE_START}{use_example}\n"
+        operator_str += "\n;; Enclose in ```lisp ```\n"
         codex_prompt.append({"role": "user", "content": operator_str})
 
-        try:
-            completions = get_completions(
-                codex_prompt,
-                temperature=temperature,
-                stop=STOP_TOKEN,
-                n_samples=n_samples,
-            )
-            if verbose:
-                print(f"propose_operator_definition:: completion for {operator_name_to_define}")
-                for i in range(len(completions)):
-                    print(f"[Operator {operator_name_to_define} {i+1}/{len(completions)}]")
-                    print(completions[i])
-            return codex_prompt, [o for o in completions]
-        except Exception as e:
-            print(e)
-            return codex_prompt, []
+        while True:
+            try:
+                completions = get_completions(
+                    codex_prompt,
+                    temperature=temperature,
+                    stop=STOP_TOKEN,
+                    n_samples=n_samples,
+                )
+                if verbose:
+                    print(f"propose_operator_definition:: completion for {operator_name_to_define}")
+                    for i in range(len(completions)):
+                        print(f"[Operator {operator_name_to_define} {i+1}/{len(completions)}]")
+                        print(completions[i])
+                parsed_defs = [] 
+                for o in completions:
+                    from python_utils.string_utils import get_markup_from_text
+                    o = o.split("<END>")[0].strip()
+                    definitions = get_markup_from_text(o, ["lisp"])
+                    assert len(definitions) == 1, f"Expected exactly one definition for {operator_name_to_define}, got {len(definitions)}"
+                    definition = definitions[0].strip()
+                    definition = "\n".join([l for l in definition.splitlines() if not l.strip().startswith(";")]).strip()
+                    parsed_defs.append(definition)
+                return codex_prompt, parsed_defs
+            except Exception as e:
+                print(e)
+

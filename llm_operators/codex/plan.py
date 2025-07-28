@@ -85,7 +85,26 @@ def propose_plans_for_problems(
         plan_strings = []
         for _ in range(n_samples):
             codex_prompt = _build_plan_prompt(unsolved_problem, solved_problems, external_plan_supervision, current_domain, max_solved_problem_examples=max_solved_problem_examples)
-            plan_strings.append(get_completions(codex_prompt, temperature=temperature, stop=STOP_TOKEN, n_samples=1)[0])
+            while True:
+                plan = get_completions(codex_prompt, temperature=temperature, stop=STOP_TOKEN, n_samples=1)[0]
+                try:
+                    from python_utils.string_utils import get_markup_from_text
+                    import re
+                    plan_parts = get_markup_from_text(plan, ["lisp", "pddl", "plan", "action", "operator"])
+                    assert len(plan_parts) == 1, f"Expected one part, got {len(plan_parts)}: {plan_parts}"
+                    plan_part = plan_parts[0]
+                    plan_part_ls = []
+                    for line in plan_part.splitlines():
+                        if line.strip().startswith(":"):
+                            continue
+
+                        matches = re.findall(r"(\(.*\))", line)
+                        assert len(matches) == 1, f"Expected one match, got {len(matches)}: {matches}"
+                        plan_part_ls.append(matches[0])
+                    plan_strings.append("\n".join(plan_part_ls))
+                    break
+                except BaseException as e:
+                    continue
 
         for i, plan_string in enumerate(plan_strings):
             try:

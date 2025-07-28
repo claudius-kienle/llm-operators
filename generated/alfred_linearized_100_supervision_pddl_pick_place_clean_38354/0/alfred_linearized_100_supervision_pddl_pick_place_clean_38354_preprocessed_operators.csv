@@ -1,153 +1,27 @@
 operator_name,gt_operator,codex_raw_operator,codex_preprocessed_operator,
-OpenObject,"(:action OpenObject
-        :parameters (?a - agent ?l - location ?r - receptacle)
-        :precondition (and
-            (atLocation ?a ?l)
-            (receptacleAtLocation ?r ?l)
-            (openable ?r)
-            
-            
-            
-            
-        )
-        :effect (and
-            (opened ?r)
-        )
-    )","(:action OpenObject
-        :parameters (?a - agent ?l - location ?r - receptacle)
-        :precondition (and
-            (atLocation ?a ?l)
-            (receptacleAtLocation ?r ?l)
-            (openable ?r)
-            
-            
-            
-            
-        )
-        :effect (and
-            (opened ?r)
-        )
-    )","(:action OpenObject
-        :parameters (?a - agent ?l - location ?r - receptacle)
-
-        :precondition (and 
-		(atLocation ?a ?l)
-		(receptacleAtLocation ?r ?l)
-		(openable ?r)
-		)
-        :effect (and 
-		(opened ?r)
-		)
-)",
-CloseObject,"(:action CloseObject
-        :parameters (?a - agent ?al - location ?r - receptacle)
-        :precondition (and
-            (atLocation ?a ?al)
-            (receptacleAtLocation ?r ?al)
-            (openable ?r)
-            (opened ?r)
-        )
-        :effect (and
-            (not (opened ?r))
-        )
-
-    )","(:action CloseObject
-        :parameters (?a - agent ?al - location ?r - receptacle)
-        :precondition (and
-            (atLocation ?a ?al)
-            (receptacleAtLocation ?r ?al)
-            (openable ?r)
-            (opened ?r)
-        )
-        :effect (and
-            (not (opened ?r))
-        )
-
-    )","(:action CloseObject
-        :parameters (?a - agent ?al - location ?r - receptacle)
-
-        :precondition (and 
-		(atLocation ?a ?al)
-		(receptacleAtLocation ?r ?al)
-		(openable ?r)
-		(opened ?r)
-		)
-        :effect (and 
-		(not (opened ?r))
-		)
-)",
-PutObjectInReceptacleObject,"(:action PutObjectInReceptacleObject
-        :parameters (?a - agent ?l - location ?ot - otype ?o - object ?outerO - object ?outerR - receptacle)
-        :precondition (and
-            (atLocation ?a ?l)
-            (objectAtLocation ?outerO ?l)
-            (isReceptacleObject ?outerO)
-            (not (isReceptacleObject ?o))
-            (objectType ?o ?ot)
-            (holds ?a ?o)
-            (not (holdsAnyReceptacleObject ?a))
-            (inReceptacle ?outerO ?outerR)
-        )
-        :effect (and
-            (inReceptacleObject ?o ?outerO)
-            (inReceptacle ?o ?outerR)
-            (not (holds ?a ?o))
-            (not (holdsAny ?a))
-            (objectAtLocation ?o ?l)
-        )
-    )","(:action PutObjectInReceptacleObject
-        :parameters (?a - agent ?l - location ?ot - otype ?o - object ?outerO - object ?outerR - receptacle)
-        :precondition (and
-            (atLocation ?a ?l)
-            (objectAtLocation ?outerO ?l)
-            (isReceptacleObject ?outerO)
-            (not (isReceptacleObject ?o))
-            (objectType ?o ?ot)
-            (holds ?a ?o)
-            (not (holdsAnyReceptacleObject ?a))
-            (inReceptacle ?outerO ?outerR)
-        )
-        :effect (and
-            (inReceptacleObject ?o ?outerO)
-            (inReceptacle ?o ?outerR)
-            (not (holds ?a ?o))
-            (not (holdsAny ?a))
-            (objectAtLocation ?o ?l)
-        )
-    )",FAILED,
-HeatObject,"(:action HeatObject
+CutObject,,"(:action CutObject
         :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
         :precondition (and
-            (receptacleType ?r MicrowaveType)
+            (receptacleType ?r CounterTopType)
             (atLocation ?a ?l)
             (receptacleAtLocation ?r ?l)
             (holds ?a ?o)
         )
         :effect (and
-            (isHot ?o)
+            (isSliced ?o)
         )
-    )","(:action HeatObject
-        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
-        :precondition (and
-            (receptacleType ?r MicrowaveType)
-            (atLocation ?a ?l)
-            (receptacleAtLocation ?r ?l)
-            (holds ?a ?o)
-        )
-        :effect (and
-            (isHot ?o)
-        )
-    )","(:action HeatObject
+    )
+","(:action CutObject_0
         :parameters (?r - receptacle ?a - agent ?l - location ?o - object)
 
         :precondition (and 
-		(receptacleType ?r MicrowaveType)
+		(receptacleType ?r CounterTopType)
 		(atLocation ?a ?l)
 		(receptacleAtLocation ?r ?l)
 		(holds ?a ?o)
 		)
         :effect (and 
-		(isHot ?o)
+		(isSliced ?o)
 		)
 )",
 CoolObject,"(:action CoolObject
@@ -167,12 +41,151 @@ CoolObject,"(:action CoolObject
             (receptacleType ?r FridgeType)
             (atLocation ?a ?l)
             (receptacleAtLocation ?r ?l)
+            (inReceptacle ?o ?r)
+            (isHot ?o)
+        )
+        :effect (and
+            (isCool ?o)
+        )
+    )
+","(:action CoolObject_0
+        :parameters (?r - receptacle ?a - agent ?l - location ?o - object)
+
+        :precondition (and 
+		(receptacleType ?r FridgeType)
+		(atLocation ?a ?l)
+		(receptacleAtLocation ?r ?l)
+		(inReceptacle ?o ?r)
+		(isHot ?o)
+		)
+        :effect (and 
+		(isCool ?o)
+		)
+)",
+PullObject,,"(:action PullObject
+        :parameters (?a - agent ?object - object ?location1 - location ?location2 - location)
+        :precondition (and
+            (objectType ?object PaperTowelType)
+            (atLocation ?a ?location1)
+            (objectAtLocation ?object ?location2)
+            (inReceptacle ?object ?r)
+        )
+        :effect (and
+            (objectAtLocation ?object ?location1)
+            (not (inReceptacle ?object ?r))
+            (not (objectAtLocation ?object ?location2))
+            (receptacleHasSpace ?r)
+        )
+    )
+",FAILED,
+HeatObject,"(:action HeatObject
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
+        :precondition (and
+            (receptacleType ?r MicrowaveType)
+            (atLocation ?a ?l)
+            (receptacleAtLocation ?r ?l)
+            (holds ?a ?o)
+        )
+        :effect (and
+            (isHot ?o)
+        )
+    )","(:action HeatObject
+        :parameters (?a - agent ?o - object)
+        :precondition (and
+            (holds ?a ?o)
+            (heatable ?o)
+            (cleanable ?o)
+            (coolable ?o)
+        )
+        :effect (and
+            (isHot ?o)
+            (not (isCool ?o))
+        )
+    )
+","(:action HeatObject_0
+        :parameters (?a - agent ?o - object)
+
+        :precondition (and 
+		(holds ?a ?o)
+		(heatable ?o)
+		(cleanable ?o)
+		(coolable ?o)
+		)
+        :effect (and 
+		(isHot ?o)
+		(not (isCool ?o))
+		)
+)",
+WaitForDelay,,"(:action WaitForDelay
+        :parameters (?a - agent ?l - location ?r - receptacle)
+        :precondition (and
+            (receptacleType ?r SinkBasinType)
+            (atLocation ?a ?l)
+        )
+        :effect (and
+        )
+    )
+",FAILED,
+DropObject,,"(:action DropObject
+        :parameters (?a - agent ?l - location ?o - object)
+        :precondition (and
+            (atLocation ?a ?l)
+            (holds ?a ?o)
+        )
+        :effect (and
+            (not (holds ?a ?o))
+        )
+    )
+","(:action DropObject_0
+        :parameters (?a - agent ?l - location ?o - object)
+
+        :precondition (and 
+		(atLocation ?a ?l)
+		(holds ?a ?o)
+		)
+        :effect (and 
+		(not (holds ?a ?o))
+		)
+)",
+CookObject,,"(:action CookObject
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
+        :precondition (and
+            (receptacleType ?r StoveBurnerType)
+            (atLocation ?a ?l)
+            (receptacleAtLocation ?r ?l)
+            (holds ?a ?o)
+        )
+        :effect (and
+            (isCooked ?o)
+            (holds ?a ?o)
+        )
+    )
+","(:action CookObject_0
+        :parameters (?r - receptacle ?a - agent ?l - location ?o - object)
+
+        :precondition (and 
+		(receptacleType ?r StoveBurnerType)
+		(atLocation ?a ?l)
+		(receptacleAtLocation ?r ?l)
+		(holds ?a ?o)
+		)
+        :effect (and 
+		(holds ?a ?o)
+		)
+)",
+ChillObject,,"(:action ChillObject
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
+        :precondition (and
+            (receptacleType ?r FridgeType)
+            (atLocation ?a ?l)
+            (receptacleAtLocation ?r ?l)
             (holds ?a ?o)
         )
         :effect (and
             (isCool ?o)
         )
-    )","(:action CoolObject
+    )
+","(:action ChillObject_0
         :parameters (?r - receptacle ?a - agent ?l - location ?o - object)
 
         :precondition (and 
@@ -185,78 +198,340 @@ CoolObject,"(:action CoolObject
 		(isCool ?o)
 		)
 )",
-ToggleObject,"(:action ToggleObject
+ViewObject,,"(:action ViewObject
         :parameters (?a - agent ?l - location ?o - object)
         :precondition (and
             (atLocation ?a ?l)
             (objectAtLocation ?o ?l)
-            (toggleable ?o)
         )
         :effect (and
-            (isToggled ?o)
         )
-    )","(:action ToggleObject
-        :parameters (?a - agent ?l - location ?o - object)
+    )
+",FAILED,
+ExamineObject,,"(:action ExamineObject
+        :parameters (?a - agent ?o - object ?lStart - location ?lEnd - location ?type - rtype)
+        :precondition (and
+            (atLocation ?a ?lStart)
+            (objectAtLocation ?o ?lStart)
+        )
+        :effect (and
+            (receptacleType ?o CartType)
+        )
+    )
+",FAILED,
+PlaceObject,,"(:action PlaceObject
+        :parameters (?a - agent ?l - location ?o - object ?lOn - location ?oOn - object)
+        :precondition (and
+            (atLocation ?a ?l)
+            (holds ?a ?o)
+            ((receptacleAtLocation ?oOn ?lOn))
+        )
+        :effect (and
+            (not (holds ?a ?o))
+            (receptacleAtLocation ?oOn ?lOn)
+            (not (objectAtLocation ?o ?l))
+            (objectAtLocation ?o ?lOn)
+        )
+    )
+",FAILED,
+SwitchObjects,,"(:action SwitchObjects
+        :parameters (?a - agent ?l - location ?setState - object ?o - object)
         :precondition (and
             (atLocation ?a ?l)
             (objectAtLocation ?o ?l)
-            (toggleable ?o)
+            (objectType ?o LightSwitchType)
         )
         :effect (and
-            (isToggled ?o)
+            (isOn ?o)
+            (isClean ?o)
         )
-    )","(:action ToggleObject
+    )
+","(:action SwitchObjects_0
         :parameters (?a - agent ?l - location ?o - object)
 
         :precondition (and 
 		(atLocation ?a ?l)
 		(objectAtLocation ?o ?l)
-		(toggleable ?o)
+		(objectType ?o LightSwitchType)
 		)
         :effect (and 
-		(isToggled ?o)
+		(isOn ?o)
+		(isClean ?o)
 		)
 )",
-SliceObject,"(:action SliceObject
-        :parameters (?a - agent ?l - location ?co - object ?ko - object)
+OpenContainer,,"(:action OpenContainer
+        :parameters (?a - agent ?l - location ?r - receptacle)
         :precondition (and
-            (or
-                (objectType ?ko KnifeType)
-                (objectType ?ko ButterKnifeType)
-            )
             (atLocation ?a ?l)
-            (objectAtLocation ?co ?l)
-            (sliceable ?co)
-            (holds ?a ?ko)
+            (receptacleAtLocation ?r ?l)
+            (holds ?a ?r)
         )
         :effect (and
-            (isSliced ?co)
+            (opened ?r)
         )
-    )","(:action SliceObject
-        :parameters (?a - agent ?l - location ?co - object ?ko - object)
-        :precondition (and
-            (or
-                (objectType ?ko KnifeType)
-                (objectType ?ko ButterKnifeType)
-            )
-            (atLocation ?a ?l)
-            (objectAtLocation ?co ?l)
-            (sliceable ?co)
-            (holds ?a ?ko)
-        )
-        :effect (and
-            (isSliced ?co)
-        )
-    )","(:action SliceObject
-        :parameters (?a - agent ?l - location ?co - object ?ko - object)
+    )
+","(:action OpenContainer_0
+        :parameters (?a - agent ?l - location ?r - receptacle)
 
         :precondition (and 
 		(atLocation ?a ?l)
-		(objectAtLocation ?co ?l)
-		(sliceable ?co)
-		(holds ?a ?ko)
+		(receptacleAtLocation ?r ?l)
 		)
         :effect (and 
-		(isSliced ?co)
+		(opened ?r)
 		)
 )",
+CloseContainer,,"(:action CloseContainer
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
+        :precondition (and
+            (atLocation ?a ?l)
+            (receptacleAtLocation ?r ?l)
+        )
+        :effect (and
+            (objectAtLocation ?o ?l)
+            (not (inReceptacle ?o ?r))
+        )
+    )
+","(:action CloseContainer_0
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
+
+        :precondition (and 
+		(atLocation ?a ?l)
+		(receptacleAtLocation ?r ?l)
+		)
+        :effect (and 
+		(objectAtLocation ?o ?l)
+		(not (inReceptacle ?o ?r))
+		)
+)",
+ShakeObject,,"(:action ShakeObject
+        :parameters (?a - agent ?o - object)
+        :precondition (and
+            (holds ?a ?o)
+        )
+        :effect (and
+        )
+    )
+",FAILED,
+Cut,,"(:action Cut
+        :parameters (?a - agent ?l - location ?r1 - receptacle ?o - object ?m - object ?r2 - receptacle)
+        :precondition (and
+            (sliceable ?o)
+            (isSliced ?o)
+        )
+        :effect (and
+        )
+    )
+",FAILED,
+RemoveObject,,"(:action RemoveObject
+        :parameters (?a - agent ?rStart - receptacle ?rEnd - receptacle ?o - object)
+        :precondition (and
+            (holds ?a ?o)
+            (inReceptacle ?o ?rStart)
+        )
+        :effect (and
+            (holds ?a ?o)
+            (inReceptacle ?o ?rEnd)
+            (not (inReceptacle ?o ?rStart))
+        )
+    )
+","(:action RemoveObject_0
+        :parameters (?a - agent ?o - object ?rStart - receptacle ?rEnd - receptacle)
+
+        :precondition (and 
+		(holds ?a ?o)
+		(inReceptacle ?o ?rStart)
+		)
+        :effect (and 
+		(holds ?a ?o)
+		(inReceptacle ?o ?rEnd)
+		(not (inReceptacle ?o ?rStart))
+		)
+)",
+GET,,"(:action GET
+        :parameters (?lStart - location ?lEnd - location ?r - receptacle ?o - object)
+        :precondition (and
+            (receptacleAtLocation ?r ?lStart)
+            (inReceptacle ?o ?r)
+            (objectAtLocation ?o ?lEnd)
+        )
+        :effect (and
+            (not (inReceptacle ?o ?r))
+        )
+    )
+","(:action GET_0
+        :parameters (?r - receptacle ?lStart - location ?o - object ?lEnd - location)
+
+        :precondition (and 
+		(receptacleAtLocation ?r ?lStart)
+		(inReceptacle ?o ?r)
+		(objectAtLocation ?o ?lEnd)
+		)
+        :effect (and 
+		(not (inReceptacle ?o ?r))
+		)
+)",
+PUT,,"(:action PUT
+        :parameters (?a - agent ?l - location ?c - receptacle ?o - object)
+        :precondition (and
+            (held ?a ?o)
+            (receptacleAtLocation ?c ?l)
+        )
+        :effect (and
+            (held ?a ?)
+            (inReceptacle ?o ?c)
+        )
+    )
+","(:action PUT_0
+        :parameters (?c - receptacle ?l - location ?o - object)
+
+        :precondition (and 
+		(receptacleAtLocation ?c ?l)
+		)
+        :effect (and 
+		(inReceptacle ?o ?c)
+		)
+)",
+CLEAN,,"(:action CLEAN
+        :parameters (?o - object)
+        :precondition (and
+        )
+        :effect (and
+            (isClean ?o)
+        )
+    )
+",FAILED,
+PutContents,,"(:action PutContents
+        :parameters (?a - agent ?l - location ?o - object ?targetObject - object)
+        :precondition (and
+            (atLocation ?a ?l)
+            (holds ?a ?o)
+            (isReceptacleObject ?targetObject)
+            (receptacleType ?o PlateType)
+        )
+        :effect (and
+            (inReceptacle ?o ?targetObject)
+        )
+    )
+",FAILED,
+Cook,,"(:action Cook
+        :parameters (?a - agent ?l - location ?rn - receptacle ?ro - receptacle ?o - object)
+        :precondition (and
+            (atLocation ?a ?l)
+            (receptacleType ?rn StoveBurnerType)
+            (receptacleAtLocation ?rn ?l)
+            (inReceptacle ?o ?rn)
+            (objectType ?o EggType)
+        )
+        :effect (and
+            (inReceptacle ?o ?ro)
+            (receptacleType ?ro PanType)
+            (isHot ?o)
+            (toggleable ?o)
+            (isOn ?o)
+            (isToggled ?o)
+        )
+    )
+",FAILED,
+pickup-food,,"(:action pickup-food
+        :parameters (?a - agent ?l - location ?rStart - receptacle ?rEnd - receptacle ?o - object)
+        :precondition (and
+            (atLocation ?a ?l)
+            (receptacleAtLocation ?rStart ?l)
+            (inReceptacle ?o ?rStart)
+            (holds ?a none)
+        )
+        :effect (and
+            (inReceptacle ?o ?rEnd)
+            (holds ?a ?o)
+            (not (inReceptacle ?o ?rStart))
+        )
+    )
+
+;; Operator: All-CleanableObjectsClean
+(:action All-CleanableObjectsClean
+        :parameters (?l_at_basin - location ?r_basin - receptacle ?a_holdsome - agent ?o_cleanable - object)
+        :precondition (and
+            (receptacleType ?r_basin SinkBasinType)
+            (atLocation ?a_holdsome ?l_at_basin)
+            (receptacleAtLocation ?r_basin ?l",FAILED,
+TurnOnObject,,"(:action TurnOnObject
+        :parameters (?a - agent ?l - location ?o - object)
+        :precondition (and
+            (atLocation ?a ?l)
+            (objectAtLocation ?o ?l)
+        )
+        :effect (and
+            (isOn ?o)
+        )
+    )
+","(:action TurnOnObject_0
+        :parameters (?a - agent ?l - location ?o - object)
+
+        :precondition (and 
+		(atLocation ?a ?l)
+		(objectAtLocation ?o ?l)
+		)
+        :effect (and 
+		(isOn ?o)
+		)
+)",
+GetObject1,,"(:action GetObject1
+        :parameters (?a - agent ?l - location ?o - object)
+        :precondition (and
+            (inReceptacle ?o ?r)
+            (openable ?r)
+            (objectType ?o TomatoType)
+            (receptacleAtLocation ?r ?l)
+            (closed ?r)
+            (holdsAny ?a)
+            (atLocation ?a ?l)
+        )
+        :effect (and
+            (opened ?r)
+            (not (closed ?r))
+            (holds ?a ?o)
+            (not (inReceptacle ?o ?r))
+        )
+    )
+","(:action GetObject1_0
+        :parameters (?o - object ?r - receptacle ?l - location ?a - agent)
+
+        :precondition (and 
+		(inReceptacle ?o ?r)
+		(openable ?r)
+		(objectType ?o TomatoType)
+		(receptacleAtLocation ?r ?l)
+		(holdsAny ?a)
+		(atLocation ?a ?l)
+		)
+        :effect (and 
+		(opened ?r)
+		(holds ?a ?o)
+		(not (inReceptacle ?o ?r))
+		)
+)",
+findItem,,"(:action findItem
+        :parameters (?a - agent ?t - otype ?r - receptacle)
+        :precondition (and
+            (holds ?a ?item1)
+            (not (objectType ?item1 ?t))
+            (holds ?a ?item2)
+            (not (objectType ?item2 ?t))
+            (rename ?item2,?item1)
+        
+        )
+        :effect (and
+        )
+    )
+",FAILED,
+and,,"(:action and
+        :parameters (?a - agent ?l - location ?r - receptacle ?o - object)
+        :precondition (and
+            (atLocation ?a ?l)
+            (receptacleAtLocation ?r ?l)
+            (objectAtLocation ?o ?l)
+            (holds ?a ?o)
+        )
+    )
+",FAILED,

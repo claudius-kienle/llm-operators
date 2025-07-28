@@ -38,11 +38,13 @@ def get_completions(
     if isinstance(prompt, str):
         chat = Chat([]).add_user_text(prompt)
     elif isinstance(prompt, list):
-        raise NotImplementedError()
+        chat = ChatFactory().from_json(prompt)
 
-    response = textgen_api.do_call(chat)
-
-    return [c.text for c in response.content]
+    responses = []
+    for i in range(n_samples):
+        response = textgen_api.do_call(chat)
+        responses.append(response.content[0].text)
+    return responses
 
 
     if get_completions.SKIP_WORD_COUNT:

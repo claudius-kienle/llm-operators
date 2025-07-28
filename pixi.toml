@@ -9,9 +9,16 @@ version = "0.1.0"
 
 [dependencies]
 python = "3.11.*"
+cmake = ">=4.0.3,<5"
+gcc = ">=15.1.0,<15.2"
+make = ">=4.4.1,<5"
 
 [pypi-dependencies]
-numpy = ">=2.3.2, <3"
-llm_utils ={ path = "/home/claudius-kienle/Documents/Work/DEA/digital-engineering-assistant/packages/llm-utils"}
-python_utils ={ path = "/home/claudius-kienle/Documents/Work/DEA/digital-engineering-assistant/packages/python-utils"}
-pddlgym_planners = {path = "./pddlgym_planners"}
+dotenv = "*"
+numpy = "*"
+llm_utils = "*" # { path = "/home/claudius-kienle/Documents/Work/DEA/digital-engineering-assistant/packages/llm-utils"}
+python_utils = "*" # { path = "/home/claudius-kienle/Documents/Work/DEA/digital-engineering-assistant/packages/python-utils"}
+pddlgym_planners = {path = "./pddlgym_planners", editable = true}
+
+[pypi-options]
+index-url = "https://gitlab.ias.informatik.tu-darmstadt.de/api/v4/projects/2282/packages/pypi/simple"

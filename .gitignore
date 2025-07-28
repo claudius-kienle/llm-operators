@@ -10,7 +10,6 @@ __pycache__
 .DS_Store
 
 alfred
-pddlgym_planners
 
 /.vim*
 

@@ -1,0 +1,134 @@
+{
+    "types": {
+        "household_object"   : "object"             ,
+        "furniture_appliance": "object"             ,
+        "small_receptacle"   : "household_object"   ,
+        "small_items"        : "household_object"   ,
+        "agent"              : "object"             ,
+        "drawer"             : "furniture_appliance",
+        "fridge"             : "furniture_appliance",
+        "dining_table"       : "furniture_appliance",
+        "side_table"         : "furniture_appliance",
+        "shelf"              : "furniture_appliance",
+        "countertop"         : "furniture_appliance",
+        "stove_burner"       : "furniture_appliance",
+        "cabinet"            : "furniture_appliance",
+        "microwave"          : "furniture_appliance",
+        "sink_basin"         : "furniture_appliance",
+        "carpet"             : "furniture_appliance",
+        "mirror"             : "furniture_appliance",
+        "dish_washer"        : "furniture_appliance",
+        "garbage_can"        : "furniture_appliance",
+        "cup"                : "small_receptacle"   ,
+        "mug"                : "small_receptacle"   ,
+        "bowl"               : "small_receptacle"   ,
+        "plate"              : "small_receptacle"   ,
+        "pan"                : "small_receptacle"   ,
+        "lunch_box"          : "small_receptacle"   ,
+        "pizza_box"          : "small_receptacle"   ,
+        "cutting_board"      : "small_receptacle"   ,
+        "toaster"            : "small_receptacle"   ,
+        "blender"            : "small_receptacle"   ,
+        "lamp"               : "small_items"        ,
+        "humidifier"         : "small_items"        ,
+        "apple"              : "small_items"        ,
+        "pizza"              : "small_items"        ,
+        "toast"              : "small_items"        ,
+        "orange"             : "small_items"        ,
+        "banana"             : "small_items"        ,
+        "potato"             : "small_items"        ,
+        "fork"               : "small_items"        ,
+        "spoon"              : "small_items"        ,
+        "knife"              : "small_items"        ,
+        "book"               : "small_items"        ,
+        "cloth"              : "small_items"        ,
+        "handheld_vacuum"    : "small_items"
+    },
+    "predicates": [
+        {
+            "definition": "(at-agent ?a - agent ?loc - furniture_appliance)",
+            "description": "Agent is at a specific furniture piece or appliance.",
+            "predefined": true
+        },
+        {
+            "definition": "(holding ?a - agent ?obj - household_object)",
+            "description": "Agent is holding an object.",
+            "predefined": true
+        },
+        {
+            "definition": "(agent-hand-empty ?a - agent)",
+            "description": "Agent's hand is empty.",
+            "predefined": true
+        },
+        {
+            "definition": "(at-object ?obj - household_object ?furn - furniture_appliance)",
+            "description": "Object is at a furniture piece or appliance.",
+            "predefined": true
+        },
+        {
+            "definition": "(at-receptacle ?obj - household_object ?rec - small_receptacle)",
+            "description": "Object is at a receptacle.",
+            "predefined": true
+        },
+        {
+            "definition": "(is-open ?obj - furniture_appliance)",
+            "description": "Furniture appliance is open. False if ?obj not openable.",
+            "predefined": true
+        },
+        {
+            "definition": "(openable ?obj - furniture_appliance)",
+            "description": "Furniture appliance can be opened.",
+            "predefined": true
+        },
+        {
+            "definition": "(is-receptacle-open ?obj - small_receptacle)",
+            "description": "Receptacle is open. False if ?obj not openable.",
+            "predefined": true
+        },
+        {
+            "definition": "(receptacle-openable ?obj - small_receptacle)",
+            "description": "Receptacle can be opened.",
+            "predefined": true
+        },
+        {
+            "definition": "(dirty-surface ?obj - furniture_appliance)",
+            "description": "Furniture appliance has dirty surface.",
+            "predefined": true
+        },
+        {
+            "definition": "(sliced ?obj - small_items)",
+            "description": "Small item is sliced.",
+            "predefined": true
+        },
+        {
+            "definition": "(mashed ?obj - small_items)",
+            "description": "Small item is mashed.",
+            "predefined": true
+        },
+        {
+            "definition": "(heated ?obj - small_items)",
+            "description": "Small item is heated.",
+            "predefined": true
+        },
+        {
+            "definition": "(is-empty-dust-bin ?obj - handheld_vacuum)",
+            "description": "Handheld vacuum is empty.",
+            "predefined": true
+        },
+        {
+            "definition": "(stacked-on ?top - small_items ?bottom - small_items)",
+            "description": "Small item is stacked on top of another small item.",
+            "predefined": true
+        },
+        {
+            "definition": "(dirty ?obj - household_object)",
+            "description": "Household object is dirty.",
+            "predefined": true
+        },
+        {
+            "definition": "(is-switched-on ?obj - household_object)",
+            "description": "Household object is switched on.",
+            "predefined": true
+        }
+    ]
+}

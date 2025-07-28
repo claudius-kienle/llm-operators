@@ -9,4 +9,5 @@ from .dataset_core import PLANNING_PROBLEMS_REGISTRY, register_planning_domain_p
 
 # Import all the planning domains.
 from . import alfred  # noqa
+from . import household  # noqa
 from . import crafting_world  # noqa

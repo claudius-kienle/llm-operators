@@ -11,6 +11,7 @@ Usage:
     --debug_mock_task_plans
 """
 
+from dotenv import load_dotenv
 import os
 import os.path as osp
 import sys
@@ -374,6 +375,7 @@ def _run_task_and_motion_plan(pddl_domain, problem_idx, problem_id, planning_pro
     )
 
     if found_new_task_plan:
+        return True
         # Motion plan. Attempts to generate a motion plan for a problem.
         any_motion_planner_success, new_motion_plan_keys, used_motion_mock = motion_planner.attempt_motion_plan_for_problem(
             pddl_domain=pddl_domain,
@@ -446,4 +448,5 @@ def _checkpoint_and_log_tamp(pddl_domain, problem_idx, planning_problems, finish
 
 
 if __name__ == "__main__":
+    load_dotenv()
     main()
