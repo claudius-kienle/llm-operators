@@ -1,0 +1,17 @@
+[workspace]
+authors = ["Claudius Kienle <>"]
+channels = ["conda-forge"]
+name = "llm-operators"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+python = "3.11.*"
+
+[pypi-dependencies]
+numpy = ">=2.3.2, <3"
+llm_utils ={ path = "/home/claudius-kienle/Documents/Work/DEA/digital-engineering-assistant/packages/llm-utils"}
+python_utils ={ path = "/home/claudius-kienle/Documents/Work/DEA/digital-engineering-assistant/packages/python-utils"}
+pddlgym_planners = {path = "./pddlgym_planners"}

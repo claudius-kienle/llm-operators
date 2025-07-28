@@ -7,10 +7,6 @@ import os
 import random
 import time
 
-import openai
-from openai.error import APIError, APIConnectionError, InvalidRequestError, RateLimitError, ServiceUnavailableError, Timeout
-
-
 # TODO(Jiayuan Mao @ 2023/02/04): use a principled way to control the random seed.
 random.seed(0)
 
@@ -18,10 +14,6 @@ NONE = "NONE"
 STOP_TOKEN = "\n<END>\n"
 CODEX_PROMPT = "codex_prompt"
 CODEX_OUTPUT = "codex_output"
-
-if not os.getenv("OPENAI_API_KEY"):
-    raise ValueError("OPENAI_API_KEY is not set. Please set this in the shell via `export OPENAI_API_KEY=...`")
-openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
 def fast_word_count(string):
@@ -40,6 +32,19 @@ def get_completions(
     max_attempts_rate_limit=5,
     rate_limit_seconds=30,
 ):
+    from llm_utils import TextGenApi, ChatFactory, Chat
+    textgen_api = TextGenApi.default(os.getenv("OPENAI_MODEL"))
+
+    if isinstance(prompt, str):
+        chat = Chat([]).add_user_text(prompt)
+    elif isinstance(prompt, list):
+        raise NotImplementedError()
+
+    response = textgen_api.do_call(chat)
+
+    return [c.text for c in response.content]
+
+
     if get_completions.SKIP_WORD_COUNT:
         total_length = ''
         for prompt_item in prompt:

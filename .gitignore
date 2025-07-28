@@ -14,3 +14,9 @@ pddlgym_planners
 
 /.vim*
 
+
+# pixi environments
+.pixi
+*.egg-info
+
+/.env
